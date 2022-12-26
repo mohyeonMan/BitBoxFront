@@ -8,7 +8,7 @@ import { StyledChart } from './components/chart';
 
 // ----------------------------------------------------------------------
 
-export default function App() {
+export default function AdminView() {
   return (
     <ThemeProvider>
       <ScrollToTop />
