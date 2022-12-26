@@ -8,7 +8,6 @@ const Main = () => {
             <button>
                 <Link to={'/adminindex'}>관리자 ㄱ</Link>
             </button>
-
         </div>
     );
 };
