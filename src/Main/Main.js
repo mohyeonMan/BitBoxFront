@@ -7,6 +7,7 @@ const Main = () => {
             Index
 
             <button ><Link>관리자 ㄱ</Link></button>
+            <div>dd</div>
         </div>
     );
 };
