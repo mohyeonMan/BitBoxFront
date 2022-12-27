@@ -1,12 +1,17 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const Main = () => {
+    const navigate = useNavigate();
+    const tt = () =>{
+        navigate('/adminindex')
+    }
     return (
         <div>
             Index
-
-            <button ><Link>관리자 ㄱ</Link></button>
+            <button onClick={tt}>
+                rr
+            </button>
         </div>
     );
 };

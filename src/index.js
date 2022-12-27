@@ -1,15 +1,31 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+
+//
+import Main from './Main/Main';
+import Adminindex from './adminindex'
+import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
-import Main from "./Main/Main";
+
+// ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <React.StrictMode>
-    <Main/>
-  </React.StrictMode>
+  <HelmetProvider>
+    <BrowserRouter>
+      <Routes>
+      <Route path='/' element={<Main></Main>}/>
+      <Route path='/adminindex/*' element={<Adminindex></Adminindex>}>
+      </Route>
+      </Routes>
+    </BrowserRouter>
+  </HelmetProvider>
 );
+
+// If you want to enable client cache, register instead.
+serviceWorker.unregister();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
