@@ -16,7 +16,7 @@ const POST_TITLES = [
   'Katie Griffin loves making that homey art',
   'The American Dream retold through mid-century railroad graphics',
   'Illustration System Design',
-  'CarZio-Delivery Driver AdminView SignIn/SignUp',
+  'CarZio-Delivery Driver App SignIn/SignUp',
   'How to create a client-serverless Jamstack app using Netlify, Gatsby and Fauna',
   'Tylko Organise effortlessly -3D & Motion Design',
   'RAYO ?? A expanded visual arts festival identity',
