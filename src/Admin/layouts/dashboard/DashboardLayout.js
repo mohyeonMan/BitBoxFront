@@ -48,11 +48,7 @@ const DashboardLayout = () => {
 
       <Main>
         <Outlet />
-      {/* <Routes>
-        <Route path={'/adminindex/app'} element={<DashboardAppPage></DashboardAppPage>}></Route>
-     </Routes> */}
-     {/* <DashboardAppPage></DashboardAppPage> */}
-     <Routes>
+     <Routes >
              <Route path={"/products"} element={<ProductsPage/>}/>
              <Route path={"/app"} element={<DashboardAppPage/>}/>
              <Route path={"/user"} element={<UserPage/>}/>
