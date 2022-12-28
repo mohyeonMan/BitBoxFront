@@ -15,7 +15,41 @@ import {useNavigate} from "react-router-dom";
 
 const theme = createTheme();
 
+
 const JoinForm = () => {
+
+    const onClickCertificate = () => {
+
+        const {IMP} = window;
+        IMP.init('imp10391932');
+
+        const data = {
+            merchant_uid: `mid_${new Date().getTime()}`,
+            company: 'bitBox',
+            carrier: '',
+            name: '',
+            phone: ''
+        };
+
+        IMP.certification(data, callback);
+    }
+
+    const callback = (response) => {
+        const {
+            success,
+            merchantUid,
+            errorMsg,
+        } = response;
+
+        if (success) {
+            alert('success');
+
+        } else {
+            alert(`fail : ${errorMsg}`);
+        }
+    }
+
+    // 회원가입 세팅
     const [form, setForm] = useState({
         name: '',
         username: '',
@@ -36,7 +70,7 @@ const JoinForm = () => {
     const [pwdDiv, setPwdDiv] = useState('');
     const [emailDiv, setEmailDiv] = useState('');
     const [pwdChkDiv, setPwdChkDiv] = useState('');
-    const [a,setA] = useState(1)
+    const [a, setA] = useState(1)
     // input 값 setForm
     const inputValue = (e) => {
 
@@ -96,13 +130,6 @@ const JoinForm = () => {
 
     // 비밀번호 재확인 후 submit 활성화
     const [disable, setDisable] = React.useState(false);
-
-
-    useEffect(()=>{
-
-
-    },[]);
-
 
 
     // 화면구성 시작
@@ -192,9 +219,9 @@ const JoinForm = () => {
                                         name="birth"
                                         value={birth}
                                         onChange={inputValue}
-                                        // inputProps={
-                                        //     { readOnly: true, }
-                                        // }
+                                         // inputProps={
+                                         //     { readOnly: true, }
+                                         // }
                                         onBlur={() => {
                                             if (name) {
                                                 setBirthDiv('');
@@ -320,6 +347,16 @@ const JoinForm = () => {
                                 disabled={disable}
                             >
                                 회원가입
+                            </Button>
+                            <Button
+                                id="authBtn"
+                                fullWidth
+                                variant="contained"
+                                sx={{mt: 3, mb: 2, backgroundColor: "#B20710"}}
+                                style={{marginTop: "5px"}}
+                                onClick={onClickCertificate}
+                            >
+                                본인인증
                             </Button>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
