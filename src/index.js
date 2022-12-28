@@ -16,9 +16,8 @@ root.render(
   <HelmetProvider>
     <BrowserRouter>
       <Routes>
-      <Route path='/' element={<Main></Main>}/>
-      <Route path='/adminindex/*' element={<Adminindex></Adminindex>}>
-      </Route>
+      <Route path='/' element={<Main/>}/>
+      <Route path='/adminindex/*' element={<Adminindex/>}/>
       </Routes>
     </BrowserRouter>
   </HelmetProvider>

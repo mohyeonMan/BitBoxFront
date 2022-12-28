@@ -47,18 +47,18 @@ const DashboardLayout = () => {
       <Nav openNav={open} onCloseNav={() => setOpen(false)} />
 
       <Main>
+
         <Outlet />
-      {/* <Routes>
-        <Route path={'/adminindex/app'} element={<DashboardAppPage></DashboardAppPage>}></Route>
-     </Routes> */}
-     {/* <DashboardAppPage></DashboardAppPage> */}
+     
      <Routes>
-             <Route path={"/products"} element={<ProductsPage/>}/>
              <Route path={"/app"} element={<DashboardAppPage/>}/>
              <Route path={"/user"} element={<UserPage/>}/>
+             <Route path={"/products"} element={<ProductsPage/>}/>
              <Route path={"/blog"} element={<BlogPage/>}/>
      </Routes>
+     
       </Main>
+    
     </StyledRoot>
   );
 }

@@ -4,7 +4,7 @@ import { useNavigate} from "react-router-dom";
 const Main = () => {
     const navigate = useNavigate();
     const tt = () =>{
-        navigate('/adminindex')
+        navigate('/adminindex/app')
     }
     return (
         <div>
