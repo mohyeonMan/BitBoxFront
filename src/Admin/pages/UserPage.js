@@ -1,13 +1,11 @@
+import React, {useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
-import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import {filter, sample} from 'lodash';
 // @mui
 import {
   Card,
   Table,
   Stack,
-  Paper,
   Button,
   Popover,
   Checkbox,
@@ -22,20 +20,21 @@ import {
   TablePagination,
 } from '@mui/material';
 // components
-import Label from '../components/label';
+import axios from "axios";
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
-import USERLIST from '../_mock/user';
 
 
 
 const UserPage = () => {
+
   const setRole = (e) => {
-    const id = e.target.getAttribute('id')
-    alert(id)
+    const parentValue = e.document.getAttribute('id');
+    console.log(parentValue);
+
   }
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -68,14 +67,16 @@ const UserPage = () => {
   const TABLE_HEAD = [
     { id: 'name', label: '이름', alignRight: false },
     { id: 'id', label: '아이디', alignRight: false },
+    { id: 'phoneNumber', label: '전화번호', alignRight: false },
     { id: 'role', label: '회원 등급', alignRight: false },
-    { id: 'isVerified', label: 'Verified', alignRight: false },
-    { id: 'status', label: 'Status', alignRight: false },
+    { id: 'createDate', label: '가입일', alignRight: false },
     { id: '' },
   ];
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
+
+  const[member, setMember] = useState([])
 
   const [order, setOrder] = useState('asc');
 
@@ -87,6 +88,21 @@ const UserPage = () => {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  useEffect(()=>{
+    axios.get('http://localhost:8080/member/test')
+        .then((res) =>setMember(res.data) )
+        .catch(error => console.log(error))
+  },[])
+  const USERLIST = member.filter(item =>[{
+    id: item.username,
+    name : item.name,
+    phoneNumber : item.phoneNumber,
+    createDate : item.createDate,
+    birth:item.birth,
+    role: item.role,
+    status : 'success',
+    username:item.username
+  }]);
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -103,18 +119,18 @@ const UserPage = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
+      const newSelecteds = USERLIST.map((e) => e.username);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, username) => {
+    const selectedIndex = selected.indexOf(username);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, username);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -148,7 +164,7 @@ const UserPage = () => {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User </title>
       </Helmet>
 
       <Container>
@@ -163,7 +179,6 @@ const UserPage = () => {
 
         <Card>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
-
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
@@ -178,13 +193,13 @@ const UserPage = () => {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, isVerified } = row;
-                    const selectedUser = selected.indexOf(name) !== -1;
+                    const { name, phoneNumber, createDate, role,username } = row;
+                    const selectedUser = selected.indexOf(username) !== -1;
 
                     return (
-                      <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
+                      <TableRow hover key={username} id={username} tabIndex={-1} role="checkbox" selected={selectedUser}>
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
+                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, username)} />
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
@@ -195,27 +210,26 @@ const UserPage = () => {
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{company}</TableCell>
+                        <TableCell align="left">{username}</TableCell>
+
+                        <TableCell align="left">{phoneNumber}</TableCell>
 
                         <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{createDate}</TableCell>
 
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-
-                        <TableCell align="left">
-                          <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
-                        </TableCell>
-
-                        <TableCell align="right">
+                        <TableCell align="right"  >
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu} >
-                            <Iconify icon={'eva:more-vertical-fill'} />
+                            <Iconify icon={'eva:more-vertical-fill'}/>
                           </IconButton>
-                          <Popover
-                              open={Boolean(open)}
-                              anchorEl={open}
-                              onClose={handleCloseMenu}
-                              anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-                              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                              PaperProps={{
+                        </TableCell>
+                        <Popover
+                            open={Boolean(open)}
+                            anchorEl={open}
+                            onClose={handleCloseMenu}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            PaperProps={
+                              {
                                 sx: {
                                   p: 1,
                                   width: 140,
@@ -226,22 +240,20 @@ const UserPage = () => {
                                   },
                                 },
                               }}
-                          >
-                            <MenuItem onClick={setRole} id={id}>
-                              <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }}/>
-                              등급 조정
-                            </MenuItem>
-
-                            <MenuItem sx={{ color: 'error.main' }}>
-                              <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
-                              회원 삭제
-                            </MenuItem>
-                            <MenuItem>
-                              <Iconify icon={'ic:outline-message'} sx={{ mr: 2 }} />
-                              메세지
-                            </MenuItem>
-                          </Popover>
-                        </TableCell>
+                        >
+                          <MenuItem onClick={setRole}>
+                            <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>
+                            등급 조정
+                          </MenuItem>
+                          <MenuItem sx={{ color: 'error.main' }}  >
+                            <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
+                            회원 삭제
+                          </MenuItem>
+                          <MenuItem>
+                            <Iconify icon={'ic:outline-message'} sx={{ mr: 2 }} />
+                            메세지
+                          </MenuItem>
+                        </Popover>
                       </TableRow>
                     );
                   })}
@@ -251,30 +263,6 @@ const UserPage = () => {
                     </TableRow>
                   )}
                 </TableBody>
-
-                {isNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <Paper
-                          sx={{
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography variant="h6" paragraph>
-                            Not found
-                          </Typography>
-
-                          <Typography variant="body2">
-                            No results found for &nbsp;
-                            <strong>&quot;{filterName}&quot;</strong>.
-                            <br /> Try checking for typos or using complete words.
-                          </Typography>
-                        </Paper>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
               </Table>
             </TableContainer>
           </Scrollbar>
