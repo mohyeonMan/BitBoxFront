@@ -49,8 +49,11 @@ const DashboardLayout = () => {
       <Main>
 
         <Outlet />
+
      
-     <Routes>
+ 
+     <Routes >
+             <Route path={"/products"} element={<ProductsPage/>}/>
              <Route path={"/app"} element={<DashboardAppPage/>}/>
              <Route path={"/user"} element={<UserPage/>}/>
              <Route path={"/products"} element={<ProductsPage/>}/>

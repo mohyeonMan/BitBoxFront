@@ -8,7 +8,6 @@ import {
   Table,
   Stack,
   Paper,
-  Avatar,
   Button,
   Popover,
   Checkbox,
@@ -34,6 +33,10 @@ import USERLIST from '../_mock/user';
 
 
 const UserPage = () => {
+  const setRole = (e) => {
+    const id = e.target.getAttribute('id')
+    alert(id)
+  }
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -63,9 +66,9 @@ const UserPage = () => {
     return stabilizedThis.map((el) => el[0]);
   }
   const TABLE_HEAD = [
-    { id: 'name', label: 'Name', alignRight: false },
-    { id: 'company', label: 'Company', alignRight: false },
-    { id: 'role', label: 'Role', alignRight: false },
+    { id: 'name', label: '이름', alignRight: false },
+    { id: 'id', label: '아이디', alignRight: false },
+    { id: 'role', label: '회원 등급', alignRight: false },
     { id: 'isVerified', label: 'Verified', alignRight: false },
     { id: 'status', label: 'Status', alignRight: false },
     { id: '' },
@@ -151,7 +154,7 @@ const UserPage = () => {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            유저
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
@@ -175,7 +178,7 @@ const UserPage = () => {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    const { id, name, role, status, company, isVerified } = row;
                     const selectedUser = selected.indexOf(name) !== -1;
 
                     return (
@@ -186,7 +189,6 @@ const UserPage = () => {
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
                               {name}
                             </Typography>
@@ -204,9 +206,41 @@ const UserPage = () => {
                         </TableCell>
 
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
+                          <IconButton size="large" color="inherit" onClick={handleOpenMenu} >
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
+                          <Popover
+                              open={Boolean(open)}
+                              anchorEl={open}
+                              onClose={handleCloseMenu}
+                              anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                              PaperProps={{
+                                sx: {
+                                  p: 1,
+                                  width: 140,
+                                  '& .MuiMenuItem-root': {
+                                    px: 1,
+                                    typography: 'body2',
+                                    borderRadius: 0.75,
+                                  },
+                                },
+                              }}
+                          >
+                            <MenuItem onClick={setRole} id={id}>
+                              <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }}/>
+                              등급 조정
+                            </MenuItem>
+
+                            <MenuItem sx={{ color: 'error.main' }}>
+                              <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
+                              회원 삭제
+                            </MenuItem>
+                            <MenuItem>
+                              <Iconify icon={'ic:outline-message'} sx={{ mr: 2 }} />
+                              메세지
+                            </MenuItem>
+                          </Popover>
                         </TableCell>
                       </TableRow>
                     );
@@ -257,34 +291,7 @@ const UserPage = () => {
         </Card>
       </Container>
 
-      <Popover
-        open={Boolean(open)}
-        anchorEl={open}
-        onClose={handleCloseMenu}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            p: 1,
-            width: 140,
-            '& .MuiMenuItem-root': {
-              px: 1,
-              typography: 'body2',
-              borderRadius: 0.75,
-            },
-          },
-        }}
-      >
-        <MenuItem>
-          <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }} />
-          Edit
-        </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
-          <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
-          Delete
-        </MenuItem>
-      </Popover>
     </>
   );
 }

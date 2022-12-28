@@ -10,7 +10,6 @@ const  Adminindex = () => {
     <ThemeProvider>
       <ScrollToTop />
       <StyledChart />
-      {/* <DashboardLayout Link to ='/adminindex/app'/> */}
       <DashboardLayout/>
     </ThemeProvider>
   );
