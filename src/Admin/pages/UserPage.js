@@ -8,7 +8,6 @@ import {
   Table,
   Stack,
   Paper,
-  Avatar,
   Button,
   Popover,
   Checkbox,
@@ -31,49 +30,49 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
 import USERLIST from '../_mock/user';
 
-// ----------------------------------------------------------------------
 
-const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: '' },
-];
 
-// ----------------------------------------------------------------------
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
+const UserPage = () => {
+  const setRole = (e) => {
+    const id = e.target.getAttribute('id')
+    alert(id)
   }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
+  function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
   }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function applySortFilter(array, comparator, query) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+  
+  function getComparator(order, orderBy) {
+    return order === 'desc'
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
   }
-  return stabilizedThis.map((el) => el[0]);
-}
-
-export default function UserPage() {
+  
+  function applySortFilter(array, comparator, query) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    if (query) {
+      return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    }
+    return stabilizedThis.map((el) => el[0]);
+  }
+  const TABLE_HEAD = [
+    { id: 'name', label: '이름', alignRight: false },
+    { id: 'id', label: '아이디', alignRight: false },
+    { id: 'role', label: '회원 등급', alignRight: false },
+    { id: 'isVerified', label: 'Verified', alignRight: false },
+    { id: 'status', label: 'Status', alignRight: false },
+    { id: '' },
+  ];
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -155,7 +154,7 @@ export default function UserPage() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            유저
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
@@ -179,7 +178,7 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    const { id, name, role, status, company, isVerified } = row;
                     const selectedUser = selected.indexOf(name) !== -1;
 
                     return (
@@ -190,7 +189,6 @@ export default function UserPage() {
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
                               {name}
                             </Typography>
@@ -208,9 +206,41 @@ export default function UserPage() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
+                          <IconButton size="large" color="inherit" onClick={handleOpenMenu} >
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
+                          <Popover
+                              open={Boolean(open)}
+                              anchorEl={open}
+                              onClose={handleCloseMenu}
+                              anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                              PaperProps={{
+                                sx: {
+                                  p: 1,
+                                  width: 140,
+                                  '& .MuiMenuItem-root': {
+                                    px: 1,
+                                    typography: 'body2',
+                                    borderRadius: 0.75,
+                                  },
+                                },
+                              }}
+                          >
+                            <MenuItem onClick={setRole} id={id}>
+                              <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }}/>
+                              등급 조정
+                            </MenuItem>
+
+                            <MenuItem sx={{ color: 'error.main' }}>
+                              <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
+                              회원 삭제
+                            </MenuItem>
+                            <MenuItem>
+                              <Iconify icon={'ic:outline-message'} sx={{ mr: 2 }} />
+                              메세지
+                            </MenuItem>
+                          </Popover>
                         </TableCell>
                       </TableRow>
                     );
@@ -261,34 +291,8 @@ export default function UserPage() {
         </Card>
       </Container>
 
-      <Popover
-        open={Boolean(open)}
-        anchorEl={open}
-        onClose={handleCloseMenu}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            p: 1,
-            width: 140,
-            '& .MuiMenuItem-root': {
-              px: 1,
-              typography: 'body2',
-              borderRadius: 0.75,
-            },
-          },
-        }}
-      >
-        <MenuItem>
-          <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }} />
-          Edit
-        </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
-          <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
-          Delete
-        </MenuItem>
-      </Popover>
     </>
   );
 }
+export default UserPage;
