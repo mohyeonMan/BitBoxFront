@@ -20,7 +20,7 @@ import {
 
 // ----------------------------------------------------------------------
 
-export default function DashboardAppPage() {
+const DashboardAppPage = () => {
   const theme = useTheme();
 
   return (
@@ -217,3 +217,4 @@ export default function DashboardAppPage() {
     </>
   );
 }
+export default DashboardAppPage;

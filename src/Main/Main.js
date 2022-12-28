@@ -1,22 +1,12 @@
 import React from 'react';
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import JoinForm from "../member/JoinForm";
-import LoginForm from "../member/LoginForm";
-import Member from "../member/Member";
-import AuthPopUpPage from "../member/memberComponents/AuthPopUpPage";
-
+import {Link} from "react-router-dom";
 const Main = () => {
     return (
-        <BrowserRouter>
-            <>
-                <Routes>
-                    <Route path='/' element={<Member/>}/>
-                    <Route path='/member/joinForm' element={<JoinForm/>}/>
-                    <Route path='/member/loginForm' element={<LoginForm/>}/>
-                    <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage/>}/>
-                </Routes>
-            </>
-        </BrowserRouter>
+        <div>
+            Index
+            <p><Link to={"/member"}>멤버</Link></p>
+            <p><Link to={'/adminindex/app'}>인덱스</Link></p>
+        </div>
     );
 };
 

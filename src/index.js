@@ -1,15 +1,39 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { HelmetProvider } from 'react-helmet-async';
+//
+import Main from './Main/Main';
+import Adminindex from './adminindex'
+import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
-import Main from "./Main/Main";
+import Member from "./member/Member";
+import JoinForm from "./member/JoinForm";
+import LoginForm from "./member/LoginForm";
+import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
+
+// ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <React.StrictMode>
-    <Main/>
-  </React.StrictMode>
+  <HelmetProvider>
+    <BrowserRouter>
+      <Routes>
+          <Route path='/' element={<Main/>}/>
+          <Route path='/adminindex/*' element={<Adminindex Link to={'/adminindex/app'}/>}/>
+          <Route path='/member' element={<Member/>}/>
+          <Route path='/member/joinForm' element={<JoinForm/>}/>
+          <Route path='/member/loginForm' element={<LoginForm/>}/>
+          <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage/>}/>
+      </Routes>
+    </BrowserRouter>
+  </HelmetProvider>
 );
+
+// If you want to enable client cache, register instead.
+serviceWorker.unregister();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

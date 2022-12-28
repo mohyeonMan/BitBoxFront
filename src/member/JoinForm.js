@@ -12,7 +12,6 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import AuthPopUpPage from "./memberComponents/AuthPopUpPage";
 
 const theme = createTheme();
 
@@ -37,43 +36,42 @@ const JoinForm = () => {
     const [pwdDiv, setPwdDiv] = useState('');
     const [emailDiv, setEmailDiv] = useState('');
     const [pwdChkDiv, setPwdChkDiv] = useState('');
-
+    const [a,setA] = useState(1)
     // input 값 setForm
     const inputValue = (e) => {
-        const {name, value} = e.target
 
+        const {name, value} = e.target
         setForm({
             ...form,
             [name]: value
         });
+
     }
 
     const {name, username, password, birth, email, phoneNumber, pwdChkVal} = form;
-
     // 유효성검사
     const handleSubmit = (e) => {
-        e.preventDefault();
 
-        var a = 1;
+        e.preventDefault();
 
         if (!name) {
             setNameDiv('필수 입력정보입니다!');
-            a = 0;
+            setA(0)
         } else if (!phoneNumber) {
             setPhoneNumDiv('필수 입력정보입니다!');
-            a = 0;
+            setA(0)
         } else if (!birth) {
             setBirthDiv('필수 입력정보입니다!');
-            a = 0;
+            setA(0)
         } else if (!username) {
             setUserNameDiv('필수 입력정보입니다!');
-            a = 0;
+            setA(0)
         } else if (!password) {
             setPwdDiv('필수 입력정보입니다!');
-            a = 0;
+            setA(0)
         } else if (!email) {
             setEmailDiv('필수 입력정보입니다!');
-            a = 0;
+            setA(0)
         }
         if (a === 1) {
             axios.post('http://localhost:8080/member/join', null, {params: form})
@@ -106,7 +104,6 @@ const JoinForm = () => {
     },[]);
 
 
-    /////////////////////////////////////////////////////////////////////////////
 
     // 화면구성 시작
     return (
@@ -140,7 +137,7 @@ const JoinForm = () => {
                                         name="name"
                                         value={name}
                                         onChange={inputValue}
-                                        //value="휴대폰 인증정보 추출"
+                                        /* {value="휴대폰 인증정보 추출"} */
                                         // inputProps={
                                         //     { readOnly: true, }
                                         // }
