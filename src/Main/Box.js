@@ -34,7 +34,7 @@ const Box = (props) => {
             
 
             <div className="movie-poster">
-                <img src={movie.posterUrl} alt={movie.title} />
+                {/* <img src={movie.posterUrl} alt={movie.title} /> */}
                 <img src={ratingIcons[movie.rating]} alt={ratingAlts[movie.rating]} />
                 <div>
                     {/* <Link to={'/movie/detail?id=' + movie.id}>상세보기</Link> */}
