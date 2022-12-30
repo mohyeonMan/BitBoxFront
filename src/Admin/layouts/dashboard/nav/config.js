@@ -17,7 +17,7 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
-    title: 'MOVE LIST',
+    title: 'Movie List',
     path: '/adminindex/products',
     icon: icon('ic_cart'),
   },
@@ -28,12 +28,12 @@ const navConfig = [
   },
   {
     title: 'login',
-    path: '/login',
+    path: 'login',
     icon: icon('ic_lock'),
   },
   {
     title: 'Not found',
-    path: '/404',
+    path: '404',
     icon: icon('ic_disabled'),
   },
 ];
