@@ -63,6 +63,7 @@
     "react/no-unstable-nested-components": 0,
     "react/function-component-definition": 0,
     "react/jsx-no-constructed-context-values": 0,
+    "import/newline-after-import" : 0,
     "no-unused-vars": [
       1,
       {
@@ -75,6 +76,18 @@
         "object": true,
         "array": false
       }
-    ]
+    ],
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["CustomLabel"],
+      "labelAttributes": ["inputLabel"],
+      "controlComponents": ["CustomInput"],
+      "assert": "both",
+      "depth": 3
+    }],
+    "jsx-a11y/label-has-for": [ "error", {
+      "required": {
+        "some": [ "nesting", "id"  ]
+      }
+    }]
   }
 }

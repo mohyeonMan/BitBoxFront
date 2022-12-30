@@ -1,6 +1,3 @@
-// routes
-// theme
-// components
 import React from 'react';
 import DashboardLayout from "./Admin/layouts/dashboard";
 import {StyledChart} from "./Admin/components/chart";
@@ -10,16 +7,11 @@ import ThemeProvider from "./Admin/theme";
 
 const  Adminindex = () => {
   return (
-    <React.Fragment>
     <ThemeProvider>
       <ScrollToTop />
       <StyledChart />
-      <DashboardLayout
-          Link to ='/adminindex/app'
-          >
-      </DashboardLayout>
+      <DashboardLayout/>
     </ThemeProvider>
-  </React.Fragment>
   );
 }
 export default Adminindex;

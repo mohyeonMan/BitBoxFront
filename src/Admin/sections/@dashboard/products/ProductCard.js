@@ -51,12 +51,13 @@ export default function ShopProductCard({ product }) {
       <Stack spacing={2} sx={{ p: 3 }}>
         <Link color="inherit" underline="hover">
           <Typography variant="subtitle2" noWrap>
-            {name}
+            {name} | 영화제목
           </Typography>
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={colors} />
+          {/* <ColorPreview colors={colors} /> */}
+          상영 기간
           <Typography variant="subtitle1">
             <Typography
               component="span"
@@ -66,10 +67,13 @@ export default function ShopProductCard({ product }) {
                 textDecoration: 'line-through',
               }}
             >
-              {priceSale && fCurrency(priceSale)}
+              {/* {priceSale && fCurrency(priceSale)} */} {/* 할인가 */}
             </Typography>
             &nbsp;
-            {fCurrency(price)}
+            {/* {fCurrency(price)} */} {/* 가격 */}
+            <button style={{color:'yellow',background:'#f05650'}}>상영중</button> &nbsp;
+            <button style={{color:'gray',background:'black'}}>상영종료</button>
+          
           </Typography>
         </Stack>
       </Stack>

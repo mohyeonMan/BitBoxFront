@@ -17,7 +17,7 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
-    title: 'product',
+    title: 'MOVE LIST',
     path: '/adminindex/products',
     icon: icon('ic_cart'),
   },
