@@ -47,16 +47,6 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
 
 // ----------------------------------------------------------------------
 
-// NewsItem.propTypes = {
-//   news: PropTypes.shape({
-//     description: PropTypes.string,
-//     image: PropTypes.string,
-//     postedAt: PropTypes.instanceOf(Date),
-//     title: PropTypes.string,
-//   }),
-// };
-
-
 function NewsItem({ news }) {
   // const { image, title, description, postedAt } = news;
   // const {title, description, postedAt } = news;
@@ -81,7 +71,6 @@ function NewsItem({ news }) {
             <Link color="inherit" variant="subtitle2" underline="hover" noWrap>
               {item.title}
             </Link>
-
             <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
               {item.content}
             </Typography>
@@ -92,5 +81,6 @@ function NewsItem({ news }) {
             )
         })}
         </>
+
   );
 }
