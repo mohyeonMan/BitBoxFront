@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import './Header.css';
-import logo from './img/logo.png';
+import logo from './img/mainLogo.png';
 import loginIcon from './img/login.png';
 import signupIcon from './img/join.png';
 import mypageIcon from './img/my.png';
@@ -12,7 +12,6 @@ import searchIcon from './img/search.png';
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
     const navigate = useNavigate();
-
     const handleSearchKeyChange = (e) => {
         setSearchKey(e.target.value);
     }
@@ -49,8 +48,8 @@ const Header = () => {
             <div id="title-bar">
                 <div className="container">
                     <div>
-                        <a><img src={logo} alt="CGV 로고" /></a>
-                        <span>비 트 박 스</span>
+                        <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
+                        <span>비이트바악스</span>
                     </div>
                     <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/>
                     <UserNavList />
@@ -73,11 +72,11 @@ const Header = () => {
                             </div>
                                 : 
                                 <div className="nav-fixed">
-                                    <img src="https://img.cgv.co.kr/R2014/images/common/logo/logoWhite.png" alt="CGV" width="70px"/>
+                                   <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
                                     <ul className="nav_menu">
                                     
                                         <li>
-                                            <h2><a>영화</a></h2>                                         
+                                            <h2><a>영화</a></h2>
                                         </li>
                                         <li>
                                             <h2><a>극장</a></h2>                                               

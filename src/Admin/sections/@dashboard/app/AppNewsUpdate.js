@@ -41,14 +41,7 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
 
 // ----------------------------------------------------------------------
 
-NewsItem.propTypes = {
-  news: PropTypes.shape({
-    description: PropTypes.string,
-    image: PropTypes.string,
-    postedAt: PropTypes.instanceOf(Date),
-    title: PropTypes.string,
-  }),
-};
+
 
 function NewsItem({ news }) {
   const { image, title, description, postedAt } = news;
@@ -58,11 +51,11 @@ function NewsItem({ news }) {
       <Box component="img" alt={title} src={image} sx={{ width: 48, height: 48, borderRadius: 1.5, flexShrink: 0 }} />
 
       <Box sx={{ minWidth: 240, flexGrow: 1 }}>
-        <Link color="inherit" variant="subtitle2" underline="hover" noWrap>
+        <Link color="inherit" variant="subtitle2" underline="hover" >
           {title}
         </Link>
 
-        <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+        <Typography variant="body2" sx={{pr:3 }} noWrap>
           {description}
         </Typography>
       </Box>

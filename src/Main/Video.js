@@ -33,7 +33,7 @@ class Video extends React.Component {
         <video
             muted={1} 
             ref="vidRef"
-            src="https://adimg.cgv.co.kr/images/202206/elvis/elvis_1080x608_30.mp4"
+            src="https://adimg.cgv.co.kr/images/202212/PussinBoots/1080x608.mp4"
             type="video/mp4"
         />
 

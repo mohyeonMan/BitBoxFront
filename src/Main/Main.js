@@ -34,7 +34,7 @@ const Main = () => {
             <main>
                 <article>
                     <div className="movie-wrap">
-                        <video id="video" src="https://adimg.cgv.co.kr/images/202206/elvis/elvis_1080x608_30.mp4" autoPlay muted={mutedVideo}>
+                        <video id="video" src="https://adimg.cgv.co.kr/images/202212/PussinBoots/1080x608.mp4" autoPlay muted={mutedVideo}>
                             <track src="captions_en.vtt" kind="captions" srcLang="en" label="english_captions"/>
                         </video>
 

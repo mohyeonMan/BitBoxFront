@@ -12,6 +12,7 @@ import Member from "./member/Member";
 import JoinForm from "./member/JoinForm";
 import LoginForm from "./member/LoginForm";
 import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
+import Test from "./Admin/test";
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +24,7 @@ root.render(
       <Routes>
           <Route path='/' element={<Main/>}/>
           <Route path='/adminindex/*' element={<Adminindex/>}/>
+          <Route path='/test' element={<Test/>}/>
           <Route path='/member' element={<Member/>}/>
           <Route path='/member/joinForm' element={<JoinForm/>}/>
           <Route path='/member/loginForm' element={<LoginForm/>}/>
