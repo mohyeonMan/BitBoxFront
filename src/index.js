@@ -22,7 +22,7 @@ root.render(
     <BrowserRouter>
       <Routes>
           <Route path='/' element={<Main/>}/>
-          <Route path='/adminindex/*' element={<Adminindex Link to={'/adminindex/app'}/>}/>
+          <Route path='/adminindex/*' element={<Adminindex/>}/>
           <Route path='/member' element={<Member/>}/>
           <Route path='/member/joinForm' element={<JoinForm/>}/>
           <Route path='/member/loginForm' element={<LoginForm/>}/>
