@@ -10,6 +10,7 @@ import UserPage from "../../pages/UserPage";
 import BlogPage from "../../pages/BlogPage";
 import Header from "./header";
 import Nav from "./nav";
+import LoginPage from '../../pages/LoginPage';
 
 // ----------------------------------------------------------------------
 
@@ -56,8 +57,8 @@ const DashboardLayout = () => {
              <Route path={"/products"} element={<ProductsPage/>}/>
              <Route path={"/app"} element={<DashboardAppPage/>}/>
              <Route path={"/user"} element={<UserPage/>}/>
-             <Route path={"/products"} element={<ProductsPage/>}/>
              <Route path={"/blog"} element={<BlogPage/>}/>
+             {/* <Route path={"/login"} element={<LoginPage/>}/> */}
      </Routes>
      
       </Main>

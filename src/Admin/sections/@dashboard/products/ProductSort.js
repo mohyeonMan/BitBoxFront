@@ -11,10 +11,10 @@ const SORT_BY_OPTIONS = [
   // { value: 'newest', label: 'Newest' },
   // { value: 'priceDesc', label: 'Price: High-Low' },
   // { value: 'priceAsc', label: 'Price: Low-High' },
-  { value: 'newest', label: '상영 영화' },
-  { value: 'featured', label: '상영종료 영화' },
-  { value: 'priceDesc', label: '최신 영화' },
-  { value: 'priceAsc', label: '지난 영화' },
+  { value: '상영중', label: '상영 중' },
+  { value: '상영 예정', label: '상영 예정' },
+  { value: '상영 종료', label: '상영 종료' },
+  // { value: 'priceAsc', label: '지난 영화' },
 ];
 
 export default function ShopProductSort() {
