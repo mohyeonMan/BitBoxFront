@@ -73,15 +73,21 @@ const Main = () => {
                 
                     <div className="event_list_wrap">
                         <div className="article-contents">
-                            <img src="https://img.cgv.co.kr/WebApp/contents/eventV4/34725/16552592605180.jpg" alt={""} width="300px"/>
-                            <strong>[탑건: 매버릭]CGV 필름마크</strong>
-                            <span>2022.06.15~2022.07.10</span>
+                            <img src="https://img.cgv.co.kr/WebApp/contents/eventV4/36039/16710664376680.jpg" alt={""} width="300px"/>
+                            <strong>[아바타: 물의 길]필름마크</strong>
+                            <span>2022.12.16~2023.01.08</span>
                         </div>
                         <div className="article-contents">
-                            <img src="https://img.cgv.co.kr/WebApp/contents/eventV4/34767/16558733872830.jpg" alt={""} width="300px"/>
-                            <strong>[헤어질 결심]CGV 필름마크</strong>
-                            <span>2022.06.22~2022.07.17</span>
+                            <img src="https://img.cgv.co.kr/WebApp/contents/eventV4/36040/16710665279180.jpg" alt={""} width="300px"/>
+                            <strong>[영웅]필름마크</strong>
+                            <span>2022.12.16~2023.01.08</span>
                         </div>
+                        <div className="article-contents">
+                            <img src="https://img.cgv.co.kr/WebApp/contents/eventV4/35945/16698866520870.jpg" alt={""} width="300px"/>
+                            <strong>BITBOX VIP PLAY</strong>
+                            <span>2022.12.16~2023.02.08</span>
+                        </div>
+                        
                     </div>
                     </div>
 
@@ -139,7 +145,7 @@ const Main = () => {
                                     </li>                                   
                                 </ul>                               
                             </div>
-                            <img src={"./img/CGV.png"} alt="cgv" id="cgv"/>
+                            {/* <img src={"./img/CGV.png"} alt="cgv" id="cgv"/> */}
                         </div>
                     </div>
 
@@ -147,18 +153,20 @@ const Main = () => {
                         {ScrollActive ? 
                                 <div className="fixedBtn_wrap">
                                     <a href="/ticket/" className="btn_fixedTicketing">예매하기</a>
-                                    <a href="#none" className="btn_gotoTop"><img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
+                                    <a href="#none" className="btn_gotoTop">
+                                        <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
                                 </div> 
                                 : 
                                 <div className="fixedBtn_wrap topBtn">
                                     <a href="/ticket/" className="btn_fixedTicketing">예매하기</a>
-                                    <a href="#none" className="btn_gotoTop"><img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
+                                    <a href="#none" className="btn_gotoTop">
+                                    <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
                                 </div>}
                     </div>
             </main>
             <footer>
                 <div className="img-wrapper">     
-                    <img src="https://adimg.cgv.co.kr/images/202111/cgvgift/0119_980x240.png" alt="광고-CGV 기프트 카드" border="0"/>
+                    <img src="http://adimg.cgv.co.kr/images/202212/heydealer/980x240.png" alt="광고-CGV 기프트 카드" border="0"/>
                 </div> 
                 <ul className="policy_list">
                     <li><a href="http://corp.cgv.co.kr/company/" rel="noreferrer" target="_blank">회사소개</a></li>
@@ -193,7 +201,7 @@ const Main = () => {
                             <dd>cjcgvmaster@cj.net</dd>
                             
                         </dl>
-                        <p3>© CJ CGV. All Rights Reserved</p3>
+                        <p>© CJ CGV. All Rights Reserved</p>
                     </section>
                 </article>
             </footer>

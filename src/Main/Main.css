@@ -609,7 +609,8 @@ footer {
     background-color: #f8f8f8;
 }
 footer > .img-wrapper {
-        background-color: #FFA443;
+        /* background-color: #FFA443; */
+        background-color: #1c2b68;
         background-image: url(https://adimg.cgv.co.kr/images/bg_temp_foot_banner2021.gif);
         background-repeat: repeat-x;
         margin: 0 auto;
