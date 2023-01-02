@@ -218,7 +218,7 @@ const Calendar = () => {
                         {
                             result.map(item=> {
                                 return (
-                                    <div key={item.pk}><Badge bg={item.movie_age}>{item.movie_age}</Badge>
+                                    <div key={item.pk}><Badge bg={item.movie_age}>{item.movie_age}</Badge>&nbsp;
                                         <button
                                             id={item.movie_title}
                                             onClick={findCity}
@@ -316,12 +316,35 @@ const Calendar = () => {
                                 return (
                                     <div key={item.pk}>
                                         <button
+                                            className="bbtn"
                                             id={item.movie_time}
                                             onClick={() => {
 
                                                 navigate(`/user/get/${dsd}/${movieName}/${cityName}/${cinemaName}/${item.movie_time}/${item.movie_theater}/${item.pk}`)
                                             }}
-                                        >{item.movie_time} {movieName} {cinemaName} {item.movie_theater} </button></div>
+                                        >
+                                            <div className="legend"/>
+                                            <span className='time'>
+                                            <strong>{item.movie_time} </strong>
+                                            <div> ~ 24:00</div>
+                                            </span>
+                                            <span className="title">
+                                                <strong>{movieName}</strong>
+                                                <div>2d(자막)</div>
+                                            </span>
+                                            <div className="info">
+                                                <span className="theater">
+                                                     {cinemaName}
+                                                    <br/>
+                                                    {item.movie_theater}
+                                                </span>
+                                                <span className="seat">
+                                                    <strong className="now">79</strong>
+                                                    <span>/</span>
+                                                    <em className="all">100</em>
+                                                </span>
+                                            </div>
+                                            </button></div>
 
                                 )
                             })

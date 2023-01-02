@@ -34,10 +34,10 @@ const Box = (props) => {
             
 
             <div className="movie-poster">
-                <img src={movie.posterUrl} alt={movie.title + ' 포스터'} />
+                <img src={movie.posterUrl} alt={movie.title} />
                 <img src={ratingIcons[movie.rating]} alt={ratingAlts[movie.rating]} />
                 <div>
-                    <Link to={'/movie/detail?id=' + movie.id}>상세보기</Link>
+                    {/* <Link to={'/movie/detail?id=' + movie.id}>상세보기</Link> */}
                     <Link to="/">예매하기</Link>
                 </div>
             </div>
