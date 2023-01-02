@@ -48,10 +48,10 @@ const Header = () => {
             <div id="title-bar">
                 <div className="container">
                     <div>
-                        <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
+                        <a href={'/'}><img src={logo} alt="CGV 로고"/></a>
                         <span>비이트바악스</span>
                     </div>
-                    <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/>
+                    {/* <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/> */}
                     <UserNavList />
                 </div>
             </div>
@@ -63,7 +63,7 @@ const Header = () => {
                                 <nav className="container">
                                     <MovieNavList />
                                     <form onSubmit={handleSearchKeySubmit}>
-                                        <input type="text" value={searchKey} onChange={handleSearchKeyChange} />
+                                        <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이"/>
                                         <button type="submit">
                                             <img src={searchIcon} alt="검색 아이콘" />
                                         </button>
@@ -128,7 +128,7 @@ const UserNavList = () => {
             <li>
                 <a>
                     <img src={mypageIcon} alt="마이페이지 아이콘" />
-                    <span>MY CGV</span>
+                    <span>MY BITBOX</span>
                 </a>
             </li>
             <li>

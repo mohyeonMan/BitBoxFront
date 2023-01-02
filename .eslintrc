@@ -64,6 +64,7 @@
     "react/function-component-definition": 0,
     "react/jsx-no-constructed-context-values": 0,
     "import/newline-after-import" : 0,
+    "import/no-unresolved": "off",
     "no-unused-vars": [
       1,
       {
@@ -89,5 +90,9 @@
         "some": [ "nesting", "id"  ]
       }
     }]
+    
   }
+  
 }
+
+
