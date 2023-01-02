@@ -13,6 +13,8 @@ import JoinForm from "./member/JoinForm";
 import LoginForm from "./member/LoginForm";
 import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
 import Test from "./Admin/test";
+import Calendar from "./user/Calendar";
+import Get from "./user/Get";
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +32,8 @@ root.render(
           <Route path='/member/loginForm' element={<LoginForm/>}/>
           <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage/>}/>
           <Route  path='/asd' element={<Test/>}/>
+          <Route path="/user/calendar" element={<Calendar/>} />
+          <Route path="/user/get/:selectedDate/:movieName/:cityName/:cinemaName/:time/:theater/:pk" element={<Get/>} />
       </Routes>
     </BrowserRouter>
   </HelmetProvider>
