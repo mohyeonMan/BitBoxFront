@@ -14,7 +14,7 @@ const Label = forwardRef(({ children, color = 'default', variant = 'soft', start
   const iconStyle = {
     width: 16,
     height: 16,
-    '& svg, img': { width: 1, height: 1, objectFit: 'cover' },
+    '& svg, img, png': { width: 1, height: 1, objectFit: 'cover' },
   };
 
   return (

@@ -71,9 +71,6 @@ export default function ShopProductCard({ product }) {
             </Typography>
             &nbsp;
             {/* {fCurrency(price)} */} {/* 가격 */}
-            <button style={{color:'yellow',background:'#f05650'}}>상영중</button> &nbsp;
-            <button style={{color:'gray',background:'black'}}>상영종료</button>
-          
           </Typography>
         </Stack>
       </Stack>

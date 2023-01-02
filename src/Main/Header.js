@@ -119,6 +119,12 @@ const UserNavList = () => {
                     <span><Link to={'/adminindex/app'}>관리자로그인</Link></span>
                 </a>
             </li>
+            <li >
+                <a >
+                    <img src={loginIcon} alt="로그인 아이콘"  />
+                    <span><Link to={'/asd'}>test</Link></span>
+                </a>
+            </li>
             <li>
                 <a>
                     <img src={signupIcon} alt="회원가입 아이콘" />
@@ -142,11 +148,12 @@ const UserNavList = () => {
 };
 
 const MovieNavList = () => {
+
     return (
         <ul>
             <li><a>영화</a></li>
             <li><a>극장</a></li>
-            <li><a>예매</a></li>
+            <li><a href={"/user/calendar"}>예매</a></li>
             <li><a>스토어</a></li>
             <li><a>이벤트</a></li>
             <li><a>혜택</a></li>
