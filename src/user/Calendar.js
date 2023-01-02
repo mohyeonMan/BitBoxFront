@@ -17,6 +17,7 @@ import '../css/hour.css'
 
 
 
+
 const Calendar = () => {
 
     const navigate = useNavigate();
@@ -60,16 +61,18 @@ const Calendar = () => {
             .then(res=>setList3(res.data))
             .catch(error => console.log(error))
     }
-    function isSeoul(element)  {
-        if(element.movie_city === '서울')  {
+    const isSeoul =(element) => {
+        if(element.movie_city === '서울'){
             return true;
         }
+        return false;
     }
 
-    function isGyung(element)  {
-        if(element.movie_city === '경기')  {
+    const isGyung = (element) =>  {
+        if(element.movie_city === '경기') {
             return true;
         }
+        return false;
     }
 
     const[ list2, setList2]=useState([])
@@ -136,7 +139,7 @@ const Calendar = () => {
 
     const renderDays = () => {
         const days = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 10; i+=1) {
             const day = new Date(currentWeek.getFullYear(), currentWeek.getMonth(), currentWeek.getDate() + i);
             days.push(
                 <button
@@ -183,6 +186,7 @@ const Calendar = () => {
     return (
 
 
+
         <div className="container">
             <h2 className='tit2'>빠른예매</h2>
             {renderHeader()}
@@ -193,7 +197,7 @@ const Calendar = () => {
                     dateFormat="yyyy-MM-dd"    // 날짜 형식 설정
                     className=""    // 클래스 명 지정 css주기 위해
                     minDate={new Date()}    // 선택할 수 있는 최소 날짜값 지정
-                    closeOnScroll={true}    // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                    closeOnScroll='true'   // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                     selected={selectedDate}
                     onChange={date => {
                         setCurrentWeek(date)
@@ -289,8 +293,8 @@ const Calendar = () => {
                             <div><button>THE BOUTIGUE(9)</button></div>
                             <div> <button>MX(9)</button></div>
                         </div>
-                        <div className='cinema-2'>
-                        </div>
+                        <div className='cinema-2'/>
+
                     </Tab>
 
                 </Tabs>
@@ -328,7 +332,7 @@ const Calendar = () => {
 
                 </div>
                <div className='no-result' hidden={hidden}>
-                <div className='ico-movie-time'></div>
+                <div className='ico-movie-time'/>
                    <br/>
                     <p>영화와 극장을선택하시면<br/>
                     상영시간표를 비교하여볼수있습니다.</p>
