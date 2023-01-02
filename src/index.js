@@ -29,6 +29,7 @@ root.render(
           <Route path='/member/joinForm' element={<JoinForm/>}/>
           <Route path='/member/loginForm' element={<LoginForm/>}/>
           <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage/>}/>
+          <Route  path='/asd' element={<Test/>}/>
       </Routes>
     </BrowserRouter>
   </HelmetProvider>
