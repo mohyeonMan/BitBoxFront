@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Box, Stack, Link, Card, Button, Divider, Typography, CardHeader } from '@mui/material';
-// utils
-import { fToNow } from '../../../utils/formatTime';
 // components
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
+import AdminBoardModalPage from '../../../AdminBoardModal/AdminBoardModalPage'
+
 
 // ----------------------------------------------------------------------
 
-// AppNewsUpdate.propTypes = {
-//   title: PropTypes.string,
-//   subheader: PropTypes.string,
-//   list: PropTypes.array.isRequired,
-// };
+AppNewsUpdate.propTypes = {
+  title: PropTypes.string,
+  subheader: PropTypes.string,
+  list: PropTypes.array.isRequired,
+};
 
 
 // 공지사항 틀
 export default function AppNewsUpdate({ title, subheader, list, ...other }) {
+
   return (
     <Card {...other}>
       {/* 공지사항  */}
@@ -32,13 +33,12 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
           ))}
         </Stack>
       </Scrollbar>
-
       <Divider />
 
       <Box sx={{ p: 2, textAlign: 'right' }}>
-        <Button size="small" color="inherit" endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'} />}>
-          {/* 클릭시 넘어가게 하기 */}
-          View all
+        <Button  size="small" color="inherit" endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'}/>}>
+        <AdminBoardModalPage/>
+        {/* 모달창 AdminBoardModal */}
         </Button>
       </Box>
     </Card>
@@ -62,7 +62,7 @@ function NewsItem({ news }) {
 
   return (
     <>
-    {adminlist.map(item  => {
+    {adminlist.map((item,index)  => {
       return(
             
         <Stack direction="row" alignItems="center" spacing={2} key={item.adminBoardSeq}>
@@ -74,7 +74,8 @@ function NewsItem({ news }) {
             <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
               {item.content}
             </Typography>
-          </Box><Typography variant="caption" sx={{ pr: 3, flexShrink: 0, color: 'text.secondary' }}>
+          </Box>
+          <Typography variant="caption" sx={{ pr: 3, flexShrink: 0, color: 'text.secondary' }}>
               {item.logtime}
             </Typography>
             </Stack>
