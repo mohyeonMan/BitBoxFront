@@ -221,7 +221,6 @@ const UserPage = () => {
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu} >
                             <Iconify icon={'eva:more-vertical-fill'}/>
                           </IconButton>
-                        </TableCell>
                         <Popover
                             open={Boolean(open)}
                             anchorEl={open}
@@ -254,6 +253,7 @@ const UserPage = () => {
                             메세지
                           </MenuItem>
                         </Popover>
+                      </TableCell>
                       </TableRow>
                     );
                   })}

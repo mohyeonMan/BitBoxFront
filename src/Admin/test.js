@@ -1,22 +1,21 @@
-/*
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 function Test(props) {
     const [data,setData] = useState([]);
     const [moviecdNum,setMoviecdNum] = useState('');
-   useEffect(()=>{
-        const url = '"https://openapi.naver.com/v1/search/movie.json"';
-
-        axios.get( url,{
+    /* movieapi */
+const te = () =>{
+    const url = 'https://openapi.naver.com/v1/search/movie.json';
+    axios.get( url,{
             params:{query: moviecdNum},
             headers: {
-                "X-Naver-Client-Id": '_g6JfZzkITAmkjoExZi8',
-                "X-Naver-Client-Secret": 'SqBOobPA63',
+                'X-Naver-Client-Id': '_g6JfZzkITAmkjoExZi8',
+                'X-Naver-Client-Secret': 'SqBOobPA63',
+                'Accept': '*/*'
             },
         })
-            .then((res) =>setData(...data,res.data))
-
-    },[mo]);
+            .then((res) =>alert(res.data))
+}
     return (
         <div>
             <table border={13}>
@@ -27,12 +26,11 @@ function Test(props) {
                             <tr>
                                 <td >{JSON.stringify(data)}</td>
                             </tr>
-                            <button onClick={mo} >1234</button>
                 </tbody>
             </table>
+            <button onClick={te} >클릭</button>
         </div>
     );
 }
 
 export default Test;
-*/
