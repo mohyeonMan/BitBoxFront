@@ -1,0 +1,325 @@
+.calendar {
+    display: flex;
+    width: 1100px;
+    height: 40px;
+    border-top: 1px solid #555;
+    border-left: 1px solid #d8d9db;
+    border-right: 1px solid #d8d9db;
+
+}
+
+
+.calendar-days{
+    font-size: .8667em;
+    border-bottom: 2px solid transparent;
+    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
+
+
+
+}
+.calendar-day{
+    width: 81px;
+    height: 39px;
+    cursor: pointer;
+    letter-spacing: -.5px;
+    font-weight: 600;
+
+}
+.calendar-days :hover{
+    border-bottom: 2px solid #503396;
+}
+.calendar-header{
+
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.calendar-day.on {
+    background-color: #f7f8f9;
+    border-bottom: 2px solid #503396;
+}
+.calendar-day.red.on {
+    background-color: #f7f8f9;
+    border-bottom: 2px solid #503396;
+}
+.calendar-day.blue .on {
+    background-color: #f7f8f9;
+    border-bottom: 2px solid #503396;
+}
+
+.calendar-day.blue {
+    color: blue;
+}
+
+.calendar-day.red {
+    color: #ED1C34;
+}
+
+
+.react-datepicker-wrapper{
+
+    width : 110px !important;
+}
+.react-datepicker__input-container {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px !important;
+
+}
+
+
+.react-datepicker__input-container input {
+    width: 100px;
+    height: 30px;
+    padding: 5px 10px;
+    background: #f5f5f5;
+    border: 1px solid white;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #2b2b2b;
+}
+
+.react-datepicker__input {
+    width: 100px;
+    border: none;
+    outline: none;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.container {
+    width: 1125px !important;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #fff;
+    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
+    font-size: .8667em;
+    font-weight: 400;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+
+}
+.box-1 {
+    position: relative;
+    float: left;
+    width: 270px!important;
+    height: 529px;
+    padding: 0 20px 17px 20px;
+    border-top: 1px solid #d8d9db;
+    border-right: 1px solid #d8d9db;
+    border-left: 1px solid #d8d9db;
+    border-bottom:1px solid #d8d9db;
+}
+.box-2 {
+    float: left;
+    width: 350px!important;
+    height: 530px;
+    padding: 0 20px 20px 20px;
+    border-right: 1px solid #d8d9db;
+    border-top: 1px solid #d8d9db;
+    border-bottom:1px solid #d8d9db;
+}
+.box-3 {
+    float: left;
+    width: 480px !important;
+    height: 530px;
+    padding: 0 20px 20px 20px;;
+    border-top: 1px solid #d8d9db;
+    border-right: 1px solid #d8d9db;
+    border-bottom:1px solid #d8d9db;
+
+}
+
+
+
+.container button{
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.ico-movie-time {
+    margin: auto;
+    width: 46px;
+    height: 46px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-movie-time.png);
+
+}
+
+.no-result{
+    height: 100%;
+    padding: 150px 0 0 0;
+    text-align: center;
+    font-weight: 550;
+
+}
+.tit {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 0;
+    color: #222;
+    font-size: 1.2em;
+    line-height: 38px;
+    font-weight: 800;
+}
+
+.tit2 {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 38px;
+    margin: 0;
+    padding-bottom: 50px;
+    color: #222;
+    font-size: 2em;
+    line-height: 38px;
+    font-weight: 800;
+}
+
+.bg-12{
+    background-color: #ffc518;
+}
+.bg-15{
+    background-color: coral;
+}
+.bg-18{
+    background-color: red;
+}
+.bg-All{
+    background-color: green;
+}
+
+.cinema-1{
+    float: left;
+    border-right: 1px solid #d8d9db;
+    width: 50%;
+    height: 400px;
+}
+
+.cinema-2{
+    float: left;
+    width: 50%;
+    height: 400px;
+    padding-left: 10px;
+}
+
+
+
+.result{
+    height: 80%;
+    overflow-y: auto;
+}
+
+.movie-btn{
+    display: flex;
+    width: 100%;
+    height: 23px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.movie-btn .on{
+    background-color: #555555 !important;
+    color: #d8d9db!important;
+}
+.legend {
+    display: table-cell;
+    width: 30px;
+    height: 66px;
+    padding: 10px 0 0 0;
+    vertical-align: top;
+}
+.time {
+    display: table-cell;
+    width: 60px;
+    padding: 10px 0;
+    text-align: left;
+    vertical-align: top;
+    font-family: Roboto,Dotum,'돋움',sans-serif!important;
+
+}
+.time strong {
+    display: block;
+    font-size: 1.3em;
+    font-weight: 700;
+    font-family: Roboto,Dotum,'돋움',sans-serif!important;
+}
+.time div {
+    display: block;
+    padding: 3px 0 0 0;
+    font-size: .8667em;
+    font-weight: 500!important;
+    font-family: Roboto,Dotum,'돋움',sans-serif!important;
+}
+.title {
+    display: table-cell;
+    width: 275px;
+    padding: 10px 20px;
+    text-align: left;
+}
+.title strong {
+    display: block;
+    font-weight: 600;
+    padding: 0 5px 0 0;
+    line-height: 1.3;
+}
+
+.title div {
+    display: block;
+    padding-top: 7px;
+    font-size: .8em;
+
+}
+
+.info {
+    display: table-cell;
+    width: 110px;
+    padding: 0 5px 0 0;
+    font-size: .8em;
+    vertical-align: middle;
+    text-align: right;
+}
+.theater {
+    overflow: hidden;
+    display: block;
+    padding: 0;
+    line-height: 1.5;
+}
+.seat {
+    overflow: hidden;
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    padding: 0;
+    letter-spacing: 0;
+    text-align: center;
+    border: 1px solid #f2f4f5;
+}
+.now {
+    display: inline-block;
+    color: #01738b;
+    line-height: 20px;
+    vertical-align: middle;
+}
+.all {
+    display: inline-block;
+    color: #666;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.bbtn {
+    overflow: hidden;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    padding: 0;
+    border-bottom: 1px solid #f2f4f5 !important;
+
+}

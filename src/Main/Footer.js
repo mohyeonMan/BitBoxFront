@@ -29,7 +29,9 @@ const Footer = ()=> {
                             <dt>사업자등록번호</dt>
                             <dd>104-81-45690</dd>
                             <dt>통신판매업신고번호</dt>
-                            <dd>2017-서울용산-0662 <a href="#none" onclick="goFtc()" class="btn_goFtc">사업자정보확인</a><a></a></dd>
+                            <dd>2017-서울용산-0662
+                            <a href="#none" onclick="goFtc()" class="btn_goFtc">사업자정보확인</a>
+                            </dd>
                         </dl>
                         <dl class="company_info_list">
                             <dt>호스팅사업자</dt>

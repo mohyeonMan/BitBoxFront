@@ -2,7 +2,7 @@ import {useState, useEffect, useContext} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import './Header.css';
-import logo from './img/logo.png';
+import logo from './img/mainLogo.png';
 import loginIcon from './img/login.png';
 import signupIcon from './img/join.png';
 import mypageIcon from './img/my.png';
@@ -13,7 +13,6 @@ import AuthContext from "../member/store/auth-context.tsx";
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
     const navigate = useNavigate();
-
     const handleSearchKeyChange = (e) => {
         setSearchKey(e.target.value);
     }
@@ -51,56 +50,55 @@ const Header = () => {
             <div id="title-bar">
                 <div className="container">
                     <div>
-                        <a><img src={logo} alt="CGV 로고"/></a>
-                        <span>비 트 박 스</span>
+                        <a href={'/'}><img src={logo} alt="CGV 로고"/></a>
+                        <span>비이트바악스</span>
                     </div>
-                    <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px"
-                         height="39px"/>
-                    <UserNavList/>
+                    {/* <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/> */}
+                    <UserNavList />
                 </div>
             </div>
 
 
             <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
-                {ScrollActive ?
-                    <div id="nav-bar">
-                        <nav className="container">
-                            <MovieNavList/>
-                            <form onSubmit={handleSearchKeySubmit}>
-                                <input type="text" value={searchKey} onChange={handleSearchKeyChange}/>
-                                <button type="submit">
-                                    <img src={searchIcon} alt="검색 아이콘"/>
-                                </button>
-                            </form>
-                        </nav>
+                        {ScrollActive ? 
+                                <div id="nav-bar">
+                                <nav className="container">
+                                    <MovieNavList />
+                                    <form onSubmit={handleSearchKeySubmit}>
+                                        <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이"/>
+                                        <button type="submit">
+                                            <img src={searchIcon} alt="검색 아이콘" />
+                                        </button>
+                                    </form>
+                                </nav>
+                            </div>
+                                :
+                                <div className="nav-fixed">
+                                   <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
+                                    <ul className="nav_menu">
+
+                                        <li>
+                                            <h2><a>영화</a></h2>
+                                        </li>
+                                        <li>
+                                            <h2><a>극장</a></h2>                                               
+                                        </li>
+                                        <li>
+                                            <h2><a><strong>예매</strong></a></h2>                                              
+                                        </li>
+                                        <li>
+                                            <h2><a>스토어</a></h2>                                               
+                                        </li>
+                                        <li>
+                                            <h2><a>이벤트</a></h2>                                             
+                                        </li>
+                                        <li>
+                                            <h2><a>혜택</a></h2>                                            
+                                        </li>
+                                    </ul>                                
+                                    
+                                </div>}
                     </div>
-                    :
-                    <div className="nav-fixed">
-                        <img src="https://img.cgv.co.kr/R2014/images/common/logo/logoWhite.png" alt="CGV" width="70px"/>
-                        <ul className="nav_menu">
-
-                            <li>
-                                <h2><a>영화</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>극장</a></h2>
-                            </li>
-                            <li>
-                                <h2><a><strong>예매</strong></a></h2>
-                            </li>
-                            <li>
-                                <h2><a>스토어</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>이벤트</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>혜택</a></h2>
-                            </li>
-                        </ul>
-
-                    </div>}
-            </div>
 
 
         </header>
@@ -168,10 +166,10 @@ const UserNavList = () => {
             </li>
             <li>
                 {isLogin &&
-                    <a>
-                        <img src={mypageIcon} alt="마이페이지 아이콘"/>
-                        <span><Link to={'/member/myPage'}>MY CGV</Link></span>
-                    </a>
+                <a>
+                    <img src={mypageIcon} alt="마이페이지 아이콘" />
+                    <span>MY BITBOX</span>
+                </a>
                 }
             </li>
             <li>
@@ -189,7 +187,7 @@ const MovieNavList = () => {
         <ul>
             <li><a>영화</a></li>
             <li><a>극장</a></li>
-            <li><a>예매</a></li>
+            <li><Link to={"/user/calendar"}>예매</Link></li>
             <li><a>스토어</a></li>
             <li><a>이벤트</a></li>
             <li><a>혜택</a></li>

@@ -3,8 +3,8 @@ import './Layout.css'
 const Layout = (props) => {
     return (
         <>
-            <p>
-                <img src="https://adimg.cgv.co.kr/images/202206/Willvengers/980x80_0627.jpg" alt="윌벤져스" border="0" ></img>
+            <p className='topbaner01'>
+                <img src="https://adimg.cgv.co.kr/images/202212/PussinBoots/1228_980x80.jpg" alt="장화신은고양이" border="0" />
             </p>
             <Header />
             {props.children}

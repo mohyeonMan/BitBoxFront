@@ -11,6 +11,7 @@ const MENU_OPTIONS = [
   {
     label: 'Home',
     icon: 'eva:home-fill',
+    
   },
   {
     label: 'Profile',
@@ -87,6 +88,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
+          {/*  */}
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={handleClose}>
@@ -94,6 +96,7 @@ export default function AccountPopover() {
             </MenuItem>
           ))}
         </Stack>
+        {/*  */}
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
