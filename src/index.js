@@ -1,35 +1,27 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
-import { HelmetProvider } from 'react-helmet-async';
+import {HelmetProvider} from 'react-helmet-async';
 //
-import Main from './Main/Main';
-import Adminindex from './adminindex'
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
-import Member from "./member/Member";
-import JoinForm from "./member/JoinForm";
-import LoginForm from "./member/LoginForm";
-import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
+import {AuthContextProvider} from "./member/store/auth-context.tsx";
+import App from "./App";
 
 // ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <HelmetProvider>
-    <BrowserRouter>
-      <Routes>
-          <Route path='/' element={<Main/>}/>
-          <Route path='/adminindex/*' element={<Adminindex/>}/>
-          <Route path='/member' element={<Member/>}/>
-          <Route path='/member/joinForm' element={<JoinForm/>}/>
-          <Route path='/member/loginForm' element={<LoginForm/>}/>
-          <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage/>}/>
-      </Routes>
-    </BrowserRouter>
-  </HelmetProvider>
+
+    <AuthContextProvider>
+      <HelmetProvider>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+      </HelmetProvider>
+    </AuthContextProvider>
 );
 
 // If you want to enable client cache, register instead.

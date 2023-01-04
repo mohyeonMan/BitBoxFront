@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getTwentyMovies } from './services/movies';
 import BoxGroup from './BoxGroup';
-import "swiper/css"; //basic
+import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 

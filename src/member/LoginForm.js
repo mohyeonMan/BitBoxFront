@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,17 +10,48 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {useNavigate} from "react-router-dom";
+import AuthContext from "./store/auth-context.tsx";
 
 const theme = createTheme();
 
 const LoginForm = () => {
 
+    const [form, setForm] = useState({
+        username: '',
+        password: ''
+    })
+
+    const inputValue = (e) => {
+
+        const {name, value} = e.target
+        setForm({
+            ...form,
+            [name]: value
+        });
+
+    }
+
+    const {username, password} = form;
+
+    const navi = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const authCtx = useContext(AuthContext);
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email')
-        });
+
+        authCtx.login(form.username, form.password);
+
+        if (!authCtx.isSuccess) {
+            alert("아이디 또는 비밀번호가 틀렸습니다.");
+            return false;
+        } else {
+            alert("welcome!");
+            navi("/");
+        }
+
+
     };
 
     return (
@@ -47,21 +78,24 @@ const LoginForm = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
+                            id="username"
                             label="아이디"
-                            name="email"
-                            autoComplete="username"
+                            name="username"
                             autoFocus
+                            value={username}
+                            onChange={inputValue}
                         />
                         <TextField
                             margin="normal"
-                            required
                             fullWidth
+                            required
                             name="password"
                             label="비밀번호"
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={password}
+                            onChange={inputValue}
                         />
                         <Button
                             type="submit"

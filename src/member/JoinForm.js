@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,11 +12,14 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import AuthContext from "./store/auth-context.tsx";
 
 const theme = createTheme();
 
 
 const JoinForm = () => {
+
+    const authCtx = useContext(AuthContext);
 
     const onClickCertificate = () => {
 
@@ -108,12 +111,9 @@ const JoinForm = () => {
             setA(0)
         }
         if (a === 1) {
-            axios.post('http://localhost:8080/member/join', null, {params: form})
-                .then(() => {
-                    alert('계정이 등록되었습니다. 감사합니다.');
-                    navi("/");
-                })
-                .catch(error => console.log(error));
+            authCtx.signup(form.username, form.password, form.name, form.email, form.birth, form.phoneNumber);
+            alert("가입완료");
+            navi("/");
         }
     }
 
