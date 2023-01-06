@@ -1,20 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 function Test(props) {
-    const [data,setData] = useState([]);
+    const [list,setList] = useState([]);
     const [moviecdNum,setMoviecdNum] = useState('');
     /* movieapi */
 const te = () =>{
-    const url = 'https://openapi.naver.com/v1/search/movie.json';
+    const url = 'movieapi/v1/search/movie.json';
     axios.get( url,{
             params:{query: moviecdNum},
             headers: {
                 'X-Naver-Client-Id': '_g6JfZzkITAmkjoExZi8',
                 'X-Naver-Client-Secret': 'SqBOobPA63',
-                'Accept': '*/*'
+                'Accept': '*/*',
+                'Access-Control-Allow-Origin':'*',
+                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
             },
-        })
-            .then((res) =>alert(res.data))
+        }).then((res) => setList(res.data.items))
 }
     return (
         <div>
@@ -23,9 +24,19 @@ const te = () =>{
                     <input id={moviecdNum} onChange={(e)=>setMoviecdNum(e.target.value)}/>
                 </tr>
                 <tbody>
-                            <tr>
-                                <td >{JSON.stringify(data)}</td>
+                {
+                    list.map((item)=>{
+                        return(
+                            <tr key={item.title}>
+                                <td>{item.title}</td>
+                                <img src={item.image} alt={item.title}></img>
                             </tr>
+                            )
+
+                        }
+
+                    )
+                }
                 </tbody>
             </table>
             <button onClick={te} >클릭</button>
@@ -34,3 +45,5 @@ const te = () =>{
 }
 
 export default Test;
+
+/* as been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. */

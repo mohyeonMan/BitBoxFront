@@ -26,14 +26,30 @@ import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
-
+/* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
+  <option id="adminTitle "value="title">TITLE</option>
+  <option id="adminContent" value="content">CONTENT</option>
+</select> */
 
 
 const UserPage = () => {
+  const setRole = () =>{
+    const changerow =  document.getElementById(menuId).children[4]
+    /*const select = document.createElement('select')
+    select.innerHTML="(select)"
+    changerow.appendChild(select)*/
 
-  const setRole = (e) => {
-    const parentValue = e.document.getAttribute('id');
-    console.log(parentValue);
+
+  }
+  const deleteUser = () => {
+
+    axios.get('http://localhost:8080/member/delete',{
+      params:{
+        username:menuId
+      }
+    })
+        .then(() =>alert('삭제성공'),window.location.reload())
+        .catch(error => console.log(error))
 
   }
   function descendingComparator(a, b, orderBy) {
@@ -88,8 +104,10 @@ const UserPage = () => {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const[menuId,setMenuId] = useState('')
+
   useEffect(()=>{
-    axios.get('http://localhost:8080/member/test')
+    axios.get('http://localhost:8080/member123/test')
         .then((res) =>setMember(res.data) )
         .catch(error => console.log(error))
   },[])
@@ -99,12 +117,13 @@ const UserPage = () => {
     phoneNumber : item.phoneNumber,
     createDate : item.createDate,
     birth:item.birth,
-    role: item.role,
+    role: item.roleType,
     status : 'success',
     username:item.username
   }]);
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
+    setMenuId(event.currentTarget.id)
   };
 
   const handleCloseMenu = () => {
@@ -193,7 +212,7 @@ const UserPage = () => {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { name, phoneNumber, createDate, role,username } = row;
+                    const { name, phoneNumber, createDate, roleType,username } = row;
                     const selectedUser = selected.indexOf(username) !== -1;
 
                     return (
@@ -214,11 +233,12 @@ const UserPage = () => {
 
                         <TableCell align="left">{phoneNumber}</TableCell>
 
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{roleType}</TableCell>
                         <TableCell align="left">{createDate}</TableCell>
 
-                        <TableCell align="right"  >
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu} >
+                        <TableCell align="right"
+                        >
+                          <IconButton size="large" color="inherit" onClick={handleOpenMenu} id={username} >
                             <Iconify icon={'eva:more-vertical-fill'}/>
                           </IconButton>
                         <Popover
@@ -228,6 +248,7 @@ const UserPage = () => {
                             anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                             PaperProps={
+
                               {
                                 sx: {
                                   p: 1,
@@ -240,11 +261,11 @@ const UserPage = () => {
                                 },
                               }}
                         >
-                          <MenuItem onClick={setRole}>
+                          <MenuItem onClick={setRole} >
                             <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>
                             등급 조정
                           </MenuItem>
-                          <MenuItem sx={{ color: 'error.main' }}  >
+                          <MenuItem sx={{ color: 'error.main' }}  onClick={deleteUser}>
                             <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
                             회원 삭제
                           </MenuItem>

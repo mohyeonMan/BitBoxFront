@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import './Header.css';
@@ -8,6 +8,7 @@ import signupIcon from './img/join.png';
 import mypageIcon from './img/my.png';
 import supportIcon from './img/service-center.png';
 import searchIcon from './img/search.png';
+import AuthContext from "../member/store/auth-context.tsx";
 
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
@@ -22,6 +23,7 @@ const Header = () => {
     }
     const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
     const [ScrollActive, setScrollActive] = useState(true);
+
     function handleScroll() {
         if (ScrollY > 200) {
             setScrollY(window.pageYOffset);
@@ -30,8 +32,9 @@ const Header = () => {
             setScrollY(window.pageYOffset);
             setScrollActive(true);
         }
-        }
-        useEffect(() => {
+    }
+
+    useEffect(() => {
         function scrollListener() {
             window.addEventListener("scroll", handleScroll);
         } //  window 에서 스크롤을 감시 시작
@@ -40,7 +43,6 @@ const Header = () => {
             window.removeEventListener("scroll", handleScroll);
         }; //  window 에서 스크롤을 감시를 종료
     });
-
 
 
     return (
@@ -55,8 +57,8 @@ const Header = () => {
                     <UserNavList />
                 </div>
             </div>
-            
-            
+
+
             <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
                         {ScrollActive ? 
                                 <div id="nav-bar">
@@ -70,11 +72,11 @@ const Header = () => {
                                     </form>
                                 </nav>
                             </div>
-                                : 
+                                :
                                 <div className="nav-fixed">
                                    <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
                                     <ul className="nav_menu">
-                                    
+
                                         <li>
                                             <h2><a>영화</a></h2>
                                         </li>
@@ -99,47 +101,86 @@ const Header = () => {
                     </div>
 
 
-            
         </header>
     );
 };
 
 const UserNavList = () => {
+
+    const authCtx = useContext(AuthContext);
+    const [nameVal, setNameVal] = useState('');
+    const isLogin = authCtx.isLoggedIn;
+    const isGet = authCtx.isGetSuccess;
+
+    const callback = (str) => {
+        setNameVal(str);
+    }
+
+    useEffect(() => {
+        if (isLogin) {
+            authCtx.getUser();
+        }
+    }, [isLogin]);
+
+    useEffect(() => {
+        if (isGet) {
+            callback(authCtx.userObj.name);
+        }
+    }, [isGet]);
+
+    const logoutHandler = () => {
+        authCtx.logout();
+    }
+
     return (
         <ul>
             <li>
-                <a>
-                    <img src={loginIcon} alt="로그인 아이콘" />
-                    <span>로그인</span>
-                </a>
+                {!isLogin &&
+                    <a>
+                        <img src={loginIcon} alt="로그인 아이콘"/>
+                        <span><Link to={'/member/loginForm'}>로그인</Link></span>
+                    </a>
+                }
             </li>
-            <li >
-                <a >
-                    <img src={loginIcon} alt="로그인 아이콘"  />
+            <li>
+                {isLogin &&
+                    <a>
+                        <img src={loginIcon} alt="로그인 아이콘"/>
+                        <span><button onClick={logoutHandler}>로그아웃</button></span>
+                    </a>
+                }
+            </li>
+            <li>
+                <a>
+                    <img src={loginIcon} alt="로그인 아이콘"/>
                     <span><Link to={'/adminindex/app'}>관리자로그인</Link></span>
                 </a>
             </li>
-            <li >
-                <a >
-                    <img src={loginIcon} alt="로그인 아이콘"  />
-                    <span><Link to={'/asd'}>test</Link></span>
-                </a>
-            </li>
             <li>
                 <a>
-                    <img src={signupIcon} alt="회원가입 아이콘" />
-                    <span><Link to={'/member/joinForm'}>회원가입</Link></span>
+                    <img src={loginIcon} alt="로그인 아이콘"/>
+                    <span><Link to={'/test'}>Test</Link></span>
                 </a>
             </li>
             <li>
+                {!isLogin &&
+                    <a>
+                        <img src={signupIcon} alt="회원가입 아이콘"/>
+                        <span><Link to={'/member/joinForm'}>회원가입</Link></span>
+                    </a>
+                }
+            </li>
+            <li>
+                {isLogin &&
                 <a>
                     <img src={mypageIcon} alt="마이페이지 아이콘" />
                     <span>MY BITBOX</span>
                 </a>
+                }
             </li>
             <li>
                 <a>
-                    <img src={supportIcon} alt="고객센터 아이콘" />
+                    <img src={supportIcon} alt="고객센터 아이콘"/>
                     <span>고객센터</span>
                 </a>
             </li>
@@ -148,7 +189,6 @@ const UserNavList = () => {
 };
 
 const MovieNavList = () => {
-
     return (
         <ul>
             <li><a>영화</a></li>
