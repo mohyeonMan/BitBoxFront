@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react';
+import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import './Header.css';
@@ -8,7 +8,10 @@ import signupIcon from './img/join.png';
 import mypageIcon from './img/my.png';
 import supportIcon from './img/service-center.png';
 import searchIcon from './img/search.png';
-import AuthContext from "../member/store/auth-context.tsx";
+import {useDispatch, useSelector} from "react-redux";
+import {getCookieToken, removeCookieToken, setRefreshToken} from "src/member/storage/Cookie";
+import {DELETE_TOKEN, SET_TOKEN} from "src/member/store/AccessToken";
+import axios from "axios";
 
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
@@ -50,7 +53,7 @@ const Header = () => {
             <div id="title-bar">
                 <div className="container">
                     <div>
-                        <a href={'/'}><img src={logo} alt="CGV 로고"/></a>
+                        <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
                         <span>비이트바악스</span>
                     </div>
                     {/* <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/> */}
@@ -60,45 +63,45 @@ const Header = () => {
 
 
             <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
-                        {ScrollActive ? 
-                                <div id="nav-bar">
-                                <nav className="container">
-                                    <MovieNavList />
-                                    <form onSubmit={handleSearchKeySubmit}>
-                                        <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이"/>
-                                        <button type="submit">
-                                            <img src={searchIcon} alt="검색 아이콘" />
-                                        </button>
-                                    </form>
-                                </nav>
-                            </div>
-                                :
-                                <div className="nav-fixed">
-                                   <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
-                                    <ul className="nav_menu">
-
-                                        <li>
-                                            <h2><a>영화</a></h2>
-                                        </li>
-                                        <li>
-                                            <h2><a>극장</a></h2>                                               
-                                        </li>
-                                        <li>
-                                            <h2><a><strong>예매</strong></a></h2>                                              
-                                        </li>
-                                        <li>
-                                            <h2><a>스토어</a></h2>                                               
-                                        </li>
-                                        <li>
-                                            <h2><a>이벤트</a></h2>                                             
-                                        </li>
-                                        <li>
-                                            <h2><a>혜택</a></h2>                                            
-                                        </li>
-                                    </ul>                                
-                                    
-                                </div>}
+                {ScrollActive ?
+                    <div id="nav-bar">
+                        <nav className="container">
+                            <MovieNavList />
+                            <form onSubmit={handleSearchKeySubmit}>
+                                <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이" />
+                                <button type="submit">
+                                    <img src={searchIcon} alt="검색 아이콘" />
+                                </button>
+                            </form>
+                        </nav>
                     </div>
+                    :
+                    <div className="nav-fixed">
+                        <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
+                        <ul className="nav_menu">
+
+                            <li>
+                                <h2><a>영화</a></h2>
+                            </li>
+                            <li>
+                                <h2><a>극장</a></h2>
+                            </li>
+                            <li>
+                                <h2><a><strong>예매</strong></a></h2>
+                            </li>
+                            <li>
+                                <h2><a>스토어</a></h2>
+                            </li>
+                            <li>
+                                <h2><a>이벤트</a></h2>
+                            </li>
+                            <li>
+                                <h2><a>혜택</a></h2>
+                            </li>
+                        </ul>
+
+                    </div>}
+            </div>
 
 
         </header>
@@ -107,37 +110,51 @@ const Header = () => {
 
 const UserNavList = () => {
 
-    const authCtx = useContext(AuthContext);
-    const [nameVal, setNameVal] = useState('');
-    const isLogin = authCtx.isLoggedIn;
-    const isGet = authCtx.isGetSuccess;
+    const dispatch = useDispatch();
 
-    const callback = (str) => {
-        setNameVal(str);
-    }
+    const [isLogin, setIsLogin] = useState(false);
 
     useEffect(() => {
-        if (isLogin) {
-            authCtx.getUser();
+        if (getCookieToken()) {
+            setIsLogin(true);
         }
-    }, [isLogin]);
+    },[])
 
-    useEffect(() => {
-        if (isGet) {
-            callback(authCtx.userObj.name);
-        }
-    }, [isGet]);
-
+    // 로그아웃
     const logoutHandler = () => {
-        authCtx.logout();
+        dispatch(DELETE_TOKEN()); // accessToken 삭제
+        removeCookieToken(); // refreshToken 삭제
+        alert("로그아웃");
+        window.location.replace("/");
     }
+
+
+     const accessToken = useSelector(state => state);
+    console.log(accessToken)
+    // 서버에 리프레시 토큰을 보내고 엑세스토큰 재발급하기
+
+    useEffect(() => {
+        axios.post(`http://localhost:3000/auth/reIssue`, {
+            refreshToken: getCookieToken()
+        }).then(res => {
+            if (res.data) {
+                console.log("재발급 : " + res.data);
+                setRefreshToken(res.data.refreshToken);
+                dispatch(SET_TOKEN(res.data.accessToken));
+            }
+        })
+    }, [getCookieToken()]);
+
+
+
+
 
     return (
         <ul>
             <li>
                 {!isLogin &&
                     <a>
-                        <img src={loginIcon} alt="로그인 아이콘"/>
+                        <img src={loginIcon} alt="로그인 아이콘" />
                         <span><Link to={'/member/loginForm'}>로그인</Link></span>
                     </a>
                 }
@@ -145,36 +162,36 @@ const UserNavList = () => {
             <li>
                 {isLogin &&
                     <a>
-                        <img src={loginIcon} alt="로그인 아이콘"/>
+                        <img src={loginIcon} alt="로그인 아이콘" />
                         <span><button onClick={logoutHandler}>로그아웃</button></span>
                     </a>
                 }
             </li>
             <li>
                 <a>
-                    <img src={loginIcon} alt="로그인 아이콘"/>
+                    <img src={loginIcon} alt="로그인 아이콘" />
                     <span><Link to={'/adminindex/app'}>관리자로그인</Link></span>
                 </a>
             </li>
             <li>
                 {!isLogin &&
                     <a>
-                        <img src={signupIcon} alt="회원가입 아이콘"/>
+                        <img src={signupIcon} alt="회원가입 아이콘" />
                         <span><Link to={'/member/joinForm'}>회원가입</Link></span>
                     </a>
                 }
             </li>
             <li>
                 {isLogin &&
-                <a>
-                    <img src={mypageIcon} alt="마이페이지 아이콘" />
-                    <span>MY BITBOX</span>
-                </a>
+                    <a>
+                        <img src={mypageIcon} alt="마이페이지 아이콘" />
+                        <span><Link to={'/member/mypage'}>MY BITBOX</Link></span>
+                    </a>
                 }
             </li>
             <li>
                 <a>
-                    <img src={supportIcon} alt="고객센터 아이콘"/>
+                    <img src={supportIcon} alt="고객센터 아이콘" />
                     <span>고객센터</span>
                 </a>
             </li>

@@ -8,6 +8,7 @@ type UserInfo = { username: string, name: string};
 type LoginToken = {
     grantType: string,
     accessToken: string,
+    refreshToken: string,
     tokenExpiresIn: number
 }
 
@@ -82,7 +83,7 @@ export const AuthContextProvider:React.FC<Props> = (props) => {
                 setToken(loginData.accessToken);
                 logoutTimer = setTimeout(
                     logoutHandler,
-                    authAction.loginTokenHandler(loginData.accessToken, loginData.tokenExpiresIn)
+                    authAction.loginTokenHandler(loginData.accessToken, loginData.tokenExpiresIn, loginData.refreshToken)
                 );
                 setIsSuccess(true);
             }

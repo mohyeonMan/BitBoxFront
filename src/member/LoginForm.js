@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useNavigate} from "react-router-dom";
-import AuthContext from "./store/auth-context.tsx";
+import axios from "axios";
+import {setRefreshToken} from "src/member/storage/Cookie";
+import {useDispatch} from "react-redux";
+import {SET_TOKEN} from "src/member/store/AccessToken";
+// import {setRefreshToken} from "../member/storage/Cookie";
 
 const theme = createTheme();
 
@@ -35,21 +39,39 @@ const LoginForm = () => {
     const {username, password} = form;
 
     const navi = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
-    const authCtx = useContext(AuthContext);
+
+    const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        authCtx.login(form.username, form.password);
 
-        if (!authCtx.isSuccess) {
-            alert("아이디 또는 비밀번호가 틀렸습니다.");
-            return false;
-        } else {
-            alert("welcome!");
-            navi("/");
-        }
+        axios.post(`http://localhost:3000/auth/login`,{
+            username: form.username,
+            password: form.password
+        }).then(res => {
+            if (res.data) {
+                alert(JSON.stringify(res.data));
+                setRefreshToken(res.data.refreshToken);
+                dispatch(SET_TOKEN(res.data.accessToken));
+                navi("/");
+            }
+        }).catch(error => {
+            console.log(error.response);
+            alert("아이디 또는 비밀번호가 틀렸습니다");
+        })
+
+
+        // authCtx.login(form.username, form.password);
+        //
+        // if (!authCtx.isSuccess) {
+        //     alert("아이디 또는 비밀번호가 틀렸습니다.");
+        //     return false;
+        // } else {
+        //     alert("welcome!");
+        //     navi("/");
+        // }
+        //
 
 
     };
@@ -81,7 +103,6 @@ const LoginForm = () => {
                             id="username"
                             label="아이디"
                             name="username"
-                            autoFocus
                             value={username}
                             onChange={inputValue}
                         />

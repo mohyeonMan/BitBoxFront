@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {getCookieToken} from "src/member/storage/Cookie";
 
 const MyPage = () => {
 
     const [status, setStatus] = useState({});
 
-    const tokenVal = localStorage.getItem('token');
+    const tokenVal = getCookieToken();
     const expireTime = localStorage.getItem('expirationTime');
     useEffect(()=> {
 
         axios.get("/member/me", {
             headers: {
-                Authorization: `Bearer ${tokenVal}`
+                Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMyIsImF1dGgiOiJST0xFX0FETUlOIn0.oxsk0q53FyKbfxdLkacqf-FtK5hOslWJ3wZWSGr2Rpjk-obPbnHw38Qd6a61lNlw4fbhueIi-aMMXwvtmVrBrw`
             }
         }).then(res => {
             console.log(res.data)
