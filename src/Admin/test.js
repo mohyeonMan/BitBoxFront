@@ -1,9 +1,10 @@
+/*
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 function Test(props) {
     const [data,setData] = useState([]);
     const [moviecdNum,setMoviecdNum] = useState('');
-    /* useEffect(()=>{
+   useEffect(()=>{
         const url = '"https://openapi.naver.com/v1/search/movie.json"';
 
         axios.get( url,{
@@ -15,36 +16,7 @@ function Test(props) {
         })
             .then((res) =>setData(...data,res.data))
 
-    },[]); */
-
-    const mo = () =>{
-        const ID_KEY = 'eU4Ovj922C0R4HbxeRnV';
-        const SECRET_KEY = 'l4lR7UKZhF';
-        const search = moviecdNum;
-        try {
-            if (search === "") {
-                this.setState({movies: [], isLoading: false})
-            } else {
-                const {data: {
-                    items
-                }} = await axios.get('https://openapi.naver.com/v1/search/movie.json',{
-                    params:{
-                        query: search,
-                        display: 20
-                    },
-                    headers: {
-                        'X-Naver-Client-Id': ID_KEY,
-                        'X-Naver-Client-Secret': SECRET_KEY
-                    }
-                });
-
-                this.setData({movies: items, isLoading: false});
-            }
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
+    },[mo]);
     return (
         <div>
             <table border={13}>
@@ -63,3 +35,4 @@ function Test(props) {
 }
 
 export default Test;
+*/
