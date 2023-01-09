@@ -12,7 +12,7 @@ const MyPage = () => {
 
         axios.get("/member/me", {
             headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMyIsImF1dGgiOiJST0xFX0FETUlOIn0.oxsk0q53FyKbfxdLkacqf-FtK5hOslWJ3wZWSGr2Rpjk-obPbnHw38Qd6a61lNlw4fbhueIi-aMMXwvtmVrBrw`
+                Authorization: `Bearer {$tokenVal}`
             }
         }).then(res => {
             console.log(res.data)

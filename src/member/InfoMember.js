@@ -129,6 +129,7 @@ const InfoMember = ({setNum}) => {
 
     const [idDiv, setIdDiv] = useState('')
     const [pwdDiv, setPwdDiv] = useState('')
+    const [certifOk, setCertifOk] = useState(1);
 
 
     //아이디 유효성 검사
@@ -175,10 +176,18 @@ const InfoMember = ({setNum}) => {
 
         if (success) {
             alert('success');
+            setCertifOk(0);
 
         } else {
             alert(`fail : ${errorMsg}`);
+            setCertifOk(1);
         }
+    }
+
+    if (name && birth && phoneNumber && username && password && email) {
+        setDisable(false);
+    } else {
+        setDisable(true);
     }
 
 
@@ -315,15 +324,12 @@ const InfoMember = ({setNum}) => {
                         <td>
                             <input
                                 maxLength={12}
-                                id="ibxJoinInfoRegLoginId"
+                                id="username"
                                 type="text"
                                 placeholder="영문,숫자 조합(8~12자)"
-                                name='id'
+                                name='username'
                                 value={username}
-                                onChange={() => {
-                                    onInputId();
-                                    inputValue();
-                                }}
+                                onChange={inputValue}
                                 onBlur={checkId}
                                 className={`${joinForm.input_text} ${joinForm.w260px}`} //" w260px"
                             />
@@ -337,6 +343,7 @@ const InfoMember = ({setNum}) => {
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <th scope="row">
                             <label htmlFor="ibxJoinInfoRegLoginPwd">
@@ -346,9 +353,9 @@ const InfoMember = ({setNum}) => {
                         <td>
                             <input
                                 maxLength={16}
-                                id="ibxJoinInfoRegLoginPwd"
+                                id="password"
                                 type="password"
-                                name='pwd'
+                                name='password'
                                 placeholder="비밀번호"
                                 className={`${joinForm.input_text} ${joinForm.w260px}`} //" w260px"
                                 value={password}
@@ -384,6 +391,13 @@ const InfoMember = ({setNum}) => {
                                 type="password"
                                 placeholder="비밀번호 확인"
                                 className={`${joinForm.input_text} ${joinForm.w260px}`} //" w260px"
+                                onChange={(e) => {
+                                    if (password !== e.target.value) {
+                                        setInputRePwdChk("비밀번호가 일치하지 않습니다");
+                                    } else {
+                                        setInputRePwdChk("");
+                                    }
+                                }}
                             />
                         </td>
                     </tr>
@@ -483,6 +497,13 @@ const InfoMember = ({setNum}) => {
                     type="button"
                     className={`${joinForm.button} ${joinForm.purple} ${joinForm.large}`}
                     disabled={disable}
+                    onClick={() => {
+                        if (certifOk === 1) {
+                            alert("본인인증을 해주시기 바랍니다");
+                        } else {
+                            write();
+                        }
+                    }}
                 >
                     회원가입{/*회원가입*/}
                 </button>
