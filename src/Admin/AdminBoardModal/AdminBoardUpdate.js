@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
+
+// 게시글 수정하기 
 const AdminBoardUpdate = (props) => {
   // const as = props.adUpSeq1;
   
