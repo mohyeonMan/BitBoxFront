@@ -13,9 +13,6 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {setRefreshToken} from "src/member/storage/Cookie";
-import {useDispatch} from "react-redux";
-import {SET_TOKEN} from "src/member/store/AccessToken";
-// import {setRefreshToken} from "../member/storage/Cookie";
 
 const theme = createTheme();
 
@@ -40,7 +37,6 @@ const LoginForm = () => {
 
     const navi = useNavigate();
 
-    const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -53,7 +49,7 @@ const LoginForm = () => {
             if (res.data) {
                 alert(JSON.stringify(res.data));
                 setRefreshToken(res.data.refreshToken);
-                dispatch(SET_TOKEN(res.data.accessToken));
+                localStorage.setItem("accessToken", res.data.accessToken);
                 navi("/");
             }
         }).catch(error => {
@@ -61,25 +57,12 @@ const LoginForm = () => {
             alert("아이디 또는 비밀번호가 틀렸습니다");
         })
 
-
-        // authCtx.login(form.username, form.password);
-        //
-        // if (!authCtx.isSuccess) {
-        //     alert("아이디 또는 비밀번호가 틀렸습니다.");
-        //     return false;
-        // } else {
-        //     alert("welcome!");
-        //     navi("/");
-        // }
-        //
-
-
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -89,17 +72,18 @@ const LoginForm = () => {
                     }}
                 >
                     <img src="../img_member/mainLogo.png" alt="logo" width="50%"/>
-                    <Avatar sx={{ m: 1, backgroundColor: "#B20710" }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, backgroundColor: "#B20710"}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         로그인
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            autoFocus={true}
                             id="username"
                             label="아이디"
                             name="username"
@@ -122,7 +106,7 @@ const LoginForm = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
                         >
                             로그인
                         </Button>

@@ -89,7 +89,7 @@ const UserPage = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(()=>{
-    axios.get('http://localhost:8080/member/test')
+    axios.get('http://localhost:8080/member123/test')
         .then((res) =>setMember(res.data) )
         .catch(error => console.log(error))
   },[])
