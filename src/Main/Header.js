@@ -122,7 +122,7 @@ const UserNavList = () => {
 
     // 로그아웃
     const logoutHandler = () => {
-        dispatch(DELETE_TOKEN()); // accessToken 삭제
+        localStorage.removeItem("accessToken");
         removeCookieToken(); // refreshToken 삭제
         alert("로그아웃");
         window.location.replace("/");
