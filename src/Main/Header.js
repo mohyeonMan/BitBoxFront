@@ -8,10 +8,7 @@ import signupIcon from './img/join.png';
 import mypageIcon from './img/my.png';
 import supportIcon from './img/service-center.png';
 import searchIcon from './img/search.png';
-import {useDispatch, useSelector} from "react-redux";
-import {getCookieToken, removeCookieToken, setRefreshToken} from "src/member/storage/Cookie";
-import {DELETE_TOKEN, SET_TOKEN} from "src/member/store/AccessToken";
-import axios from "axios";
+import {getCookieToken, removeCookieToken} from "src/member/storage/Cookie";
 
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
@@ -110,7 +107,6 @@ const Header = () => {
 
 const UserNavList = () => {
 
-    const dispatch = useDispatch();
 
     const [isLogin, setIsLogin] = useState(false);
 
@@ -127,27 +123,6 @@ const UserNavList = () => {
         alert("로그아웃");
         window.location.replace("/");
     }
-
-
-     const accessToken = useSelector(state => state);
-    console.log(accessToken)
-    // 서버에 리프레시 토큰을 보내고 엑세스토큰 재발급하기
-
-/*    useEffect(() => {
-        axios.post(`http://localhost:3000/auth/reIssue`, {
-            refreshToken: getCookieToken()
-        }).then(res => {
-            if (res.data) {
-                console.log("재발급 : " + res.data);
-                setRefreshToken(res.data.refreshToken);
-                dispatch(SET_TOKEN(res.data.accessToken));
-            }
-        })
-    }, [getCookieToken()]); */
-
-
-
-
 
     return (
         <ul>
