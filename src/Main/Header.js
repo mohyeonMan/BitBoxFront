@@ -174,6 +174,12 @@ const UserNavList = () => {
                 </a>
             </li>
             <li>
+                <a>
+                    <img src={loginIcon} alt="로그인 아이콘"/>
+                    <span><Link to={'/test'}>Test</Link></span>
+                </a>
+            </li>
+            <li>
                 {!isLogin &&
                     <a>
                         <img src={signupIcon} alt="회원가입 아이콘" />
