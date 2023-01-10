@@ -87,7 +87,7 @@ const Header = () => {
                                             <h2><Link to={"/user/calendar"}>예매</Link></h2>
                                         </li>
                                         <li>
-                                            <h2><a>스토어</a></h2>                                               
+                                            <h2><Link to={"/store/"}>스토어</Link></h2>
                                         </li>
                                         <li>
                                             <h2><a>이벤트</a></h2>                                             
@@ -118,6 +118,7 @@ const UserNavList = () => {
     // 로그아웃
     const logoutHandler = () => {
         localStorage.removeItem("accessToken");
+        sessionStorage.removeItem("userName");
         removeCookieToken(); // refreshToken 삭제
         alert("로그아웃");
         window.location.replace("/");
@@ -185,7 +186,7 @@ const MovieNavList = () => {
             <li><a>영화</a></li>
             <li><a>극장</a></li>
             <li><Link to={"/user/calendar"}>예매</Link></li>
-            <li><a>스토어</a></li>
+            <li><Link to={"/store/"}>스토어</Link></li>
             <li><a>이벤트</a></li>
             <li><a>혜택</a></li>
         </ul>
