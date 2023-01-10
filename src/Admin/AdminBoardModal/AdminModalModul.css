@@ -15,7 +15,8 @@
 }
 .modal > section {
   width: 90%;
-  max-width: 700px;
+  /* 모달창 크기 조절 */
+  max-width: 400px;
   margin: 0 auto;
   border-radius: 0.3rem;
   background-color: #fff;
