@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import joinForm from './JoinForm.module.css';
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 
 const InfoMember = ({setNum}) => {
+
+    const navi = useNavigate();
+
     //상단 페이지 구분바
     useEffect(() => {
         setNum(3)
@@ -112,7 +116,7 @@ const InfoMember = ({setNum}) => {
 
 
     // 유효성 검사 후 회원가입 버튼 활성화
-    const [disable, setDisable] = useState(true);
+    const [disable, setDisable] = useState(false);
     // 이름 값 체크
     const [inputNameChk, setInputNameChk] = useState("");
     // 생년월일 체크
@@ -125,6 +129,12 @@ const InfoMember = ({setNum}) => {
     const [inputRePwdChk, setInputRePwdChk] = useState("");
     // 이메일 체크
     const [inputEmailChk, setInputEmailChk] = useState("");
+
+
+    // 이메일 형식 체크
+    // eslint-disable-next-line
+    const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
 
 
     const [idDiv, setIdDiv] = useState('')
@@ -175,8 +185,18 @@ const InfoMember = ({setNum}) => {
         } = response;
 
         if (success) {
-            alert('success');
-            setCertifOk(0);
+            axios.get(`http://localhost:3000/member/existName?name=${name}`)
+                .then(res => {
+                    if (res.data === 'exist') {
+                        alert("회원가입이 완료되어 있는 인증정보입니다");
+                        setCertifOk(1);
+                    } else {
+                        alert('인증이 완료되었습니다.');
+                        setCertifOk(0);
+                        setCertifBtn(true)
+                    }
+                })
+                .catch(error => console.log(error));
 
         } else {
             alert(`fail : ${errorMsg}`);
@@ -184,12 +204,14 @@ const InfoMember = ({setNum}) => {
         }
     }
 
-    if (name && birth && phoneNumber && username && password && email) {
-        setDisable(false);
-    } else {
-        setDisable(true);
+    const signUpActionHandler = () => {
+        axios.post('http://localhost:8080/auth/signup', null, {params: form})
+            .then(() => {
+                alert('계정이 등록되었습니다. 감사합니다.');
+                navi("/member/joinForm/finishJoin");
+            })
+            .catch(error => console.log(error));
     }
-
 
     return (
         <>
@@ -208,7 +230,7 @@ const InfoMember = ({setNum}) => {
                     </colgroup>
                     <tbody>
                     <tr>
-                        <th scope="row">이름</th>
+                        <th scope="row">이름*</th>
                         <td id="ibxMbJoinInfoRegBirthDe">
                             <input
                                 autoFocus={true}
@@ -230,7 +252,7 @@ const InfoMember = ({setNum}) => {
                             />
                             <div style={{width: "auto"}}>
                                 <div id="nameDiv" style={{
-                                    marginLeft: "60px",
+                                    marginLeft: "73px",
                                     color: "#B20710",
                                     fontSize: "10pt",
                                     textAlign: "left"
@@ -239,7 +261,7 @@ const InfoMember = ({setNum}) => {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">생년월일{/*생년월일*/}</th>
+                        <th scope="row">생년월일*{/*생년월일*/}</th>
                         <td id="ibxMbJoinInfoRegBirthDe">
                             <input
                                 maxLength={6}
@@ -262,7 +284,7 @@ const InfoMember = ({setNum}) => {
                             />
                             <div style={{width: "auto"}}>
                                 <div id="nameDiv" style={{
-                                    marginLeft: "60px",
+                                    marginLeft: "73px",
                                     color: "#B20710",
                                     fontSize: "10pt",
                                     textAlign: "left"
@@ -272,7 +294,7 @@ const InfoMember = ({setNum}) => {
                     </tr>
                     {/* 휴대폰 번호 불러올때 */}
                     <tr id="trMblpTelno">
-                        <th scope="row">휴대폰 번호 {/*휴대폰 번호 */}</th>
+                        <th scope="row">휴대폰 번호* {/*휴대폰 번호 */}</th>
                         <td>
                             <input
                                 maxLength={11}
@@ -308,7 +330,7 @@ const InfoMember = ({setNum}) => {
                             </button>
                             <div style={{width: "auto"}}>
                                 <div id="nameDiv" style={{
-                                    marginLeft: "60px",
+                                    marginLeft: "70px",
                                     color: "#B20710",
                                     fontSize: "10pt",
                                     textAlign: "left"
@@ -319,7 +341,7 @@ const InfoMember = ({setNum}) => {
 
                     <tr>
                         <th scope="row">
-                            <label htmlFor="ibxJoinInfoRegLoginId">아이디{/*아이디*/}</label>
+                            <label htmlFor="ibxJoinInfoRegLoginId">아이디*{/*아이디*/}</label>
                         </th>
                         <td>
                             <input
@@ -335,7 +357,7 @@ const InfoMember = ({setNum}) => {
                             />
                             <div style={{width: "auto"}}>
                                 <div id="nameDiv" style={{
-                                    marginLeft: "5px",
+                                    marginLeft: "70px",
                                     color: "#B20710",
                                     fontSize: "10pt",
                                     textAlign: "left"
@@ -347,7 +369,7 @@ const InfoMember = ({setNum}) => {
                     <tr>
                         <th scope="row">
                             <label htmlFor="ibxJoinInfoRegLoginPwd">
-                                비밀번호{/*비밀번호*/}
+                                비밀번호*{/*비밀번호*/}
                             </label>
                         </th>
                         <td>
@@ -370,18 +392,18 @@ const InfoMember = ({setNum}) => {
                             />
                             <div style={{width: "auto"}}>
                                 <div id="nameDiv" style={{
-                                    marginLeft: "5px",
+                                    marginLeft: "65px",
                                     color: "#B20710",
                                     fontSize: "10pt",
                                     textAlign: "left"
-                                }}>{pwdDiv} </div>
+                                }}>{inputPwdChk} </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">
                             <label htmlFor="ibxJoinInfoRegLoginPwdConfirm">
-                                비밀번호 확인{/*비밀번호 확인*/}
+                                비밀번호 확인*{/*비밀번호 확인*/}
                             </label>
                         </th>
                         <td>
@@ -394,27 +416,58 @@ const InfoMember = ({setNum}) => {
                                 onChange={(e) => {
                                     if (password !== e.target.value) {
                                         setInputRePwdChk("비밀번호가 일치하지 않습니다");
+                                        setDisable(true)
                                     } else {
                                         setInputRePwdChk("");
+                                        setDisable(false)
                                     }
                                 }}
                             />
+                            <div style={{width: "auto"}}>
+                                <div id="nameDiv" style={{
+                                    marginLeft: "5px",
+                                    color: "#B20710",
+                                    fontSize: "10pt",
+                                    textAlign: "left"
+                                }}>{inputRePwdChk} </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">
                             <label htmlFor="ibxJoinInfoRegEmail">
-                                이메일 주소{/*이메일 주소*/}
+                                이메일 주소*{/*이메일 주소*/}
                             </label>
                         </th>
                         <td>
                             <input
                                 maxLength={50}
-                                id="ibxJoinInfoRegEmail"
+                                id="email"
+                                name="email"
                                 type="email"
                                 placeholder="이메일주소를 입력해 주세요"
                                 className={`${joinForm.input_text} ${joinForm.w260px}`} //" w260px"
+                                value={email}
+                                onChange={inputValue}
+                                onBlur={(e) => {
+                                    if (regExp.test(e.target.value)) {
+                                        setInputEmailChk("");
+                                        setDisable(false);
+                                    } else {
+                                        setInputEmailChk("이메일 형식이 올바르지 않습니다");
+                                        setDisable(true);
+                                    }
+                                }}
+
                             />
+                            <div style={{width: "auto"}}>
+                                <div id="nameDiv" style={{
+                                    marginLeft: "40px",
+                                    color: "#B20710",
+                                    fontSize: "10pt",
+                                    textAlign: "left"
+                                }}>{inputEmailChk} </div>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -496,14 +549,16 @@ const InfoMember = ({setNum}) => {
                     id="btnJoinInfoRegButton"
                     type="button"
                     className={`${joinForm.button} ${joinForm.purple} ${joinForm.large}`}
-                    disabled={disable}
                     onClick={() => {
-                        if (certifOk === 1) {
+                        if (!(name && birth && phoneNumber && username && password && email)) {
+                            alert("필수 정보를 입력해주세요");
+                        } else if (certifOk === 1) {
                             alert("본인인증을 해주시기 바랍니다");
                         } else {
-                            write();
+                            signUpActionHandler();
                         }
                     }}
+                    disabled={disable}
                 >
                     회원가입{/*회원가입*/}
                 </button>

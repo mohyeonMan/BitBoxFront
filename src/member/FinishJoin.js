@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import joinForm from './JoinForm.module.css';
+import {useNavigate} from "react-router-dom";
 
 const FinishJoin = ({ setNum }) => {
+
+    const navi = useNavigate();
 
  //상단 페이지 구분바
  useEffect(()=>{
@@ -26,6 +29,9 @@ const FinishJoin = ({ setNum }) => {
                 href="/event/detail?eventNo=9737"
                 title="메인 페이지 이동"
                 className={`${joinForm.button} ${joinForm.purple} ${joinForm.large}`}
+                onClick={() => {
+                    navi("/");
+                }}
                 >
                 메인 페이지 이동하기
                 </a>

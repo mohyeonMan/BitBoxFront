@@ -133,7 +133,7 @@ const UserNavList = () => {
     console.log(accessToken)
     // 서버에 리프레시 토큰을 보내고 엑세스토큰 재발급하기
 
-    useEffect(() => {
+/*    useEffect(() => {
         axios.post(`http://localhost:3000/auth/reIssue`, {
             refreshToken: getCookieToken()
         }).then(res => {
@@ -143,7 +143,7 @@ const UserNavList = () => {
                 dispatch(SET_TOKEN(res.data.accessToken));
             }
         })
-    }, [getCookieToken()]);
+    }, [getCookieToken()]); */
 
 
 
