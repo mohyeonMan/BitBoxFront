@@ -51,7 +51,7 @@ const Header = () => {
                         <a href={'/'}><img src={logo} alt="CGV 로고"/></a>
                         <span>비이트바악스</span>
                     </div>
-                    {/* <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/> */}
+                     <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/>
                     <UserNavList />
                 </div>
             </div>
@@ -82,7 +82,7 @@ const Header = () => {
                                             <h2><a>극장</a></h2>                                               
                                         </li>
                                         <li>
-                                            <h2><a><strong>예매</strong></a></h2>                                              
+                                            <h2><Link to={"/user/calendar"}>예매</Link></h2>
                                         </li>
                                         <li>
                                             <h2><a>스토어</a></h2>                                               
