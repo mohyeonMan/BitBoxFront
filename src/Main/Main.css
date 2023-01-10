@@ -7,7 +7,7 @@
 }
 body {
     margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: Roboto,Dotum,'돋움',sans-serif!important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -19,7 +19,8 @@ ul {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none!important;
+
 }
 
 button {

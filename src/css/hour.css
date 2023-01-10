@@ -6,6 +6,7 @@
     border-bottom: 1px solid #d8d9db;
 }
 
+
 .hour-wrap-2{
     width:600px;
 }
@@ -13,7 +14,8 @@
     /* Style the buttons */
     border: none;
     outline: none;
-    padding: 5px 20px;
+    margin: 0 5px;
+    padding: 5px 15px;
     cursor: pointer;
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
     font-size: .8667em;
@@ -45,4 +47,34 @@
     background-color: #ccc;
     color: red;
     cursor: default;
+}
+.left2{
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0 15px;
+    padding: 5px 5px;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    width: 7px;
+    height: 12px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-cld-pre.png);
+}
+
+.right2{
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0 15px;
+    padding: 5px 5px;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    width: 7px;
+    height: 12px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-cld-next.png);
 }

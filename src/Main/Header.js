@@ -60,45 +60,45 @@ const Header = () => {
 
 
             <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
-                {ScrollActive ?
-                    <div id="nav-bar">
-                        <nav className="container">
-                            <MovieNavList />
-                            <form onSubmit={handleSearchKeySubmit}>
-                                <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이" />
-                                <button type="submit">
-                                    <img src={searchIcon} alt="검색 아이콘" />
-                                </button>
-                            </form>
-                        </nav>
+                        {ScrollActive ? 
+                                <div id="nav-bar">
+                                <nav className="container">
+                                    <MovieNavList />
+                                    <form onSubmit={handleSearchKeySubmit}>
+                                        <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이"/>
+                                        <button type="submit">
+                                            <img src={searchIcon} alt="검색 아이콘" />
+                                        </button>
+                                    </form>
+                                </nav>
+                            </div>
+                                : 
+                                <div className="nav-fixed">
+                                   <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
+                                    <ul className="nav_menu">
+                                    
+                                        <li>
+                                            <h2><a>영화</a></h2>
+                                        </li>
+                                        <li>
+                                            <h2><a>극장</a></h2>                                               
+                                        </li>
+                                        <li>
+                                            <h2><Link to={"/user/calendar"}>예매</Link></h2>
+                                        </li>
+                                        <li>
+                                            <h2><a>스토어</a></h2>                                               
+                                        </li>
+                                        <li>
+                                            <h2><a>이벤트</a></h2>                                             
+                                        </li>
+                                        <li>
+                                            <h2><a>혜택</a></h2>                                            
+                                        </li>
+                                    </ul>                                
+                                    
+                                </div>}
                     </div>
-                    :
-                    <div className="nav-fixed">
-                        <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
-                        <ul className="nav_menu">
-
-                            <li>
-                                <h2><a>영화</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>극장</a></h2>
-                            </li>
-                            <li>
-                                <h2><a><strong>예매</strong></a></h2>
-                            </li>
-                            <li>
-                                <h2><a>스토어</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>이벤트</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>혜택</a></h2>
-                            </li>
-                        </ul>
-
-                    </div>}
-            </div>
 
 
         </header>

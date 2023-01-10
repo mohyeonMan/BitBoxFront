@@ -9,6 +9,7 @@ import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
 import MyPage from "./member/MyPage";
 import Calendar from "./user/Calendar";
 import Test from "./Admin/test";
+import Get from "src/user/Get";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
             <Route path='/member/myPage' element={<MyPage />} />
             <Route path='/user/calendar' element={<Calendar />} />
+            <Route path="/user/get/:selectedDate/:movieName/:cityName/:cinemaName/:time/:theater/:pk" element={<Get/>} />
             <Route path='/test' element={<Test/>}/>
         </Routes>
     );
