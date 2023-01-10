@@ -65,7 +65,7 @@ const AdminBoardWrite = () => {
       <table style={{width:330}}>
         <tbody>
            <tr> 
-             <td style={{textAlign:'left',textDecorationColor:'black'}}>Title</td>
+           <td style={{textAlign:'left',textDecorationColor:'black',width:80,fontSize:15}}>Title</td>
               <td> <input style={{width:250}} type="text" name="title" value={title} onChange={onInput}/>
                    <div id="titleDiv" style={{color:'red',fontSize:12,textAlign:'right'}}>{titleDiv}</div>
               </td>
