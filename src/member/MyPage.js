@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {getCookieToken} from "src/member/storage/Cookie";
+import {useNavigate} from "react-router-dom";
 
 const MyPage = () => {
+
+    const navi = useNavigate();
 
     const [status, setStatus] = useState({});
 
@@ -17,6 +20,10 @@ const MyPage = () => {
         }).then(res => {
             console.log(res.data)
             setStatus(res.data)
+        }).catch(error => {
+            console.log(error.response);
+            alert("로그인이 필요합니다");
+            navi("/member/loginForm");
         })
 
     }, [])
