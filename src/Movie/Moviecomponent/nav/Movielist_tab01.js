@@ -158,7 +158,7 @@ const Movielist_tab01 = () => {
                                             <p className='Movielist_title_maintitle'>{item.movie_title}</p>
                                         </div>
                                         <div className='Movielist_title_ratedate'>
-                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}% &nbsp;|</span>
+                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}% &nbsp; |</span>
                                             <span className='Movielist_title_date'> &nbsp;개봉일 {item.movie_release_start}</span>
                                         </div>
                                         
