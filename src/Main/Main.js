@@ -31,7 +31,9 @@ const Main = () => {
     const video = document.getElementById('video'); 
     
     return (
+        <div className='asdf1234'>
         <Layout>
+
             <main>
                 <article>
                     <div className="movie-wrap">
@@ -50,7 +52,7 @@ const Main = () => {
                         </div>
                     </div>
                     
-                    <div className="container">
+                    <div className="container55">
                         <header>
                             <div className="tabBtn_wrap">
                                 <h3><a href="#none" className="active" id="btnMovie">무비차트</a></h3>
@@ -63,7 +65,7 @@ const Main = () => {
                     </div>
                 </article>
 
-                <div className="container">
+                <div className="container55">
                 
                 <div className="event_title_wrap">
                     <h3>EVENT</h3>
@@ -166,7 +168,9 @@ const Main = () => {
                     </div>
             </main>
             <Footer/>
+
         </Layout>
+        </div>
     );
 };
 

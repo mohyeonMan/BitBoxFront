@@ -1,4 +1,4 @@
-* {
+.joinForm.bg_member * {
     box-sizing: border-box;
 }
 .bg_member {
@@ -36,19 +36,19 @@
     margin: 0;
     padding: 0 0 70px 0;
 }
-h1, h2, h3, h4, h5, h6 {
+.joinForm.bg_member h1, .joinForm.bg_member h2, .joinForm.bg_member h3, .joinForm.bg_member h4, .joinForm.bg_member h5, .joinForm.bg_member h6 {
     margin: 0;
     padding: 0;
     font-weight: 400;
 }
-h1 {
+.joinForm.bg_member h1 {
     margin: .67em 0;
     font-size: 2em;
 }
-p {
+.joinForm.bg_member p {
     display: block;
 }
-.member_wrap .ci a {
+.ci a {
     display: block;
     width: 140px;
     height: 47px;
@@ -58,12 +58,12 @@ p {
     line-height: 0;
     background: url("../Main/img/mainLogo.png") center no-repeat;
 }
-a:visited {
+.joinForm.bg_member a:visited {
     color: #666;
     text-decoration: none;
-    outline: 1px dotted #000;
+    outline: 1px dotted red;
 }
-a {
+.joinForm.bg_member a {
     background-color: transparent;
 }
 .member_wrap .col-wrap {
@@ -94,7 +94,7 @@ a {
     border-bottom: 3px solid #B20710;
 
 }
-ol, ul {
+.joinForm.bg_member ol, .joinForm.bg_member ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -127,7 +127,7 @@ ol, ul {
     text-align: center;
     font-size: .9333em;
 }
-em {
+.joinForm.bg_member em {
     font-style: normal;
 }
 .member_wrap p {
@@ -148,7 +148,7 @@ em {
     color: #222;
     font-weight: 400;
 }
-b, strong {
+.joinForm.bg_member b, .joinForm.bg_member strong {
     font-weight: 700;
 }
 .member_wrap .page_info_txt span {
@@ -183,11 +183,11 @@ b, strong {
     text-decoration: none;
     margin: auto;
 }
-a:link {
+.joinForm.bg_member a:link {
     color: #444;
     text-decoration: none;
 }
-a {
+.joinForm.bg_member a {
     background-color: transparent;
 }
 .member_wrap .join_chk_me a i {
@@ -248,25 +248,25 @@ a {
     color: #222;
     border-bottom: 1px solid #ebebeb;
 }
-[type=checkbox], [type=radio] {
+.joinForm.bg_member [type=checkbox], .joinForm.bg_member [type=radio] {
     width: 16px;
     height: 16px;
     vertical-align: middle;
 }
-[type=checkbox], [type=radio] {
+.joinForm.bg_member [type=checkbox], .joinForm.bg_member [type=radio] {
     box-sizing: border-box;
     padding: 0;
 }
-button, input {
+.joinForm.bg_member button, .joinForm.bg_member input {
     overflow: visible;
 }
-button, input, optgroup, select, textarea {
+.joinForm.bg_member button, .joinForm.bg_member input, .joinForm.bg_member optgroup, .joinForm.bg_member select, .joinForm.bg_member textarea {
     margin: 0;
     font-family: inherit;
     font-size: 1em;
     line-height: 1.15;
 }
-label {
+.joinForm.bg_member label {
     display: inline-block;
     vertical-align: middle;
     cursor: pointer;
@@ -289,11 +289,11 @@ label {
     border: 1px solid #d8d9db;
     font-size: 14px!important;
 }
-dd, dl, dt {
+.joinForm.bg_member dd, .joinForm.bg_member dl, .joinForm.bg_member dt {
     margin: 0;
     padding: 0;
 }
-table {
+.joinForm.bg_member table {
     width: 100%;
     margin: 0;
     border: 0;
@@ -301,7 +301,7 @@ table {
     border-collapse: collapse;
     empty-cells: show;
 }
-table td, table th {
+.joinForm.bg_member table td, .joinForm.bg_member table th {
     padding: 0;
 }
 .member_wrap .btn_member_bottom {
@@ -347,19 +347,19 @@ table td, table th {
     background-color: #fff;
     cursor: pointer;
 }
-[type=button], [type=reset], [type=submit], button {
+.joinForm.bg_member [type=button], .joinForm.bg_member [type=reset], .joinForm.bg_member [type=submit], .joinForm.bg_member button {
     -webkit-appearance: button;
 }
-button {
+.joinForm.bg_member button {
     cursor: pointer;
     letter-spacing: -.5px;
     font-weight: 400;
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 }
-button, select {
+.joinForm.bg_member button, .joinForm.bg_member select {
     text-transform: none;
 }
-button, input {
+.joinForm.bg_member button, .joinForm.bg_member input {
     overflow: visible;
 }
 .member_wrap .page_info_txt {
@@ -377,7 +377,7 @@ button, input {
     position: relative;
     border-top: 1px solid #555;
 }
-table caption {
+.joinForm.bg_member table caption {
     overflow: hidden;
     width: 0;
     height: 0;
@@ -395,7 +395,7 @@ table caption {
     text-align: left;
     border-bottom: 1px solid #d1d5dd;
 }
-table td, table th {
+.joinForm.bg_member table td, .joinForm.bg_member table th {
     padding: 0;
 }
 .member_wrap .table_wrap .board_form tr td:last-child {
@@ -471,10 +471,10 @@ table td, table th {
 .w75px {
     width: 75px!important;
 }
-a.button {
+.joinForm.bg_member a.button {
     text-decoration: none;
 }
-a:link {
+.joinForm.bg_member a:link {
     color: #444;
     text-decoration: none;
 }
@@ -488,10 +488,10 @@ a:link {
     color: #e81002;
     font-size: .9333em;
 }
-input.input_text.w260px+.tooltiptext {
+.joinForm.bg_member input.input_text.w260px+.tooltiptext {
     left: 60%;
 }
-input.input-text+.tooltiptext {
+.joinForm.bg_member input.input-text+.tooltiptext {
     width: 200px;
     background-color: #555;
     color: #fff;
@@ -504,7 +504,7 @@ input.input-text+.tooltiptext {
     margin-left: -60px;
     display: none;
 }
-input.input-text+.tooltiptext::after {
+.joinForm.bg_member input.input-text+.tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -621,7 +621,7 @@ input.input-text+.tooltiptext::after {
     padding: 40px 0 0 0;
     text-align: center;
 }
-a.button .purple:active, a.button .purple:focus, a.button.purple:hover, a.button.purple:visited {
+.joinForm.bg_member a.button .purple:active, .joinForm.bg_member a.button .purple:focus, .joinForm.bg_member a.button.purple:hover, .joinForm.bg_member a.button.purple:visited {
     color: #fff;
 }
 .member_wrap .btn_member_bottom .button {
@@ -629,7 +629,7 @@ a.button .purple:active, a.button .purple:focus, a.button.purple:hover, a.button
     padding: 0;
     font-size: 20px;
 }
-a.button:active, a.button:focus, a.button:hover, a.button:visited {
+.joinForm.bg_member a.button:active, .joinForm.bg_member a.button:focus, .joinForm.bg_member a.button:hover, .joinForm.bg_member a.button:visited {
     color: #B20710;
 }
 .button .purple {
@@ -643,13 +643,13 @@ a.button:active, a.button:focus, a.button:hover, a.button:visited {
     padding: 0 30px;
     line-height: 44px;
 }
-a.button {
+.joinForm.bg_member a.button {
     text-decoration: none;
 }
-a:visited {
+.joinForm.bg_member a:visited {
     color: #666;
     text-decoration: none;
-    outline: 1px dotted #000;
+    outline: 1px dotted red;
 }
 .button {
     display: inline-block;
@@ -668,6 +668,6 @@ a:visited {
     background-color: #fff;
     cursor: pointer;
 }
-a {
+.joinForm.bg_member a {
     background-color: transparent;
 }

@@ -9,16 +9,16 @@ function Hours() {
     const handleClick = (hour) => {};
 
     return (
-        <div className='hour-wrap'>
+        <div className='hour-wrap2'>
 
             <button className="previous" onClick={() => {
                 if(!page<1)
                 setPage(page - 1)
             }}><span className='left2'/></button>
-            <div className='hour-wrap-2'>
+            <div className='hour-wrap2-2'>
             <HourList hours={hours.slice(page, page+7)} onClick={handleClick} />
             </div>
-            <button className="next" onClick={() => {
+            <button className="next2" onClick={() => {
                 if(page<17)
                 setPage(page + 1)
             }}><span className='right2'/></button>
