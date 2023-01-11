@@ -9,17 +9,18 @@ const MyPage = () => {
 
     const [status, setStatus] = useState({});
 
-    const tokenVal = getCookieToken();
+    const tokenVal = localStorage.getItem('accessToken');
     const expireTime = localStorage.getItem('expirationTime');
     useEffect(()=> {
 
         axios.get("/member/me", {
             headers: {
-                Authorization: `Bearer {$tokenVal}`
+                Authorization: `Bearer ${tokenVal}`
             }
         }).then(res => {
             console.log(res.data)
             setStatus(res.data)
+            sessionStorage.setItem("userName", res.data.username);
         }).catch(error => {
             console.log(error.response);
             alert("로그인이 필요합니다");
