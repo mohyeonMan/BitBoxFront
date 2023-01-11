@@ -41,7 +41,7 @@ const PayComplete = () => {
             objectType: 'feed',
             content: {
                 title: 'BITBOX에서 보내요!',
-                description: `상품 결제 내역입니다.\n 주문번호 : ${params}`,
+                description: `상품 결제 내역입니다. \n주문번호 : ${params}`,
                 imageUrl: 'bitbox',
                 link: {
                     webUrl: `http://localhost:3000/store/`
@@ -64,7 +64,7 @@ const PayComplete = () => {
         axios.post('http://localhost:8080/store/sms', null, {params: {
             recipientPhoneNumber : phoneNumber,
             title : subject,
-            content : `[BITBOX 발신] \n상품 결제가 완료되었습니다. \n주문번호 : ${orderNumber}`
+            content : `BITBOX에서 상품 결제가 완료되었습니다. \n주문번호 : ${orderNumber}`
 
           }}
           )
@@ -73,7 +73,7 @@ const PayComplete = () => {
     }
 
     return (
-        <div>
+        <div className={completeStyles.big_payment_complete_wrap}>
             <Header />
             <StoreHeader/>
             <div className={completeStyles.cart_step_wrap}>

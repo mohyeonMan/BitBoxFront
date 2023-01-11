@@ -93,7 +93,7 @@ const List = () => {
     }
 
     return (
-        <div >
+        <div className={styles.bigger_banner_wrap}>
             <Header />
             <div className={styles.big_banner_wrap}>
                 <div className={styles.bx_wrapper}>
