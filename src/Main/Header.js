@@ -79,7 +79,7 @@ const Header = () => {
                                     <ul className="nav_menu">
                                     
                                         <li>
-                                            <h2><a>영화</a></h2>
+                                            <h2><Link to={"/movielistmain"}>영화</Link></h2>
                                         </li>
                                         <li>
                                             <h2><a>극장</a></h2>                                               
@@ -185,7 +185,7 @@ const UserNavList = () => {
 const MovieNavList = () => {
     return (
         <ul>
-            <li><a>영화</a></li>
+            <li><Link to={"/movielistmain"}>영화</Link></li>
             <li><a>극장</a></li>
             <li><Link to={"/user/calendar"}>예매</Link></li>
             <li><Link to={"/store/"}>스토어</Link></li>
