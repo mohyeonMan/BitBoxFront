@@ -2,6 +2,7 @@ import React from 'react'
 import './Footer.css';
 const Footer = ()=> {
     return (
+        <div className='asdf1234'>
         <footer>
                 <div className="img-wrapper">
                     <img src="https://adimg.cgv.co.kr/images/202111/cgvgift/0119_980x240.png" alt="광고-CGV 기프트 카드" border="0"/>
@@ -71,6 +72,7 @@ const Footer = ()=> {
                     </section>
                 </article>
             </footer>
+        </div>
     );
 };
 export default Footer;
