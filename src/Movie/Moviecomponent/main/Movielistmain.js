@@ -25,7 +25,7 @@ const Movielist = () => {
 		<Layout>
 		<div className='Movielistmain_all'>
 			<div className="Movielistmain_header">
-				<h1 className="Movielistmain_header_title">비디오</h1>
+				<h3 className="Movielistmain_header_title">전체영화</h3>
 				<div className="Movielistmain_container">
 					<ul className="Movielistmain_tab">
 						<li><button type="button" className={selected==='boxoffice'? 'Movielist_selected':'Movielist_non-selected'} id='boxoffice' onClick={(e) => Movielist(e)}>박스오피스</button></li>
