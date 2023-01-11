@@ -46,9 +46,10 @@ const Header = () => {
 
 
     return (
+        <div className='asdf1234'>
         <header>
             <div id="title-bar">
-                <div className="container">
+                <div className="container55">
                     <div>
                         <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
                         <span>비이트바악스</span>
@@ -62,7 +63,7 @@ const Header = () => {
             <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
                         {ScrollActive ? 
                                 <div id="nav-bar">
-                                <nav className="container">
+                                <nav className="container55">
                                     <MovieNavList />
                                     <form onSubmit={handleSearchKeySubmit}>
                                         <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이"/>
@@ -102,6 +103,7 @@ const Header = () => {
 
 
         </header>
+        </div>
     );
 };
 
