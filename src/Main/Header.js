@@ -87,7 +87,7 @@ const Header = () => {
                                             <h2><a><strong>예매</strong></a></h2>                                              
                                         </li>
                                         <li>
-                                            <h2><a>스토어</a></h2>                                               
+                                            <h2><Link to={"/store/"}>스토어</Link></h2>                                               
                                         </li>
                                         <li>
                                             <h2><a>이벤트</a></h2>                                             
@@ -194,7 +194,7 @@ const MovieNavList = () => {
             <li><a>영화</a></li>
             <li><a>극장</a></li>
             <li><Link to={"/user/calendar"}>예매</Link></li>
-            <li><a>스토어</a></li>
+            <li><Link to={"/store/"}>스토어</Link></li>
             <li><a>이벤트</a></li>
             <li><a>혜택</a></li>
         </ul>
