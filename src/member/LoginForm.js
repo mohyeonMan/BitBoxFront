@@ -67,7 +67,6 @@ const LoginForm = () => {
                                         }
                                     }).catch(error => {
                                         console.log(error.response);
-                                        alert("아이디 또는 비밀번호가 틀렸습니다");
                                     })
 
                                 } else {
@@ -87,7 +86,6 @@ const LoginForm = () => {
                                                 }
                                             }).catch(error => {
                                                 console.log(error.response);
-                                                alert("아이디 또는 비밀번호가 틀렸습니다");
                                             })
                                         })
                                         .catch(error => console.log(error));
@@ -200,15 +198,14 @@ const LoginForm = () => {
                             로그인
                         </Button>
                         <Button
-                            onClick={kakaoLogin}
+                            style={{backgroundColor: "#F9E000", color:"#3A1D1D", marginTop:"5px"}}
+                            type="submit"
                             fullWidth
-
-                            >
-                           <img className=''
-                                src="../img_member/kakao_login_medium_wide.png"
-                                alt="카카오 로그인 버튼"
-                            />
-
+                            variant="contained"
+                            sx={{mt: 3, mb: 1}}
+                            onClick={kakaoLogin}
+                        ><img src="../img_member/kakaoIcon.png" alt={"kakaoIcon"} style={{width:"24px"}}/>
+                            카카오로그인
                         </Button>
                         <Grid container>
                             <Grid item xs>
