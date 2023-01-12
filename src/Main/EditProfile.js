@@ -1,10 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import editProfile from './EditProfile.module.css';
+import axios from 'axios';
+import { id } from 'date-fns/locale';
+
 
 
 
 const EditProfile = () => {
+
+    useEffect (() => {
+        axios.get('http://localhost:8080/myPage/getEditProfile?username=bk123').then(
+            res => setForm(res.data)
+        ).catch(err => console.log(err))
+    }, [])
 
    // 회원가입 세팅
    const [form, setForm] = useState({
@@ -91,14 +100,14 @@ const EditProfile = () => {
                             <tr>
                                 <th scope="row">아이디  <em className={editProfile.font_orange} >*</em>
                                 </th>
-                                <td>0426zzang</td>
+                                <td>{username}</td>
                             </tr>
                             <tr>
                                 <th scope="row">
                                 이름 <em className={editProfile.font_orange} >*</em>
                                 </th>
                                 <td>
-                                <span className={editProfile.mbNmClass}>김보영</span>
+                                <span className={editProfile.mbNmClass}>{name}</span>
                                 <a
                                     href="#layer_name"
                                     className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line} ${editProfile.ml10} ${editProfile.mr10} ${editProfile.btn_modal_open}`}
@@ -114,7 +123,7 @@ const EditProfile = () => {
                                 <th scope="row">
                                 생년월일 <em className={editProfile.font_orange}>*</em>
                                 </th>
-                                <td>1900년 00월 00일</td>
+                                <td>{birth}</td>
                             </tr>
                             <tr>
                                 <th scope="row">
@@ -128,7 +137,6 @@ const EditProfile = () => {
                                     id="email"
                                     name="mbEmail"
                                     className={`${editProfile.input_text} ${editProfile.w500px}`}
-                                    defaultValue=""
                                     onChange={displayText} value={text}
                                 />
                                 <button
@@ -170,6 +178,7 @@ const EditProfile = () => {
                                     className={`${editProfile.input_text} ${editProfile.w500px}`}
                                     defaultValue=""
                                     onChange={displayText} value={text}
+                                    
                                 />
                                 </td>
                             </tr>
@@ -183,8 +192,6 @@ const EditProfile = () => {
                                     id="password"
                                     name="password"
                                     className={`${editProfile.input_text} ${editProfile.w500px}`}
-                                    defaultValue=""
-                                    value={password}
                                     onChange={inputValue}
                                     onBlur={(e) => {
                                         if (!e.target.value) {
