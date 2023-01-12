@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {getCookieToken} from "src/member/storage/Cookie";
 import {useNavigate} from "react-router-dom";
+import {removeCookieToken} from "src/member/storage/Cookie";
 
 const MyPage = () => {
 
@@ -11,6 +11,7 @@ const MyPage = () => {
 
     const tokenVal = localStorage.getItem('accessToken');
     const expireTime = localStorage.getItem('expirationTime');
+
     useEffect(()=> {
 
         axios.get("/member/me", {
@@ -23,7 +24,9 @@ const MyPage = () => {
             sessionStorage.setItem("userName", res.data.username);
         }).catch(error => {
             console.log(error.response);
-            alert("로그인이 필요합니다");
+            localStorage.removeItem('accessToken');
+            removeCookieToken();
+            alert("장시간 사용하지 않았습니다, 다시 로그인 해주세요");
             navi("/member/loginForm");
         })
 

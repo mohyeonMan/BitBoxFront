@@ -16,9 +16,6 @@ const InfoMember = ({setNum}) => {
 
 
     //체크박스
-    const onInputPwd = () => {
-    }
-
     const write = (e) => {
         e.preventDefault()
     }

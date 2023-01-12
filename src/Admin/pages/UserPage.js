@@ -109,7 +109,7 @@ const UserPage = () => {
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(()=>{
-    axios.get('http://localhost:8080/member/test', {
+    axios.get('http://localhost:8080/member123/test', {
       headers: {
         Authorization: `Bearer {$accessToken}`
       }
