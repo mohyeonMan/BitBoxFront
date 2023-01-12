@@ -18,6 +18,7 @@ import {
   IconButton,
   TableContainer,
   TablePagination,
+  Select,
 } from '@mui/material';
 // components
 import axios from "axios";
@@ -25,6 +26,8 @@ import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
+import { set } from 'date-fns';
+import { tr } from 'date-fns/locale';
 // mock
 /* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
   <option id="adminTitle "value="title">TITLE</option>
@@ -35,14 +38,21 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 const UserPage = () => {
   const setRole = () =>{
     const changerow =  document.getElementById(menuId).children[4]
-    /*const select = document.createElement('select')
-    select.innerHTML="(select)"
-    changerow.appendChild(select)*/
-
+    const select = document.createElement('select')
+    // select.innerHTML="(select)"
+    // changerow.appendChild(select)
+   
+    // select.innerHTML='<select onchange={updateRole}>'
+    //                   +'<option id="ROLE_ADMIN" value="ROLE_ADMIN">ROLE_ADMIN</option>'
+    //                   +'<option id="ROLE_USER" value="ROLE_USER">ROLE_USER</option>'
+    //                   +'<select/>'
+    // changerow.appendChild(select)
+    // console.log(select)
+    
 
   }
-  const deleteUser = () => {
 
+  const deleteUser = () => {
     axios.get('http://localhost:8080/member/delete',{
       params:{
         username:menuId
@@ -50,8 +60,10 @@ const UserPage = () => {
     })
         .then(() =>alert('삭제성공'),window.location.reload())
         .catch(error => console.log(error))
-
   }
+
+
+
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -87,6 +99,7 @@ const UserPage = () => {
     { id: 'role', label: '회원 등급', alignRight: false },
     { id: 'createDate', label: '가입일', alignRight: false },
     { id: '' },
+
   ];
   const [open, setOpen] = useState(null);
 
@@ -106,11 +119,27 @@ const UserPage = () => {
 
   const[menuId,setMenuId] = useState('')
 
+  // 
+
   useEffect(()=>{
     axios.get('http://localhost:8080/member123/test')
         .then((res) =>setMember(res.data) )
         .catch(error => console.log(error))
   },[])
+
+
+  // 수정해야함.. 일단 히든으로 어떻게든 나오게했는데 바꿔야함 다나옴.. .. 
+  const [roleUpdate, setRoleUpdate] = useState('')
+  const [show ,setShow] = useState(true)
+  const roleUp = (e) => {
+    // axios.get('http://localhost:8080/member123/test')
+    //       .the()
+    //       .catch(error => console.log(error))
+   setShow(!show)
+  }
+  //  
+
+
   const USERLIST = member.filter(item =>[{
     id: item.username,
     name : item.name,
@@ -232,8 +261,21 @@ const UserPage = () => {
                         <TableCell align="left">{username}</TableCell>
 
                         <TableCell align="left">{phoneNumber}</TableCell>
+                        
+                        {/*   */}
+                        <TableCell align="left" >
+                          {roleType}
+                        <div value={username} hidden={show}>
+                        <select defaultValue={roleType} >
+                          <option >ROLE_ADMIN</option>
+                          <option >ROLE_USER</option>
+                        </select>
+                        </div>
+                        </TableCell>
+                        {/*   */}
 
-                        <TableCell align="left">{roleType}</TableCell>
+                        {/* <TableCell align="left">{roleType}</TableCell> */}
+                       
                         <TableCell align="left">{createDate}</TableCell>
 
                         <TableCell align="right"
@@ -242,6 +284,7 @@ const UserPage = () => {
                             <Iconify icon={'eva:more-vertical-fill'}/>
                           </IconButton>
                         <Popover
+                        
                             open={Boolean(open)}
                             anchorEl={open}
                             onClose={handleCloseMenu}
@@ -261,7 +304,8 @@ const UserPage = () => {
                                 },
                               }}
                         >
-                          <MenuItem onClick={setRole} >
+                          {/* <MenuItem onClick={setRole} > */}
+                          <MenuItem onClick={roleUp} >
                             <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>
                             등급 조정
                           </MenuItem>

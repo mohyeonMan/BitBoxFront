@@ -20,7 +20,7 @@ export default function AppNewsUpdate({ ...other }) {
   return (
     <Card  {...other} >
       {/* updatenews adminboard - list */}
-      <Box sx={{ p: 2, textAlign: 'right' }} >
+      <Box sx={{ p: 1, textAlign: 'right' }} height={450} >
       <AdminBoard/>
         <Button  size="small" color="inherit" endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'}/>}>
         <AdminBoardModalPage/>

@@ -14,6 +14,7 @@ import {
   Typography,
   TableContainer,
   TablePagination,
+  InputAdornment,
 } from '@mui/material';
 // components
 import axios from "axios";
@@ -22,6 +23,8 @@ import Scrollbar from '../components/scrollbar';
 import AdminUserListHead from './AdminUserListHead';
 import AdminBoardModalUpdatePage from './AdminBoardModalUpdatePage ';
 import AdminBoardModalRead from './AdminBoardModalRead';
+import { grey, red } from '@mui/material/colors';
+import { borderTopColor } from '@mui/system';
 
 // @DashBoard - app - AppNewsUpdate.js 로 들어감 
 const AdminBoard = () => {
@@ -57,7 +60,7 @@ const AdminBoard = () => {
 
   // NEWS HEAD 
   const TABLE_HEAD = [
-    { id: '' },
+    // { id: '' },
     { id: 'adminBoardSeq', label:'NO.',alignRight: false  },
     { id: 'title', label: 'TITLE', alignRight: false },
     { id: 'content', label: 'CONTENT', alignRight: false },
@@ -197,15 +200,15 @@ const AdminBoard = () => {
   return (
     <>
       <Container >
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-          <Typography variant="h4" gutterBottom>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
+          <Typography variant="h5" gutterBottom > 
             <p/>
             NEWS
           </Typography>
         </Stack>
         <Card >
           <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
+            <TableContainer sx={{ maxWidth: 700 ,maxHeight:280}}>
               <Table>
                 <AdminUserListHead
                   order={order}
@@ -225,11 +228,11 @@ const AdminBoard = () => {
 
                       <TableRow hover key={adminBoardSeq} id={adminBoardSeq} value={adminBoardSeq} tabIndex={-1} role="checkbox" selected={selectedAdmin} 
                       >
-                        <TableCell padding="checkbox">
+                        {/* <TableCell padding="checkbox"> */}
                           {/* 지우지 않기 (칸 망가짐... ㅠㅠ) */}
                           {/* <Checkbox
                            checked={selectedAdmin} onChange={(event) => handleClick(event, adminBoardSeq)} /> */}
-                        </TableCell>
+                        {/* </TableCell> */}
 
                         <TableCell component="th" scope="row" padding="none" >
                           <Stack direction="row" alignItems="center" spacing={2}>
@@ -274,20 +277,20 @@ const AdminBoard = () => {
                   )}
                 </TableBody>
               </Table>
+              
 
           {/*  search  */}
-          <div id="adminBoardListForm" style={{width: '450px',margin:'30px', align:'right'}}>
-           <form id="searchForm" style={{textAlign:'right',width:800}}>
+          <div id="adminBoardListForm" style={{width: '450px',margin:'30px', align:'left'}}>
+           <form id="searchForm" style={{textAlign:'left',width:400}}>
            
             {/* title 또는 content로 찾을 수 있는 박스 */}
             {/* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
               <option id="adminTitle "value="title">TITLE</option>
               <option id="adminContent" value="content">CONTENT</option>
              </select>&nbsp; */}
-              <input type="text" name="adminKeyword" value={adminKeyword} onChange={e => setAdminKeyword(e.target.value)}
-              placeholder='Search Board..'style={{width:200}}
+              <input type="text" name="adminKeyword" value={adminKeyword} onChange={e => setAdminKeyword(e.target.value)} 
+              placeholder='Search Board..'style={{width:200,borderRadius:10,borderColor:'#d3d3d3'}}
               />&nbsp;
-              
             <Button onClick={onAdminSearch}>Search</Button>
            </form>
           </div>
