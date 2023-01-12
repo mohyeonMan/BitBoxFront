@@ -8,6 +8,20 @@ module.exports = function (app) {
                 '^/movieapi':''
             },
             changeOrigin: true
+        }),
+        createProxyMiddleware('/movieapp', {
+            target: 'https://api.themoviedb.org/3/movie',
+            pathRewrite: {
+                '^/movieapp':''
+            },
+            changeOrigin: true
+        }),
+        createProxyMiddleware('/moviesearch', {
+            target: 'https://api.themoviedb.org/3/search',
+            pathRewrite: {
+                '^/moviesearch':''
+            },
+            changeOrigin: true
         })
     )
 

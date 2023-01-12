@@ -59,7 +59,7 @@ const Combo = () => {
             }
             const goToPay = () => {
 
-                sessionStorage.getItem("userName") === null ? 
+                sessionStorage.getItem("userName") === null ?
                 alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
                 
                 axios.post('http://localhost:8080/store/insertCart', null, {params: {

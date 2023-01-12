@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +15,99 @@ import {setRefreshToken} from "src/member/storage/Cookie";
 
 const theme = createTheme();
 
+
 const LoginForm = () => {
+
+
+    const initKakao = () => {
+        const jsKey = "8645acd0e5c87d5d3a9ec02a6ab65543";
+        const Kakao = window.Kakao;
+        if (Kakao && !Kakao.isInitialized()) {
+            Kakao.init(jsKey);
+            console.log(Kakao.isInitialized());
+        }
+    };
+
+    useEffect(() => {
+        initKakao();
+    }, []);
+
+
+    const kakaoLogin = () => {
+        window.Kakao.Auth.login({
+            success() {
+                window.Kakao.API.request({
+                    url: "/v2/user/me",
+                    success(res) {
+                        alert(JSON.stringify(res));
+                        const kakaoAccount = res.kakao_account;
+                        const aaa = {
+                            name: kakaoAccount.profile.nickname,
+                            birth: '90'+kakaoAccount.birthday,
+                            phoneNumber: '',
+                            username:  kakaoAccount.email,
+                            password: '1q2w3e4r',
+                            email: kakaoAccount.email
+                        }
+
+                        axios.get(`http://localhost:3000/member/existName?name=${kakaoAccount.profile.nickname}`)
+                            .then(res => {
+                                if (res.data === 'exist') {
+
+
+                                    axios.post(`http://localhost:3000/auth/login`,{
+                                        username: aaa.username,
+                                        password: aaa.password
+                                    }).then(res => {
+                                        if (res.data) {
+                                            alert(JSON.stringify(res.data));
+                                            setRefreshToken(res.data.refreshToken);
+                                            localStorage.setItem("accessToken", res.data.accessToken);
+                                            navi("/");
+                                        }
+                                    }).catch(error => {
+                                        console.log(error.response);
+                                        alert("아이디 또는 비밀번호가 틀렸습니다");
+                                    })
+
+                                } else {
+
+                                    axios.post('http://localhost:3000/auth/signup', null, {params: aaa})
+                                        .then(() => {
+
+                                            axios.post(`http://localhost:3000/auth/login`,{
+                                                username: aaa.username,
+                                                password: aaa.password
+                                            }).then(res => {
+                                                if (res.data) {
+                                                    alert(JSON.stringify(res.data));
+                                                    setRefreshToken(res.data.refreshToken);
+                                                    localStorage.setItem("accessToken", res.data.accessToken);
+                                                    navi("/");
+                                                }
+                                            }).catch(error => {
+                                                console.log(error.response);
+                                                alert("아이디 또는 비밀번호가 틀렸습니다");
+                                            })
+                                        })
+                                        .catch(error => console.log(error));
+
+                                }
+                            })
+                            .catch(error => console.log(error));
+
+
+                    },
+                    fail(error) {
+                        console.log(error);
+                    },
+                });
+            },
+            fail(error) {
+                console.log(error);
+            },
+        });
+    };
 
     const [form, setForm] = useState({
         username: '',
@@ -103,9 +195,20 @@ const LoginForm = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 1}}
                         >
                             로그인
+                        </Button>
+                        <Button
+                            onClick={kakaoLogin}
+                            fullWidth
+
+                            >
+                           <img className=''
+                                src="../img_member/kakao_login_medium_wide.png"
+                                alt="카카오 로그인 버튼"
+                            />
+
                         </Button>
                         <Grid container>
                             <Grid item xs>
