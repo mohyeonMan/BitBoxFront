@@ -417,7 +417,7 @@ const Calendar = () => {
                                             id={timess[0]}
                                             onClick={() => {
 
-                                                navigate(`/user/get/${dsd}/${movieName}/${cityName}/${cinemaName}/${item.movie_time}/${item.movie_theater}/${item.pk}`)
+                                                navigate(`/user/get/${item.pk}`)
                                             }}
                                         >
                                             <div className="legend"/>
@@ -445,7 +445,7 @@ const Calendar = () => {
                                         <div className='tooltiptext2'>
                                             <iframe
 
-                                                src={`/user/get/${dsd}/${movieName}/${cityName}/${cinemaName}/${item.movie_time}/${item.movie_theater}/${item.pk}`}
+                                                src={`/user/get/${item.pk}`}
                                                 scrolling='no'
                                                 className="preview-box"
                                                 title='preview-box'

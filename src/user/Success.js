@@ -1,6 +1,6 @@
 import { SearchTwoTone } from '@mui/icons-material';
 import axios from 'axios';
-import Modal from './Modal.js';
+import ReservationModal from './ReservationModal.js';
 import React, { useEffect, useState } from 'react';
 import QRCode from "react-qr-code";
 import styles from "../css/Success.module.css";
@@ -131,22 +131,16 @@ const Success = () => {
                     </td>
                     {/* 상영예정 */}
                     <td>{item.movie_status}</td>
-                        {item.movie_status==='미상영'?<td><button onClick={()=>reservationCancel(item)}>예약취소</button></td>:''}
+                        
                         
               </tr>
               
             ))
         }
         </table>
-        <Modal open={modalOpen} close={closeModal} header="예약내역" closeBtn="창닫기">
-            <QRCode
-                size={256}
-                style={{ height: "150px", width: "150px" }}
-                value={'https://www.naver.com'}
-                viewBox={`0 0 256 256`}
-            /><br/>
-            {JSON.stringify(viewReservation)}
-        </Modal>
+        <ReservationModal open={modalOpen} close={closeModal} header="예약내역" closeBtn="창닫기" viewReservation={viewReservation} reservationCancel={reservationCancel}>
+            
+        </ReservationModal>
             </>
         }  
         </>

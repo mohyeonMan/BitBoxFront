@@ -8,7 +8,8 @@
 	display:block;
 }
 .Movielistmain_header_title{
-	margin-left: 90px;
+	margin-top: 50px;
+	margin-left: 70px;
 	margin-bottom: 26px;
 	font-weight: normal;
 }
@@ -34,15 +35,16 @@
 	
 }
 .Movielistmain_container ul.Movielistmain_tab li .Movielist_selected{
-	color: blue;
-	border-color: blue;
+	color: #fb4357;
+	font-weight: bolder;
+	border-color: #fb4357;
 	border-bottom: 1px solid white;
 }
 .Movielistmain_container ul.Movielistmain_tab li .Movielist_non-selected{
 	border-top: 1px solid rgb(211, 208, 208);
 	border-left: 1px solid rgb(211, 208, 208);
 	border-right: 1px solid rgb(211, 208, 208);
-	border-bottom: 1px solid blue;
+	border-bottom: 1px solid #fb4357;
 }
 
 .Movielist_checkbox{
@@ -73,7 +75,7 @@
   position: absolute;
   top: 50%;
   left: 1px;
-  transform: translateY(-50%);
+  transform: translateY(-55%);
   border-radius: 50%;
   background: black;
 }
@@ -117,13 +119,13 @@
 	margin-left: 735px;
 	width: 200px;
 	height: 25px;
-	transform: translateY(-145%);
+	transform: translateY(-185%);
 	border : 1px solid rgb(172, 170, 170);
 	
 }
 #search_icon{
-	margin-left: 915px;
-	transform: translateY(-335%);
+	margin-left: 910px;
+	transform: translateY(-355%);
     width: 20px;
     height: 20px;
 	cursor: pointer;
@@ -142,7 +144,7 @@
 	padding:0;
 }
 .Movielist_movietitle ol li{
-	margin: 0 8px 50px 0;
+	margin: 0 8px 30px 0;
 	width: 230px;
 	height: 450px;
 	float:left;
@@ -151,18 +153,70 @@
 .Movielist_title_num{
 	position: absolute;
 	font-size: 35px;
-	z-index: 2;
+	z-index: 5;
 	font-style: italic;
 	text-shadow: -2px 0px black, 0px 2px black, 2px 0px black, 0px -2px black;
 	color: white;
 	margin-left: 12px;
-	
 }
+.Movielist_title_img > .movielist_info {
+	opacity: 0;
+	transition: opacity 1s;
+}
+
 .Movielist_title_img{
+	position: absolute;
 	width: 230px;
 	height: 331px;
-	z-index: 1;
+	z-index: 3;
+	cursor: pointer;
 }
+
+.movielist_info{
+	position: relative;
+    display: block;
+    width: 190px;
+    height: 290px;
+    padding: 20px;
+    color: #fff;
+	z-index: 0;
+    background-color: rgba(0,0,0,.8);
+}
+.Movielist_title_img:hover{
+	display: none;
+	transition: opacity 1s;
+}
+.movielist_summary{
+	overflow: hidden;
+    height: 210px;
+    width: 100%;
+    margin-top: 15px;
+    padding: 5px 0 0 0;
+    border-top: 1px solid #3c3c3c;
+    text-align: center;
+	cursor: pointer;
+}
+
+.movielist_moviescore_preview{
+	display: inline-block;
+    text-align: center;
+	margin-left: 50px;
+    line-height: 36px;
+}
+.movielist_moviescore_tit{
+	display: block;
+    float: left;
+    margin: 0 15px 0 0;
+    font-size: .8667em;
+	transform: translateY(+75%);
+}
+
+.movielist_moviescore_number{
+	float: left;
+    font-size: 1.6em;
+    color: #59bec9;
+}
+
 .Movielist_title_area{
 	position: relative;
     width: 100%;
@@ -176,6 +230,7 @@
 	width: 23px;
 	margin: 0;
     background-size: 23px 23px;
+	transform: translateY(+20%);
 }
 .Movielist_title_maintitle{
 	overflow: hidden;
@@ -186,6 +241,7 @@
 	padding: 2px 0 0 30px;
 	font-size: 1.1em;
 	font-weight: 400;
+	transform: translateY(+5%);
 }
 
 
@@ -210,25 +266,37 @@
 	border-color: #d4d2d2;
 	background-color: white;
 	border-radius: 4px;
-	transform: translateY(-60%);
+	transform: translateY(-70%);
 	cursor: pointer;
 }
 #movie_heart_img{
 	width: 18px;
-	transform: translateY(-90%);
+	transform: translateY(-145%);
 	margin-left: -50px;
 	cursor: pointer;
 }
 
 .Movie_Btn_reserve{
-	width:160px;
+	width:230px;
 	height: 35px;
-	margin-left: 67px;
+	margin-top: 5px;
 	color:white;
 	border : 0px;
 	background-color: purple;
 	border-radius: 4px;
-	transform: translateY(-161%);
+	transform: translateY(-51%);
+	cursor: pointer;
+}
+
+.Movie_Btn_reserve_yet{
+	width:230px;
+	height: 35px;
+	margin-top: 5px;
+	color:white;
+	border : 0px;
+	background-color: #666;
+	border-radius: 4px;
+	transform: translateY(-51%);
 	cursor: pointer;
 }
 

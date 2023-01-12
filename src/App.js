@@ -24,6 +24,7 @@ import Movielist_master_write from './Movie/Moviecomponent/nav/Movielist_master_
 import Movielist_master_list from './Movie/Moviecomponent/nav/Movielist_master_list';
 import Movielist_master_delete from './Movie/Moviecomponent/nav/Movielist_master_delete';
 import Movielistmain from './Movie/Moviecomponent/main/Movielistmain';
+import Success from './user/Success';
 
 const App = () => {
 
@@ -75,8 +76,9 @@ const App = () => {
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
             <Route path='/member/myPage' element={<MyPage />} />
             <Route path='/user/calendar' element={<Calendar />} />
-            <Route path="/user/get/:selectedDate/:movieName/:cityName/:cinemaName/:time/:theater/:pk" element={<Get/>} />
+            <Route path="/user/get/:pk" element={<Get/>} />
             <Route path='/test' element={<Test/>}/>
+            <Route path='/success' element={<Success/>}/>
 
 
             {/* store */}
