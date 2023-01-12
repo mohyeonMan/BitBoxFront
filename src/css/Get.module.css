@@ -1,0 +1,187 @@
+
+.info{
+    border:1px dotted gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    margin: 50px 0;
+    
+}
+.seats{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    height: 450px;
+    margin: 30px auto;
+}
+.screen{
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    background-color: gray;
+    margin: 20px;
+    width: 250px;
+    
+}
+.part{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+.oneSeat{
+    border: 1px dotted red;
+    display:flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    font-size: 0.7em;
+    background-color: bisque;
+}
+.adultSelected{
+    border: 1px dotted red;
+    display:flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    font-size: 0.8em;
+    background-color: chocolate;
+    font-weight: bold; 
+    color: white;
+}
+.childSelected{
+    border: 1px dotted red;
+    display:flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    font-size: 0.8em;
+    background-color: coral;
+    font-weight: bold; 
+    color: white;
+}
+.container{
+    display: flex;
+    justify-content: center;
+}
+.reserveTable{
+    border: 1px solid gray;
+    border-radius: 10px ;
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+    align-items: center;
+    width: 20%;
+    margin-right: 100px;
+    padding: 10px;
+}
+.movie{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: start;
+    width: 100%;
+}
+.movieImg{
+    width: 50%;
+    padding: 10px;
+    padding-right: 0px;
+}
+.movieInfo{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-align: left;
+    padding: 5px;
+    font-size: 0.8em;
+    margin: auto;
+}
+.selectTable{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: 5px;
+    width: 100%;
+    background-color: lightgray;
+}
+.noSeat{
+    display:flex;
+    visibility: hidden;
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+}
+.selectedSeatDisplay{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 250px;
+    height: 120px;
+    
+}
+.selectComplete{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+.amount{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    height: 25px;
+}
+.buttons{
+    display: flex;
+    justify-content: space-around;
+}
+.button{
+    width: 45%;
+    height: 30px;
+    font-size: 0.8em;
+    background-color: lightgray;
+    border: 2px solid gray;
+    border-radius: 40px;
+
+
+}
+
+.footer{
+    height: 200px;
+}
+
+.alreadyReserved{
+    border: 1px solid ;
+    display:flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    font-size: 0.7em;
+    background: gray;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="100%" x2="100%" y2="0" stroke="gray" /></svg>'),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');
+    color: black;
+}
+.oneSeat:hover{
+    transform: scale(1.1) 
+}
+.childSelected:hover{
+    transform: scale(1.1)
+}
+.adultSelected:hover{
+    transform: scale(1.1)
+}
+
+

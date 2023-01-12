@@ -24,12 +24,15 @@
     display: flex;
     justify-content: space-between;
     width: 290px;
+
 }
 
 #title-bar > div > ul > li > a {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+
 }
 
 #title-bar > div > ul > li > a > img {
@@ -40,6 +43,7 @@
 #title-bar > div > ul > li > a > span {
     font-size: 13px;
     color: #666;
+
 }
 
 #nav-bar {

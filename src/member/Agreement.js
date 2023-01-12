@@ -59,7 +59,7 @@ const Agreement = ({ setNum }) => {
                         서비스 이용 약관 동의(필수){/*서비스 이용약관(필수)*/}
                         </label>
                     </div>
-                    <div id="utilClau" className={joinForm.scroll} tabIndex={0}>
+                    <div id="utilClau" className={joinForm.scroll} tabIndex={-1}>
                         <div>
                             <dl>
                             <dt id="n1">제 1조. 목적</dt>
@@ -896,7 +896,7 @@ const Agreement = ({ setNum }) => {
                         개인정보 수집 및 이용 동의(필수){/*개인정보 취급방침(필수)*/}
                         </label>
                     </div>
-                    <div id="personInfo" className={joinForm.scroll} tabIndex={0}>
+                    <div id="personInfo" className={joinForm.scroll} tabIndex={-1}>
                         메가박스중앙(주)(이하 "회사")는 다음의 목적을 위하여 개인정보를
                         처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는
                         이용되지 않으며, 이용 목적이 변경되는 경우에는 개인정보 보호법 제18조에
@@ -1134,7 +1134,7 @@ const Agreement = ({ setNum }) => {
                         {/*제휴 모바일 멤버십 서비스 이용을 위한 제 3자 제공에 관한 안내(선택)*/}
                         </label>
                     </div>
-                    <div id="infoOfr" className={joinForm.scroll} tabIndex={0}></div>
+                    <div id="infoOfr" className={joinForm.scroll} tabIndex={-1}></div>
                 </div>
                 <div className={joinForm.block} id="marketInfo_div">
                     <div className={joinForm.chk}>
@@ -1148,7 +1148,7 @@ const Agreement = ({ setNum }) => {
                         {/*마케팅 활용을 위한 개인정보 수집 이용 안내(선택)*/}
                         </label>
                     </div>
-                    <div id="marketInfo" className={joinForm.scroll} tabIndex={0}>  {/* "scroll x-scroll" */}
+                    <div id="marketInfo" className={joinForm.scroll} tabIndex={-1}>  {/* "scroll x-scroll" */}
 
                         &lt;선택 입력(수집) 항목{/*)*/}
                         <table border={1} cellPadding={1} cellSpacing={1} style={{ width: 500 }}>
@@ -1207,7 +1207,7 @@ const Agreement = ({ setNum }) => {
                         {/*위치기반서비스 이용 약관 동의(선택)*/}
                         </label>
                     </div>
-                    <div id="lcinfoInfo" className={`${joinForm.scroll} ${joinForm.x_scroll}`} tabIndex={0}>  {/* "x-scroll" */}
+                    <div id="lcinfoInfo" className={`${joinForm.scroll} ${joinForm.x_scroll}`} tabIndex={-1}>  {/* "x-scroll" */}
                             <dl>
                             <dt id="n1">
                                 제 1조. 목적

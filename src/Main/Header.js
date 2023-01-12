@@ -46,9 +46,10 @@ const Header = () => {
 
 
     return (
+        <div className='asdf1234'>
         <header>
             <div id="title-bar">
-                <div className="container">
+                <div className="container55">
                     <div>
                         <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
                         <span>비이트바악스</span>
@@ -60,53 +61,53 @@ const Header = () => {
 
 
             <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
-                {ScrollActive ?
-                    <div id="nav-bar">
-                        <nav className="container">
-                            <MovieNavList />
-                            <form onSubmit={handleSearchKeySubmit}>
-                                <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이" />
-                                <button type="submit">
-                                    <img src={searchIcon} alt="검색 아이콘" />
-                                </button>
-                            </form>
-                        </nav>
+                        {ScrollActive ? 
+                                <div id="nav-bar">
+                                <nav className="container55">
+                                    <MovieNavList />
+                                    <form onSubmit={handleSearchKeySubmit}>
+                                        <input type="text" value={searchKey} onChange={handleSearchKeyChange} placeholder="장화신은 고양이"/>
+                                        <button type="submit">
+                                            <img src={searchIcon} alt="검색 아이콘" />
+                                        </button>
+                                    </form>
+                                </nav>
+                            </div>
+                                : 
+                                <div className="nav-fixed">
+                                   <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
+                                    <ul className="nav_menu">
+                                    
+                                        <li>
+                                            <h2><Link to={"/movielistmain"}>영화</Link></h2>
+                                        </li>
+                                        <li>
+                                            <h2><a>극장</a></h2>                                               
+                                        </li>
+                                        <li>
+                                            <h2><Link to={"/user/calendar"}>예매</Link></h2>
+                                        </li>
+                                        <li>
+                                            <h2><Link to={"/store/"}>스토어</Link></h2>
+                                        </li>
+                                        <li>
+                                            <h2><a>이벤트</a></h2>                                             
+                                        </li>
+                                        <li>
+                                            <h2><a>혜택</a></h2>                                            
+                                        </li>
+                                    </ul>                                
+                                    
+                                </div>}
                     </div>
-                    :
-                    <div className="nav-fixed">
-                        <a href={'/'}><img src={logo} alt="CGV" width="130px" /></a>
-                        <ul className="nav_menu">
-
-                            <li>
-                                <h2><a>영화</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>극장</a></h2>
-                            </li>
-                            <li>
-                                <h2><a><strong>예매</strong></a></h2>
-                            </li>
-                            <li>
-                                <h2><a>스토어</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>이벤트</a></h2>
-                            </li>
-                            <li>
-                                <h2><a>혜택</a></h2>
-                            </li>
-                        </ul>
-
-                    </div>}
-            </div>
 
 
         </header>
+        </div>
     );
 };
 
 const UserNavList = () => {
-
 
     const [isLogin, setIsLogin] = useState(false);
 
@@ -118,7 +119,9 @@ const UserNavList = () => {
 
     // 로그아웃
     const logoutHandler = () => {
-        localStorage.removeItem("accessToken");
+        sessionStorage.removeItem("userName");
+        localStorage.removeItem("accessToken"); // 엑세스토큰 삭제
+        localStorage.removeItem('expireTime'); // 만료시간 삭제
         removeCookieToken(); // refreshToken 삭제
         alert("로그아웃");
         window.location.replace("/");
@@ -183,10 +186,10 @@ const UserNavList = () => {
 const MovieNavList = () => {
     return (
         <ul>
-            <li><a>영화</a></li>
+            <li><Link to={"/movielistmain"}>영화</Link></li>
             <li><a>극장</a></li>
             <li><Link to={"/user/calendar"}>예매</Link></li>
-            <li><a>스토어</a></li>
+            <li><Link to={"/store/"}>스토어</Link></li>
             <li><a>이벤트</a></li>
             <li><a>혜택</a></li>
         </ul>
