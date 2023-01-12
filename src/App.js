@@ -25,6 +25,7 @@ import Movielist_master_list from './Movie/Moviecomponent/nav/Movielist_master_l
 import Movielist_master_delete from './Movie/Moviecomponent/nav/Movielist_master_delete';
 import Movielistmain from './Movie/Moviecomponent/main/Movielistmain';
 import Success from './user/Success';
+import Get2 from "src/user/Get2";
 
 const App = () => {
 
@@ -77,6 +78,8 @@ const App = () => {
             <Route path='/member/myPage' element={<MyPage />} />
             <Route path='/user/calendar' element={<Calendar />} />
             <Route path="/user/get/:pk" element={<Get/>} />
+            <Route path="/user/get2/:pk" element={<Get2/>} />
+
             <Route path='/test' element={<Test/>}/>
             <Route path='/success' element={<Success/>}/>
 

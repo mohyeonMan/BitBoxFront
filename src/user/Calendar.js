@@ -445,7 +445,7 @@ const Calendar = () => {
                                         <div className='tooltiptext2'>
                                             <iframe
 
-                                                src={`/user/get/${item.pk}`}
+                                                src={`/user/get2/${item.pk}`}
                                                 scrolling='no'
                                                 className="preview-box"
                                                 title='preview-box'
