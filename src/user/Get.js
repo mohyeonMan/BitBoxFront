@@ -46,12 +46,13 @@ const Get = () => {
                         exist = item!==null && item.id===fitem.id? true:exist;
                     })
                     small.push(exist? {...item,isReserved:true}:item);
+                })
+                copyStatus[index]=small
             })
-            copyStatus[index]=small
-        })
-        setRoomStatus(copyStatus)
-    },[filler])
-
+            setRoomStatus(copyStatus)
+        },[filler])
+        
+    const navigate = useNavigate
      //최대 예약 인원
      const [quantity,setQuantity] = useState(8);
      //현재 선택 좌석
@@ -192,7 +193,7 @@ const Get = () => {
              }
          }).then(res=> {
              alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
-             window.location.replace(`http://localhost:3000/success`);
+             navigate(`/success`);
           }).catch(err=>console.log(err))
      }
     
@@ -210,7 +211,6 @@ const Get = () => {
     };
     
     const [id,setId] = useState('박지훈');
-    const navigate = useNavigate
     
     
     return (
