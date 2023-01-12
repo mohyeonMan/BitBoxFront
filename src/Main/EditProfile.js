@@ -13,6 +13,7 @@ const EditProfile = () => {
     phoneNumber: '',
     username: '',
     password: '',
+    repassword: '',
     email: ''
     });
 
@@ -27,7 +28,7 @@ const EditProfile = () => {
 
     }
 
-    const {name, username, password, birth, email, phoneNumber, pwdChkVal} = form;
+    const {name, username, password, repassword, birth, email, phoneNumber, pwdChkVal} = form;
 
     // 유효성 검사 후 회원가입 버튼 활성화
     const [disable, setDisable] = useState(false);
@@ -38,6 +39,21 @@ const EditProfile = () => {
 
     const [pwdDiv, setPwdDiv] = useState('')
     const [certifOk, setCertifOk] = useState(1);
+
+    const [text, setText] = useState("");
+
+    const displayText = (e) => {
+      setText(e.target.value);
+    };
+  
+    const onReset = (e) => {
+      setText("");
+      setForm({
+        ...form,
+       password: '',
+       repassword: ''
+    });
+    };
 
     return (
         <>
@@ -73,7 +89,8 @@ const EditProfile = () => {
                             </colgroup>
                             <tbody>
                             <tr>
-                                <th scope="row">아이디</th>
+                                <th scope="row">아이디  <em className={editProfile.font_orange} >*</em>
+                                </th>
                                 <td>0426zzang</td>
                             </tr>
                             <tr>
@@ -82,15 +99,15 @@ const EditProfile = () => {
                                 </th>
                                 <td>
                                 <span className={editProfile.mbNmClass}>김보영</span>
-                                {/* <a
+                                <a
                                     href="#layer_name"
                                     className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line} ${editProfile.ml10} ${editProfile.mr10} ${editProfile.btn_modal_open}`}
                                     title="이름변경"
                                 >
                                     이름변경
-                                </a> */}
-                                {/* ※ 개명으로 이름이 변경된 경우, 회원정보의 이름을 변경하실 수
-                                있습니다. */}
+                                </a>
+                                ※ 개명으로 이름이 변경된 경우, 회원정보의 이름을 변경하실 수
+                                있습니다.
                                 </td>
                             </tr>
                             <tr>
@@ -106,22 +123,22 @@ const EditProfile = () => {
                                 </th>
                                 <td>
                                 <div className={editProfile.clearfix}>
-                                    <p
-                                    className={`${editProfile.reset} ${editProfile.float_l} ${editProfile.w170px} ${editProfile.w170px} ${editProfile.lh32} ${editProfile.changeVal}`}
-                                    data-name="phoneNo"
-                                    >
-                                    010-0000-0000
-                                    </p>
-                                    <div className={editProfile.float_l}>
-                                    <button
-                                        type="button"
-                                        className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line} ${editProfile.change_phone_num}`}
-                                        id="phoneChgBtn"
-                                        title="휴대폰번호 변경"
-                                    >
-                                        휴대폰번호 변경
-                                    </button>
-                                    </div>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="mbEmail"
+                                    className={`${editProfile.input_text} ${editProfile.w500px}`}
+                                    defaultValue=""
+                                    onChange={displayText} value={text}
+                                />
+                                <button
+                                    type="button"
+                                    className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line} ${editProfile.change_phone_num}`}
+                                    id="phoneChgBtn"
+                                    title="휴대폰번호 변경"
+                                >
+                                    휴대폰번호 변경
+                                </button>
                                 </div>
                                 <div className={editProfile.change_phone_num_area}>
                                     <div className={editProfile.position} >
@@ -136,40 +153,6 @@ const EditProfile = () => {
                                             title="변경할 휴대폰 번호 입력"
                                             maxLength={11}
                                         />
-                                        {/* <button
-                                            type="button"
-                                            className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line}`}
-                                            id="sendNumberBtn"
-                                        >
-                                            인증번호 전송
-                                        </button>
-                                        </div>
-                                        <div className={editProfile.position} style={{ display: "none" }}>
-                                        <label htmlFor="chkNum" className={editProfile.label} >
-                                            인증번호 입력
-                                        </label> */}
-                                        {/* <div className={`${editProfile.chk_num} ${editProfile.small}`} >
-                                            <div className="line">
-                                            <input
-                                                type="text"
-                                                id="chkNum"
-                                                className={`${editProfile.input_text} ${editProfile.w180px}`}
-                                                title="인증번호 입력"
-                                                placeholder="인증번호를 입력해 주세요"
-                                                maxLength={4}
-                                            />
-                                            <div className={editProfile.time_limit} id="timeLimit">
-                                                3:00
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <button
-                                            type="button"
-                                            className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line}`}
-                                            id="chgBtn"
-                                        >
-                                            변경완료
-                                        </button> */}
                                     </div>
                                 </div>
                                 </td>
@@ -186,6 +169,7 @@ const EditProfile = () => {
                                     name="mbEmail"
                                     className={`${editProfile.input_text} ${editProfile.w500px}`}
                                     defaultValue=""
+                                    onChange={displayText} value={text}
                                 />
                                 </td>
                             </tr>
@@ -222,41 +206,43 @@ const EditProfile = () => {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                비밀번호 확인 <em className={editProfile.font_orange} >*</em>
+                                    비밀번호 확인 <em className={editProfile.font_orange} >*</em>
                                 </th>
                                 <td>
-                                <input
-                                    type="password"
-                                    id="repassword"
-                                    name="repassword"
-                                    className={`${editProfile.input_text} ${editProfile.w500px}`}
-                                    onChange={(e) => {
-                                        if (password !== e.target.value) {
-                                            setInputRePwdChk("비밀번호가 일치하지 않습니다");
-                                            setDisable(true)
-                                        } else {
-                                            setInputRePwdChk("");
-                                            setDisable(false)
-                                        }
-                                    }}
-                                />
-                                <a
-                                    href="/on/oh/ohh/Mypage/userPwdChangePage.do"
-                                    className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line}`}
-                                    title="비밀번호 변경"
-                                >
-                                    비밀번호 변경
-                                </a>
-                                 <div style={{width: "auto"}}>
-                                <div id="editpwdDiv" style={{
-                                    marginLeft: "5px",
-                                    color: "#B20710",
-                                    fontSize: "10pt",
-                                    textAlign: "left"
-                                }}>{inputRePwdChk} </div>
-                                
-                            </div>
-                                
+                                    <input
+                                        type="password"
+                                        id="repassword"
+                                        name="repassword"
+                                        value={repassword}
+                                        className={`${editProfile.input_text} ${editProfile.w500px}`}
+                                        onChange={inputValue}
+                                        onBlur={(e) => {
+                                            if (password !== e.target.value) {
+                                                setInputRePwdChk("비밀번호가 일치하지 않습니다");
+                                                setDisable(true)
+                                            } else {
+                                                setInputRePwdChk("");
+                                                setDisable(false)
+                                            }
+                                        }}
+                                    
+                                    />
+                                    <a
+                                        href="/on/oh/ohh/Mypage/userPwdChangePage.do"
+                                        className={`${editProfile.button} ${editProfile.small} ${editProfile.gray_line}`}
+                                        title="비밀번호 변경"
+                                    >
+                                        비밀번호 변경
+                                    </a>
+                                    <div style={{width: "auto"}}>
+                                        <div id="editpwdDiv" style={{
+                                            marginLeft: "5px",
+                                            color: "#B20710",
+                                            fontSize: "10pt",
+                                            textAlign: "left"
+                                        }}>{inputRePwdChk} </div>
+                                        
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
@@ -264,7 +250,7 @@ const EditProfile = () => {
                         </div>
                     </form>
                     <div className={`${editProfile.btn_group} ${editProfile.mt40}`}>
-                        <button className={`${editProfile.button} ${editProfile.large}`} id="cancelBtn">
+                        <button className={`${editProfile.button} ${editProfile.large}`} id="cancelBtn" onClick={onReset}>
                         취소
                         </button>
                         <button className={`${editProfile.button} ${editProfile.purple} ${editProfile.large}`} id="updateBtn">
