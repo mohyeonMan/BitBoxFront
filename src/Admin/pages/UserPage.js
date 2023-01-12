@@ -106,8 +106,14 @@ const UserPage = () => {
 
   const[menuId,setMenuId] = useState('')
 
+  const accessToken = localStorage.getItem("accessToken");
+
   useEffect(()=>{
-    axios.get('http://localhost:8080/member123/test')
+    axios.get('http://localhost:8080/member123/test', {
+      headers: {
+        Authorization: `Bearer {$accessToken}`
+      }
+    })
         .then((res) =>setMember(res.data) )
         .catch(error => console.log(error))
   },[])

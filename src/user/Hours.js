@@ -6,24 +6,22 @@ function Hours() {
     const [page, setPage] = useState(0);
 
 
-    const handleClick = (hour) => {
-        alert(`${hour}:00`);
-    };
+    const handleClick = (hour) => {};
 
     return (
-        <div className='hour-wrap'>
+        <div className='hour-wrap2'>
 
             <button className="previous" onClick={() => {
                 if(!page<1)
                 setPage(page - 1)
-            }}>{'<'}</button>
-            <div className='hour-wrap-2'>
-            <HourList hours={hours.slice(page * 7, (page + 1) * 7)} onClick={handleClick} />
+            }}><span className='left2'/></button>
+            <div className='hour-wrap2-2'>
+            <HourList hours={hours.slice(page, page+7)} onClick={handleClick} />
             </div>
-            <button className="next" onClick={() => {
-                if(page<3)
+            <button className="next2" onClick={() => {
+                if(page<17)
                 setPage(page + 1)
-            }}>{'>'}</button>
+            }}><span className='right2'/></button>
         </div>
     );
 }

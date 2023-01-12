@@ -53,7 +53,7 @@ const StoreIndex = () => {
                                         e.preventDefault()
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
             
                                         axios.get('http://localhost:8080/store/isExistCart', {params: {
                                             userName : sessionStorage.getItem("userName"),
@@ -82,7 +82,7 @@ const StoreIndex = () => {
                                     const goToPay = () => {
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
                                         
                                         axios.post('http://localhost:8080/store/insertCart', null, {params: {
                                                 count : 1,
@@ -99,7 +99,7 @@ const StoreIndex = () => {
                                     }
                                     
                                     return(
-                                    <li key={item.cart_seq}>
+                                    <li key={item.store_seq}>
                                         <Link to={`/store/view/${ item.store_seq }`} className={indexStyles.btn_category_product}>
                                     <span className={indexStyles.best_product_img_wrap}>
                                         <img src={`../storage/${ item.img }`} alt={ item.subject }/>
@@ -133,7 +133,7 @@ const StoreIndex = () => {
                                         e.preventDefault()
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
             
                                         axios.get('http://localhost:8080/store/isExistCart', {params: {
                                             userName : sessionStorage.getItem("userName"),
@@ -162,7 +162,7 @@ const StoreIndex = () => {
                                     const goToPay = () => {
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
                                         
                                         axios.post('http://localhost:8080/store/insertCart', null, {params: {
                                                 count : 1,
@@ -179,7 +179,7 @@ const StoreIndex = () => {
                                     }
                                     
                                     return(
-                                    <li key={item.cart_seq}>
+                                    <li key={item.store_seq}>
                                         <Link to={`/store/view/${ item.store_seq }`} className={indexStyles.btn_category_product}>
                                     <span className={indexStyles.best_product_img_wrap}>
                                         <img src={`../storage/${ item.img }`} alt={ item.subject }/>
@@ -213,7 +213,7 @@ const StoreIndex = () => {
                                         e.preventDefault()
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
             
                                         axios.get('http://localhost:8080/store/isExistCart', {params: {
                                             userName : sessionStorage.getItem("userName"),
@@ -242,7 +242,7 @@ const StoreIndex = () => {
                                     const goToPay = () => {
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
                                         
                                         axios.post('http://localhost:8080/store/insertCart', null, {params: {
                                                 count : 1,
@@ -259,7 +259,7 @@ const StoreIndex = () => {
                                     }
                                     
                                     return(
-                                    <li key={item.cart_seq}>
+                                    <li key={item.store_seq}>
                                         <Link to={`/store/view/${ item.store_seq }`} className={indexStyles.btn_category_product}>
                                     <span className={indexStyles.best_product_img_wrap}>
                                         <img src={`../storage/${ item.img }`} alt={ item.subject }/>
@@ -293,7 +293,7 @@ const StoreIndex = () => {
                                         e.preventDefault()
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
             
                                         axios.get('http://localhost:8080/store/isExistCart', {params: {
                                             userName : sessionStorage.getItem("userName"),
@@ -322,7 +322,7 @@ const StoreIndex = () => {
                                     const goToPay = () => {
             
                                         sessionStorage.getItem("userName") === null ? 
-                                        alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+                                        alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
                                         
                                         axios.post('http://localhost:8080/store/insertCart', null, {params: {
                                                 count : 1,
@@ -339,7 +339,7 @@ const StoreIndex = () => {
                                     }
                                     
                                     return(
-                                    <li key={item.cart_seq}>
+                                    <li key={item.store_seq}>
                                         <Link to={`/store/view/${ item.store_seq }`} className={indexStyles.btn_category_product}>
                                     <span className={indexStyles.best_product_img_wrap}>
                                         <img src={`../storage/${ item.img }`} alt={ item.subject }/>

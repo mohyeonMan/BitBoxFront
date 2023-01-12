@@ -1,27 +1,28 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-
-import { HelmetProvider } from 'react-helmet-async';
-//
+import {BrowserRouter} from 'react-router-dom';
+import store from './Store';
+import {HelmetProvider} from 'react-helmet-async';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
-import {AuthContextProvider} from "./member/store/auth-context.tsx";
 import App from "./App";
+import {Provider} from "react-redux";
+import {CookiesProvider} from "react-cookie";
 
 // ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-
-    <AuthContextProvider>
-        <HelmetProvider>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </HelmetProvider>
-    </AuthContextProvider>
+        <CookiesProvider>
+            <Provider store={store}>
+                <HelmetProvider> {/* React 에서 웹사이트 타이틀(탭 이름)을 동적으로 변경할 수 있게 해준다. */}
+                    <BrowserRouter>
+                        <App/>
+                    </BrowserRouter>
+                </HelmetProvider>
+            </Provider>
+        </CookiesProvider>
 );
 
 // If you want to enable client cache, register instead.

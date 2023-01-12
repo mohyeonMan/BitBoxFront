@@ -17,9 +17,11 @@ const calculateRemainingTime = (expirationTime:number) => {
     return remainingDuration;
 };
 
+
 // 토큰값과 만료시간을 받으면 localStorage 에 저장해주는 함수. 남은 시간을 반환.
-export const loginTokenHandler = (token:string, expirationTime:number) => {
+export const loginTokenHandler = (token:string, expirationTime:number, refreshToken:string) => {
     localStorage.setItem('token', token);
+    localStorage.setItem('refreshToken', refreshToken)
     localStorage.setItem('expirationTime', String(expirationTime));
 
     const remainingTime = calculateRemainingTime(expirationTime);
@@ -71,6 +73,7 @@ export const logoutActionHandler = () => {
     console.log("토큰 삭제됨");
     localStorage.removeItem('token');
     localStorage.removeItem('expirationTime');
+    localStorage.removeItem('refreshToken');
 };
 
 

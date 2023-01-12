@@ -3,7 +3,7 @@ import StoreHeader from './StoreHeader';
 import viewStyles from '../../css/StoreView.module.css'
 import axios from 'axios';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import Header from 'src/Main/Header';
+import Header from 'src/Main/Header.js';
 
 //초기값
 const initialState = 1
@@ -66,7 +66,7 @@ const View = () => {
     const goToCart = (e) => {
         e.preventDefault()
         sessionStorage.getItem("userName") === null ? 
-            alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+            alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
 
             axios.get('http://localhost:8080/store/isExistCart', {params: {
                 userName : sessionStorage.getItem("userName"),
@@ -95,7 +95,7 @@ const View = () => {
 
     const goToPay = () => {
         sessionStorage.getItem("userName") === null ? 
-            alert('로그인이 필요합니다.') || navigate('/store/loginForm') :
+            alert('로그인이 필요합니다.') || navigate('/member/loginForm') :
             axios.post('http://localhost:8080/store/insertCart', null, {params: {
                     count : count,
                     img : img,
@@ -113,7 +113,7 @@ const View = () => {
 
     return (
         <>
-            <Header/>
+            <Header />
             <StoreHeader/>
 
             <div className={viewStyles.category_product_detail_wrap}>

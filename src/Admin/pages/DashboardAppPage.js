@@ -23,7 +23,7 @@ const DashboardAppPage = () => {
   return (
     <>
       <Helmet>
-        <title> admin | BIT BOX MOVIE LIS</title>
+        <title> BIT BOX | ADMIN</title>
       </Helmet>
 
       <Container maxWidth="xl">
@@ -141,7 +141,7 @@ const DashboardAppPage = () => {
           {/*  */}
           <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
-              title="공지사항"
+              title="NEWS"
               list={[...Array(1)].map((_, index) => ({
                 id: faker.datatype.uuid(),
                 title: faker.name.jobTitle(),

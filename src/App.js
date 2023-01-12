@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import Main from "./Main/Main";
 import Adminindex from "./adminindex";
@@ -9,40 +9,92 @@ import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
 import MyPage from "./member/MyPage";
 import Calendar from "./user/Calendar";
 import Test from "./Admin/test";
-import WriteForm from "./component/store/WriteForm";
-import List from "./component/store/List";
-import View from "./component/store/View";
-import StoreLoginForm from "./component/store/StoreLoginForm";
-import StoreCart from "./component/store/StoreCart";
-import StorePayment from "./component/store/StorePayment";
-import PayComplete from "./component/store/PayComplete";
-import StorePay from "./component/store/StorePay";
-import Get from "./user/Get";
+import Get from "src/user/Get";
+import axios from "axios";
+import {getCookieToken, removeCookieToken, setRefreshToken} from "src/member/storage/Cookie";
+import WriteForm from './component/store/WriteForm';
+import List from './component/store/List';
+import View from './component/store/View';
+import StoreCart from './component/store/StoreCart';
+import StorePayment from './component/store/StorePayment';
+import PayComplete from './component/store/PayComplete';
+import StorePay from './component/store/StorePay';
+import Movielist_master from './Movie/Moviecomponent/main/Movielist_master';
+import Movielist_master_write from './Movie/Moviecomponent/nav/Movielist_master_write';
+import Movielist_master_list from './Movie/Moviecomponent/nav/Movielist_master_list';
+import Movielist_master_delete from './Movie/Moviecomponent/nav/Movielist_master_delete';
+import Movielistmain from './Movie/Moviecomponent/main/Movielistmain';
 
 const App = () => {
 
+    const accessTokenVal = localStorage.getItem('accessToken');
+    const refreshTokenVal = getCookieToken();
+
+    // 토큰재발급
+    useEffect(() => {
+        axios.post("/auth/reIssue", {
+            accessToken: accessTokenVal,
+            refreshToken: refreshTokenVal
+        }).then(res => {
+            if (res.data) {
+                setRefreshToken(res.data.refreshToken); // 쿠키에 리프레시토큰 저장
+                localStorage.setItem("accessToken", res.data.accessToken); // 로컬스토리지에 엑세스 토큰 저장
+                localStorage.setItem("expireTime", res.data.tokenExpiresIn); // 엑세스토큰 만료시간 저장
+            }
+        }).catch(error => {
+            console.log("토큰 재발급 에러(로그인하면 안떠요)" + error.response);
+        })
+    }, [])
+
+
+    // 토큰 만료시간 체크
+    useEffect(()=> {
+
+        axios.get("/member/me", {
+            headers: {
+                Authorization: `Bearer ${accessTokenVal}`
+            }
+        }).then(res => {
+            console.log(res.data.name)
+        }).catch(error => {
+            console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('expireTime');
+            removeCookieToken();
+        })
+
+    }, [])
+
     return (
         <Routes>
-            <Route path='/' element={<Main/>}/>
-            <Route path='/adminindex/*' element={<Adminindex/>}/>
-            <Route path='/member' element={<Member/>}/>
-            <Route path='/member/joinForm' element={<JoinForm/>}/>
-            <Route path='/member/loginForm' element={<LoginForm/>}/>
-            <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage/>}/>
-            <Route path='/member/myPage' element={<MyPage/>}/>
-            <Route path='/user/calendar' element={<Calendar/>}/>
+            <Route path='/' element={<Main />} />
+            <Route path='/adminindex/*' element={<Adminindex />} />
+            <Route path='/member' element={<Member />} />
+            <Route path='/member/joinForm/*' element={<JoinForm />} />
+            <Route path='/member/loginForm' element={<LoginForm />} />
+            <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
+            <Route path='/member/myPage' element={<MyPage />} />
+            <Route path='/user/calendar' element={<Calendar />} />
             <Route path="/user/get/:selectedDate/:movieName/:cityName/:cinemaName/:time/:theater/:pk" element={<Get/>} />
             <Route path='/test' element={<Test/>}/>
+
 
             {/* store */}
             <Route path='/store/writeForm' element={<WriteForm/>}></Route>
             <Route path='/store/*' element={<List/>}></Route>
             <Route path='/store/view/:store_seq' element={<View/>}></Route>
-            <Route path='/store/loginForm' element={<StoreLoginForm/>}></Route>
             <Route path='/store/cart' element={<StoreCart/>}></Route>
             <Route path='/store/pay/:store_seq' element={<StorePayment/>}></Route>
             <Route path='/store/paycomplete/:orderNumber' element={<PayComplete/>}></Route>
             <Route path='/store/pay' element={<StorePay/>}></Route>
+
+            {/* movie */}
+            <Route path='/movielistmain' element={ <Movielistmain/>}/>
+            <Route path='/master' element={ <Movielist_master/>}/>
+            <Route path='/master/write' element={ <Movielist_master_write/>}/>
+            <Route path='/master/list' element={<Movielist_master_list/>}/>
+            <Route path='/master/delete' element={<Movielist_master_delete/>}/>
+
         </Routes>
     );
 };

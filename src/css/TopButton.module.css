@@ -32,7 +32,7 @@
   transition: right 0.4s;
 }
 
-a {
+.fixedBtn_wrap a {
   text-decoration: none;
 }
 .fixedBtn_wrap.topBtn .btn_gotoTop {

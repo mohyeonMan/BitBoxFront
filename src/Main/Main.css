@@ -1,39 +1,40 @@
-:root {
+.asdf1234 :root {
     --boxWidth: 170.4px;
     --boxHeight: 295px;
     --boxSpace: 32px;
     --boxNum: 5;
     --boxMaxNum: 20;
 }
-body {
+.asdf1234 body {
     margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: Roboto,Dotum,'돋움',sans-serif!important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-ul {
+.asdf1234 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-a {
-    text-decoration: none;
+.asdf1234 a {
+    text-decoration: none!important;
+
 }
 
-button {
+.asdf1234 button {
     padding: 0;
     border: none;
     background-color: transparent;
     cursor: pointer;
 }
 
-a:focus, button:focus {
+.asdf1234 a:focus, .asdf1234 button:focus {
     outline: 3px solid #ead3d7;
 }
 
-.container {
+.container55 {
     width: 980px;
     margin: 0 auto;
 }
@@ -112,11 +113,11 @@ main > article > div.movie-wrap > video{
 }
 
 
-main > article > div.container {
+main > article > div.container55 {
     padding: 50px 30px 60px;
 }
 
-main > article > div.container > header {
+main > article > div.container55 > header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -147,7 +148,7 @@ main > article > div.container > header {
 }
 
 
-main > article > div.container > header > a {
+main > article > div.container55 > header > a {
     padding: 4px 32px 4px 15px;
     font-size: 14px;
     color: #222;
@@ -206,7 +207,7 @@ main > article > div.container > header > a {
     border: 1px solid #e3e3e3;
     border-radius: 50%;
 }
-a {
+.asdf1234 a {
     color: inherit;
     text-decoration: none;
 }
@@ -239,7 +240,7 @@ a {
 }
 
 
-main > article > div.container > section {
+main > article > div.container55 > section {
     position: relative;
 }
 
@@ -471,7 +472,7 @@ main > article > div.container > section {
     width: 500px;
     border-radius: 10px;
 }
-a {
+.asdf1234 a {
     color: inherit;
     text-decoration: none;
 }
@@ -492,7 +493,7 @@ a {
     object-fit: cover;
     transform: translate(0, -50%);
 }
-img {
+.asdf1234 img {
     vertical-align: middle;
 }
 

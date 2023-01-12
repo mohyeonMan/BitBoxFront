@@ -1,12 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {removeCookieToken} from "src/member/storage/Cookie";
 
 const MyPage = () => {
 
+    const navi = useNavigate();
+
     const [status, setStatus] = useState({});
 
-    const tokenVal = localStorage.getItem('token');
+    const tokenVal = localStorage.getItem('accessToken');
     const expireTime = localStorage.getItem('expirationTime');
+
     useEffect(()=> {
 
         axios.get("/member/me", {
@@ -16,6 +21,13 @@ const MyPage = () => {
         }).then(res => {
             console.log(res.data)
             setStatus(res.data)
+            sessionStorage.setItem("userName", res.data.username);
+        }).catch(error => {
+            console.log(error.response);
+            localStorage.removeItem('accessToken');
+            removeCookieToken();
+            alert("장시간 사용하지 않았습니다, 다시 로그인 해주세요");
+            navi("/member/loginForm");
         })
 
     }, [])

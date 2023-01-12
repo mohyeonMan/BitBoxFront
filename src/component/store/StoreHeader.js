@@ -44,6 +44,10 @@ const StoreHeader = () => {
         navigate('/store/snack')
     }
 
+    const gotoCart = () => {
+        navigate('/store/cart')
+    }
+
     return (
         <>
             <div className={styles.category_wrap}>
@@ -67,7 +71,7 @@ const StoreHeader = () => {
                     </ul>
                     <ul className={styles.cart_content} style={{listStyle: 'none'}}>
                         <li>
-                            <a href="/store/cart">장바구니</a>
+                            <a href="#" onClick={ gotoCart }>장바구니</a>
                             <span id="cartviewcnt">{ count }</span>
                         </li>
                     </ul>

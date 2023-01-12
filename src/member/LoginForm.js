@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useNavigate} from "react-router-dom";
-import AuthContext from "./store/auth-context.tsx";
+import axios from "axios";
+import {setRefreshToken} from "src/member/storage/Cookie";
 
 const theme = createTheme();
 
@@ -35,29 +36,31 @@ const LoginForm = () => {
     const {username, password} = form;
 
     const navi = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
-    const authCtx = useContext(AuthContext);
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        authCtx.login(form.username, form.password);
-
-        if (!authCtx.isSuccess) {
-            alert("아이디 또는 비밀번호가 틀렸습니다.");
-            return false;
-        } else {
-            alert("welcome!");
-            navi("/");
-        }
-
+        axios.post(`http://localhost:3000/auth/login`,{
+            username: form.username,
+            password: form.password
+        }).then(res => {
+            if (res.data) {
+                setRefreshToken(res.data.refreshToken); // 쿠키에 리프레시토큰 저장
+                localStorage.setItem("accessToken", res.data.accessToken); // 로컬스토리지에 엑세스 토큰 저장
+                localStorage.setItem("expireTime", res.data.tokenExpiresIn); // 엑세스토큰 만료시간 저장
+                navi("/");
+            }
+        }).catch(error => {
+            console.log(error.response);
+            alert("아이디 또는 비밀번호가 틀렸습니다");
+        })
 
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -67,21 +70,21 @@ const LoginForm = () => {
                     }}
                 >
                     <img src="../img_member/mainLogo.png" alt="logo" width="50%"/>
-                    <Avatar sx={{ m: 1, backgroundColor: "#B20710" }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, backgroundColor: "#B20710"}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         로그인
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            autoFocus={true}
                             id="username"
                             label="아이디"
                             name="username"
-                            autoFocus
                             value={username}
                             onChange={inputValue}
                         />
@@ -101,7 +104,7 @@ const LoginForm = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
                         >
                             로그인
                         </Button>
