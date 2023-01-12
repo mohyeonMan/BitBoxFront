@@ -24,6 +24,8 @@ import Movielist_master_write from './Movie/Moviecomponent/nav/Movielist_master_
 import Movielist_master_list from './Movie/Moviecomponent/nav/Movielist_master_list';
 import Movielist_master_delete from './Movie/Moviecomponent/nav/Movielist_master_delete';
 import Movielistmain from './Movie/Moviecomponent/main/Movielistmain';
+import FindIdPasswordRoutes from "src/member/FindIdPasswordRoutes";
+import FindPwdAndChange from "src/member/FindPwdAndChange";
 
 const App = () => {
 
@@ -72,6 +74,8 @@ const App = () => {
             <Route path='/member' element={<Member />} />
             <Route path='/member/joinForm/*' element={<JoinForm />} />
             <Route path='/member/loginForm' element={<LoginForm />} />
+            <Route path='/member/FindIdPasswordRoutes/*' element={<FindIdPasswordRoutes />} />
+            <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
             <Route path='/member/myPage' element={<MyPage />} />
             <Route path='/user/calendar' element={<Calendar />} />
