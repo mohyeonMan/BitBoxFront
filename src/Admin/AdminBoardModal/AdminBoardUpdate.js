@@ -98,9 +98,9 @@ const AdminBoardUpdate = (props) => {
 
           <tr >
             <td colSpan="2" align="right">
-             <button style={{color:'black'}} onClick={onUpdateSubmit}>수정</button> 
+             <button style={{all:'unset', color:'black'}} onClick={onUpdateSubmit}>수정</button> 
              &emsp;&emsp;
-            <button style={{color:'red'}} onClick={onClose}>취소</button>
+            <button style={{all:'unset', color:'red'}} onClick={onClose}>취소</button>
            </td>
           </tr>
 

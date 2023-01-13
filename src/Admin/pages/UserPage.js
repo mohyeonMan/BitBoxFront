@@ -36,21 +36,29 @@ import { tr } from 'date-fns/locale';
 
 
 const UserPage = () => {
-  const setRole = () =>{
+
+  const setRole = (e) =>{
     const changerow =  document.getElementById(menuId).children[4]
     const select = document.createElement('select')
     // select.innerHTML="(select)"
     // changerow.appendChild(select)
-   
-    // select.innerHTML='<select onchange={updateRole}>'
-    //                   +'<option id="ROLE_ADMIN" value="ROLE_ADMIN">ROLE_ADMIN</option>'
-    //                   +'<option id="ROLE_USER" value="ROLE_USER">ROLE_USER</option>'
-    //                   +'<select/>'
+
+    // select.innerHTML="<select><option>ROLE_ADMIN</option><option>ROLE_USER</option></select>"
     // changerow.appendChild(select)
     // console.log(select)
+   
+    select.innerHTML='<select onchange="roleUp()">'
+                      +'<option value="ROLE_ADMIN">ROLE_ADMIN</option>'
+                      +'<option value="ROLE_USER">ROLE_USER</option>'
+                      +'<select/>'
+    changerow.appendChild(select)
+    console.log(select)
     
-
+    axios.get('http://localhost:8080/member123/test')
+          .then(()=>alert(JSON.stringify(menuId)))
+          .catch(error => console.log(error))
   }
+
 
   const deleteUser = () => {
     axios.get('http://localhost:8080/member/delete',{
@@ -122,6 +130,8 @@ const UserPage = () => {
 
   const accessToken = localStorage.getItem("accessToken");
 
+  
+
 
   useEffect(()=>{
     axios.get('http://localhost:8080/member123/test', {
@@ -133,18 +143,12 @@ const UserPage = () => {
         .catch(error => console.log(error))
   },[])
 
-
-  // 수정해야함.. 일단 히든으로 어떻게든 나오게했는데 바꿔야함 다나옴.. .. 
-  const [roleUpdate, setRoleUpdate] = useState('')
-  const [show ,setShow] = useState(true)
-  const roleUp = (e) => {
-    // axios.get('http://localhost:8080/member123/test')
-    //       .the()
-    //       .catch(error => console.log(error))
-   setShow(!show)
-  }
-  //  
-
+  
+  // 수정해야함.. 하나씩 나오게 해야됨 .. 
+  // const [show ,setShow] = useState(true)
+  // const roleUp = (e) => {
+  //  setShow(!show)
+  // }
 
   const USERLIST = member.filter(item =>[{
     id: item.username,
@@ -269,18 +273,18 @@ const UserPage = () => {
                         <TableCell align="left">{phoneNumber}</TableCell>
                         
                         {/*   */}
-                        <TableCell align="left" >
-                          {roleType}
+                        {/* <TableCell align="left" >
+                          {roleType} 
                         <div value={username} hidden={show}>
                         <select defaultValue={roleType} >
                           <option >ROLE_ADMIN</option>
                           <option >ROLE_USER</option>
                         </select>
                         </div>
-                        </TableCell>
+                        </TableCell> */}
                         {/*   */}
-
-                        {/* <TableCell align="left">{roleType}</TableCell> */}
+                        
+                        <TableCell align="left">{roleType}</TableCell>
                        
                         <TableCell align="left">{createDate}</TableCell>
 
@@ -310,8 +314,8 @@ const UserPage = () => {
                                 },
                               }}
                         >
-                          {/* <MenuItem onClick={setRole} > */}
-                          <MenuItem onClick={roleUp} >
+                          <MenuItem onClick={setRole}>
+                          {/* <MenuItem onClick={roleUp} > */}
                             <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>
                             등급 조정
                           </MenuItem>

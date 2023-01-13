@@ -30,7 +30,9 @@ export default function ShopProductCard({ product }) {
   return (
     <Card>
       <Box sx={{ pt: '100%', position: 'relative' }}>
-        {status && (
+        
+        {/*  sale , new  */}
+        {/* {status && (
           <Label
             variant="filled"
             color={(status === 'sale' && 'error') || 'info'}
@@ -44,7 +46,9 @@ export default function ShopProductCard({ product }) {
           >
             {status}
           </Label>
-        )}
+        )} */}
+
+        {/* 사진 이미지 */}
         <StyledProductImg alt={name} src={cover} />
       </Box>
 
@@ -56,7 +60,6 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          {/* <ColorPreview colors={colors} /> */}
           상영 기간
           <Typography variant="subtitle1">
             <Typography
@@ -67,10 +70,8 @@ export default function ShopProductCard({ product }) {
                 textDecoration: 'line-through',
               }}
             >
-              {/* {priceSale && fCurrency(priceSale)} */} {/* 할인가 */}
             </Typography>
             &nbsp;
-            {/* {fCurrency(price)} */} {/* 가격 */}
           </Typography>
         </Stack>
       </Stack>

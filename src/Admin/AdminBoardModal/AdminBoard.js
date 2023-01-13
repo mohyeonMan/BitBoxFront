@@ -258,8 +258,8 @@ const AdminBoard = () => {
                         {/* <TableCell align="left">{getTime(logtime)}</TableCell> */}
 
                           <MenuItem id={adminBoardSeq}  style={{fontSize:12,width:100}}  onClick={handleOpenMenu}>
-                            <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>                           
-                            <AdminBoardModalUpdatePage props={adUpSeq}/>
+                            <Iconify icon={'eva:edit-fill'}  sx={{ mr:2 }}/>                           
+                             <AdminBoardModalUpdatePage props={adUpSeq}/>
                           </MenuItem>
                             <MenuItem style={{fontSize:12,width:100}}
                             sx={{ color: 'error.main' }} onClick={ () => { if (window.confirm(`${adminBoardSeq}번 게시글을 삭제하시겠습니까?`)){ onDeleteBoard(adminBoardSeq); }} }  >

@@ -22,7 +22,7 @@ function AdminBoardModalUpdatePage(props){
 
   return (
     <>
-    <button style={{color:'blue'}} onClick={openModal}>Modify</button>
+    <button style={{ all:'unset',color:'blue',fontSize:12}} onClick={openModal}>Modify</button>
     <AdminModal open={modalOpen} close={closeModal} header="게시글 수정">
    <AdminBoardUpdate  props={adUpSeq1}/>
     </AdminModal> 
