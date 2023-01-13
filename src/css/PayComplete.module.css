@@ -1,16 +1,7 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    word-break: break-all;
-}
-div {
+.big_payment_complete_wrap div {
     display: block;
 }
-ol, ul {
+.big_payment_complete_wrap ol, .big_payment_complete_wrap ul {
     list-style: none;
 }
 .cart_step_wrap {
@@ -170,7 +161,7 @@ ol, ul {
     color: #8d8d8d;
     line-height: 22px;
 }
-dl:after, ul:after, ol:after {
+.big_payment_complete_wrap dl:after, .big_payment_complete_wrap ul:after, .big_payment_complete_wrap ol:after {
     content: '';
     clear: both;
     display: block;
@@ -292,7 +283,7 @@ dl:after, ul:after, ol:after {
     content: '원';
     font-size: 19px;
 }
-dl:after, ul:after, ol:after {
+.big_payment_complete_wrap dl:after, .big_payment_complete_wrap ul:after, .big_payment_complete_wrap ol:after {
     content: '';
     clear: both;
     display: block;
@@ -351,10 +342,10 @@ dl:after, ul:after, ol:after {
     text-align: center;
 }
 .com_btn_wrap > *:first-child {
-    margin-left: 0;
+    margin-left: 10;
 }
 a.btn_style1 {
-    width: 208px;
+    width: 180px;
     height: 60px;
     font-weight: 500;
     font-size: 19px;

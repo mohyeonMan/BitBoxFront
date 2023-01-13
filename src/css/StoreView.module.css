@@ -9,16 +9,7 @@
     margin: 0 auto;
     padding-top: 63px;
 }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    word-break: break-all;
-}
-div {
+.category_product_detail_wrap div {
     display: block;
 }
 .category_product_detail_title {
@@ -54,16 +45,16 @@ div {
 .category_product_detail_contents .category_product_detail_contents_img_wrap .bxslider {
     width: 100%;
 }
-ol, ul {
+.category_product_detail_wrap ol, .category_product_detail_wrap ul {
     list-style: none;
 }
 .category_product_detail_contents .category_product_detail_contents_img_wrap .bxslider li img {
     width: 100%;
 }
-input, select, img {
+.category_product_detail_wrap input, .category_product_detail_wrap select, .category_product_detail_wrap img {
     vertical-align: middle;
 }
-dl:after, ul:after, ol:after {
+.category_product_detail_wrap dl:after, .category_product_detail_wrap ul:after, .category_product_detail_wrap ol:after {
     content: '';
     clear: both;
     display: block;
@@ -109,6 +100,7 @@ dl:after, ul:after, ol:after {
     margin-top: 0;
 }
 .category_product_detail_contents .category_product_detail_contents_wrap .category_product_detail_add_info > dd {
+    float: right;
     width: 418px;
     margin-top: 6px;
     font-weight: 300;
@@ -122,7 +114,7 @@ dl:after, ul:after, ol:after {
     color: #fb4357;
     text-decoration: underline;
 }
-dl:after, ul:after, ol:after {
+.category_product_detail_wrap dl:after, .category_product_detail_wrap ul:after, .category_product_detail_wrap ol:after {
     content: '';
     clear: both;
     display: block;
@@ -195,7 +187,7 @@ dl:after, ul:after, ol:after {
     overflow: hidden;
 }
 .category_product_detail_contents .category_product_detail_contents_wrap .category_product_detail_btn_wrap a:first-child {
-    margin-left: 160px;
+    margin-left: 220px;
 }
 .category_product_detail_contents .category_product_detail_contents_wrap .category_product_detail_btn_wrap a.btn_cart {
     width: 60px;

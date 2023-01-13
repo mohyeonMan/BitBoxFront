@@ -25,15 +25,33 @@ import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
+import {removeCookieToken} from "src/member/storage/Cookie";
+import {useNavigate} from "react-router-dom";
 // mock
-
+/* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
+  <option id="adminTitle "value="title">TITLE</option>
+  <option id="adminContent" value="content">CONTENT</option>
+</select> */
 
 
 const UserPage = () => {
+  const setRole = () =>{
+    const changerow =  document.getElementById(menuId).children[4]
+    /*const select = document.createElement('select')
+    select.innerHTML="(select)"
+    changerow.appendChild(select)*/
 
-  const setRole = (e) => {
-    const parentValue = e.document.getAttribute('id');
-    console.log(parentValue);
+
+  }
+  const deleteUser = () => {
+
+    axios.get('http://localhost:8080/member/delete',{
+      params:{
+        username:menuId
+      }
+    })
+        .then(() =>alert('삭제성공'),window.location.reload())
+        .catch(error => console.log(error))
 
   }
   function descendingComparator(a, b, orderBy) {
@@ -88,23 +106,44 @@ const UserPage = () => {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const[menuId,setMenuId] = useState('')
+
+  const accessToken = localStorage.getItem("accessToken");
+
+  const navi = useNavigate();
+
+  // 유저 리스트 뽑기, 헤더에 토큰담기(토큰 복호화 후 권한체크)
   useEffect(()=>{
-    axios.get('http://localhost:8080/member/test')
+    axios.get('http://localhost:8080/member/getUserList', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
         .then((res) =>setMember(res.data) )
-        .catch(error => console.log(error))
+        .catch(error => {
+          console.log(error.response);
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('expireTime');
+          removeCookieToken();
+          alert("관리자 권한이 없습니다");
+          navi("/");
+        })
   },[])
+
+
   const USERLIST = member.filter(item =>[{
     id: item.username,
     name : item.name,
     phoneNumber : item.phoneNumber,
     createDate : item.createDate,
     birth:item.birth,
-    role: item.role,
+    role: item.roleType,
     status : 'success',
     username:item.username
   }]);
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
+    setMenuId(event.currentTarget.id)
   };
 
   const handleCloseMenu = () => {
@@ -193,7 +232,7 @@ const UserPage = () => {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { name, phoneNumber, createDate, role,username } = row;
+                    const { name, phoneNumber, createDate, roleType,username } = row;
                     const selectedUser = selected.indexOf(username) !== -1;
 
                     return (
@@ -214,14 +253,14 @@ const UserPage = () => {
 
                         <TableCell align="left">{phoneNumber}</TableCell>
 
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{roleType}</TableCell>
                         <TableCell align="left">{createDate}</TableCell>
 
-                        <TableCell align="right"  >
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu} >
+                        <TableCell align="right"
+                        >
+                          <IconButton size="large" color="inherit" onClick={handleOpenMenu} id={username} >
                             <Iconify icon={'eva:more-vertical-fill'}/>
                           </IconButton>
-                        </TableCell>
                         <Popover
                             open={Boolean(open)}
                             anchorEl={open}
@@ -229,6 +268,7 @@ const UserPage = () => {
                             anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                             PaperProps={
+
                               {
                                 sx: {
                                   p: 1,
@@ -241,11 +281,11 @@ const UserPage = () => {
                                 },
                               }}
                         >
-                          <MenuItem onClick={setRole}>
+                          <MenuItem onClick={setRole} >
                             <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>
                             등급 조정
                           </MenuItem>
-                          <MenuItem sx={{ color: 'error.main' }}  >
+                          <MenuItem sx={{ color: 'error.main' }}  onClick={deleteUser}>
                             <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
                             회원 삭제
                           </MenuItem>
@@ -254,6 +294,7 @@ const UserPage = () => {
                             메세지
                           </MenuItem>
                         </Popover>
+                      </TableCell>
                       </TableRow>
                     );
                   })}
