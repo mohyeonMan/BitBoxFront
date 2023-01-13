@@ -489,7 +489,7 @@ select.small {
 .reservations_first button, .reservations_first input {
     overflow: visible;
 }
-button>i:first-child {
+reservations_first button>i:first-child {
     margin-left: 0;
     margin-right: 4px;
 }
@@ -509,7 +509,7 @@ button>i:first-child {
 .mt20 {
     margin-top: 20px!important;
 }
-h3.tit {
+reservations_first h3.tit {
     margin: 0;
     padding: 0 0 16px 0;
     font-size: 1.6em;
@@ -520,7 +520,7 @@ h3.tit {
 .mt70 {
     margin-top: 70px!important;
 }
-h1, h2, h3, h4, h5, h6 {
+reservations_first h1, reservations_first h2, reservations_first h3, reservations_first h4, reservations_first h5, reservations_first h6 {
     margin: 0;
     padding: 0;
     font-weight: 400;
@@ -549,19 +549,19 @@ h1, h2, h3, h4, h5, h6 {
 .box_pulldown {
     overflow: hidden;
 }
-button {
+reservations_first button {
     cursor: pointer;
     letter-spacing: -.5px;
     font-weight: 400;
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 }
-button, select {
+reservations_first button, reservations_first select {
     text-transform: none;
 }
-button, input {
+reservations_first button, reservations_first input {
     overflow: visible;
 }
-button, input, optgroup, select, textarea {
+reservations_first button, reservations_first input, reservations_first optgroup, reservations_first select, reservations_first textarea {
     margin: 0;
     font-family: inherit;
     font-size: 1em;
@@ -584,7 +584,7 @@ button, input, optgroup, select, textarea {
     margin: 0;
     padding: 20px;
 }
-b, strong {
+reservations_first b, reservations_first strong {
     font-weight: 700;
 }
 .mb30 {
@@ -594,7 +594,7 @@ b, strong {
     position: relative;
     padding: 0 0 0 8px;
 }
-ol, ul {
+reservations_first ol, reservations_first ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -618,13 +618,13 @@ ol, ul {
     float: left;
     height: 42px;
 }
-button, select {
+reservations_first button, reservations_first select {
     text-transform: none;
 }
-button, input {
+reservations_first button, reservations_first input {
     overflow: visible;
 }
-button, input, optgroup, select, textarea {
+reservations_first button, reservations_first input, reservations_first optgroup, reservations_first select, reservations_first textarea {
     margin: 0;
     font-family: inherit;
     font-size: 1em;
@@ -750,7 +750,7 @@ select.small {
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 }
 
-button, input {
+reservations_first button, input {
     overflow: visible;
 }
 button, input, optgroup, select, textarea {

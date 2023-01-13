@@ -142,6 +142,8 @@ const App = () => {
             <Route path='/master/write' element={ <Movielist_master_write/>}/>
             <Route path='/master/list' element={<Movielist_master_list/>}/>
             <Route path='/master/delete' element={<Movielist_master_delete/>}/>
+            <Route path='/myPage/reservation' element={<Reservation />} />
+            <Route path='/myPage/editProfile' element={<EditProfile />} />
 
         </Routes>
     );

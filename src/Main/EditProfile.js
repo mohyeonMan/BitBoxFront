@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import editProfile from './EditProfile.module.css';
 import axios from 'axios';
-import { id } from 'date-fns/locale';
 
 
 

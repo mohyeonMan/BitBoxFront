@@ -20,8 +20,9 @@ const HeaderModal = ({ setModalOpen}) => {
 
     return (
         <>
-            <div className={modalces.head} >
-            <div className={modalces.container} style={{ width: 400, height: 250, marginLeft: "-100px", marginTop: "-700px" }}>                <button className={modalces.close} onClick={closeModal}>
+            <div className={modalces.modalhead} >
+            <div className={modalces.container} style={{ width: 400, height: 250, marginLeft: "-100px", marginTop: "-700px" }}>
+                <button className={modalces.close} onClick={closeModal}>
                     X
                 </button>
                 <section
@@ -37,7 +38,6 @@ const HeaderModal = ({ setModalOpen}) => {
                                 type="button"
                                 className={modalces.button}
                                 onClick={showReservation} > 예매/구매내역 </button>
-                               
                         </a>
                         </div>
                         <div className={modalces.editprofile}>

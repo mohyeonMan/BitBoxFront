@@ -1,4 +1,4 @@
-.head {
+.modalhead {
     z-index: 10;
     width: 1500px;
     height: 2250px;
@@ -39,7 +39,7 @@
     top: 10px;
     font-size: 30px;
   }
-section {
+  .modalhead section {
     color: #B20710;
 }
 .reservation {
