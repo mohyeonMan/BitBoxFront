@@ -1,13 +1,4 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    word-break: break-all;
-}
-div {
+.cart_step_wrap div {
     display: block;
 }
 .cart_step_wrap {
@@ -21,7 +12,7 @@ div {
     margin: 54px auto 0;
     font-size: 0;
 }
-ol, ul {
+.cart_step_wrap ol, .cart_step_wrap ul {
     list-style: none;
 }
 .cart_step_wrap .cart_step.step_unit3 li {
@@ -115,7 +106,7 @@ ol, ul {
 .cart_step_wrap .cart_step li.step3:before {
     background-position: -114px top;
 }
-dl:after, ul:after, ol:after {
+.cart_step_wrap dl:after, .cart_step_wrap ul:after, .cart_step_wrap ol:after {
     content: '';
     clear: both;
     display: block;
@@ -274,7 +265,7 @@ dl:after, ul:after, ol:after {
     content: '원';
     font-size: 14px;
 }
-dl:after, ul:after, ol:after {
+.cart_step_wrap dl:after, .cart_step_wrap ul:after, .cart_step_wrap ol:after {
     content: '';
     clear: both;
     display: block;
@@ -286,14 +277,14 @@ dl:after, ul:after, ol:after {
     border-top: 1px solid #d6d6d6;
     border-bottom: 1px solid #d6d6d6;
 }
-table {
+.cart_step_wrap table {
     font-size: 13px;
     line-height: 1.2;
     color: #666;
     font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
     font-weight: 400;
 }
-table {
+.cart_step_wrap table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -415,9 +406,9 @@ ul.com_box_design > li input[type="text"], ul.com_box_design > li input[type="te
     line-height: 38px;
     border: 1px solid #bebebe;
 }
-input[type='tel'][readonly], input[type='password'][readonly], input[type='text'][readonly] {
+/* input[type='tel'][readonly], input[type='password'][readonly], input[type='text'][readonly] {
     background-color: #fff;
-}
+} */
 ul.com_box_design > li label {
     height: 40px;
     margin-right: 14px;

@@ -1,6 +1,9 @@
+import { Button } from '@mui/material';
 import React, { useState } from 'react';
+import AdminBoardWrite from './AdminBoardWrite';
 import AdminModal from './AdminModal';
 
+// 게시글 작성하기 .. AdminBoardWrite.js 
 function AdminBoardModalPage(){
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -13,12 +16,9 @@ function AdminBoardModalPage(){
 
   return (
     <>
-    <button onClick={openModal}>view all</button>
-    {/* header 부분에 텍스트를 입력한다. */}
+    <Button style={{color:'green'}} onClick={openModal}>Write</Button>
     <AdminModal open={modalOpen} close={closeModal} header="공지사항 & 게시판">
-    {/* AdminModal.js */}
-    {/* <main> {props.children} </main> */}
-      내용이 입력된다. 리액트 함수형 모달 팝업창입니다. 쉽게 만들 수 있어요. 같이 만들어봐요!
+   <AdminBoardWrite/>
     </AdminModal>
   </>
   );

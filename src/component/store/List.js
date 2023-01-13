@@ -9,7 +9,7 @@ import Combo from './Combo';
 import StoreHeader from './StoreHeader';
 import topButtonStyles from '../../css/TopButton.module.css';
 import axios from 'axios';
-import Header from 'src/Main/Header';
+import Header from 'src/Main/Header.js';
 
 const List = () => {
     const [showButton, setShowButton] = useState(false);
@@ -87,9 +87,14 @@ const List = () => {
         navigate('/store/snack')
     }
     const [count, setCount] = useState(0)
+
+    const gotoCart = () => {
+        navigate('/store/cart')
+    }
+
     return (
-        <div >
-            <Header/>
+        <div className={styles.bigger_banner_wrap}>
+            <Header />
             <div className={styles.big_banner_wrap}>
                 <div className={styles.bx_wrapper}>
                     <div className="bx-viewport" style={{width: '100%', overflow: 'hidden', position: 'relative', height: '400px'}}>
@@ -129,7 +134,7 @@ const List = () => {
                     </ul>
                     <ul className={styles.cart_content} style={{listStyle: 'none'}}>
                         <li>
-                            <a href="#">장바구니</a>
+                            <a href="#" onClick={ gotoCart }>장바구니</a>
                             <span id="cartviewcnt">{ count }</span>
                         </li>
                     </ul>

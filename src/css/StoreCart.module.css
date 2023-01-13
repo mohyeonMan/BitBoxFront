@@ -1,16 +1,7 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    word-break: break-all;
-}
-div {
+.big_category_wrap div {
     display: block;
 }
-body, input, textarea, select, button, table {
+.big_category_wrap body, .big_category_wrap input, .big_category_wrap textarea, .big_category_wrap select, .big_category_wrap button, .big_category_wrap table {
     font-size: 13px;
     line-height: 1.2;
     color: #666;
@@ -28,7 +19,7 @@ body, input, textarea, select, button, table {
     margin: 54px auto 0;
     font-size: 0;
 }
-ol, ul {
+.big_category_wrap ol, .big_category_wrap ul {
     list-style: none;
 }
 .cart_step_wrap .cart_step.step_unit4 li {
@@ -129,14 +120,7 @@ input[type="checkbox"].com_custom_checkbox {
     clip: rect(0,0,0,0);
     border: 0;
 }
-body, input, textarea, select, button, table {
-    font-size: 13px;
-    line-height: 1.2;
-    color: #666;
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
-    font-weight: 400;
-}
-input[type="checkbox" i] {
+.big_category_wrap input[type="checkbox" i] {
     background-color: initial;
     cursor: default;
     appearance: auto;
@@ -210,13 +194,6 @@ input[type="checkbox"].com_custom_checkbox {
     margin: -1px;
     clip: rect(0,0,0,0);
     border: 0;
-}
-body, input, textarea, select, button, table {
-    font-size: 13px;
-    line-height: 1.2;
-    color: #666;
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
-    font-weight: 400;
 }
 .com_cart_list_wrap .com_list_style1 > li input[type="checkbox"].com_custom_checkbox + label {
     margin-left: 20px;
@@ -404,7 +381,7 @@ input[type="checkbox"].com_custom_checkbox + label:before {
     /* background: transparent url(./../../images/giftstore/common/bg_closedBtn.png) center center scroll no-repeat; */
     border: 1px solid #bebebe;
 }
-dl:after, ul:after, ol:after {
+.big_category_wrap dl:after, .big_category_wrap ul:after, .big_category_wrap ol:after {
     content: '';
     clear: both;
     display: block;
@@ -444,23 +421,16 @@ dl:after, ul:after, ol:after {
     border-top: 1px solid #d6d6d6;
     border-bottom: 1px solid #d6d6d6;
 }
-body, input, textarea, select, button, table {
-    font-size: 13px;
-    line-height: 1.2;
-    color: #666;
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
-    font-weight: 400;
-}
-table {
+.big_category_wrap table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
 }
-table caption {
+.big_category_wrap table caption {
     font: 0/0 a;
     zoom: 1;
 }
-caption, th, td {
+.big_category_wrap caption, .big_category_wrap th, .big_category_wrap td {
     font-weight: 300;
     line-height: 1.5em;
     text-align: center;

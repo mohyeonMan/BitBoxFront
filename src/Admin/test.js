@@ -1,38 +1,46 @@
-/*
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+
 function Test(props) {
-    const [data,setData] = useState([]);
-    const [moviecdNum,setMoviecdNum] = useState('');
-   useEffect(()=>{
-        const url = '"https://openapi.naver.com/v1/search/movie.json"';
+    const [moviecdNum,setMoviecdNum] = useState('')
+    const[otherQuery,setOtherQuery] = useState('')
+    const[otherData,setOtherData] = useState([]);
+    const te = () => {
+        const url3 = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json';
+        axios.get(url3,{
+            params:{
+                key: '0d28095f9f31dd96948bdf3a57f427d1',
+                movieNm : moviecdNum
+            }
+        }).then(res => setOtherQuery(res.data.movieListResult.movieList[0].movieCd)
+        )
+    }
+        useEffect(()=>{
+            const url4 = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json';
+            axios.get(url4,{
+                params:{
+                    key: '0d28095f9f31dd96948bdf3a57f427d1',
+                    movieCd : otherQuery
+                }
+            }).then(res => setOtherData(res.data)
+            )
+        },[setOtherQuery])
 
-        axios.get( url,{
-            params:{query: moviecdNum},
-            headers: {
-                "X-Naver-Client-Id": '_g6JfZzkITAmkjoExZi8',
-                "X-Naver-Client-Secret": 'SqBOobPA63',
-            },
-        })
-            .then((res) =>setData(...data,res.data))
+        return (
+            <div>
+                <table border={13}>
+                    <tr>
+                        <input  onChange={(e) => setMoviecdNum(e.target.value)}/>
+                        <br/>
+                        <div>{JSON.stringify(otherData)}</div>
+                        {/*<img src={data} alt="d"/>*/}
+                    </tr>
+                </table>
+                <button onClick={te}>클릭</button>
+            </div>
+        );
 
-    },[mo]);
-    return (
-        <div>
-            <table border={13}>
-                <tr>
-                    <input id={moviecdNum} onChange={(e)=>setMoviecdNum(e.target.value)}/>
-                </tr>
-                <tbody>
-                            <tr>
-                                <td >{JSON.stringify(data)}</td>
-                            </tr>
-                            <button onClick={mo} >1234</button>
-                </tbody>
-            </table>
-        </div>
-    );
 }
-
 export default Test;
-*/
+
+/* as been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. */
