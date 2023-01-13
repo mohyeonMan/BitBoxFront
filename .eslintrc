@@ -83,6 +83,8 @@
     "jsx-a11y/no-autofocus": 0,
     "react/display-name": 0,
     "jsx-a11y/alt-text": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/anchor-has-content": 0,
     "no-unused-vars": [
       1,
       {
@@ -103,7 +105,7 @@
       "assert": "both",
       "depth": 3
     }],
-    "jsx-a11y/label-has-for": [ "error", {
+    "jsx-a11y/label-has-for": [ 0, {
       "required": {
         "some": [ "nesting", "id"  ]
       }

@@ -199,7 +199,6 @@ const LoginForm = () => {
                         </Button>
                         <Button
                             style={{backgroundColor: "#F9E000", color:"#3A1D1D", marginTop:"5px"}}
-                            type="submit"
                             fullWidth
                             variant="contained"
                             sx={{mt: 3, mb: 1}}

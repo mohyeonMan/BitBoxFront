@@ -282,7 +282,7 @@ const Get = () => {
                     <div className={styles.selectComplete}>
                         <div className={styles.amount} style={selectedSeat.length===0? {visibility:'hidden'}:{visibility:'visible'}}>금액 : {price}원</div>
                         <div className={styles.buttons}>
-                            <button className={styles.button}>이전으로</button>
+                            <button className={styles.button} onClick={()=>{navigate("/user/calendar")}}>이전으로</button>
                             <button className={styles.button} onClick={paymentComplete} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
                         </div>
                     </div>
