@@ -28,6 +28,8 @@ import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import { set } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import {removeCookieToken} from "src/member/storage/Cookie";
+import {useNavigate} from "react-router-dom";
 // mock
 /* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
   <option id="adminTitle "value="title">TITLE</option>
@@ -130,18 +132,26 @@ const UserPage = () => {
 
   const accessToken = localStorage.getItem("accessToken");
 
-  
+  const navi = useNavigate();
 
-
+  // 유저 리스트 뽑기, 헤더에 토큰담기(토큰 복호화 후 권한체크)
   useEffect(()=>{
-    axios.get('http://localhost:8080/member123/test', {
+    axios.get('http://localhost:8080/member/getUserList', {
       headers: {
-        Authorization: `Bearer {$accessToken}`
+        Authorization: `Bearer ${accessToken}`
       }
     })
         .then((res) =>setMember(res.data) )
-        .catch(error => console.log(error))
+        .catch(error => {
+          console.log(error.response);
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('expireTime');
+          removeCookieToken();
+          alert("관리자 권한이 없습니다");
+          navi("/");
+        })
   },[])
+
 
   
   // 수정해야함.. 하나씩 나오게 해야됨 .. 
@@ -149,6 +159,7 @@ const UserPage = () => {
   // const roleUp = (e) => {
   //  setShow(!show)
   // }
+
 
   const USERLIST = member.filter(item =>[{
     id: item.username,

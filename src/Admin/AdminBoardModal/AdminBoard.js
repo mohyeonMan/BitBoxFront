@@ -2,19 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {filter} from 'lodash';
 // @mui
 import {
-  Card,
-  Table,
-  Stack,
-  Button,
-  TableRow,
-  MenuItem,
-  TableBody,
-  TableCell,
-  Container,
-  Typography,
-  TableContainer,
-  TablePagination,
-  InputAdornment,
+    Card,
+    Table,
+    Stack,
+    Button,
+    TableRow,
+    MenuItem,
+    TableBody,
+    TableCell,
+    Container,
+    Typography,
+    TableContainer,
+    TablePagination,
 } from '@mui/material';
 // components
 import axios from "axios";
@@ -23,40 +22,41 @@ import Scrollbar from '../components/scrollbar';
 import AdminUserListHead from './AdminUserListHead';
 import AdminBoardModalUpdatePage from './AdminBoardModalUpdatePage ';
 import AdminBoardModalRead from './AdminBoardModalRead';
-import { grey, red } from '@mui/material/colors';
-import { borderTopColor } from '@mui/system';
+
+import {removeCookieToken} from "src/member/storage/Cookie";
+import {useNavigate} from "react-router-dom";
 
 // @DashBoard - app - AppNewsUpdate.js 로 들어감 
 const AdminBoard = () => {
 
-  function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
+    function descendingComparator(a, b, orderBy) {
+        if (b[orderBy] < a[orderBy]) {
+            return -1;
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
+        return 0;
     }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
+
+    function getComparator(order, orderBy) {
+        return order === 'desc'
+            ? (a, b) => descendingComparator(a, b, orderBy)
+            : (a, b) => -descendingComparator(a, b, orderBy);
     }
-    return 0;
-  }
-  
-  function getComparator(order, orderBy) {
-    return order === 'desc'
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-  
-  function applySortFilter(array, comparator, query) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
-    });
-    if (query) {
-      return filter(array, (_admin) =>_admin.adminBoardSeq.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+
+    function applySortFilter(array, comparator, query) {
+        const stabilizedThis = array.map((el, index) => [el, index]);
+        stabilizedThis.sort((a, b) => {
+            const order = comparator(a[0], b[0]);
+            if (order !== 0) return order;
+            return a[1] - b[1];
+        });
+        if (query) {
+            return filter(array, (_admin) => _admin.adminBoardSeq.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        }
+        return stabilizedThis.map((el) => el[0]);
     }
-    return stabilizedThis.map((el) => el[0]);
-  }
 
   // NEWS HEAD 
   const TABLE_HEAD = [
@@ -68,140 +68,158 @@ const AdminBoard = () => {
     { id: 'ect', label: 'ETC..', alignRight: false },
     // { id: '' },
   ];
-  const [open, setOpen] = useState(null);
+ 	 const [open, setOpen] = useState(null);
 
-  const [page, setPage] = useState(0);
+    const [page, setPage] = useState(0);
 
-  const[adminList, setAdminList] = useState([])
+    const [adminList, setAdminList] = useState([])
 
-  const [order, setOrder] = useState('desc');
+    const [order, setOrder] = useState('desc');
 
-  const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState([]);
 
-  const [orderBy, setOrderBy] = useState('adminBoardSeq');
+    const [orderBy, setOrderBy] = useState('adminBoardSeq');
 
-  const [filterName, setFilterName] = useState('');
+    const [filterName, setFilterName] = useState('');
 
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [adminKeyword, setAdminKeyword] =useState('')
-  const [adminSearchOption,setAdminSearchOption] =useState('title')
+    const [adminKeyword, setAdminKeyword] = useState('')
+    const [adminSearchOption, setAdminSearchOption] = useState('title')
 
-  const [adUpSeq, setAdUpSeq] =useState('')
+    const [adUpSeq, setAdUpSeq] = useState('')
 
-  const date = new Date()
-  const selectedDate = new Date()
+    const date = new Date()
+    const selectedDate = new Date()
 
 
-  //  게시판 시간 (수정해야함) 
-  const getTime = (logtime) => {
-    //  const year = date.getFullYear(logtime) 
-    //  const month = date.getMonth(logtime)+1 
-    //  const day = date.getDate(logtime) 
-    //  return `${year}/${month}/${day}` 
+    //  게시판 시간 (수정해야함)
+    const getTime = (logtime) => {
+        //  const year = date.getFullYear(logtime)
+        //  const month = date.getMonth(logtime)+1
+        //  const day = date.getDate(logtime)
+        //  return `${year}/${month}/${day}`
 
-  }
+    }
 
-  // AdminBoard 리스트 출력  
-  useEffect(()=>{
-    axios.get('http://localhost:8080/adminBoard/adminBoardList')
-        .then((res) =>{
-          setAdminList(res.data) })
-        .catch(error => console.log(error))
-  },[])
+    const accessToken = localStorage.getItem("accessToken");
 
-  // AdminBoard 리스트 검색   
-  const onAdminSearch = (e) => {
-    e.preventDefault();
-    axios.get('http://localhost:8080/adminBoard/adminBoardSearch',{
-      params : {
-        adminSearchOption,
-        adminKeyword
-      }
-    })
-          .then(res => setAdminList(res.data))
-          .catch(error => console.log(error))
-  } 
+    const navi = useNavigate();
 
-  // AdminBoard 게시판 삭제 
-  const onDeleteBoard = (boardSeq) => {
+    // AdminBoard 리스트 출력
+    useEffect(() => {
+        axios.get('http://localhost:8080/adminBoard/adminBoardList', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+            .then((res) => {
+                setAdminList(res.data)
+            })
+            .catch(error => {
+                console.log(error.response);
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('expireTime');
+                removeCookieToken();
+                alert("관리자 권한이 없습니다");
+                navi("/");
+            })
+
+    }, [])
+
+    // AdminBoard 리스트 검색
+    const onAdminSearch = (e) => {
+        e.preventDefault();
+        axios.get('http://localhost:8080/adminBoard/adminBoardSearch', {
+            params: {
+                adminSearchOption,
+                adminKeyword
+            }
+        })
+            .then(res => setAdminList(res.data))
+            .catch(error => console.log(error))
+    }
+
+    // AdminBoard 게시판 삭제
+    const onDeleteBoard = (boardSeq) => {
         const boardSeqList = adminList.filter((item) => item.adminBoardSeq !== boardSeq);
         setAdminList(boardSeqList);
         axios.delete(`http://localhost:8080/adminBoard/adminBoardDelete?adminBoardSeq=${boardSeq}`)
-        .then(()=>{
-          alert('삭제 완로')
-        })
-        .catch(error => console.log(error))
-}
-
-  const BoardAdminList = adminList.filter(item =>[{
-    adminBoardSeq: item.adminBoardSeq,
-    title: item.title,
-    content : item.name,
-    logtime : item.logtime,
-    status : 'success',
-  }]);
-
-  const handleOpenMenu = (event) => {
-    setAdUpSeq(event.target.id)
-    setOpen(event.currentTarget);
-    
-  };
-
-  const handleCloseMenu = () => {
-    setOpen(null);
-  };
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = BoardAdminList.map((e) => e.adminBoardSeq);
-      setSelected(newSelecteds);
-      return;
+            .then(() => {
+                alert('삭제 완로')
+            })
+            .catch(error => console.log(error))
     }
-    setSelected([]);
-  };
 
-  const handleClick = (event, adminBoardSeq) => {
-    const selectedIndex = selected.indexOf(adminBoardSeq);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, adminBoardSeq);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
+    const BoardAdminList = adminList.filter(item => [{
+        adminBoardSeq: item.adminBoardSeq,
+        title: item.title,
+        content: item.name,
+        logtime: item.logtime,
+        status: 'success',
+    }]);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+    const handleOpenMenu = (event) => {
+        setAdUpSeq(event.target.id)
+        setOpen(event.currentTarget);
 
-  const handleChangeRowsPerPage = (event) => {
-    setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
-  };
+    };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - BoardAdminList.length) : 0;
+    const handleCloseMenu = () => {
+        setOpen(null);
+    };
 
-  const filteredUsers = applySortFilter(BoardAdminList, getComparator(order, orderBy), filterName);
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
 
-  const isNotFound = !filteredUsers.length && !!filterName;
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelecteds = BoardAdminList.map((e) => e.adminBoardSeq);
+            setSelected(newSelecteds);
+            return;
+        }
+        setSelected([]);
+    };
 
-  return (
+
+    const handleClick = (event, adminBoardSeq) => {
+        const selectedIndex = selected.indexOf(adminBoardSeq);
+        let newSelected = [];
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, adminBoardSeq);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+        }
+        setSelected(newSelected);
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setPage(0);
+        setRowsPerPage(parseInt(event.target.value, 10));
+    };
+
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - BoardAdminList.length) : 0;
+
+    const filteredUsers = applySortFilter(BoardAdminList, getComparator(order, orderBy), filterName);
+
+    const isNotFound = !filteredUsers.length && !!filterName;
+
+    return (
     <>
       <Container >
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-          <Typography variant="h5" gutterBottom > 
+          <Typography variant="h5" gutterBottom>
             <p/>
             NEWS
           </Typography>
@@ -258,8 +276,8 @@ const AdminBoard = () => {
                         {/* <TableCell align="left">{getTime(logtime)}</TableCell> */}
 
                           <MenuItem id={adminBoardSeq}  style={{fontSize:12,width:100}}  onClick={handleOpenMenu}>
-                            <Iconify icon={'eva:edit-fill'}  sx={{ mr:2 }}/>                           
-                             <AdminBoardModalUpdatePage props={adUpSeq}/>
+                            <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>                           
+                            <AdminBoardModalUpdatePage props={adUpSeq}/>
                           </MenuItem>
                             <MenuItem style={{fontSize:12,width:100}}
                             sx={{ color: 'error.main' }} onClick={ () => { if (window.confirm(`${adminBoardSeq}번 게시글을 삭제하시겠습니까?`)){ onDeleteBoard(adminBoardSeq); }} }  >
@@ -277,7 +295,6 @@ const AdminBoard = () => {
                   )}
                 </TableBody>
               </Table>
-              
 
           {/*  search  */}
           <div id="adminBoardListForm" style={{width: '450px',margin:'30px', align:'left'}}>
@@ -288,9 +305,10 @@ const AdminBoard = () => {
               <option id="adminTitle "value="title">TITLE</option>
               <option id="adminContent" value="content">CONTENT</option>
              </select>&nbsp; */}
-              <input type="text" name="adminKeyword" value={adminKeyword} onChange={e => setAdminKeyword(e.target.value)} 
-              placeholder='Search Board..'style={{width:200,borderRadius:10,borderColor:'#d3d3d3'}}
+              <input type="text" name="adminKeyword" value={adminKeyword} onChange={e => setAdminKeyword(e.target.value)}
+              placeholder='Search Board..'style={{width:200}}
               />&nbsp;
+              
             <Button onClick={onAdminSearch}>Search</Button>
            </form>
           </div>

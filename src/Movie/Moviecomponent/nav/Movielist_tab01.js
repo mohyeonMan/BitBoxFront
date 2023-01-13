@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState , useEffect} from 'react';
 import search_icon from '../img/search_icon.png';
-import fullheart from '../img/fullheart.png';
-import emptyheart from '../img/emptyheart.png';
+// import fullheart from '../img/fullheart.png';
+// import emptyheart from '../img/emptyheart.png';
 
 
 
@@ -15,19 +15,19 @@ const Movielist_tab01 = () => {
     const [keyword, setKeyword] = useState('');
     const [already_released, setAlready_released] = useState(false);
  
-    const [movielike_Btn_img,setMovielike_Btn_img] = useState(false); // 이미지 토글
+    // const [movielike_Btn_img,setMovielike_Btn_img] = useState(false); // 이미지 토글
 
 
     const movie_already_released_check = () => {
         setAlready_released(!already_released)
     }
-    const movie_like_one = (target_title) => {
-        setMovielike_Btn_img(!movielike_Btn_img);
-        console.log(movielike_Btn_img)
-        axios.get(movielike_Btn_img ? `http://localhost:8080/movielist/movie_like_minus_one?movie_title=${target_title}` : `http://localhost:8080/movielist/movie_like_one?movie_title=${target_title}`)
-            .then(res => (already_released ? movie_already_release_filter(): movie_add_list()))
-            .catch(err => console.log(err))
-    }
+    // const movie_like_one = (target_title) => {
+    //     setMovielike_Btn_img(!movielike_Btn_img);
+    //     console.log(movielike_Btn_img)
+    //     axios.get(movielike_Btn_img ? `http://localhost:8080/movielist/movie_like_minus_one?movie_title=${target_title}` : `http://localhost:8080/movielist/movie_like_one?movie_title=${target_title}`)
+    //         .then(res => (already_released ? movie_already_release_filter(): movie_add_list()))
+    //         .catch(err => console.log(err))
+    // }
 
     const [the_number_of_movielist, setThe_number_of_movielist]  = useState(20);
     const [movielist_release_filter, setMovielist_release_filter] = useState(20);
@@ -48,10 +48,6 @@ const Movielist_tab01 = () => {
     const movie_already_release_filter = () => {
         axios.get('http://localhost:8080/movielist/getMovieList_already_on_boxoffice')
             .then(res => {setMovie_count(res.data.length)
-                setList([
-                    ...list,
-                    ...res.data
-                ])
                 console.log("개봉중인 영화 리스트 = " + movielist_release_filter) 
                 setList(res.data.splice(0,movielist_release_filter))})
             .catch(err => console.log(err))
@@ -105,7 +101,7 @@ const Movielist_tab01 = () => {
 
     const onSearch = () => {
         axios
-            .get('http://localhost:8080/movielist/Movie_search_boxoffice', {
+            .get('http://localhost:8080/movielist/Movie_search_tobereleased', {
                     params : {
                         searchOption : searchOption,
                         keyword: keyword
@@ -152,17 +148,33 @@ const Movielist_tab01 = () => {
                                 <ol className='Movielist_seq' >
                                     <li>
                                         <div className='Movielist_title_num'>{index+1}</div>
-                                        <img className='Movielist_title_img' src={`../storage/${item.img_url}`}/>
+                                        <div>
+                                            <img className='Movielist_title_img' src={`../storage/${item.img_url}`}/>
+                                            <div className="movie-score" >        
+                                                <a href="#" className="movielist_info">
+                                                    <div className="movielist_summary">&lt;{item.movie_title}&gt;
+                                                    {item.movie_info_title}
+                                                    {item.movie_info_title2}
+                                                    </div>            
+                                                    <div className="movielist_moviescore">                
+                                                        <div className="movielist_moviescore_preview">                    
+                                                            <p className="movielist_moviescore_tit">관람평</p>                    
+                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                
+                                                        </div>            
+                                                    </div>        
+                                                </a>    
+                                            </div>
+                                        </div>
                                         <div className='Movielist_title_area'>
                                             <img className='Movielist_grade_age' src={`../storage/${item.movie_grade}`}/>
                                             <p className='Movielist_title_maintitle'>{item.movie_title}</p>
                                         </div>
                                         <div className='Movielist_title_ratedate'>
-                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}% &nbsp;|</span>
+                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}% &nbsp; |</span>
                                             <span className='Movielist_title_date'> &nbsp;개봉일 {item.movie_release_start}</span>
                                         </div>
                                         
-                                        <div className='Movielist_Btnlist'>
+                                        {/* <div className='Movielist_Btnlist'>
                                             <input type='button' className="Movielike_Btn" value={item.movie_like} 
                                                     onClick={() => {movie_like_one(item.movie_title)}}>
                                             </input>
@@ -173,9 +185,11 @@ const Movielist_tab01 = () => {
                                             <img src={emptyheart} id='movie_heart_img' alt='좋아요' 
                                                 onClick={() => movie_like_one(item.movie_title)}/>
                                             }
-                                        </div>
-                                        <input type='button' className='Movie_Btn_reserve' value="예매"></input>
-                                        
+                                        </div> */}
+                                        <a href="#" className="movielist_Btn_change">
+                                            {list.movie_class === "2" ? <input type='button' className='Movie_Btn_reserve_yet' value="개봉예정"></input>:false}
+                                            {list.movie_class !== "2" ? <input type='button' className='Movie_Btn_reserve' value="예매"></input>:false}
+                                        </a>
                                     </li>
 
                                     {index === list.length-1 ? ( list.length < 99 ? (already_released === false? (list.length % 20 == 0 ? 

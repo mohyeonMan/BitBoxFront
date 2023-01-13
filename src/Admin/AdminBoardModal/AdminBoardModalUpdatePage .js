@@ -20,6 +20,7 @@ function AdminBoardModalUpdatePage(props){
     setModalOpen(false);
   };
 
+
   return (
     <>
     <button style={{ all:'unset',color:'blue',fontSize:12}} onClick={openModal}>Modify</button>
