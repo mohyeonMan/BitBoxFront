@@ -28,6 +28,7 @@ import FindIdPasswordRoutes from "src/member/FindIdPasswordRoutes";
 import FindPwdAndChange from "src/member/FindPwdAndChange";
 import Success from './user/Success';
 import Get2 from "src/user/Get2";
+import LoginForm2 from "src/member/LoginForm2";
 
 const App = () => {
 
@@ -60,6 +61,7 @@ const App = () => {
             }
         }).then(res => {
             sessionStorage.setItem("userName", res.data.username);
+            sessionStorage.setItem("birth", res.data.birth);
             console.log(res.data.name)
         }).catch(error => {
             console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
@@ -77,6 +79,7 @@ const App = () => {
             <Route path='/member' element={<Member />} />
             <Route path='/member/joinForm/*' element={<JoinForm />} />
             <Route path='/member/loginForm' element={<LoginForm />} />
+            <Route path='/member/loginForm2' element={<LoginForm2/>} />
             <Route path='/member/FindIdPasswordRoutes/*' element={<FindIdPasswordRoutes />} />
             <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />

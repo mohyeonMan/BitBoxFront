@@ -13,6 +13,7 @@ import '../css/hour.css'
 
 import Layout from "../Main/Layout";
 import Footer from "../Main/Footer";
+import {getCookieToken} from "src/member/storage/Cookie";
 
 
 
@@ -416,9 +417,21 @@ const Calendar = () => {
                                             className="bbtn"
                                             id={timess[0]}
                                             onClick={() => {
+                                                if (getCookieToken()) {
+                                                    const username = sessionStorage.getItem('birth')
 
-                                                navigate(`/user/get/${item.pk}`)
-                                            }}
+                                                    if(list4[0].movie_age === '18'){
+                                                        {Number(username.substring(0,2)) < 6 ? alert( '만19세이상만 관람가능한 영화입니다.') : Number(username.substring(0,2)) > 30 ? navigate(`/user/get/${item.pk}`) : alert( '만19세이상만 관람가능한 영화입니다.')}
+                                                        
+                                                    }else{
+                                                        navigate(`/user/get/${item.pk}`)
+                                                    }
+
+                                                }else{
+                                                    alert('로그인이필요한 서비스 입니다.')
+                                                    window.open("/member/loginForm2","","width=600px,height=600px,left=450px,top=100px")
+                                                }
+                                                }}
                                         >
                                             <div className="legend"/>
                                             <span className='time'>
