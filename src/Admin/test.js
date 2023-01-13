@@ -1,67 +1,39 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+
 function Test(props) {
-    const [moviecdNum, setMoviecdNum] = useState('');
-    const [data, setData] = useState([])
-    const [setQuery, setSetQuery] = useState('')
-    const[imgUrl,setImgUrl] = useState('')
-    const url = '../moviesearch/movie?api_key=574ef45c366822b07b3a7f5799a6b116';
-    const url2 = `../movieapp/${setQuery}?api_key=574ef45c366822b07b3a7f5799a6b116`;
+    const [moviecdNum,setMoviecdNum] = useState('')
+    const[otherQuery,setOtherQuery] = useState('')
+    const[otherData,setOtherData] = useState([]);
     const te = () => {
-        axios.get(url, {
-            params: {query: moviecdNum},
-            headers: {
-                'Accept': '*/*',
-                'Access-Control-Allow-Origin': '*',
-            },
-        }).then((res1) => {
-                if (res1.data.results.length === 1) {
-                    setSetQuery(res1.data.results[0].id)
-                }else if(res1.data.results.length > 1){
-                    setSetQuery(res1.data.results[0].id)
-                }
-                else {
-                    alert("다시검색")
-                }
+        const url3 = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json';
+        axios.get(url3,{
+            params:{
+                key: '0d28095f9f31dd96948bdf3a57f427d1',
+                movieNm : moviecdNum
             }
-            )
+        }).then(res => setOtherQuery(res.data.movieListResult.movieList[0].movieCd)
+        )
     }
-    useEffect(()=>{
-        axios.get(url2, {
-            params:{language: "ko"},
-            headers: {
-                'Accept': '*/*',
-                'Access-Control-Allow-Origin': '*',
-            },
-        }).then(res => console.log(JSON.stringify(res.data)))
-    },[setQuery])
-    /* movieapi */
+        useEffect(()=>{
+            const url4 = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json';
+            axios.get(url4,{
+                params:{
+                    key: '0d28095f9f31dd96948bdf3a57f427d1',
+                    movieCd : otherQuery
+                }
+            }).then(res => setOtherData(res.data)
+            )
+        },[setOtherQuery])
 
-        /* axios.get(url2, {
-             params:{query: res1.data[0].results[0].id},
-             headers: {
-                 'Accept': '*!/!*',
-                 'Access-Control-Allow-Origin': '*',
-             },
-         }).then((res) => setSrc(res.data))*/
-
-
-        /* /!*      {const url = '../movieapp/all?api_key=574ef45c366822b07b3a7f5799a6b116';
-         axios.get( url,{
-                 headers: {
-                     'Accept': '*!/!*',
-                     'Access-Control-Allow-Origin':'*',
-                 },
-         }).then((res) => alert(JSON.stringify(res.data)))
-     }   */
         return (
             <div>
                 <table border={13}>
                     <tr>
-                        <input id={moviecdNum} onChange={(e) => setMoviecdNum(e.target.value)}/>{setQuery}
+                        <input  onChange={(e) => setMoviecdNum(e.target.value)}/>
                         <br/>
+                        <div>{JSON.stringify(otherData)}</div>
                         {/*<img src={data} alt="d"/>*/}
-                        <img src={imgUrl} alt=""/>
                     </tr>
                 </table>
                 <button onClick={te}>클릭</button>
