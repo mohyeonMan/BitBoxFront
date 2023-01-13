@@ -156,7 +156,7 @@ const LoginForm = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <img src="../img_member/mainLogo.png" alt="logo" width="50%"/>
+                    <img src="../img_member/mainLogo.png" alt="logo" width="50%" style={{cursor:"pointer"}} onClick={()=>{navi("/")}}/>
                     <Avatar sx={{m: 1, backgroundColor: "#B20710"}}>
                         <LockOutlinedIcon/>
                     </Avatar>
