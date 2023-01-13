@@ -52,7 +52,7 @@ const Get = () => {
             setRoomStatus(copyStatus)
         },[filler])
         
-    const navigate = useNavigate
+    const navigate = useNavigate();
      //최대 예약 인원
      const [quantity,setQuantity] = useState(8);
      //현재 선택 좌석
@@ -209,14 +209,14 @@ const Get = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
-    
-    const [id,setId] = useState('박지훈');
+
+
+    const id = sessionStorage.getItem('userName');
     
     
     return (
         <>
            <div className={styles.info}><h2>빠른예매</h2></div>
-            <input type="text" value={id} onChange={(e)=>setId(e.target.value)}/>
             <br/>
             <hr/>
             <br/>
