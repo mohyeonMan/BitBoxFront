@@ -14,7 +14,6 @@ const InfoMember = ({setNum}) => {
     }, []);
 
 
-
     //체크박스
     const write = (e) => {
         e.preventDefault()

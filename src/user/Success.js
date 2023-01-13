@@ -1,12 +1,11 @@
-import { SearchTwoTone } from '@mui/icons-material';
 import axios from 'axios';
 import ReservationModal from './ReservationModal.js';
-import React, { useEffect, useState } from 'react';
-import QRCode from "react-qr-code";
+import React, {useEffect, useState} from 'react';
 import styles from "../css/Success.module.css";
 
 const Success = () => {
-    const [id,setId]=useState('박지훈');
+
+    const id = sessionStorage.getItem('userName');
     const [reservationLog,setReservationLog] = useState([])
     const [logArray,setLogArray]=useState([]);
     const [filler,setFiller]=useState([]) //현재 좌석현황
@@ -68,7 +67,7 @@ const Success = () => {
                 axios.delete(`http://localhost:8080/reservation/cancelReservation?pk=${targetReservation.pk}`)
                 .then(res=> {
                     alert('예매가 취소되었습니다.')
-                    setId('');
+
                 }).catch(err=>console.log(err))
             }).catch(err=>console.log(err))
         }).catch(err=>console.log(err))
@@ -87,7 +86,7 @@ const Success = () => {
     return (
         <>
           대충 마이페이지<br/>
-          <input type="text" value={id} onChange={(e)=>setId(e.target.value)}/>
+          {/* <input type="text" value={id} onChange={(e)=>setId(e.target.value)}/> */}
           <br/><br/>
             {
               reservationLog.length===0? 
