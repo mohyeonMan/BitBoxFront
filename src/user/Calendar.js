@@ -151,6 +151,7 @@ const Calendar = () => {
                 setList(res.data)
             })
             .catch(error => console.log(error))
+
     },[selectedDate])
 
     const renderHeader = () => {
@@ -394,9 +395,11 @@ const Calendar = () => {
 
 
             </div>
+
             <div className="box-3">
                 <p className='tit3'>시간</p>
                 <Hours />
+
                 <div className='result' hidden={!hidden}>
 
 
@@ -418,6 +421,7 @@ const Calendar = () => {
                                             id={timess[0]}
                                             onClick={() => {
                                                 if (getCookieToken()) {
+
                                                     const username = sessionStorage.getItem('birth')
 
                                                     if(list4[0].movie_age === '18'){
@@ -428,8 +432,11 @@ const Calendar = () => {
                                                     }
 
                                                 }else{
+                                                    const popupX = (window.screen.width / 2) - 300;
+                                                    const popupY= (window.screen.height / 2) - 300;
+
                                                     alert('로그인이필요한 서비스 입니다.')
-                                                    window.open("/member/loginForm2","","width=600px,height=600px,left=450px,top=100px")
+                                                    window.open("/member/loginForm2","","width=600px,height=600px,left="+ popupX + ", top="+ popupY)
                                                 }
                                                 }}
                                         >
@@ -457,12 +464,10 @@ const Calendar = () => {
                                         </button>
                                         <div className='tooltiptext2'>
                                             <iframe
-
                                                 src={`/user/get2/${item.pk}`}
                                                 scrolling='no'
                                                 className="preview-box"
                                                 title='preview-box'
-
                                             >
                                                 <p>Your browser does not support iframes.</p>
                                             </iframe>
@@ -480,6 +485,7 @@ const Calendar = () => {
 
 
                 </div>
+
                 <div className='no-result' hidden={hidden}>
                     <div className='ico-movie-time'/>
                     <br/>
