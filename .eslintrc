@@ -82,6 +82,7 @@
     "@typescript-eslint/no-empty-function": 0,
     "jsx-a11y/no-autofocus": 0,
     "react/display-name": 0,
+    "jsx-a11y/alt-text": 0,
     "no-unused-vars": [
       1,
       {
@@ -95,7 +96,7 @@
         "array": false
       }
     ],
-    "jsx-a11y/label-has-associated-control": [ 2, {
+    "jsx-a11y/label-has-associated-control": [ 0, {
       "labelComponents": ["CustomLabel"],
       "labelAttributes": ["inputLabel"],
       "controlComponents": ["CustomInput"],

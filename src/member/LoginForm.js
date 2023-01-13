@@ -1,22 +1,111 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useNavigate} from "react-router-dom";
+import {useNavigate , Link} from "react-router-dom";
 import axios from "axios";
 import {setRefreshToken} from "src/member/storage/Cookie";
 
 const theme = createTheme();
 
+
 const LoginForm = () => {
+
+
+    const initKakao = () => {
+        const jsKey = "8645acd0e5c87d5d3a9ec02a6ab65543";
+        const Kakao = window.Kakao;
+        if (Kakao && !Kakao.isInitialized()) {
+            Kakao.init(jsKey);
+            console.log(Kakao.isInitialized());
+        }
+    };
+
+    useEffect(() => {
+        initKakao();
+    }, []);
+
+
+    const kakaoLogin = () => {
+        window.Kakao.Auth.login({
+            success() {
+                window.Kakao.API.request({
+                    url: "/v2/user/me",
+                    success(res) {
+                        alert(JSON.stringify(res));
+                        const kakaoAccount = res.kakao_account;
+                        const aaa = {
+                            name: kakaoAccount.profile.nickname,
+                            birth: '05'+kakaoAccount.birthday,
+                            phoneNumber: '',
+                            username:  kakaoAccount.email,
+                            password: '1q2w3e4r',
+                            email: kakaoAccount.email
+                        }
+
+                        axios.get(`http://localhost:3000/member/existName?name=${kakaoAccount.profile.nickname}`)
+                            .then(res => {
+                                if (res.data === 'exist') {
+
+
+                                    axios.post(`http://localhost:3000/auth/login`,{
+                                        username: aaa.username,
+                                        password: aaa.password
+                                    }).then(res => {
+                                        if (res.data) {
+                                            alert(JSON.stringify(res.data));
+                                            setRefreshToken(res.data.refreshToken);
+                                            localStorage.setItem("accessToken", res.data.accessToken);
+                                            navi("/");
+                                        }
+                                    }).catch(error => {
+                                        console.log(error.response);
+                                    })
+
+                                } else {
+
+                                    axios.post('http://localhost:3000/auth/signup', null, {params: aaa})
+                                        .then(() => {
+
+                                            axios.post(`http://localhost:3000/auth/login`,{
+                                                username: aaa.username,
+                                                password: aaa.password
+                                            }).then(res => {
+                                                if (res.data) {
+                                                    alert(JSON.stringify(res.data));
+                                                    setRefreshToken(res.data.refreshToken);
+                                                    localStorage.setItem("accessToken", res.data.accessToken);
+                                                    navi("/");
+                                                }
+                                            }).catch(error => {
+                                                console.log(error.response);
+                                            })
+                                        })
+                                        .catch(error => console.log(error));
+
+                                }
+                            })
+                            .catch(error => console.log(error));
+
+
+                    },
+                    fail(error) {
+                        console.log(error);
+                    },
+                });
+            },
+            fail(error) {
+                console.log(error);
+            },
+        });
+    };
 
     const [form, setForm] = useState({
         username: '',
@@ -104,18 +193,28 @@ const LoginForm = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 1}}
                         >
                             로그인
                         </Button>
+                        <Button
+                            style={{backgroundColor: "#F9E000", color:"#3A1D1D", marginTop:"5px"}}
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{mt: 3, mb: 1}}
+                            onClick={kakaoLogin}
+                        ><img src="../img_member/kakaoIcon.png" alt={"kakaoIcon"} style={{width:"24px"}}/>
+                            카카오로그인
+                        </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link to={'/member/FindIdPasswordRoutes'} variant="body2">
                                     아이디 또는 비밀번호 찾기
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link to={'/member/joinForm'} variant="body2">
                                     회원가입
                                 </Link>
                             </Grid>
