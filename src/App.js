@@ -24,6 +24,8 @@ import Movielist_master_write from './Movie/Moviecomponent/nav/Movielist_master_
 import Movielist_master_list from './Movie/Moviecomponent/nav/Movielist_master_list';
 import Movielist_master_delete from './Movie/Moviecomponent/nav/Movielist_master_delete';
 import Movielistmain from './Movie/Moviecomponent/main/Movielistmain';
+import FindIdPasswordRoutes from "src/member/FindIdPasswordRoutes";
+import FindPwdAndChange from "src/member/FindPwdAndChange";
 import Success from './user/Success';
 import Get2 from "src/user/Get2";
 
@@ -57,6 +59,7 @@ const App = () => {
                 Authorization: `Bearer ${accessTokenVal}`
             }
         }).then(res => {
+            sessionStorage.setItem("userName", res.data.username);
             console.log(res.data.name)
         }).catch(error => {
             console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
@@ -74,6 +77,8 @@ const App = () => {
             <Route path='/member' element={<Member />} />
             <Route path='/member/joinForm/*' element={<JoinForm />} />
             <Route path='/member/loginForm' element={<LoginForm />} />
+            <Route path='/member/FindIdPasswordRoutes/*' element={<FindIdPasswordRoutes />} />
+            <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
             <Route path='/member/myPage' element={<MyPage />} />
             <Route path='/user/calendar' element={<Calendar />} />

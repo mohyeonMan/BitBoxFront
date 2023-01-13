@@ -3,14 +3,13 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useNavigate} from "react-router-dom";
+import {useNavigate , Link} from "react-router-dom";
 import axios from "axios";
 import {setRefreshToken} from "src/member/storage/Cookie";
 
@@ -68,7 +67,6 @@ const LoginForm = () => {
                                         }
                                     }).catch(error => {
                                         console.log(error.response);
-                                        alert("아이디 또는 비밀번호가 틀렸습니다");
                                     })
 
                                 } else {
@@ -88,7 +86,6 @@ const LoginForm = () => {
                                                 }
                                             }).catch(error => {
                                                 console.log(error.response);
-                                                alert("아이디 또는 비밀번호가 틀렸습니다");
                                             })
                                         })
                                         .catch(error => console.log(error));
@@ -201,24 +198,23 @@ const LoginForm = () => {
                             로그인
                         </Button>
                         <Button
-                            onClick={kakaoLogin}
+                            style={{backgroundColor: "#F9E000", color:"#3A1D1D", marginTop:"5px"}}
+                            type="submit"
                             fullWidth
-
-                            >
-                           <img className=''
-                                src="../img_member/kakao_login_medium_wide.png"
-                                alt="카카오 로그인 버튼"
-                            />
-
+                            variant="contained"
+                            sx={{mt: 3, mb: 1}}
+                            onClick={kakaoLogin}
+                        ><img src="../img_member/kakaoIcon.png" alt={"kakaoIcon"} style={{width:"24px"}}/>
+                            카카오로그인
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link to={'/member/FindIdPasswordRoutes'} variant="body2">
                                     아이디 또는 비밀번호 찾기
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link to={'/member/joinForm'} variant="body2">
                                     회원가입
                                 </Link>
                             </Grid>
