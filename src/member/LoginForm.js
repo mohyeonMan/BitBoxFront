@@ -43,7 +43,7 @@ const LoginForm = () => {
                         const kakaoAccount = res.kakao_account;
                         const aaa = {
                             name: kakaoAccount.profile.nickname,
-                            birth: '90'+kakaoAccount.birthday,
+                            birth: '05'+kakaoAccount.birthday,
                             phoneNumber: '',
                             username:  kakaoAccount.email,
                             password: '1q2w3e4r',
