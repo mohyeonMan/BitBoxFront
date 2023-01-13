@@ -203,7 +203,7 @@ const InfoMember = ({setNum}) => {
 
     const signUpActionHandler = () => {
         axios.post('http://localhost:8080/auth/signup', null, {params: form})
-            .then(() => {
+            .then(res => {
                 alert('계정이 등록되었습니다. 감사합니다.');
                 navi("/member/joinForm/finishJoin");
             })
