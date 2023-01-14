@@ -13,14 +13,14 @@ function Hours() {
 
             <button className="previous" onClick={() => {
                 if(!page<1)
-                setPage(page - 1)
+                setPage(page - 7)
             }}><span className='left2'/></button>
             <div className='hour-wrap2-2'>
             <HourList hours={hours.slice(page, page+7)} onClick={handleClick} />
             </div>
             <button className="next2" onClick={() => {
-                if(page<17)
-                setPage(page + 1)
+                if(page<21)
+                setPage(page + 7)
             }}><span className='right2'/></button>
         </div>
     );
