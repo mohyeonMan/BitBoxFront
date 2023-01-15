@@ -215,12 +215,11 @@ const EditProfile = () => {
                                             <input
                                                 type="email"
                                                 id="email"
+                                                placeholder={email}
                                                 name="mbEmail"
                                                 className={`${editProfile.input_text} ${editProfile.w500px}`}
                                                 defaultValue=""
                                                 onChange={inputValue}
-                                                value={email}
-
                                             />
                                         </td>
                                     </tr>
@@ -235,10 +234,9 @@ const EditProfile = () => {
                                                 name="password"
                                                 placeholder="기존 비밀번호를 입력해주세요"
                                                 className={`${editProfile.input_text} ${editProfile.w500px}`}
+                                                onChange={(e) => {setExPwd(e.target.value)}}
                                                 onBlur={(e) => {
-                                                    setExPwd(e.target.value)
                                                     exPwdChk(e.target.value)
-
                                                 }}
 
                                             />
