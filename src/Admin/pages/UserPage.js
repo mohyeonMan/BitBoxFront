@@ -18,6 +18,7 @@ import {
   IconButton,
   TableContainer,
   TablePagination,
+  Select,
 } from '@mui/material';
 // components
 import axios from "axios";
@@ -25,6 +26,10 @@ import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
+import { set } from 'date-fns';
+import { tr } from 'date-fns/locale';
+import {removeCookieToken} from "src/member/storage/Cookie";
+import {useNavigate} from "react-router-dom";
 // mock
 /* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
   <option id="adminTitle "value="title">TITLE</option>
@@ -33,16 +38,31 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 
 
 const UserPage = () => {
-  const setRole = () =>{
+
+  const setRole = (e) =>{
     const changerow =  document.getElementById(menuId).children[4]
-    /*const select = document.createElement('select')
-    select.innerHTML="(select)"
-    changerow.appendChild(select)*/
+    const select = document.createElement('select')
+    // select.innerHTML="(select)"
+    // changerow.appendChild(select)
 
-
+    // select.innerHTML="<select><option>ROLE_ADMIN</option><option>ROLE_USER</option></select>"
+    // changerow.appendChild(select)
+    // console.log(select)
+   
+    select.innerHTML='<select onchange="roleUp()">'
+                      +'<option value="ROLE_ADMIN">ROLE_ADMIN</option>'
+                      +'<option value="ROLE_USER">ROLE_USER</option>'
+                      +'<select/>'
+    changerow.appendChild(select)
+    console.log(select)
+    
+    axios.get('http://localhost:8080/member123/test')
+          .then(()=>alert(JSON.stringify(menuId)))
+          .catch(error => console.log(error))
   }
-  const deleteUser = () => {
 
+
+  const deleteUser = () => {
     axios.get('http://localhost:8080/member/delete',{
       params:{
         username:menuId
@@ -50,8 +70,10 @@ const UserPage = () => {
     })
         .then(() =>alert('삭제성공'),window.location.reload())
         .catch(error => console.log(error))
-
   }
+
+
+
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -87,6 +109,7 @@ const UserPage = () => {
     { id: 'role', label: '회원 등급', alignRight: false },
     { id: 'createDate', label: '가입일', alignRight: false },
     { id: '' },
+
   ];
   const [open, setOpen] = useState(null);
 
@@ -106,17 +129,38 @@ const UserPage = () => {
 
   const[menuId,setMenuId] = useState('')
 
+
   const accessToken = localStorage.getItem("accessToken");
 
+  const navi = useNavigate();
+
+  // 유저 리스트 뽑기, 헤더에 토큰담기(토큰 복호화 후 권한체크)
   useEffect(()=>{
-    axios.get('http://localhost:8080/member123/test', {
+    axios.get('http://localhost:8080/member/getUserList', {
       headers: {
-        Authorization: `Bearer {$accessToken}`
+        Authorization: `Bearer ${accessToken}`
       }
     })
         .then((res) =>setMember(res.data) )
-        .catch(error => console.log(error))
+        .catch(error => {
+          console.log(error.response);
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('expireTime');
+          removeCookieToken();
+          alert("관리자 권한이 없습니다");
+          navi("/");
+        })
   },[])
+
+
+  
+  // 수정해야함.. 하나씩 나오게 해야됨 .. 
+  // const [show ,setShow] = useState(true)
+  // const roleUp = (e) => {
+  //  setShow(!show)
+  // }
+
+
   const USERLIST = member.filter(item =>[{
     id: item.username,
     name : item.name,
@@ -238,8 +282,21 @@ const UserPage = () => {
                         <TableCell align="left">{username}</TableCell>
 
                         <TableCell align="left">{phoneNumber}</TableCell>
-
+                        
+                        {/*   */}
+                        {/* <TableCell align="left" >
+                          {roleType} 
+                        <div value={username} hidden={show}>
+                        <select defaultValue={roleType} >
+                          <option >ROLE_ADMIN</option>
+                          <option >ROLE_USER</option>
+                        </select>
+                        </div>
+                        </TableCell> */}
+                        {/*   */}
+                        
                         <TableCell align="left">{roleType}</TableCell>
+                       
                         <TableCell align="left">{createDate}</TableCell>
 
                         <TableCell align="right"
@@ -248,6 +305,7 @@ const UserPage = () => {
                             <Iconify icon={'eva:more-vertical-fill'}/>
                           </IconButton>
                         <Popover
+                        
                             open={Boolean(open)}
                             anchorEl={open}
                             onClose={handleCloseMenu}
@@ -267,7 +325,8 @@ const UserPage = () => {
                                 },
                               }}
                         >
-                          <MenuItem onClick={setRole} >
+                          <MenuItem onClick={setRole}>
+                          {/* <MenuItem onClick={roleUp} > */}
                             <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>
                             등급 조정
                           </MenuItem>

@@ -22,6 +22,10 @@
     height: 600px;
     margin: 0 10px ;
 }
+
+.seats2{}
+
+
 .screen{
     text-align: center;
     font-size: 15px;
@@ -31,12 +35,22 @@
     width: 250px;
     
 }
+.screen2{
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    background-color: gray;
+    margin: 7px;
+    width: 100px;
+
+}
 .part{
     display:flex;
     justify-content: center;
     align-items: center;
     flex-flow: row nowrap;
 }
+
 .oneSeat{
     border: 1px dotted red;
     display:flex;
@@ -47,17 +61,38 @@
     font-size: 0.7em;
     background-color: bisque;
 }
+.oneSeat2{
+    display:flex;
+    justify-content: center;
+    width: 7px;
+    height: 7px;
+    margin: 1px;
+    font-size: 0.7em;
+    background-color: black;
+}
 .adultSelected{
     border: 1px dotted red;
     display:flex;
     justify-content: center;
     width: 50px;
     height: 50px;
-    margin: 3px;
+    margin: 1px;
     font-size: 0.8em;
     background-color: chocolate;
     font-weight: bold; 
     color: white;
+}
+
+.adultSelected2{
+
+    display:flex;
+    justify-content: center;
+    width: 7px;
+    height: 7px;
+    margin: 1px;
+    font-size: 0.8em;
+    background-color: chocolate;
+
 }
 .childSelected{
     border: 1px dotted red;
@@ -68,8 +103,18 @@
     margin: 3px;
     font-size: 0.8em;
     background-color: coral;
-    font-weight: bold; 
+    font-weight: bold;
     color: white;
+}
+.childSelected2{
+
+    display:flex;
+    justify-content: center;
+    width: 7px;
+    height: 7px;
+    margin: 1px;
+    font-size: 0.8em;
+    background-color: coral;
 }
 .seatContainer{
     display: flex;
@@ -78,6 +123,12 @@
     align-items: center;
     /* width: 80%; */
     margin: 0 auto;
+}
+
+.container2{
+    display: flex;
+    justify-content: left;
+
 }
 .reserveTable{
     border: 1px solid gray;
@@ -180,6 +231,19 @@
     width: 50px;
     height: 50px;
     margin: 3px;
+    font-size: 0.7em;
+    background: gray;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="100%" x2="100%" y2="0" stroke="gray" /></svg>'),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');
+    color: black;
+}
+
+.alreadyReserved2{
+    border: 1px solid ;
+    display:flex;
+    justify-content: center;
+    width: 7px;
+    height: 7px;
+    margin: 1px;
     font-size: 0.7em;
     background: gray;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="100%" x2="100%" y2="0" stroke="gray" /></svg>'),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');

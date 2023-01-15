@@ -53,7 +53,8 @@ const Get = () => {
             setRoomStatus(copyStatus)
         },[filler])
         
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
      //최대 예약 인원
      const [quantity,setQuantity] = useState(8);
      //현재 선택 좌석
@@ -195,6 +196,7 @@ const Get = () => {
          }).then(res=> {
              alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
              navigate('/success',{replace:true});
+
           }).catch(err=>console.log(err))
      }
     
@@ -210,13 +212,15 @@ const Get = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
-    
-    const [id,setId] = useState('박지훈');
+
+
+    const id = sessionStorage.getItem('userName');
     
     
     return (
         <>
         <Layout/>
+
 
             <div className={styles.title}><h3>예매 좌석 선택</h3></div><hr/>
             <input type="text" value={id} onChange={(e)=>setId(e.target.value)}/>
@@ -283,6 +287,7 @@ const Get = () => {
                         <div className={styles.amount} style={selectedSeat.length===0? {visibility:'hidden'}:{visibility:'visible'}}>금액 : {price}원</div>
                         <div className={styles.buttons}>
                             <button className={styles.button} onClick={()=>navigate("/user/calendar",{replace:true})}>이전으로</button>
+
                             <button className={styles.button} onClick={paymentComplete} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
                         </div>
                     </div>

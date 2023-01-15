@@ -21,7 +21,7 @@ const MyPage = () => {
         }).then(res => {
             console.log(res.data)
             setStatus(res.data)
-            sessionStorage.setItem("userName", res.data.username);
+
         }).catch(error => {
             console.log(error.response);
             localStorage.removeItem('accessToken');

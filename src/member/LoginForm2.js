@@ -16,7 +16,7 @@ import {setRefreshToken} from "src/member/storage/Cookie";
 const theme = createTheme();
 
 
-const LoginForm = () => {
+const LoginForm2 = () => {
 
 
     const initKakao = () => {
@@ -61,7 +61,9 @@ const LoginForm = () => {
                                             alert(JSON.stringify(res.data));
                                             setRefreshToken(res.data.refreshToken);
                                             localStorage.setItem("accessToken", res.data.accessToken);
-                                            navi("/");
+                                            navi("/")
+                                            window.opener.parent.location.reload();
+                                            window.self.close();
                                         }
                                     }).catch(error => {
                                         console.log(error.response);
@@ -80,7 +82,9 @@ const LoginForm = () => {
                                                     alert(JSON.stringify(res.data));
                                                     setRefreshToken(res.data.refreshToken);
                                                     localStorage.setItem("accessToken", res.data.accessToken);
-                                                    navi("/");
+                                                    navi("/")
+                                                    window.opener.parent.location.reload();
+                                                    window.self.close();
                                                 }
                                             }).catch(error => {
                                                 console.log(error.response);
@@ -135,7 +139,10 @@ const LoginForm = () => {
                 setRefreshToken(res.data.refreshToken); // 쿠키에 리프레시토큰 저장
                 localStorage.setItem("accessToken", res.data.accessToken); // 로컬스토리지에 엑세스 토큰 저장
                 localStorage.setItem("expireTime", res.data.tokenExpiresIn); // 엑세스토큰 만료시간 저장
-                navi("/");
+                navi("/")
+                window.opener.parent.location.reload();
+                window.self.close();
+
             }
         }).catch(error => {
             console.log(error.response);
@@ -223,4 +230,5 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+
+export default LoginForm2;

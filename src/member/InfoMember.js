@@ -14,7 +14,6 @@ const InfoMember = ({setNum}) => {
     }, []);
 
 
-
     //체크박스
     const write = (e) => {
         e.preventDefault()
@@ -182,7 +181,7 @@ const InfoMember = ({setNum}) => {
         } = response;
 
         if (success) {
-            axios.get(`http://localhost:3000/member/existName?name=${name}`)
+            axios.get(`http://localhost:3000/member/existName?phoneNumber=${phoneNumber}`)
                 .then(res => {
                     if (res.data === 'exist') {
                         alert("회원가입이 완료되어 있는 인증정보입니다");
@@ -203,7 +202,7 @@ const InfoMember = ({setNum}) => {
 
     const signUpActionHandler = () => {
         axios.post('http://localhost:8080/auth/signup', null, {params: form})
-            .then(() => {
+            .then(res => {
                 alert('계정이 등록되었습니다. 감사합니다.');
                 navi("/member/joinForm/finishJoin");
             })
