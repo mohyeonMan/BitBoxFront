@@ -76,7 +76,7 @@ const App = () => {
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
             <Route path='/member/myPage' element={<MyPage />} />
             <Route path='/user/calendar' element={<Calendar />} />
-            <Route path="/user/get/:pk" element={<Get/>} />
+            <Route path='/user/get/:pk' element={<Get/>} />
             <Route path='/test' element={<Test/>}/>
             <Route path='/success' element={<Success/>}/>
 
