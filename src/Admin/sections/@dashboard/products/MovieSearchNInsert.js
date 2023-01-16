@@ -146,7 +146,7 @@ export default function MovieSearchNInsert() {
         let start = new Date(movie_release_start);
         let now = new Date();
         const movie_class= (start < now) ? 1 : 2;
-        const movie_agegrade= otherData.audits[0].watchGradeNm;
+        const movie_agegrade= (otherData.audits.length === 0 ? "전체이용가" : otherData.audits[0].watchGradeNm)
         const movie_score = movieSearchData[0].userRating;
         const movie_info_title = apiData.overview;
         const movie_info_title2 = apiData.overview;
