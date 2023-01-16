@@ -19,11 +19,11 @@ import StoreCart from './component/store/StoreCart';
 import StorePayment from './component/store/StorePayment';
 import PayComplete from './component/store/PayComplete';
 import StorePay from './component/store/StorePay';
-import Movielist_master from './Movie/Moviecomponent/main/Movielist_master';
-import Movielist_master_write from './Movie/Moviecomponent/nav/Movielist_master_write';
-import Movielist_master_list from './Movie/Moviecomponent/nav/Movielist_master_list';
-import Movielist_master_delete from './Movie/Moviecomponent/nav/Movielist_master_delete';
-import Movielistmain from './Movie/Moviecomponent/main/Movielistmain';
+// import Movielist_master from './Movie/Moviecomponent/main/Movielist_master';
+// import Movielist_master_write from './Movie/Moviecomponent/nav/Movielist_master_write';
+// import Movielist_master_list from './Movie/Moviecomponent/nav/Movielist_master_list';
+// import Movielist_master_delete from './Movie/Moviecomponent/nav/Movielist_master_delete';
+// import Movielistmain from './Movie/Moviecomponent/main/Movielistmain';
 import FindIdPasswordRoutes from "src/member/FindIdPasswordRoutes";
 import FindPwdAndChange from "src/member/FindPwdAndChange";
 import Success from './user/Success';
@@ -31,7 +31,7 @@ import Get2 from "src/user/Get2";
 import LoginForm2 from "src/member/LoginForm2";
 import Reservation from './Main/Reservation';
 import EditProfile from './Main/EditProfile';
-import MovieDetail_Page from './Movie/MovieDetailComponent/info/MovieDetail_Page';
+// import MovieDetail_Page from './Movie/MovieDetailComponent/info/MovieDetail_Page';
 
 const App = () => {
 
@@ -90,13 +90,13 @@ const App = () => {
             <Route path='/store/pay' element={<StorePay/>}></Route>
 
             {/* movie */}
-            <Route path='/movielistmain' element={ <Movielistmain/>}/>
+            {/* <Route path='/movielistmain' element={ <Movielistmain/>}/>
             <Route index element={ <Movielistmain /> } />
-                <Route path='/master/:movie_title' element={ <MovieDetail_Page /> } />
+            <Route path='/master/:movie_title' element={ <MovieDetail_Page /> } />
             <Route path='/master' element={ <Movielist_master/>}/>
             <Route path='/master/write' element={ <Movielist_master_write/>}/>
             <Route path='/master/list' element={<Movielist_master_list/>}/>
-            <Route path='/master/delete' element={<Movielist_master_delete/>}/>
+            <Route path='/master/delete' element={<Movielist_master_delete/>}/> */}
 
         </Routes>
     );
