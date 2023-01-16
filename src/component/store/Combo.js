@@ -11,7 +11,7 @@ const Combo = () => {
   useEffect(() => {
     axios.get(`http://localhost:8080/store/getPopcornList?category=${category}`)
          .then(res => setList(res.data))
-         .catch(error => console.log(error))
+         .catch(error => console.log(error)) 
     
     }, [])
     return (
