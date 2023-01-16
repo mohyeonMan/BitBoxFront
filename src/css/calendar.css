@@ -618,7 +618,10 @@
     position: relative;
 }
 
-
+.container22 a{
+    all : unset;
+    cursor: pointer;
+}
 
 /* Tooltip container */
 

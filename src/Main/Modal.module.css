@@ -38,6 +38,8 @@
     right: 20px;
     top: 10px;
     font-size: 30px;
+    background-image: url('./img/btn-header-layer-close.png');
+
 }
 .modalhead section {
     color: #B20710;

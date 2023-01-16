@@ -149,28 +149,33 @@ const Movielist_tab01 = () => {
                                     <li>
                                         <div className='Movielist_title_num'>{index+1}</div>
                                         <div>
-                                            <img className='Movielist_title_img' src={`../storage/${item.img_url}`}/>
+                                            <img className='Movielist_title_img' src={item.movie_poster_url}/>
                                             <div className="movie-score" >        
                                                 <a href="#" className="movielist_info">
                                                     <div className="movielist_summary">&lt;{item.movie_title}&gt;
                                                     {item.movie_info_title}
                                                     {item.movie_info_title2}
-                                                    </div>            
+                                                    </div>
+                                                    {list.movie_already_released === "0" ?          
                                                     <div className="movielist_moviescore">                
                                                         <div className="movielist_moviescore_preview">                    
                                                             <p className="movielist_moviescore_tit">관람평</p>                    
-                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                
+                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                 
                                                         </div>            
-                                                    </div>        
+                                                    </div>: false}        
                                                 </a>    
                                             </div>
                                         </div>
                                         <div className='Movielist_title_area'>
-                                            <img className='Movielist_grade_age' src={`../storage/${item.movie_grade}`}/>
+                                            <img className='Movielist_grade_age'
+                                                src={item.movie_agegrade === "전체관람가" ? '/storage/00.png':
+                                                    item.movie_agegrade === "12세이상관람가" ? '/storage/12.png':
+                                                    item.movie_agegrade === "15세이상관람가" ? '/storage/15.png':
+                                                    item.movie_agegrade === "청소년관람불가" ? '/storage/18.png':false}/>
                                             <p className='Movielist_title_maintitle'>{item.movie_title}</p>
                                         </div>
                                         <div className='Movielist_title_ratedate'>
-                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}% &nbsp; |</span>
+                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}%  |</span>
                                             <span className='Movielist_title_date'> &nbsp;개봉일 {item.movie_release_start}</span>
                                         </div>
                                         

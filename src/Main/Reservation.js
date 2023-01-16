@@ -4,25 +4,24 @@ import reservations from './Reservation.module.css';
 import axios from 'axios';
 import ReservationModal from '../user/ReservationModal';
 import styles from "../css/Success.module.css";
+import { useNavigate } from 'react-router-dom';
 
 
 const Reservation = () => {
 
-    const id = sessionStorage.getItem('userName');
+    const [id] = useState(sessionStorage.getItem('userName'));
     const [reservationLog, setReservationLog] = useState([])
     const [logArray, setLogArray] = useState([]);
     const [filler, setFiller] = useState([]) //현재 좌석현황
     const [done, setDone] = useState(false)
+    const navigate = useNavigate();
     // 예약내역 가져오기.
     useEffect(() => {
         getReservation()
-    }, [id])
-    useEffect(() => {
-        setLogArray(reservationLog)
-    }, [reservationLog])
+    }, [])
 
     useEffect(() => {
-        done ? setLogArray(reservationLog.filter(item => item.movie_status === '미상영')) : setLogArray(reservationLog)
+        !done ? setLogArray(reservationLog.filter(item => item.movie_status === '미상영')) : setLogArray(reservationLog)
     }, [done])
 
     const [viewReservation, setViewReservation] = useState();
@@ -36,6 +35,7 @@ const Reservation = () => {
                     copy.push({...item, movie_seat: JSON.parse(item.movie_seat)})
                 })
                 setReservationLog(copy)
+                setLogArray(copy.filter(item => item.movie_status === '미상영'))
             })
     }
     //만료되지 않은 정보만
@@ -70,7 +70,7 @@ const Reservation = () => {
                     axios.delete(`http://localhost:8080/reservation/cancelReservation?pk=${targetReservation.pk}`)
                         .then(res => {
                             alert('예매가 취소되었습니다.')
-
+                            navigate("/myPage/reservation")
                         }).catch(err => console.log(err))
                 }).catch(err => console.log(err))
             }).catch(err => console.log(err))
@@ -178,7 +178,7 @@ const Reservation = () => {
                                         {/* 예매현황 */}
                                         <div className={`${reservations.board_list_util} ${reservations.mb10}`}>
                                             <label style={{float: "right", height: "25px"}}><input type='checkbox'
-                                                                                                   onClick={() => setDone(!done)}></input><span>&nbsp;만료된 예약 제외</span><br/><br/></label>
+                                                                                                   onClick={() => setDone(!done)}></input><span>&nbsp;지난 예매 내역보기</span><br/><br/></label>
                                         </div>
                                         <div className={reservations.table_wrap}>
                                             <table
@@ -209,7 +209,7 @@ const Reservation = () => {
                                                 {
                                                     reservationLog.length === 0 ?
                                                         <tr>
-                                                            <td colSpan="5" className={reservations.a_c}>예약정보가 없습니다.
+                                                            <td colSpan="6" className={reservations.a_c}>예약정보가 없습니다.
                                                             </td>
                                                         </tr>
 
@@ -279,9 +279,9 @@ const Reservation = () => {
                                                 </thead>
                                                 <tbody>
                                                 {
-                                                    paymentData === null ?
+                                                    paymentData.length === 0 ?
                                                         <tr>
-                                                            <td colSpan="5" className={reservations.a_c}>구매내역이 없습니다.
+                                                            <td colSpan="3" className={reservations.a_c}>구매내역이 없습니다.
                                                             </td>
                                                         </tr>
 

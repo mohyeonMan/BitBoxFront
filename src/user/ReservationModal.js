@@ -37,7 +37,7 @@ const Modal = (props) => {
               }
               </p>
               <p>{viewReservation.reserve_time}</p>
-              <button onClick={()=>reservationCancel(viewReservation)}>예약취소</button>
+              <button className="close" onClick={()=>reservationCancel(viewReservation)}>예약취소</button>
           </main>
           <footer>
             <button className="close" onClick={close}>
