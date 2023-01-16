@@ -31,6 +31,7 @@ import Get2 from "src/user/Get2";
 import LoginForm2 from "src/member/LoginForm2";
 import Reservation from './Main/Reservation';
 import EditProfile from './Main/EditProfile';
+import MovieDetail_Page from './Movie/MovieDetailComponent/info/MovieDetail_Page';
 
 const App = () => {
 
@@ -90,6 +91,8 @@ const App = () => {
 
             {/* movie */}
             <Route path='/movielistmain' element={ <Movielistmain/>}/>
+            <Route index element={ <Movielistmain /> } />
+                <Route path='/master/:movie_title' element={ <MovieDetail_Page /> } />
             <Route path='/master' element={ <Movielist_master/>}/>
             <Route path='/master/write' element={ <Movielist_master_write/>}/>
             <Route path='/master/list' element={<Movielist_master_list/>}/>

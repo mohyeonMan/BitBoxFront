@@ -3,6 +3,7 @@ import React, { useState , useEffect} from 'react';
 import search_icon from '../img/search_icon.png';
 // import fullheart from '../img/fullheart.png';
 // import emptyheart from '../img/emptyheart.png';
+import { Link } from 'react-router-dom';
 
 
 
@@ -146,6 +147,7 @@ const Movielist_tab01 = () => {
                         return (
                             <div key={index}>
                                 <ol className='Movielist_seq' >
+                                <Link to={`/master/${item.movie_title}`}>
                                     <li>
                                         <div className='Movielist_title_num'>{index+1}</div>
                                         <div>
@@ -196,7 +198,7 @@ const Movielist_tab01 = () => {
                                             {list.movie_class !== "2" ? <input type='button' className='Movie_Btn_reserve' value="예매"></input>:false}
                                         </a>
                                     </li>
-
+                                    </Link>
                                     {index === list.length-1 ? ( list.length < 99 ? (already_released === false? (list.length % 20 == 0 ? 
                                     <input type='button' onClick={ movie_add_total_list } className='Movielist_add_button' value="더보기" ></input>:false):false):false):false}
 
