@@ -160,7 +160,7 @@ const Movielist_tab01 = () => {
                                                     <div className="movielist_moviescore">                
                                                         <div className="movielist_moviescore_preview">                    
                                                             <p className="movielist_moviescore_tit">관람평</p>                    
-                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                
+                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                 
                                                         </div>            
                                                     </div>: false}        
                                                 </a>    
