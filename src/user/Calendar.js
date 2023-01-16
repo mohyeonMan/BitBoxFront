@@ -13,6 +13,7 @@ import '../css/hour.css'
 
 import Layout from "../Main/Layout";
 import Footer from "../Main/Footer";
+import {getCookieToken} from "src/member/storage/Cookie";
 
 
 
@@ -22,6 +23,7 @@ import Footer from "../Main/Footer";
 
 
 const Calendar = () => {
+    const [ScrollActive, setScrollActive] = useState(false);
     const [previewVisible, setPreviewVisible] = useState(false);
 
     const navigate = useNavigate();
@@ -150,6 +152,7 @@ const Calendar = () => {
                 setList(res.data)
             })
             .catch(error => console.log(error))
+
     },[selectedDate])
 
     const renderHeader = () => {
@@ -393,9 +396,11 @@ const Calendar = () => {
 
 
             </div>
+
             <div className="box-3">
                 <p className='tit3'>시간</p>
                 <Hours />
+
                 <div className='result' hidden={!hidden}>
 
 
@@ -416,9 +421,25 @@ const Calendar = () => {
                                             className="bbtn"
                                             id={timess[0]}
                                             onClick={() => {
+                                                if (getCookieToken()) {
 
-                                                navigate(`/user/get/${item.pk}`)
-                                            }}
+                                                    const username = sessionStorage.getItem('birth')
+
+                                                    if(list4[0].movie_age === '18'){
+                                                        {Number(username.substring(0,2)) < 6 ? alert( '만19세이상만 관람가능한 영화입니다.') : Number(username.substring(0,2)) > 30 ? navigate(`/user/get/${item.pk}`) : alert( '만19세이상만 관람가능한 영화입니다.')}
+                                                        
+                                                    }else{
+                                                        navigate(`/user/get/${item.pk}`)
+                                                    }
+
+                                                }else{
+                                                    const popupX = (window.screen.width / 2) - 300;
+                                                    const popupY= (window.screen.height / 2) - 300;
+
+                                                    alert('로그인이필요한 서비스 입니다.')
+                                                    window.open("/member/loginForm2","","width=600px,height=600px,left="+ popupX + ", top="+ popupY)
+                                                }
+                                                }}
                                         >
                                             <div className="legend"/>
                                             <span className='time'>
@@ -444,12 +465,10 @@ const Calendar = () => {
                                         </button>
                                         <div className='tooltiptext2'>
                                             <iframe
-
                                                 src={`/user/get2/${item.pk}`}
                                                 scrolling='no'
                                                 className="preview-box"
                                                 title='preview-box'
-
                                             >
                                                 <p>Your browser does not support iframes.</p>
                                             </iframe>
@@ -467,6 +486,7 @@ const Calendar = () => {
 
 
                 </div>
+
                 <div className='no-result' hidden={hidden}>
                     <div className='ico-movie-time'/>
                     <br/>
@@ -477,7 +497,20 @@ const Calendar = () => {
 
 
             </div>
-
+            <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
+                {ScrollActive ?
+                    <div className="fixedBtn_wrap">
+                        <a href="/user/calendar" className="btn_fixedTicketing">예매하기</a>
+                        <a href="#none" className="btn_gotoTop">
+                            <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
+                    </div>
+                    :
+                    <div className="fixedBtn_wrap topBtn">
+                        <a href="/user/calendar" className="btn_fixedTicketing">예매하기</a>
+                        <a href="#" className="btn_gotoTop">
+                            <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
+                    </div>}
+            </div>
         </div>
                 <Footer/>
             </Layout>

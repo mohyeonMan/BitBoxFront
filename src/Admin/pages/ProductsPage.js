@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // @mui
 import { Container, Stack, Typography } from '@mui/material';
 // components
@@ -7,6 +7,7 @@ import { Container, Stack, Typography } from '@mui/material';
 import {ProductSort, ProductList, ProductCartWidget, MovieSearchNInsert} from '../sections/@dashboard/products';
 // mock
 import PRODUCTS from '../_mock/products';
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
@@ -21,16 +22,34 @@ export default function ProductsPage() {
     setOpenFilter(false);
   };
 
+
+const [list, setList] = useState([]);
+useEffect(() => {
+    axios.get('http://localhost:8080/movielist/admin_movie_list')
+    .then(res => setList(res.data))
+    .catch(err => console.log(err))
+},[])
+
+
+const movieDelete = (movieTitle)=> {
+  const movieDeleteList = list.filter((item)=> item.movie_title !== movieTitle);
+  setList(movieDeleteList);
+  axios.delete(`http://localhost:8080/movielist/admin_movie_delete?movie_title=${movieTitle}`)
+        .then(()=>{alert('삭제 완료')})
+        .catch(error => console.log(error))
+  
+  }
+
   return (
     <>
       <Helmet>
-        <title> admin | BIT BOX MOVIE LIST </title>
+        <title> Admin | BIT BOX MOVIE LIST </title>
       </Helmet>
 
       <Container>
-        <Typography variant="h4" sx={{ mb: 5 }}>
+        <Typography variant="h3" sx={{ mb: 5 }}>
           Movie List
-        </Typography>
+         </Typography>
         <div>
           <MovieSearchNInsert/>
         </div>
@@ -41,7 +60,7 @@ export default function ProductsPage() {
           </Stack>
         </Stack>
 
-        <ProductList products={PRODUCTS} />
+        <ProductList products={PRODUCTS} list={list} movieDelete={movieDelete}/>
       </Container>
     </>
   );

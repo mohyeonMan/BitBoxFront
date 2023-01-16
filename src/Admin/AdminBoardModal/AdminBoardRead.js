@@ -52,7 +52,7 @@ const AdminBoardRead = (props) => {
           <tr >
             <td colSpan="2" align="right">
              &emsp;&emsp;
-            <button style={{color:'red'}} onClick={onClose}>닫기</button>
+            <button style={{all:'unset',color:'red'}} onClick={onClose}>닫기</button>
            </td>
           </tr>
 

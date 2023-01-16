@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Main from "./Main/Main";
 import Adminindex from "./adminindex";
 import Member from "./member/Member";
@@ -28,11 +28,15 @@ import FindIdPasswordRoutes from "src/member/FindIdPasswordRoutes";
 import FindPwdAndChange from "src/member/FindPwdAndChange";
 import Success from './user/Success';
 import Get2 from "src/user/Get2";
+import LoginForm2 from "src/member/LoginForm2";
+import Reservation from './Main/Reservation';
+import EditProfile from './Main/EditProfile';
 
 const App = () => {
 
     const accessTokenVal = localStorage.getItem('accessToken');
     const refreshTokenVal = getCookieToken();
+    const navi = useNavigate();
 
     // 토큰재발급
     useEffect(() => {
@@ -52,23 +56,7 @@ const App = () => {
 
 
     // 토큰 만료시간 체크
-    useEffect(()=> {
 
-        axios.get("/member/me", {
-            headers: {
-                Authorization: `Bearer ${accessTokenVal}`
-            }
-        }).then(res => {
-            sessionStorage.setItem("userName", res.data.username);
-            console.log(res.data.name)
-        }).catch(error => {
-            console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('expireTime');
-            removeCookieToken();
-        })
-
-    }, [])
 
     return (
         <Routes>
@@ -77,6 +65,9 @@ const App = () => {
             <Route path='/member' element={<Member />} />
             <Route path='/member/joinForm/*' element={<JoinForm />} />
             <Route path='/member/loginForm' element={<LoginForm />} />
+            <Route path='/member/loginForm2' element={<LoginForm2/>} />
+            <Route path='/myPage/reservation' element={<Reservation />} />
+            <Route path='/myPage/editProfile' element={<EditProfile />} />
             <Route path='/member/FindIdPasswordRoutes/*' element={<FindIdPasswordRoutes />} />
             <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
@@ -84,7 +75,6 @@ const App = () => {
             <Route path='/user/calendar' element={<Calendar />} />
             <Route path="/user/get/:pk" element={<Get/>} />
             <Route path="/user/get2/:pk" element={<Get2/>} />
-
             <Route path='/test' element={<Test/>}/>
             <Route path='/success' element={<Success/>}/>
 

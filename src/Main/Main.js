@@ -162,7 +162,7 @@ const Main = () => {
                                 : 
                                 <div className="fixedBtn_wrap topBtn">
                                     <a href="/user/calendar" className="btn_fixedTicketing">예매하기</a>
-                                    <a href="#none" className="btn_gotoTop">
+                                    <a href="#" className="btn_gotoTop">
                                     <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
                                 </div>}
                     </div>

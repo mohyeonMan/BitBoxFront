@@ -16,7 +16,7 @@ import {removeCookieToken, setRefreshToken} from "src/member/storage/Cookie";
 const theme = createTheme();
 
 
-const LoginForm = () => {
+const LoginForm2 = () => {
 
 
     const initKakao = () => {
@@ -39,6 +39,7 @@ const LoginForm = () => {
                 window.Kakao.API.request({
                     url: "/v2/user/me",
                     success(res) {
+                        alert(JSON.stringify(res));
                         const kakaoAccount = res.kakao_account;
                         const aaa = {
                             name: kakaoAccount.profile.nickname,
@@ -71,7 +72,9 @@ const LoginForm = () => {
                                                 sessionStorage.setItem("userName", res.data.username);
                                                 sessionStorage.setItem("birth", res.data.birth);
                                                 console.log(res.data.name)
-                                                navi("/");
+
+                                                window.opener.parent.location.reload();
+                                                window.self.close();
                                             }).catch(error => {
                                                 console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
                                                 localStorage.removeItem('accessToken');
@@ -107,7 +110,9 @@ const LoginForm = () => {
                                                         sessionStorage.setItem("userName", res.data.username);
                                                         sessionStorage.setItem("birth", res.data.birth);
                                                         console.log(res.data.name)
-                                                        navi("/");
+
+                                                        window.opener.parent.location.reload();
+                                                        window.self.close();
                                                     }).catch(error => {
                                                         console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
                                                         localStorage.removeItem('accessToken');
@@ -179,7 +184,9 @@ const LoginForm = () => {
                     sessionStorage.setItem("userName", res.data.username);
                     sessionStorage.setItem("birth", res.data.birth);
                     console.log(res.data.name)
-                    navi("/");
+
+                    window.opener.parent.location.reload();
+                    window.self.close();
                 }).catch(error => {
                     console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
                     localStorage.removeItem('accessToken');
@@ -206,7 +213,7 @@ const LoginForm = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <img src="../img_member/mainLogo.png" alt="logo" width="50%" style={{cursor:"pointer"}} onClick={()=>{navi("/")}}/>
+                    <img src="../img_member/mainLogo.png" alt="logo" width="50%"/>
                     <Avatar sx={{m: 1, backgroundColor: "#B20710"}}>
                         <LockOutlinedIcon/>
                     </Avatar>
@@ -273,4 +280,5 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+
+export default LoginForm2;

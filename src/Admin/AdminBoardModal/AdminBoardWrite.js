@@ -81,11 +81,11 @@ const AdminBoardWrite = () => {
                <br/>
           <tr >
           <td colSpan="2" align="right">
-              <button style={{color:'black'}} onClick={onWriteSubmit}>등록</button> 
+              <button style={{all:'unset',color:'black'}} onClick={onWriteSubmit}>등록</button> 
             &emsp;&emsp;
-              <button style={{color:'blue'}} onClick={onReset}>다시 작성</button>
+              <button style={{all:'unset',color:'blue'}} onClick={onReset}>다시 작성</button>
             &emsp;&emsp;
-              <button style={{color:'red'}} onClick={onClose}>취소</button>
+              <button style={{all:'unset',color:'red'}} onClick={onClose}>취소</button>
            </td>
           </tr>
         </tbody>

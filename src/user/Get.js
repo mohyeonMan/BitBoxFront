@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import emptySeat from './emptySeat';
-import Modal from './Modal.js';
+import Modal from './PaymentModal.js';
 import styles from '../css/Get.module.css';
 import axios from 'axios';
+import Layout from '../Main/Layout';
 
 
 
@@ -11,7 +12,7 @@ import axios from 'axios';
 
 const Get = () => {
     const {pk} = useParams();
-
+    const [id] = useState(sessionStorage.getItem('userName'));
     
     //빈배열
     var empty=emptySeat;
@@ -52,6 +53,7 @@ const Get = () => {
             setRoomStatus(copyStatus)
         },[filler])
         
+
     const navigate = useNavigate();
      //최대 예약 인원
      const [quantity,setQuantity] = useState(8);
@@ -193,7 +195,7 @@ const Get = () => {
              }
          }).then(res=> {
              alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
-             navigate("/success");
+             navigate("/myPage/reservation");
           }).catch(err=>console.log(err))
      }
     
@@ -210,18 +212,15 @@ const Get = () => {
         setModalOpen(false);
     };
 
-
-    const id = sessionStorage.getItem('userName');
-    
-    
+ 
     return (
         <>
-           <div className={styles.info}><h2>빠른예매</h2></div>
-            <br/>
-            <hr/>
-            <br/>
+        <Layout/>
 
-            <div className={styles.container}>
+
+            <div className={styles.title}><h3>예매 좌석 선택</h3></div><hr/>
+
+            <div className={styles.seatContainer}>
                 <div className={styles.seats}>
                 <div className={styles.screen}>screen</div><br/>
                     
@@ -239,7 +238,7 @@ const Get = () => {
                         ))       
                     }
                     <br/>
-                    <button className={styles.button} onClick={reset} disabled={selectedSeat.length===0? 'disable':''}>초기화</button>
+                    <button className={styles.button} style={{width:'150px'}}onClick={reset} disabled={selectedSeat.length===0? 'disable':''}>초기화</button>
                 </div>  {/* seats */}
                 <div className={styles.reserveTable}>
                     <div className={styles.movie}>
@@ -282,57 +281,17 @@ const Get = () => {
                     <div className={styles.selectComplete}>
                         <div className={styles.amount} style={selectedSeat.length===0? {visibility:'hidden'}:{visibility:'visible'}}>금액 : {price}원</div>
                         <div className={styles.buttons}>
-                            <button className={styles.button}>이전으로</button>
-                            <button className={styles.button} onClick={paymentComplete} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
+                            <button className={styles.button} onClick={()=>navigate("/user/calendar",{replace:true})}>이전으로</button>
+
+                            <button className={styles.button} onClick={openModal} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
                         </div>
                     </div>
                 </div>
+                            <button onClick={paymentComplete}>결제 건너뛰기</button>
             </div> {/* container*/}
             <div className={styles.footer}></div>
-            <Modal open={modalOpen} close={closeModal} header="결재" closeBtn="좌석선택">
-               <div className='paymentModal'>
-                    <div className='paymentSelect'>
-                        <div className='pointInfo'>
-
-                        </div>
-                    </div>
-                    <div className='reservationInfo'>
-                        <div className='movieInfo'>
-                            <span>{showDTO.movie_title}</span>
-                            <span>{showDTO.movie_cinema}/{showDTO.movie_theater}</span>
-                            <span>{showDTO.movie_date} | {showDTO.movie_time}</span>
-                        </div>
-                        <div className='paymentBox'>
-                            {
-                                selectedSeat.filter(item=>item.customer==='adult').length===0?
-                                '':<div>
-                                     <span style={{display:'flex',justifyContent:'start',width:'40%'}}>일반 (10000) x {selectedSeat.filter(item=>item.customer==='adult').length}</span>
-                                     <span style={{display:'flex',justifyContent:'end',width:'40%'}}> {selectedSeat.filter(item=>item.customer==='adult').length*10000}</span>
-                                </div>
-                            }
-                            {
-                                selectedSeat.filter(item=>item.customer==='child').length===0?
-                                '':<div> 
-                                    <span style={{display:'flex',justifyContent:'start',width:'40%'}}>청소년(5000) x {selectedSeat.filter(item=>item.customer==='child').length}</span>
-                                    <span style={{display:'flex',justifyContent:'end',width:'40%'}}> {selectedSeat.filter(item=>item.customer==='child').length*5000}</span>
-                                </div>                           
-                            }
-                            <div style={{borderTop:'2px dotted gray',padding:'5px 0'}}>합계 : {price}원</div>
-                        </div>
-                        <div className='paymentBox'>
-                            {
-
-                            }
-                            <div style={{borderTop:'2px dotted gray',padding:'5px 0'}}>할인금액 : {discount}원</div>
-                        </div>
-                        <div className='payment'>
-                            최종 결제 금액 : {price-discount}원
-                        </div>
-                        <div className='paymentBtn' onClick={payment}>
-                            결제
-                        </div>
-                    </div>
-               </div>
+            <Modal open={modalOpen} close={closeModal} header="티켓 결제" closeBtn="좌석선택" showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} price={price} discount={discount}>
+               
             </Modal>
         </>
     );
