@@ -72,7 +72,7 @@ const LoginForm2 = () => {
                                                 sessionStorage.setItem("userName", res.data.username);
                                                 sessionStorage.setItem("birth", res.data.birth);
                                                 console.log(res.data.name)
-                                                navi("/");
+
                                                 window.opener.parent.location.reload();
                                                 window.self.close();
                                             }).catch(error => {
@@ -110,7 +110,7 @@ const LoginForm2 = () => {
                                                         sessionStorage.setItem("userName", res.data.username);
                                                         sessionStorage.setItem("birth", res.data.birth);
                                                         console.log(res.data.name)
-                                                        navi("/");
+
                                                         window.opener.parent.location.reload();
                                                         window.self.close();
                                                     }).catch(error => {
@@ -184,7 +184,7 @@ const LoginForm2 = () => {
                     sessionStorage.setItem("userName", res.data.username);
                     sessionStorage.setItem("birth", res.data.birth);
                     console.log(res.data.name)
-                    navi("/");
+
                     window.opener.parent.location.reload();
                     window.self.close();
                 }).catch(error => {
