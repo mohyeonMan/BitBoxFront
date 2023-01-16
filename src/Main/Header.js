@@ -123,6 +123,7 @@ const UserNavList = () => {
         sessionStorage.removeItem("userName");
         localStorage.removeItem("accessToken"); // 엑세스토큰 삭제
         localStorage.removeItem('expireTime'); // 만료시간 삭제
+        sessionStorage.removeItem('birth');
         removeCookieToken(); // refreshToken 삭제
         alert("로그아웃");
         window.location.replace("/");

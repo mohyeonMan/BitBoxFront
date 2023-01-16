@@ -5,10 +5,6 @@ import Modal from './Modal.js';
 import styles from '../css/Get.module.css';
 import axios from 'axios';
 
-
-
-
-
 const Get = () => {
     const {pk} = useParams();
     const [id] = useState(sessionStorage.getItem('userName'));
