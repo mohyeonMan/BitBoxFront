@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Header from './Header';
 import reservations from './Reservation.module.css';
 import axios from 'axios';
 import ReservationModal from '../user/ReservationModal';
 import styles from "../css/Success.module.css";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 const Reservation = () => {
@@ -15,6 +15,8 @@ const Reservation = () => {
     const [filler, setFiller] = useState([]) //현재 좌석현황
     const [done, setDone] = useState(false)
     const navigate = useNavigate();
+
+
     // 예약내역 가져오기.
     useEffect(() => {
         getReservation()
@@ -38,6 +40,7 @@ const Reservation = () => {
                 setLogArray(copy.filter(item => item.movie_status === '미상영'))
             })
     }
+
     //만료되지 않은 정보만
     const reservationCancel = (targetReservation) => {
         window.confirm &&
@@ -70,10 +73,11 @@ const Reservation = () => {
                     axios.delete(`http://localhost:8080/reservation/cancelReservation?pk=${targetReservation.pk}`)
                         .then(res => {
                             alert('예매가 취소되었습니다.')
-                            navigate("/myPage/reservation")
+                            window.location.replace("/myPage/reservation")
                         }).catch(err => console.log(err))
                 }).catch(err => console.log(err))
             }).catch(err => console.log(err))
+
 
     }
 
@@ -247,16 +251,17 @@ const Reservation = () => {
 
                                                         ))
                                                 }
-                                                <ReservationModal open={modalOpen} close={closeModal} header="예약내역"
-                                                                  closeBtn="창닫기" viewReservation={viewReservation}
-                                                                  reservationCancel={reservationCancel}></ReservationModal>
+                                                    <ReservationModal open={modalOpen} close={closeModal}
+                                                                      header="예약내역"
+                                                                      closeBtn="창닫기" viewReservation={viewReservation}
+                                                                      reservationCancel={reservationCancel}></ReservationModal>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
 
                                     {/* 스토어 구매 현황 */}
-                                    <div style={{marginTop:"30px"}}>
+                                    <div style={{marginTop: "30px"}}>
                                         <div className={reservations.table_wrap} style={{display: storeDisplay}}>
                                             <table
                                                 className={`${reservations.board_list} ${reservations.tables}`}
@@ -291,7 +296,7 @@ const Reservation = () => {
                                                             <tr key={item.pay_seq}>
                                                                 <td>{item.orderNumber}</td>
                                                                 <td>{item.subject}</td>
-                                                                <td>{item.totalPrice}원</td>
+                                                                <td>{[item.totalPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</td>
                                                             </tr>
 
                                                         ))
