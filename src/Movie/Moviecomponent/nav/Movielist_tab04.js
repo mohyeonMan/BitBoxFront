@@ -119,9 +119,8 @@ const Movielist_tab04 = () => {
                                     <li>
                                         <div className='Movielist_title_num'>{index+1}</div>
                                         <div>
-                                            <img className='Movielist_title_img' src={`../storage/${item.img_url}`}/>
+                                            <img className='Movielist_title_img' src={item.movie_poster_url}/>
                                             <div>
-                                            <img className='Movielist_title_img' src={`../storage/${item.img_url}`}/>
                                             <div className="movie-score" >        
                                                 <a href="#" className="movielist_info">
                                                     <div className="movielist_summary">&lt;{item.movie_title}&gt;
@@ -139,7 +138,11 @@ const Movielist_tab04 = () => {
                                         </div>
                                         </div>
                                         <div className='Movielist_title_area'>
-                                            <img className='Movielist_grade_age' src={`../storage/${item.movie_grade}`}/>
+                                            <img className='Movielist_grade_age'
+                                                src={item.movie_agegrade === "전체관람가" ? '/storage/00.png':
+                                                    item.movie_agegrade === "12세이상관람가" ? '/storage/12.png':
+                                                    item.movie_agegrade === "15세이상관람가" ? '/storage/15.png':
+                                                    item.movie_agegrade === "청소년관람불가" ? '/storage/18.png':false}/>
                                             <p className='Movielist_title_maintitle'>{item.movie_title}</p>
                                         </div>
                                         <div className='Movielist_title_ratedate'>

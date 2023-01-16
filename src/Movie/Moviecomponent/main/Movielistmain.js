@@ -5,7 +5,6 @@ import Movielist_tab02 from '../nav/Movielist_tab02.js';
 import Movielist_tab03 from '../nav/Movielist_tab03.js';
 import Movielist_tab04 from '../nav/Movielist_tab04.js';
 import Movielist_tab05 from '../nav/Movielist_tab05.js';
-import search_icon from '../img/search_icon.png';
 import Layout from 'src/Main/Layout';
 import Footer from 'src/Main/Footer';
 
