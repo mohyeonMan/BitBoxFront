@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../css/Tt.css';
 import '../css/Modal.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import movieList from '../jsonData_test/Data';
 import noneImg from '../img/bg-photo.png';
 import axios from 'axios';
 // import { Chart } from 'chart.js';
@@ -36,11 +35,11 @@ import {
 
 
 const DetailInfoTab = () => {
-    const navigate = useNavigate()
     // 별점 value 표기용 
     const [starRating, setStarRating] = useState('')
     // 리스트에서 클릭한 영화 가져오기
-    const { movieNumber } = useParams()
+    const { movie_title } = useParams()
+    const [data, setData] = useState('')
     // 영화 설명 텍스트 더보기 버튼 유무
     const [view, setView] = useState(false)
     const [btn, setBtn] = useState(false)
@@ -50,9 +49,7 @@ const DetailInfoTab = () => {
         setLoginToggle(!loginToggle)
     }
     // 해당 영화 내용물 매칭
-    const thisMovie = movieList.find(thisMovie => thisMovie.MovieNumber === movieNumber)
-    // 프로필 이미지
-    const [profileImg, setProfileImg] = useState('') // 세션에 따라 프로필 이미지 변경
+    const thisMovie = data.find(thisMovie => thisMovie.movie_title === movie_title)
     // 댓글리스트
     const [commentList, setCommentList] = useState([])
     // 댓글 작성 모달창 스위치
@@ -61,7 +58,7 @@ const DetailInfoTab = () => {
         setOnReviewModal(true)
         setReviewForm({
             ...reviewForm,
-            user_title: thisMovie.MovieTitle
+            user_title: thisMovie.movie_title
         })
         window.scrollTo(0, 0)
     }
@@ -86,13 +83,15 @@ const DetailInfoTab = () => {
     }
     
     useEffect((e) => {
+        axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
+            .then(res => {setData(res.data)})
             // 댓글가져오기
             axios.get('http://localhost:8080/movielist/get_comment_list')
-                    .then(res => setCommentList(res.data))
+                    .then(res => setCommentList(res.list))
                     .catch(error => console.log(error))
         // 더보기 버튼 유무            
         const onBtn = () => {
-            movieList.filter(thisMovie => thisMovie.MovieNumber === movieNumber, thisMovie.MainInfo2 === '' ? setBtn(false) : setBtn(true))
+            data.filter(thisMovie => thisMovie.movie_title === movie_title, thisMovie.movie_info_title2 === '' ? setBtn(false) : setBtn(true))
         }
         onBtn()
     }, [])
@@ -317,7 +316,7 @@ const DetailInfoTab = () => {
         datasets: [{
             type: 'radar',
             label: "관람포인트",
-            data: [ thisMovie.PointData1, thisMovie.PointData2, thisMovie.PointData3,thisMovie.PointData4,thisMovie.PointData5],
+            data: [ thisMovie.movie_info_point1, thisMovie.movie_info_point2, thisMovie.movie_info_point3,thisMovie.movie_info_point4,thisMovie.movie_info_point5],
             backgroundColor: 'rgba(196, 124, 124, 0.3)',
             borderColor: 'rgba(141, 7, 7, 0.4)',
             borderWidth: 1
@@ -328,7 +327,7 @@ const DetailInfoTab = () => {
         labels: ['01.12','01.13','01.14','01.15','01.16'],
         datasets: [{
             label: "관람객수",
-            data: [ thisMovie.TotalSpectators, thisMovie.TotalSpectators, thisMovie.TotalSpectators, thisMovie.TotalSpectators, thisMovie.TotalSpectators ],
+            data: [ thisMovie.movie_totalspactators, thisMovie.movie_totalspactators, thisMovie.movie_totalspactators, thisMovie.movie_totalspactators, thisMovie.movie_totalspactators ],
             backgroundColor: 'rgba(196, 124, 124, 0.3)',
             borderColor: 'rgba(141, 7, 7, 0.4)',
         }],
@@ -337,22 +336,22 @@ const DetailInfoTab = () => {
     return (
         <>
             <div style={{ left: 0 }}>
-                <p style={{ fontWeight: '600', fontSize: '20pt'}}>{ thisMovie.InfoTitle }</p>
-                <p style={{ fontWeight: '500', fontSize: '12pt'}}>{ thisMovie.MainInfo1 }</p>
+                <p style={{ fontWeight: '600', fontSize: '20pt'}}>{ thisMovie.movie_info_title }</p>
+                {/* <p style={{ fontWeight: '500', fontSize: '12pt'}}>{ thisMovie.movie_info_title2 }</p> */}
                     {
-                        view && thisMovie.MainInfo2
+                        view && thisMovie.movie_info_title2
                     }
                     {
                         btn &&
                         <button onClick={ onView }
-                         className='viewBtn' style={{  }}
+                         className='viewBtn'
                          >{ view ? '닫기' : '더보기' }</button>
                     }
                     
                
                 
                 <p style={{ marginTop: 30, fontWeight: '500', fontSize: '12pt'}}>
-                { thisMovie.MovieInfo }
+                { thisMovie.movie_info_type }
                 </p>
                 <br/>
 
@@ -362,7 +361,7 @@ const DetailInfoTab = () => {
                         <tr>
                             <th style={{ margin: 'auto', paddingLeft: 20}}>
                                 <div>관람포인트</div>
-                                <h1></h1>
+                                
                                 <div style={{ width: '300px' }}>
                                     <Radar type={ Radar } data={ testRadar } />
                                 </div>
@@ -370,9 +369,9 @@ const DetailInfoTab = () => {
                             <th style={{ fontWeight: 400 }}>
                                 <div style={{ width: '300px' }}>
                                 <p>실관람 평점</p>
-                                <p style={{ margin: 'auto', color: 'white', width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#8d0707', textAlign: 'center', lineHeight: '120px',fontWeight: 600, fontSize: '25pt' }}>{ thisMovie.MovieScore }</p>
+                                <p style={{ margin: 'auto', color: 'white', width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#8d0707', textAlign: 'center', lineHeight: '120px',fontWeight: 600, fontSize: '25pt' }}>{ thisMovie.movie_score }</p>
                                 <p>예매율</p>
-                                <p style={{ fontWeight: 600, fontSize: '25pt', color: '#8d0707'}}>{ thisMovie.MovieReserveRate }%</p>
+                                <p style={{ fontWeight: 600, fontSize: '25pt', color: '#8d0707'}}>{ thisMovie.movie_reserve_rate }%</p>
                                 </div>
                             </th>
                             
@@ -391,18 +390,18 @@ const DetailInfoTab = () => {
                     {/* 프로필 & 댓글 작성 & 로그인 여부 */}
                     <div>
                         <p style={{ color: '#8d0707', fontSize: '18pt', fontWeight: 500}}>
-                            { thisMovie.MovieTitle } 대한 <span style={{ color: '#c47c7c'}}>{ commentList.length }</span>개의 이야기가 있어요!
+                            { thisMovie.movie_title } 대한 <span style={{ color: '#c47c7c'}}>{ commentList.length }</span>개의 이야기가 있어요!
                         </p>
 
                         {/* 댓글 작성 &  로그인 전 */}
                         <div style={{ display: 'flex', margin: 15 }}>
                             <div style={{ width: '105px', height: '75px'}}>
-                                <img style={{ margin: 10 }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png" alt="MEGABOX" />
+                                <img style={{ margin: 10 }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png" alt="BITBOX" />
                                 <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">노로그인</p>
                             </div>
                             <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
                                 <p><br/> 
-                                    &emsp;<span style={{ color: '#c47c7c' }}>{ thisMovie.MovieTitle }&nbsp;</span>
+                                    &emsp;<span style={{ color: '#c47c7c' }}>{ thisMovie.movie_title }&nbsp;</span>
                                         재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                     
                                     {/* 관람평 / 툴팁 */}
@@ -488,22 +487,22 @@ const DetailInfoTab = () => {
                                 
                                 <div>
                                     <br/>
-                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie.MovieTitle }</span> 재밌게 보셨나요?</h3>
+                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie.movie_title }</span> 재밌게 보셨나요?</h3>
                                     
 
                                     <form name="reviewForm" id="reviewForm">
                                         <fieldset className='starRate'>
                                             <legend>별점</legend>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="10" id="rate1"/><label id="starLabel" for="rate1">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="9" id="rate2"/><label id="starLabel" for="rate2">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="8" id="rate3"/><label id="starLabel" for="rate3">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="7" id="rate4"/><label id="starLabel" for="rate4">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="6" id="rate5"/><label id="starLabel" for="rate5">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="5" id="rate6"/><label id="starLabel" for="rate6">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="4" id="rate7"/><label id="starLabel" for="rate7">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="3" id="rate8"/><label id="starLabel" for="rate8">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="2" id="rate9"/><label id="starLabel" for="rate9">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="1" id="rate10"/><label id="starLabel" for="rate10">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="10" id="rate1"/><label id="starLabel" htmlFor="rate1">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="9" id="rate2"/><label id="starLabel" htmlFor="rate2">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="8" id="rate3"/><label id="starLabel" htmlFor="rate3">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="7" id="rate4"/><label id="starLabel" htmlFor="rate4">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="6" id="rate5"/><label id="starLabel" htmlFor="rate5">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="5" id="rate6"/><label id="starLabel" htmlFor="rate6">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="4" id="rate7"/><label id="starLabel" htmlFor="rate7">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="3" id="rate8"/><label id="starLabel" htmlFor="rate8">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="2" id="rate9"/><label id="starLabel" htmlFor="rate9">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="1" id="rate10"/><label id="starLabel" htmlFor="rate10">⭐</label>
                                         </fieldset>
                                         <span name="user_rate" style={{ fontSize: '30pt'}} value={ starRating } > { starRating }</span> 점
                                         <div id="reviewRateDiv">&emsp;{ reviewRateDiv }</div>
@@ -522,7 +521,7 @@ const DetailInfoTab = () => {
                                         <p></p>
                                         <fieldset>
                                             <legend>감상평 작성</legend>
-                                            <input type="text" name="user_story_recommant" value={ user_story_recommant } onChange={ onReviewComment } placeholder='감상 후 어떠셨는지 한 줄로 남겨주세요!' maxlength="100" style={{ width: '600px', height: '50px'}}></input>
+                                            <input type="text" name="user_story_recommant" value={ user_story_recommant } onChange={ onReviewComment } placeholder='감상 후 어떠셨는지 한 줄로 남겨주세요!' maxLength="100" style={{ width: '600px', height: '50px'}}></input>
                                         </fieldset>
                                         <div id="reviewStoryDiv">&emsp;{ reviewStoryDiv }</div>
                                         <p></p>
@@ -546,7 +545,7 @@ const DetailInfoTab = () => {
                             </div>
                             <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
                                 <p><br/> 
-                                    &emsp;&emsp;<span style={{ color: '#c47c7c' }}>userName</span>님 <span style={{ color: '#01738B' }}>{ thisMovie.MovieName }&nbsp;</span>
+                                    &emsp;&emsp;<span style={{ color: '#c47c7c' }}>userName</span>님 <span style={{ color: '#01738B' }}>{ thisMovie.movie_title }&nbsp;</span>
                                         재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                     
                                     {/* 관람평 / 툴팁 */}
@@ -574,7 +573,7 @@ const DetailInfoTab = () => {
                                             {/* 사진 / 아이디 */}
                                             <div style={{ width: '105px', height: '75px' }}>
                                                 <img style={{ margin: 10, maxWidth:'50px', maxHeight: '50px'}} src={ noneImg } alt="프로필사진" />
-                                                <p style={{ marginTop: -10, fontWeight: 400, marginLeft: -35 ,textAlign:'center' }} id="user-id">{ commentItem.user_name }</p>
+                                                <p style={{ marginTop: -10, fontWeight: 400, marginLeft: -35 ,textAlign: 'center' }} id="user-id">{ commentItem.user_name }</p>
                                             </div>
 
                                             {/* 댓글 내용 */}

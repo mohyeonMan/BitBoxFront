@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import InfoStyle from '../css/InfoStyle.css';
@@ -8,10 +9,17 @@ import StillCut_Tab from './StillCut_Tab';
 
 const MovieDetail_Page = () => {
     const { movie_title } = useParams()
-    const [data, setData] = useState('')
+    const [movieData, setMovieData] = useState('')
     // const [dolby, setDolby] = useState('')
-    const item = data.find(item => item.movie_title === movie_title)
+    const item = movieData.find(item => item.movie_title === movie_title)
 
+    useEffect(() => {
+        axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
+        .then(res => {setMovieData(res.data)})
+        ageURL()
+        console.log(movieData)
+    }, []) 
+    
     const toggleMenu = [
         {
        id: 0,
@@ -29,15 +37,6 @@ const MovieDetail_Page = () => {
        tab: <StillCut_Tab />
     }
 ]   
-    useEffect(() => {
-        
-        axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
-            .then(res => {setData(res.data)})
-        ageURL()
-
-
-            }, []) 
-
     const [ageIcon, setAgeIcon] = useState('')
     const ageAll = 'https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png'
     const age12 = 'https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png'
@@ -45,7 +44,7 @@ const MovieDetail_Page = () => {
     const age19 = 'https://img.megabox.co.kr/static/pc/images/common/txt/19_46x46.png'
 
     const ageURL = () => {
-        data.map(item => item.movie_title === movie_title, item.movie_agegrade === "청소년관람불가" 
+        movieData.map(item => item.movie_title === movie_title, item.movie_agegrade === "청소년관람불가" 
             ? setAgeIcon(age19) : item.movie_agegrade === "15세이상관람가" 
             ? setAgeIcon(age15) : item.movie_agegrade === "12세이상관람가"
             ? setAgeIcon(age12) : 
@@ -120,7 +119,7 @@ const MovieDetail_Page = () => {
                                                     <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"></path>
                                                 </svg>
                                                 &nbsp;{ item.index } </span>
-                                            위 ({ item.MovieReserveRate }%)
+                                            위 ({ item.movie_reserve_rate }%)
                                         </p>
                                     </div>
                                     <div id="audience">

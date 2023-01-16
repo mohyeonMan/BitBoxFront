@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import movieList from '../jsonData_test/Data';
-import trailerData from '../jsonData_test/TrailerData';
 import '../css/InfoStyle.css';
 
 const StillCut_Tab = () => {
+    useEffect(()=> {
+        axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
+        .then(res => {setData(res.data)})
+        axios.get('http://localhost:8080/movielist/get_trailer_list')
+        .then(res => {setTrailerList(res.list)})
+        .catch(error => console.log(error))
+    }, [])
+
     const [view, setView] = useState(false)
     // 리스트에서 클릭한 영화 가져오기
-    const { movieNumber } = useParams()
+    const { movie_title } = useParams()
+    const [data, setData] = useState('')
+    const [trailerList, setTrailerList] = useState('')
     // 해당 영화 내용물 매칭
-    const thisMovie = movieList.find(thisMovie => thisMovie.MovieNumber === movieNumber)
-    const trailer = trailerData.find(trailer => trailer.movie_number === movieNumber)
+    const thisMovie = data.find(thisMovie => thisMovie.movie_title === movie_title)
+    const trailer = trailerList.find(trailer => trailer.movie_title === movie_title)
     //자막보기
     const onView = () => {
         setView(!view)
     }
 
-    const { movie_number, trailer_url1,  trailer_url2,  trailer_url3,  trailer_url4, trailer_poster1, trailer_poster2, trailer_poster3, trailer_poster4, trailer_sub_title } = trailer
     const [movieURL, setMovieURL] = useState(trailer.trailer_url1) //data
     const [one, setOne] = useState(trailer.trailer_url1) //one
     const [trailerPoster, setTrailerPoster] = useState(trailer.trailer_poster1)
@@ -26,10 +34,6 @@ const StillCut_Tab = () => {
     const [list2, setList2] = useState(false)
     const [list3, setList3] = useState(false)
     const [list4, setList4] = useState(false)
-
-    const select = {
-        border: '3px, solid, green'
-    }
 
     // 리스트 선택 트레일러 뷰
     const onTrailterView = (trailerNumber) =>{
@@ -129,7 +133,7 @@ const StillCut_Tab = () => {
                 <span>예고편(4)</span>
             </p>
             <hr/>
-            <p  style={{ color: '#8d0707', fontSize: '15pt', fontWeight: 600 }}>{ thisMovie.MovieTitle } 예고편</p>
+            <p  style={{ color: '#8d0707', fontSize: '15pt', fontWeight: 600 }}>{ thisMovie.movie_title } 예고편</p>
             <hr/>
             <div style={{ position: 'relative'}}>
                 <div style={{ margin: 'auto', textAlign: 'center', position: 'relative', display: 'flex', width: '1100px', height: '500px'}}>
@@ -143,6 +147,7 @@ const StillCut_Tab = () => {
                     <div style={{ marginTop: 30}}>
                         <video id="videoTag" controls="controls" height="450" poster={ trailerPoster }>
                                 <source src={ one } type="video/mp4"/>
+                                <track kind="captions"/>
                         </video>
                     </div>
 
