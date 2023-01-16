@@ -4,6 +4,7 @@ import reservations from './Reservation.module.css';
 import axios from 'axios';
 import ReservationModal from '../user/ReservationModal';
 import styles from "../css/Success.module.css";
+import { useNavigate } from 'react-router-dom';
 
 
 const Reservation = () => {
@@ -13,6 +14,7 @@ const Reservation = () => {
     const [logArray, setLogArray] = useState([]);
     const [filler, setFiller] = useState([]) //현재 좌석현황
     const [done, setDone] = useState(false)
+    const navigate = useNavigate();
     // 예약내역 가져오기.
     useEffect(() => {
         getReservation()
@@ -68,7 +70,7 @@ const Reservation = () => {
                     axios.delete(`http://localhost:8080/reservation/cancelReservation?pk=${targetReservation.pk}`)
                         .then(res => {
                             alert('예매가 취소되었습니다.')
-
+                            navigate("/myPage/reservation")
                         }).catch(err => console.log(err))
                 }).catch(err => console.log(err))
             }).catch(err => console.log(err))

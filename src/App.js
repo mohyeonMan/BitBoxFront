@@ -75,8 +75,6 @@ const App = () => {
             <Route path='/user/calendar' element={<Calendar />} />
             <Route path="/user/get/:pk" element={<Get/>} />
             <Route path="/user/get2/:pk" element={<Get2/>} />
-
-
             <Route path='/test' element={<Test/>}/>
             <Route path='/success' element={<Success/>}/>
 
