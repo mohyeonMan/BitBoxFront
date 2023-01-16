@@ -219,7 +219,7 @@ const AdminBoard = () => {
     <>
       <Container >
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             <p/>
             NEWS
           </Typography>

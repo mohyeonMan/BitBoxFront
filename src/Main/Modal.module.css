@@ -4,7 +4,7 @@
     height: 2250px;
     position: absolute;
     animation: modal-show 0.3s;
-    background-color: rgba(0, 0, 0, 0.6);
+    /* background-color: rgba(0, 0, 0, 0.6); */
     left: 0;
     top: 0;
 }

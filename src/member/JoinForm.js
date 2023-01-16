@@ -30,7 +30,7 @@ const JoinForm = () => {
                                     className={joinForm.step_member}
                                     title="step1 약관동의, step2 정보입력, step3 가입완료"
                                 >
-                                    <ol className={joinForm.asdf123123} style={{paddingLeft: 0, marginBottom: 0}}>
+                                    <ol className={joinForm.asdf123123} style={{width: "400px", paddingLeft: 0, marginBottom: 0}}>
                                         <li>
                                             <div className={num === 2 ? joinForm.step : ''}>
                                                 <em>STEP1.</em> <span>약관동의{/*약관동의*/}</span>
