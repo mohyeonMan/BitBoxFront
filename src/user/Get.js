@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const Get = () => {
     const {pk} = useParams();
-
+    const [id] = useState(sessionStorage.getItem('userName'));
     
     //빈배열
     var empty=emptySeat;
@@ -210,9 +210,6 @@ const Get = () => {
         setModalOpen(false);
     };
 
-
-    const id = sessionStorage.getItem('userName');
-    
     
     return (
         <>
@@ -283,7 +280,7 @@ const Get = () => {
                         <div className={styles.amount} style={selectedSeat.length===0? {visibility:'hidden'}:{visibility:'visible'}}>금액 : {price}원</div>
                         <div className={styles.buttons}>
                             <button className={styles.button} onClick={()=>{navigate("/user/calendar")}}>이전으로</button>
-                            <button className={styles.button} onClick={openModal} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
+                            <button className={styles.button} onClick={paymentComplete} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
                         </div>
                     </div>
                 </div>

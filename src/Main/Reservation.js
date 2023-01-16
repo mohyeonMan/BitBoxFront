@@ -8,7 +8,7 @@ import styles from "../css/Success.module.css";
 
 const Reservation = () => {
 
-    const id = sessionStorage.getItem('userName');
+    const [id] = useState(sessionStorage.getItem('userName'));
     const [reservationLog, setReservationLog] = useState([])
     const [logArray, setLogArray] = useState([]);
     const [filler, setFiller] = useState([]) //현재 좌석현황
