@@ -18,6 +18,9 @@
     overflow: hidden;
     margin: 54px auto 0;
     font-size: 0;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
 }
 .big_category_wrap ol, .big_category_wrap ul {
     list-style: none;
@@ -109,6 +112,7 @@
     padding: 12px 20px 13px;
     background-color: #fafafa;
     border-top: 3px solid #000;
+    margin-bottom: 0;
 }
 input[type="checkbox"].com_custom_checkbox {
     overflow: hidden;
@@ -174,8 +178,10 @@ input[type="checkbox"].com_custom_checkbox + label:before {
 }
 .com_cart_list_wrap .cart_allchecker_wrap strong.com_custom_checkbox_product_sel {
     width: 127px;
+    margin-left: 30px;
 }
 .com_cart_list_wrap .com_list_style1 {
+    padding: 0;
     border-bottom: 1px solid #000;
 }
 .com_cart_list_wrap .com_list_style1 > li {
@@ -221,6 +227,8 @@ input[type="checkbox"].com_custom_checkbox + label:before {
     overflow: hidden;
 }
 .com_cart_list_wrap .com_list_style1 > li .product_info_img {
+    all: unset;
+    cursor: pointer;
     display: block;
     float: left;
     width: 360px;
@@ -239,7 +247,7 @@ input[type="checkbox"].com_custom_checkbox + label:before {
 }
 .com_cart_list_wrap .com_list_style1 > li .product_info_img .product_info_name {
     display: block;
-    margin-top: 4px;
+    margin-top: 16px;
     font-family: 'CJONLYONENEW';
     font-weight: 500;
     font-size: 16px;
@@ -264,7 +272,8 @@ input[type="checkbox"].com_custom_checkbox + label:before {
 }
 .com_cart_list_wrap .com_list_style1 > li .product_info_wrap .product_info_one_price {
     display: block;
-    margin-top: 23px;
+    margin-top: 30px;
+    margin-left: 10px;
     font-weight: 500;
     font-size: 17px;
     color: #000;
@@ -278,6 +287,7 @@ input[type="checkbox"].com_custom_checkbox + label:before {
     position: relative;
     width: 98px;
     margin-top: 30px;
+    margin-left: 15px;
     padding: 0 34px;
 }
 .com_cart_list_wrap .com_list_style1 > li .product_info_cnt_wrap .com_form_count {
@@ -339,7 +349,8 @@ input[type="checkbox"].com_custom_checkbox + label:before {
 }
 .com_cart_list_wrap .com_list_style1 > li .product_info_price {
     float: left;
-    margin-top: 34px;
+    margin-top: 30px;
+    margin-left: 60px;
     width: 108px;
     font-weight: 500;
     font-size: 17px;
@@ -420,6 +431,7 @@ input[type="checkbox"].com_custom_checkbox + label:before {
     margin-top: 60px;
     border-top: 1px solid #d6d6d6;
     border-bottom: 1px solid #d6d6d6;
+    width: 980px;
 }
 .big_category_wrap table {
     width: 100%;

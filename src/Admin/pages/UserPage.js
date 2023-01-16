@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createElement, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import {filter, sample} from 'lodash';
 // @mui
@@ -38,31 +38,52 @@ import {useNavigate} from "react-router-dom";
 
 
 const UserPage = () => {
-
-  const setRole = (e) =>{
-    const changerow =  document.getElementById(menuId).children[4]
+  const setRole = () =>{
+    const beforetext = document.getElementById(menuId).children[4].innerText
+    const changeid = menuId;
+    const changerow =  document.getElementById(menuId).children[4];
     const select = document.createElement('select')
-    // select.innerHTML="(select)"
-    // changerow.appendChild(select)
+    const option1 = document.createElement('option')
+    const option2 = document.createElement('option')
+    const button1 =  document.createElement('button')
+    const button2 =  document.createElement('button')
+    let changeRole = '';
 
-    // select.innerHTML="<select><option>ROLE_ADMIN</option><option>ROLE_USER</option></select>"
-    // changerow.appendChild(select)
-    // console.log(select)
-   
-    select.innerHTML='<select onchange="roleUp()">'
-                      +'<option value="ROLE_ADMIN">ROLE_ADMIN</option>'
-                      +'<option value="ROLE_USER">ROLE_USER</option>'
-                      +'<select/>'
+    select.addEventListener(
+        'change',
+        function () { changeRole = this.value}
+        )
+    button1.addEventListener(
+        'click',
+        function (){ axios.get('http://localhost:8080/member/roleChange', {
+          params: {username: changeid, roleType: changeRole}
+        }).then(res => res.data==="equal" ? alert("이미 설정된 등급입니다"): alert(res.data))}
+    )
+    button2.addEventListener(
+        'click',
+        function (){changerow.innerHTML=beforetext}
+    )
+    option1.innerHTML='ROLE_ADMIN'
+    option2.innerHTML='ROLE_USER'
+    button1.innerHTML='수정'
+    button2.innerHTML='취소'
+    option1.setAttribute('value','ROLE_ADMIN')
+    option1.setAttribute('select','selected')
+    option1.setAttribute('text','ROLE_ADMIN')
+    option2.setAttribute('value','ROLE_USER')
+    option2.setAttribute('text','ROLE_USER')
+    select.appendChild(option1)
+    select.appendChild(option2)
+    changerow.innerHTML=''
     changerow.appendChild(select)
-    console.log(select)
-    
-    axios.get('http://localhost:8080/member123/test')
-          .then(()=>alert(JSON.stringify(menuId)))
-          .catch(error => console.log(error))
+    changerow.appendChild(button1)
+    changerow.appendChild(button2)
+
+    console.log(changerow)
+
   }
-
-
   const deleteUser = () => {
+
     axios.get('http://localhost:8080/member/delete',{
       params:{
         username:menuId
@@ -70,10 +91,8 @@ const UserPage = () => {
     })
         .then(() =>alert('삭제성공'),window.location.reload())
         .catch(error => console.log(error))
+
   }
-
-
-
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -109,7 +128,6 @@ const UserPage = () => {
     { id: 'role', label: '회원 등급', alignRight: false },
     { id: 'createDate', label: '가입일', alignRight: false },
     { id: '' },
-
   ];
   const [open, setOpen] = useState(null);
 
@@ -128,7 +146,6 @@ const UserPage = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const[menuId,setMenuId] = useState('')
-
 
   const accessToken = localStorage.getItem("accessToken");
 
@@ -151,14 +168,6 @@ const UserPage = () => {
           navi("/");
         })
   },[])
-
-
-  
-  // 수정해야함.. 하나씩 나오게 해야됨 .. 
-  // const [show ,setShow] = useState(true)
-  // const roleUp = (e) => {
-  //  setShow(!show)
-  // }
 
 
   const USERLIST = member.filter(item =>[{
@@ -238,8 +247,8 @@ const UserPage = () => {
 
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h3" gutterBottom>
-            User List
+          <Typography variant="h4" gutterBottom>
+            유저
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
@@ -282,21 +291,8 @@ const UserPage = () => {
                         <TableCell align="left">{username}</TableCell>
 
                         <TableCell align="left">{phoneNumber}</TableCell>
-                        
-                        {/*   */}
-                        {/* <TableCell align="left" >
-                          {roleType} 
-                        <div value={username} hidden={show}>
-                        <select defaultValue={roleType} >
-                          <option >ROLE_ADMIN</option>
-                          <option >ROLE_USER</option>
-                        </select>
-                        </div>
-                        </TableCell> */}
-                        {/*   */}
-                        
+
                         <TableCell align="left">{roleType}</TableCell>
-                       
                         <TableCell align="left">{createDate}</TableCell>
 
                         <TableCell align="right"
@@ -305,7 +301,6 @@ const UserPage = () => {
                             <Iconify icon={'eva:more-vertical-fill'}/>
                           </IconButton>
                         <Popover
-                        
                             open={Boolean(open)}
                             anchorEl={open}
                             onClose={handleCloseMenu}
@@ -325,8 +320,7 @@ const UserPage = () => {
                                 },
                               }}
                         >
-                          <MenuItem onClick={setRole}>
-                          {/* <MenuItem onClick={roleUp} > */}
+                          <MenuItem onClick={setRole} >
                             <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>
                             등급 조정
                           </MenuItem>
