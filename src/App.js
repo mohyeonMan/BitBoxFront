@@ -56,25 +56,7 @@ const App = () => {
 
 
     // 토큰 만료시간 체크
-    useEffect(()=> {
 
-        axios.get("/member/me", {
-            headers: {
-                Authorization: `Bearer ${accessTokenVal}`
-            }
-        }).then(res => {
-            sessionStorage.setItem("userName", res.data.username);
-            sessionStorage.setItem("birth", res.data.birth);
-            console.log(res.data.name)
-            navi("/");
-        }).catch(error => {
-            console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('expireTime');
-            removeCookieToken();
-        })
-
-    }, [])
 
     return (
         <Routes>
@@ -93,8 +75,6 @@ const App = () => {
             <Route path='/user/calendar' element={<Calendar />} />
             <Route path="/user/get/:pk" element={<Get/>} />
             <Route path="/user/get2/:pk" element={<Get2/>} />
-
-
             <Route path='/test' element={<Test/>}/>
             <Route path='/success' element={<Success/>}/>
 

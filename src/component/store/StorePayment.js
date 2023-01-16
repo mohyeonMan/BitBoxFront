@@ -242,7 +242,7 @@ const StorePayment = () => {
                     카카오페이는 신용카드 선할인과 카드사 포인트는 이용하실 수 없으며 신용카드별 청구 할인은 이용하실 수 있습니다.</p>
                 
                 <div className={payStyles.com_btn_wrap}>
-                    <a href="#none" onClick={ payment } className={payStyles.btn_style0} style={{width:'1000px'}}>결제하기</a> 
+                    <a href="#none" onClick={ navigate(`/store/paycomplete/${day+dayAfter}`) } className={payStyles.btn_style0} style={{width:'1000px'}}>결제하기</a> 
                     {/* <a href="#none" className={payStyles.btn_prev} onClick="javascript:location.replace('http://www.cgv.co.kr/culture-event/popcorn-store/user-cart.aspx');">
                         <img src="./../../../CDN/R2014/images/giftstore/common/btn_prev.png" alt="이전화면으로 이동"/>이전화면
                     </a> */}
