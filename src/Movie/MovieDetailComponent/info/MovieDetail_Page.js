@@ -30,16 +30,13 @@ const MovieDetail_Page = () => {
     }
 ]   
     useEffect(() => {
-        // const Dolby = () => {
-        //     data.filter(item => item.movieNumber === movieNumber, item.Dolby === '0' ? setDolby('') : setDolby('#돌비시네마'))
-        // }
-        // Dolby()
+        
         axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
-            .then(res => {setData(res.data)
+            .then(res => {setData(res.data)})
         ageURL()
 
 
-    }, [])
+            }, []) 
 
     const [ageIcon, setAgeIcon] = useState('')
     const ageAll = 'https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png'
