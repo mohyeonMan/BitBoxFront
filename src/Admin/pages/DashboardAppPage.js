@@ -27,8 +27,8 @@ const DashboardAppPage = () => {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, admin
+        <Typography variant="h3" sx={{ mb: 5 }}>
+          Hi, Admin
         </Typography>
 
         {/* 상단 맨위 4개  */}

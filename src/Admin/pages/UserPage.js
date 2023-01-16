@@ -238,8 +238,8 @@ const UserPage = () => {
 
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
-            유저
+          <Typography variant="h3" gutterBottom>
+            User List
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
