@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import emptySeat from './emptySeat';
-import Modal from './Modal.js';
 import styles from '../css/Get.module.css';
 import axios from 'axios';
 

@@ -12,6 +12,7 @@ import Layout from '../Main/Layout';
 
 const Get = () => {
     const {pk} = useParams();
+    const id = useState(sessionStorage.getItem('userName'));
 
     
     //빈배열
@@ -213,8 +214,6 @@ const Get = () => {
         setModalOpen(false);
     };
 
-
-    const id = sessionStorage.getItem('userName');
     
     
     return (
@@ -223,7 +222,6 @@ const Get = () => {
 
 
             <div className={styles.title}><h3>예매 좌석 선택</h3></div><hr/>
-            <input type="text" value={id} onChange={(e)=>setId(e.target.value)}/>
 
             <div className={styles.seatContainer}>
                 <div className={styles.seats}>
@@ -288,13 +286,14 @@ const Get = () => {
                         <div className={styles.buttons}>
                             <button className={styles.button} onClick={()=>navigate("/user/calendar",{replace:true})}>이전으로</button>
 
-                            <button className={styles.button} onClick={paymentComplete} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
+                            <button className={styles.button} onClick={openModal} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
                         </div>
                     </div>
                 </div>
+                            <button onClick={paymentComplete}>결제 건너뛰기</button>
             </div> {/* container*/}
             <div className={styles.footer}></div>
-            <Modal open={modalOpen} close={closeModal} header="결재" closeBtn="좌석선택" showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} price={price} discount={discount}>
+            <Modal open={modalOpen} close={closeModal} header="티켓 결제" closeBtn="좌석선택" showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} price={price} discount={discount}>
                
             </Modal>
         </>
