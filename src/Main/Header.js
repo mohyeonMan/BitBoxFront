@@ -9,6 +9,7 @@ import mypageIcon from './img/my.png';
 import supportIcon from './img/service-center.png';
 import searchIcon from './img/search.png';
 import {getCookieToken, removeCookieToken} from "src/member/storage/Cookie";
+import HeaderModal from './HeaderModal';
 
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
@@ -127,6 +128,12 @@ const UserNavList = () => {
         window.location.replace("/");
     }
 
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const showModal = () => {
+        setModalOpen(true);
+    };
+
     return (
         <ul>
             <li>
@@ -169,7 +176,8 @@ const UserNavList = () => {
                 {isLogin &&
                     <a>
                         <img src={mypageIcon} alt="마이페이지 아이콘" />
-                        <span><Link to={'/member/mypage'}>MY BITBOX</Link></span>
+                        <span style={{cursor:"pointer"}} onClick={showModal}>MY BITBOX</span>
+                        {modalOpen && <HeaderModal setModalOpen={setModalOpen} />}
                     </a>
                 }
             </li>
