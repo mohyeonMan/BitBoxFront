@@ -69,13 +69,13 @@
     border-color: #555;
 }
 .reservations_first ul li:first-child, .reservations_first ul li:nth-child(6) {
-    border-left: 1px solid #d8d9db;
+    /* border-left: 1px solid #d8d9db; */
 }
 .reservations_first ul li {
     position: relative;
     float: left;
-    width: 20%;
-    border: 1px solid #d8d9db;
+    /* width: 20%;
+    border: 1px solid #d8d9db; */
     border-left: 0;
 }
 .reservations_first ul li.hover .btn, .reservations_first ul li.on .btn {
@@ -101,14 +101,14 @@
 .reservations_first a {
     background-color: transparent;
 }
-.tab-block ul li:last-child {
+.tab_block ul li:last-child {
     border-right: 1px solid #d8d9db;
 }
 .reservations_first ul li {
     position: relative;
     float: left;
-    width: 20%;
-    border: 1px solid #d8d9db;
+    /* width: 20%;
+    border: 1px solid #d8d9db; */
     border-left: 0;
 }
 .reservations_first ul:after {
@@ -288,6 +288,9 @@
     width: 3px;
     height: 3px;
 }
+.dot_list>li+li {
+    margin-top: 2px;
+}
 .mt10 {
     margin-top: 10px!important;
 }
@@ -328,12 +331,15 @@
     height: 7px;
     background-image: url('./img/ico-arr-toggle-down.png');
 }
+.box_pulldown.on .cont {
+    display: block;
+}
 .box_pulldown .cont {
     /* display: none; */
     margin: 0;
     padding: 20px;
 }
-.reservations_first b, .reservations_first strong {
+.cont b, .cont strong {
     font-weight: 700;
 }
 .mb30 {
