@@ -1,37 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import {Route, Routes} from "react-router-dom";
-import Main from "./Main/Main";
-import Adminindex from "./adminindex";
-import Member from "./member/Member";
-import JoinForm from "./member/JoinForm";
-import LoginForm from "./member/LoginForm";
-import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
-import MyPage from "./member/MyPage";
-import Calendar from "./user/Calendar";
-import Reservation from './Main/Reservation';
-import EditProfile from './Main/EditProfile';
-
-const App = () => {
-
-    return (
-        <Routes>
-            <Route path='/' element={<Main />} />
-            <Route path='/adminindex/*' element={<Adminindex />} />
-            <Route path='/member' element={<Member />} />
-            <Route path='/member/joinForm/*' element={<JoinForm />} />
-            <Route path='/member/loginForm' element={<LoginForm />} />
-            <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
-            <Route path='/member/myPage' element={<MyPage />} />
-            <Route path='/user/calendar' element={<Calendar />} />
-            <Route path='/myPage/reservation' element={<Reservation />} />
-            <Route path='/myPage/editProfile' element={<EditProfile />} />
-        </Routes>
-    );
-};
-
-export default App;
-=======
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import Main from "./Main/Main";
@@ -63,7 +29,8 @@ import FindPwdAndChange from "src/member/FindPwdAndChange";
 import Success from './user/Success';
 import Get2 from "src/user/Get2";
 import LoginForm2 from "src/member/LoginForm2";
->>>>>>> refs/remotes/origin/develop
+import Reservation from './Main/Reservation';
+import EditProfile from './Main/EditProfile';
 
 const App = () => {
 
@@ -115,6 +82,8 @@ const App = () => {
             <Route path='/member/joinForm/*' element={<JoinForm />} />
             <Route path='/member/loginForm' element={<LoginForm />} />
             <Route path='/member/loginForm2' element={<LoginForm2/>} />
+            <Route path='/myPage/reservation' element={<Reservation />} />
+            <Route path='/myPage/editProfile' element={<EditProfile />} />
             <Route path='/member/FindIdPasswordRoutes/*' element={<FindIdPasswordRoutes />} />
             <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
@@ -122,6 +91,7 @@ const App = () => {
             <Route path='/user/calendar' element={<Calendar />} />
             <Route path="/user/get/:pk" element={<Get/>} />
             <Route path="/user/get2/:pk" element={<Get2/>} />
+
 
             <Route path='/test' element={<Test/>}/>
             <Route path='/success' element={<Success/>}/>
@@ -142,8 +112,6 @@ const App = () => {
             <Route path='/master/write' element={ <Movielist_master_write/>}/>
             <Route path='/master/list' element={<Movielist_master_list/>}/>
             <Route path='/master/delete' element={<Movielist_master_delete/>}/>
-            <Route path='/myPage/reservation' element={<Reservation />} />
-            <Route path='/myPage/editProfile' element={<EditProfile />} />
 
         </Routes>
     );

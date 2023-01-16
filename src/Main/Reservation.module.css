@@ -1,14 +1,8 @@
-.container {
-    width: 980px;
-    min-width: 1100px;
-    min-height: 100%;
-    margin: -92px 0 -200px 0;
-    padding: 92px 0 300px 0;
+.containnner {
+    width: 100%;
 }
-.inner_wrap {
-    width: 980px;
+.inner_wrappo {
     overflow: auto;
-    overflow-y: scroll;
     letter-spacing: 0;
     line-height: 1.5;
     font-size: 15px;
@@ -18,15 +12,15 @@
     margin-left: 100px;
     margin-right: 100px;
 }
-.inner_wrap:after, .inner_wrap:before {
+.inner_wrappo:after, .inner_wrappo:before {
     content: '';
     display: table;
 }
-.container.has_lnb #contents {
+.containnner .has_lnb .hithere {
     float: right;
     width: calc(100% - 260px);
 }
-#contents {
+.hithere {
     width: 800px;
     margin: 0;
     padding: 40px 0 0 0;
@@ -45,10 +39,10 @@
     padding: 0;
     font-weight: 400;
 }
-.tab_block {
+.reservations_first {
     position: relative;
 }
-.tab_block:before {
+.reservations_first:before {
     content: '';
     position: absolute;
     left: 0;
@@ -57,38 +51,38 @@
     height: 1px;
     background-color: #d8d9db;
 }
-.tab_block ul:after, .tab_block ul:before {
+.reservations_first ul:after, .reservations_first ul:before {
     content: '';
     display: table;
 }
-.tab_block ul:after {
+.reservations_first ul:after {
     clear: both;
 }
-.tab_block ul:after, .tab_block ul:before {
+.reservations_first ul:after, .reservations_first ul:before {
     content: '';
     display: table;
 }
-.tab_block ul li.hover:first-child, .tab-block ul li.on:first-child {
+.reservations_first ul li.hover:first-child, .reservations_first ul li.on:first-child {
     border-color: #555;
 }
-.tab_block ul li.hover, .tab_block ul li.on {
+.reservations_first ul li.hover, .reservations_first ul li.on {
     border-color: #555;
 }
-.tab_block ul li:first-child, .tab_block ul li:nth-child(6) {
+.reservations_first ul li:first-child, .reservations_first ul li:nth-child(6) {
     border-left: 1px solid #d8d9db;
 }
-.tab_block ul li {
+.reservations_first ul li {
     position: relative;
     float: left;
     width: 20%;
     border: 1px solid #d8d9db;
     border-left: 0;
 }
-.tab_block ul li.hover .btn, .tab_block ul li.on .btn {
+.reservations_first ul li.hover .btn, .reservations_first ul li.on .btn {
     color: #fff;
     background-color: #555;
 }
-.tab_block ul li .btn {
+.reservations_first ul li .btn {
     display: block;
     width: 100%;
     height: 34px;
@@ -110,17 +104,17 @@
 .tab-block ul li:last-child {
     border-right: 1px solid #d8d9db;
 }
-.tab_block ul li {
+.reservations_first ul li {
     position: relative;
     float: left;
     width: 20%;
     border: 1px solid #d8d9db;
     border-left: 0;
 }
-.tab_block ul:after {
+.reservations_first ul:after {
     clear: both;
 }
-.tab_block ul:after, .tab_block ul:before {
+.reservations_first ul:after, .reservations_first ul:before {
     content: '';
     display: table;
 }
@@ -138,7 +132,7 @@
     text-decoration: none;
     outline: 1px dotted #000;
 }
-.ir {
+.irrr {
     text-indent: -9999px;
     position: fixed;
     top: -9999px;
@@ -206,55 +200,9 @@
     vertical-align: middle;
     cursor: pointer;
 }
-.bootstrap_select:not([class*=col-]):not([class*=form-control]):not(.input_group_btn).small {
-    height: 32px;
-}
-.bootstrap_select:not([class*=col-]):not([class*=form-control]):not(.input_group_btn) {
-    width: auto;
-    height: 36px;
-}
-.bootstrap_select:not([class*=col-]):not([class*=form-control]):not(.input_group_btn) {
-    width: 220px;
-}
-.bootstrap_select.disabled, .bootstrap_select>.disabled {
-    cursor: default;
-    background-color: #f7f8f9;
-    border-color: #ccc;
-    color: #787878;
-}
-.bootstrap_select.small {
-    height: 32px;
-}
-.bootstrap_select.disabled, .bootstrap_select>.disabled {
-    cursor: not-allowed;
-}
-.bootstrap_select:not(.input_group_btn), .bootstrap_select[class*=col-] {
-    float: none;
-    display: inline-block;
-    margin-left: 0;
-}
-.bootstrap_select {
-    height: 36px;
-    vertical-align: middle;
-}
-.bootstrap_select {
-    vertical-align: middle;
-}
-.dropdown, .dropup {
-    position: relative;
-}
-.bootstrap_select .selectpicker, .bootstrap_select select {
-    height: 100%;
-}
-select.small {
-    height: 32px;
-}
 .reservations_first select[disabled] {
     background-color: #f7f8f9;
     color: #afafaf;
-}
-.bootstrap_select>select.bs_select_hidden, select.bs_select_hidden, select.selectpicker {
-    display: none!important;
 }
 .reservations_first table select {
     border-radius: 0;
@@ -272,27 +220,6 @@ select.small {
 .reservations_first option:checked {
     background-color: #ecf0f4;
 }
-.bootstrap_select.disabled, .bootstrap_select>.disabled {
-    cursor: not-allowed;
-}
-.bootstrap_select>.dropdown-toggle {
-    position: relative;
-    width: 100%;
-    text-align: right;
-    white-space: nowrap;
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
 .reservations_first [type=button], .reservations_first [type=reset], .reservations_first [type=submit], .reservations_first button {
     -webkit-appearance: button;
 }
@@ -302,186 +229,8 @@ select.small {
     font-weight: 400;
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 }
-.bootstrap_select>.dropdown_toggle:after {
-    margin-top: -1px;
-}
-.bs3.bootstrap_select .dropdown_toggle .filter_option {
-    padding-right: 0;
-}
-.bs3.bootstrap_select .dropdown_toggle .filter_option {
-    padding-right: inherit;
-}
-.bootstrap_select .dropdown_toggle .filter_option {
-    position: static;
-    top: 0;
-    left: 0;
-    float: left;
-    height: 100%;
-    width: 100%;
-    text-align: left;
-    overflow: hidden;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 1 auto;
-    -ms-flex: 0 1 auto;
-    flex: 0 1 auto;
-}
-.bootstrap_select .filter_option .filter_option_inner {
-    height: 100%;
-}
-.bootstrap_select.small .filter_option .filter_option_inner .filter_option_inner_inner {
-    line-height: 30px;
-}
-.bootstrap_select .filter_option .filter_option_inner .filter_option_inner_inner {
-    height: 100%;
-    line-height: 34px;
-}
-.bootstrap_select .dropdown_toggle .filter_option_inner_inner {
-    overflow: hidden;
-}
-.bootstrap_select .dropdown_toggle .caret {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    width: 10px;
-    height: 5px;
-    margin-top: -2px;
-    margin-left: 2px;
-    vertical-align: middle;
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-    border-bottom: 0;
-    background: url(https://img.megabox.co.kr/static/pc/images/common/bg/bg-select-arr.png) no-repeat 0 0;
-}
-
-.bootstrap_select .dropdown_toggle .caret {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    margin-top: -2px;
-    vertical-align: middle;
-}
-.caret {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 2px;
-    vertical-align: middle;
-    border-top: 4px dashed;
-    border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
-}
-.bootstrap_select .dropdown_menu {
-    min-width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.dropdown_menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 40;
-    float: left;
-    min-width: 100px;
-    max-width: 200px;
-    margin: 0;
-    padding: 0;
-    font-size: 1em;
-    text-align: left;
-    list-style: none;
-    background-color: #fff;
-    border: 1px solid #666;
-    border: 1px solid #666;
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-.dropdown_menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    float: left;
-    min-width: 160px;
-    padding: 5px 0;
-    margin: 2px 0 0;
-    font-size: 14px;
-    text-align: left;
-    list-style: none;
-    background-color: #fff;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: 4px;
-    -webkit-box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-    box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-}
-.bootstrap_select .dropdown_menu.inner {
-    position: static;
-    float: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.bootstrap_select .dropdown_menu {
-    min-width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.open>.dropdown_menu {
-    display: block;
-}
-.button.gray_line.small {
-    line-height: 32px;
-}
-.button.grayline {
-    color: #444;
-    line-height: 36px;
-    border: 1px solid #c1c1c1;
-    background-color: #fff;
-}
-.button.small {
-    height: 32px;
-    padding: 0 12px;
-    line-height: 30px;
-    font-size: .9333em;
-}
 .ml05 {
     margin-left: 5px!important;
-}
-.button {
-    display: inline-block;
-    height: 36px;
-    margin: 0;
-    padding: 0 15px;
-    text-align: center;
-    line-height: 34px;
-    color: #503396;
-    font-weight: 400;
-    border-radius: 4px;
-    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
-    text-decoration: none;
-    border: 1px solid #503396;
-    vertical-align: middle;
-    background-color: #fff;
-    cursor: pointer;
-}
-.reservations_first button {
-    cursor: pointer;
-    letter-spacing: -.5px;
-    font-weight: 400;
-    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 }
 .reservations_first button, .reservations_first select {
     text-transform: none;
@@ -489,7 +238,7 @@ select.small {
 .reservations_first button, .reservations_first input {
     overflow: visible;
 }
-reservations_first button>i:first-child {
+.reservations_first button>i:first-child {
     margin-left: 0;
     margin-right: 4px;
 }
@@ -509,7 +258,7 @@ reservations_first button>i:first-child {
 .mt20 {
     margin-top: 20px!important;
 }
-reservations_first h3.tit {
+.reservations_first h3.tit {
     margin: 0;
     padding: 0 0 16px 0;
     font-size: 1.6em;
@@ -520,7 +269,7 @@ reservations_first h3.tit {
 .mt70 {
     margin-top: 70px!important;
 }
-reservations_first h1, reservations_first h2, reservations_first h3, reservations_first h4, reservations_first h5, reservations_first h6 {
+.reservations_first h1, .reservations_first h2, .reservations_first h3, .reservations_first h4, .reservations_first h5, .reservations_first h6 {
     margin: 0;
     padding: 0;
     font-weight: 400;
@@ -549,19 +298,19 @@ reservations_first h1, reservations_first h2, reservations_first h3, reservation
 .box_pulldown {
     overflow: hidden;
 }
-reservations_first button {
+.reservations_first button {
     cursor: pointer;
     letter-spacing: -.5px;
     font-weight: 400;
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
 }
-reservations_first button, reservations_first select {
+.reservations_first button, .reservations_first select {
     text-transform: none;
 }
-reservations_first button, reservations_first input {
+.reservations_first button, .reservations_first input {
     overflow: visible;
 }
-reservations_first button, reservations_first input, reservations_first optgroup, reservations_first select, reservations_first textarea {
+.reservations_first button, .reservations_first input, .reservations_first optgroup, .reservations_first select, .reservations_first textarea {
     margin: 0;
     font-family: inherit;
     font-size: 1em;
@@ -584,17 +333,17 @@ reservations_first button, reservations_first input, reservations_first optgroup
     margin: 0;
     padding: 20px;
 }
-reservations_first b, reservations_first strong {
+.reservations_first b, .reservations_first strong {
     font-weight: 700;
 }
 .mb30 {
     margin-bottom: 30px!important;
 }
-.dot-list>li {
+.dot_list>li {
     position: relative;
     padding: 0 0 0 8px;
 }
-reservations_first ol, reservations_first ul {
+.reservations_first ol, .reservations_first ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -606,65 +355,34 @@ reservations_first ol, reservations_first ul {
     height: 42px;
     background-color: #f8f8fa;
 }
-.inner_wrap {
+.inner_wrappo {
     width: 1100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    display: inline-block;
-    margin-left: 250px;
+    margin: auto;
 }
 .page_util .location {
     float: left;
     height: 42px;
 }
-reservations_first button, reservations_first select {
+.reservations_first button, .reservations_first select {
     text-transform: none;
 }
-reservations_first button, reservations_first input {
+.reservations_first button, .reservations_first input {
     overflow: visible;
 }
-reservations_first button, reservations_first input, reservations_first optgroup, reservations_first select, reservations_first textarea {
+.reservations_first button, .reservations_first input, .reservations_first optgroup, .reservations_first select, .reservations_first textarea {
     margin: 0;
     font-family: inherit;
     font-size: 1em;
     line-height: 1.15;
 }
-.bootstrap_select>.dropdown_toggle.bs_placeholder, .bootstrap_select>.dropdown_toggle.bs_placeholder:active, .bootstrap_select>.dropdown_toggle.bs_placeholder:focus, .bootstrap_select>.dropdown_toggle.bs_placeholder:hover {
-    color: #999;
-}
-.bootstrap_select>.dropdown_toggle {
-    height: 100%;
-    margin: 0;
-    padding: 0 30px 0 9px;
-    border: 1px solid #666;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-.bootstrap_select>.dropdown_toggle {
-    position: relative;
-    width: 100%;
-    text-align: right;
-    white-space: nowrap;
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
 .board_list_search table tbody tr td, .board_list_search table tbody tr th {
     padding: 2px 0;
     text-align: left;
 }
-table td, table th {
+.reservations_first table td, .reservations_first table th {
     padding: 0;
 }
 .bootstrap_select .selectpicker, .bootstrap_select select {
@@ -713,7 +431,7 @@ select.small {
     border-width: 1px 0 1px 1px;
     background-color: #fff;
 }
-[type=button], [type=reset], [type=submit], button {
+.reservations_first [type=button], .reservations_first [type=reset], .reservations_first [type=submit], .reservations_first button {
     -webkit-appearance: button;
 }
 .board_list_search table tbody tr td .btn_period button.btn.on {
@@ -737,23 +455,10 @@ select.small {
 .date_calendar.v2 {
     height: 36px;
 }
-.date_calendar {
-    display: inline-block;
-    width: 118px;
-    height: 32px;
-    padding: 0 10px;
-    line-height: 30px;
-    border-radius: 0!important;
-    border: 1px solid #d8d9db;
-    border-width: 1px 0 1px 1px;
-    vertical-align: middle;
-    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
-}
-
-reservations_first button, input {
+.reservations_first button, .reservations_first input {
     overflow: visible;
 }
-button, input, optgroup, select, textarea {
+.reservations_first button, .reservations_first input, .reservations_first optgroup, .reservations_first select, .reservations_first textarea {
     margin: 0;
     font-family: inherit;
     font-size: 1em;
@@ -762,18 +467,6 @@ button, input, optgroup, select, textarea {
 .date_calendar.v2+.ui_datepicker_trigger {
     height: 36px;
 }
-.ui_datepicker_trigger {
-    width: 32px;
-    height: 32px;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #d8d9db;
-    border-width: 1px 1px 1px 0;
-    font-size: 0;
-    line-height: 0;
-    vertical-align: middle;
-    /* background: #fff url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-calendar.png) no-repeat center; */
-}
 .date_calendar.v2 {
     height: 36px;
 }
@@ -781,20 +474,6 @@ button, input, optgroup, select, textarea {
     min-width: 0;
     padding: 0 10px;
     border-color: #ccc;
-}
-.button.gray_line {
-    color: #444;
-    line-height: 36px;
-    border: 1px solid #c1c1c1;
-    background-color: #fff;
-}
-.button>i:first-child {
-    margin-left: 0;
-    margin-right: 4px;
-}
-.button>i {
-    margin-top: -2px;
-    margin-left: 4px;
 }
 .ico_search_gray {
     width: 16px;
@@ -816,7 +495,7 @@ button, input, optgroup, select, textarea {
     margin-bottom: 10px!important;
 }
 .board_list_util {
-    margin: 30px 0 15px 0;
+    margin: 30px 0 0 0;
     text-align: right;
 }
 .board_list_util:after, .board_list_util:before {
@@ -861,7 +540,7 @@ button, input, optgroup, select, textarea {
 .reservations_first article, .reservations_first aside, .reservations_first figcaption, .reservations_first figure, .reservations_first footer, .reservations_first header, .reservations_first main, .reservations_first nav, .reservations_first section {
     display: block;
 }
-.box-pulldown {
+.box_pulldown {
     overflow: hidden;
 }
 .box_pulldown .tit {
@@ -880,10 +559,10 @@ button, input, optgroup, select, textarea {
     text-align: left;
     background-color: #fff;
 }
-.inner_wrap:after {
+.inner_wrappo:after {
     clear: both;
 }
-.board-list {
+.board_list {
     line-height: 1.3;
 }
 .board_list>thead>tr>th {

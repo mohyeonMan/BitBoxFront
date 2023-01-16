@@ -193,7 +193,7 @@ const Get = () => {
              }
          }).then(res=> {
              alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
-             navigate("/success");
+             navigate("/myPage/reservation");
           }).catch(err=>console.log(err))
      }
     

@@ -1,6 +1,5 @@
 .editProfile_first {
     overflow: auto;
-    overflow-y: scroll;
     letter-spacing: 0;
     line-height: 1.5;
     font-size: 15px;
@@ -10,48 +9,35 @@
     width: 800px;
     min-width: 550px;
     min-height: 100%;
-    /* margin: -92px 0 -200px 0; */
-    /* padding: 92px 0 300px 0; */
-    margin-left: 250px;
-    margin-right: 100px;
-    margin-top: 50px;
-   
-  }
-  .container.has_lnb #contents {
+    margin: auto;
+}
+.container.has_lnb .editProfile_first {
     float: right;
     width: calc(100% - 260px);
-  }
-  #contents {
-    width: 100%;
-    margin: 0;
-    padding: 40px 0 0 0;
-  }
-  .editProfile_first h2.tit {
+}
+.editProfile_first h2.titub {
     padding: 0 0 26px 0;
     font-size: 1.8666em;
     font-weight: 400;
     letter-spacing: -1px;
     line-height: 1.1;
     color: #222;
-  }
-  .editProfile_first h1, .editProfile_first h2, .editProfile_first h3, .editProfile_first h4, .editProfile_first h5, .editProfile_first h6 {
+}
+.editProfile_first h1, .editProfile_first h2, .editProfile_first h3, .editProfile_first h4, .editProfile_first h5, .editProfile_first h6 {
     margin: 0;
     padding: 0;
     font-weight: 400;
-  }
-  .mb10 {
-    margin-bottom: 10px!important;
-  }
-  .editProfile_first ol, .editProfile_first ul {
+}
+.editProfile_first ol, .editProfile_first ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-  }
-  .dot_list>li {
+}
+.dot_list>li {
     position: relative;
     padding: 0 0 0 8px;
-  }
-  .dot_list>li:before {
+}
+.dot_list>li:before {
     content: '';
     display: block;
     position: absolute;
@@ -60,132 +46,128 @@
     background-color: #B20710;
     width: 3px;
     height: 3px;
-  }
-  .table_wrap {
-    position: relative;
-    border-top: 1px solid #555;
-  }
-  .editProfile_first table {
+}
+.editProfile_first table {
     width: 100%;
     margin: 0;
     border: 0;
     table-layout: fixed;
     border-collapse: collapse;
     empty-cells: show;
-  }
-  .editProfile_first table caption {
+}
+.editProfile_first table caption {
     overflow: hidden;
     width: 0;
     height: 0;
     font-size: 0;
     line-height: 0;
     opacity: 0;
-  }
-  .board_form tbody th {
+}
+.board_form tbody th {
     background: #f7f8f9;
-  }
-  .board_form tbody td, .board_form tbody th {
+}
+.board_form tbody td, .board_form tbody th {
     position: relative;
     height: 50px;
     padding: 7px 15px;
     text-align: left;
     border-bottom: 1px solid #d1d5dd;
-  }
-  
-  .editProfile_first table td, .editProfile_first table th {
+}
+
+.editProfile_first table td, .editProfile_first table th {
     padding: 0;
-  }
-  .profile_photo {
+}
+.profile_photo {
     overflow: hidden;
-  }
-  .board_form tbody th {
+}
+.board_form tbody th {
     background: #f7f8f9;
-  }
-  .board_form tbody td, .board_form tbody th {
+}
+.board_form tbody td, .board_form tbody th {
     position: relative;
     height: 50px;
     padding: 7px 15px;
     text-align: left;
     border-bottom: 1px solid #d1d5dd;
-  }
-  .mt40 {
+}
+.mt400 {
     margin-top: 40px;
-  }
-  .mb10 {
+}
+.suntory {
     margin-bottom: 10px!important;
-  }
-  .mt40 {
+}
+.mt400 {
     margin-top: 40px!important;
-  }
-  .tit_util:after, .tit_util:before {
+}
+.tit_util:after, .tit_util:before {
     content: '';
     display: block;
-  }
-  .tit_util:after {
+}
+.tit_util:after {
     clear: both;
-  }
-  .tit_util .tit {
+}
+.tit_util .titub {
     float: left;
     padding: 0!important;
     line-height: 1.1;
-  }
-  .editProfile_first h3.tit {
+}
+.editProfile_first h3.titub {
     margin: 0;
     padding: 0 0 16px 0;
     font-size: 1.6em;
     font-weight: 400;
     color: #B20710;
     line-height: 1.1;
-  }
-  .tit_util .right {
+}
+.tit_util .right {
     float: right;
-  }
-  .editProfile_first p.reset {
+}
+.editProfile_first p.reset {
     padding: 0;
     margin: 0;
-  }
-  .font_orange {
+}
+.font_orange {
     color: #e63e30!important;
-  }
-  .editProfile_first em {
+}
+.editProfile_first em {
     font-style: normal;
-  }
-  .mb40 {
+}
+.mb400 {
     margin-bottom: 40px!important;
-  }
-  .table_wrap {
+}
+.table_wrapp {
     position: relative;
     border-top: 1px solid #555;
-  }
-  .button.gray_line.small {
+}
+.buggon .gray_line .small {
     line-height: 32px;
-  }
-  
-  .button.gray_line {
+}
+
+.buggon .gray_line {
     color: #444;
     line-height: 36px;
     border: 1px solid #c1c1c1;
     background-color: #fff;
-  }
-  .button.small {
+}
+.buggon .small {
     height: 32px;
     padding: 0 12px;
     line-height: 30px;
     font-size: .9333em;
-  }
-  .editProfile_first a.button {
+}
+.editProfile_first a.buggon {
     text-decoration: none;
-  }
-  .editProfile_first a:link {
+}
+.editProfile_first a:link {
     color: #444;
     text-decoration: none;
-  }
-  .editProfile_first .mr10 {
+}
+.editProfile_first .mr10 {
     margin-right: 10px!important;
-  }
-  .editProfile_first .ml10 {
+}
+.editProfile_first .ml10 {
     margin-left: 10px!important;
-  }
+}
 .modal_layer {
     overflow-y: scroll;
     display: none;
@@ -247,13 +229,13 @@
     height: 45px;
     background: #503396;
 }
-.modal_layer .wrap .layer_header h3.tit {
+.modal_layer .wrap .layer_header h3.titub {
     color: #fff;
     padding: 15px 20px 0 20px!important;
     font-size: 1.2em;
     line-height: 1.1;
 }
-.wrap .layer_header h3.tit {
+.wrap .layer_header h3.titub {
     color: #fff;
     padding: 15px 20px 0 20px;
     font-size: 1.2em;
@@ -283,9 +265,6 @@
 .box_gray {
     padding: 20px;
     background-color: #f2f4f5;
-}
-.editProfile_first a.button {
-    text-decoration: none;
 }
 .editProfile_first a:link {
     color: #444;
@@ -361,12 +340,6 @@ em {
     margin-right: 30px;
 
 }
-.mt40 {
-    margin-top: 40px;
-}
-.mt40 {
-    margin-top: 40px!important;
-}
 .editProfile_first .btn_group {
     padding: 20px 0 30px 0;
     margin: 0;
@@ -376,15 +349,15 @@ em {
     content: '';
     display: table;
 }
-.editProfile_first .btn_group .button {
+.editProfile_first .btn_group .buggon {
     margin: 0 3px;
 }
-.editProfile_first .button.large {
+.editProfile_first .buggon .large {
     height: 46px;
     padding: 0 30px;
     line-height: 44px;
 }
-.editProfile_first .button {
+.editProfile_first .buggon {
     display: inline-block;
     height: 36px;
     margin: 0;
@@ -424,7 +397,7 @@ em {
     line-height: 1.15;
 }
 .editpwdDiv {
-  color: rgb(178, 7, 16);
-  font-size: 10pt;
-  text-align: left;
+    color: rgb(178, 7, 16);
+    font-size: 10pt;
+    text-align: left;
 }

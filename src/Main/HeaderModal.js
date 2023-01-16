@@ -21,39 +21,40 @@ const HeaderModal = ({ setModalOpen}) => {
     return (
         <>
             <div className={modalces.modalhead} >
-            <div className={modalces.container} style={{ width: 400, height: 250, marginLeft: "-100px", marginTop: "-700px" }}>
-                <button className={modalces.close} onClick={closeModal}>
-                    X
-                </button>
-                <section
-                id="layer_select"
-                className={`${modalces.modal_layer} ${modalces.on}`}
-                style={{ zIndex: 501 }}
-                >
-                    <div className={modalces.login_input_area}>
-                        <div className={modalces.reservation}>
-                        <a>
-                            <button
-                                id="btnReservation"
-                                type="button"
-                                className={modalces.button}
-                                onClick={showReservation} > 예매/구매내역 </button>
-                        </a>
+                <div className={modalces.containerss} style={{ width: 300, height: 250, marginLeft: "-100px", marginTop: "-700px" }}>
+                    <button className={modalces.closeima} onClick={closeModal}>
+                        X
+                    </button>
+                    <section
+                        id="layer_select"
+                        className={`${modalces.modal_layer} ${modalces.on}`}
+                        style={{ zIndex: 501 }}
+                    >
+                        <div className={modalces.login_input_area}>
+                            <div className={modalces.reservation}>
+                                <a>
+                                    <button
+                                        id="btnReservation"
+                                        type="button"
+                                        className={modalces.button}
+                                        onClick={showReservation} > 예매/구매내역 </button>
+
+                                </a>
+                            </div>
+                            <div className={modalces.editprofile}>
+                                <a>
+                                    <button
+                                        id="btnEditprofile"
+                                        type="button"
+                                        className={modalces.button}
+                                        onClick={showEditProfile}
+                                    > 개인 정보 수정 </button>
+                                </a>
+                            </div>
                         </div>
-                        <div className={modalces.editprofile}>
-                        <a>
-                            <button
-                                id="btnEditprofile"
-                                type="button"
-                                className={modalces.button}
-                                onClick={showEditProfile}
-                                 > 개인 정보 수정 </button>
-                        </a>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
-        </div>
         </>
     );
 };
