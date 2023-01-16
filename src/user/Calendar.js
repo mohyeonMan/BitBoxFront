@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ko } from "date-fns/esm/locale";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Hours from "./Hours";
 import '../css/hour.css'
 
@@ -23,6 +23,7 @@ import {getCookieToken} from "src/member/storage/Cookie";
 
 
 const Calendar = () => {
+    const {mvName} = useParams();
     const [ScrollActive, setScrollActive] = useState(false);
     const [previewVisible, setPreviewVisible] = useState(false);
 
@@ -30,7 +31,7 @@ const Calendar = () => {
 
     const [currentWeek, setCurrentWeek] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [movieName, setMovieName] = useState('');
+    const [movieName, setMovieName] = useState(mvName);
     const [cityName, setCityName] = useState('');
     const [cinemaName, setCinemaName] =useState('');
     const [hidden, setHidden] =useState(false);
@@ -154,6 +155,14 @@ const Calendar = () => {
             .catch(error => console.log(error))
 
     },[selectedDate])
+
+    useEffect(()=>{
+        axios.post(`http://localhost:8080/book/cityList?movie_date=${dsd}&movie_title=${movieName}`)
+            .then(res=>setList2(res.data))
+            .catch(error => console.log(error))
+
+
+    },[setMovieName])
 
     const renderHeader = () => {
         return (

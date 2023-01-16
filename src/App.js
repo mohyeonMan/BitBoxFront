@@ -72,7 +72,7 @@ const App = () => {
             <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
             <Route path='/member/myPage' element={<MyPage />} />
-            <Route path='/user/calendar' element={<Calendar />} />
+            <Route path='/user/calendar/:mvName' element={<Calendar />} />
             <Route path="/user/get/:pk" element={<Get/>} />
             <Route path="/user/get2/:pk" element={<Get2/>} />
             <Route path='/test' element={<Test/>}/>

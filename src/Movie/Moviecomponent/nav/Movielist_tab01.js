@@ -186,7 +186,7 @@ const Movielist_tab01 = () => {
                                                 onClick={() => movie_like_one(item.movie_title)}/>
                                             }
                                         </div> */}
-                                        <a href="#" className="movielist_Btn_change">
+                                        <a href={`/user/calendar/${item.movie_title}`} className="movielist_Btn_change">
                                             {list.movie_class === "2" ? <input type='button' className='Movie_Btn_reserve_yet' value="개봉예정"></input>:false}
                                             {list.movie_class !== "2" ? <input type='button' className='Movie_Btn_reserve' value="예매"></input>:false}
                                         </a>
