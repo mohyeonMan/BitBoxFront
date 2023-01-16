@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useNavigate , Link} from "react-router-dom";
 import axios from "axios";
-import {setRefreshToken} from "src/member/storage/Cookie";
+import {removeCookieToken, setRefreshToken} from "src/member/storage/Cookie";
 
 const theme = createTheme();
 
@@ -132,7 +132,24 @@ const LoginForm = () => {
                 setRefreshToken(res.data.refreshToken); // 쿠키에 리프레시토큰 저장
                 localStorage.setItem("accessToken", res.data.accessToken); // 로컬스토리지에 엑세스 토큰 저장
                 localStorage.setItem("expireTime", res.data.tokenExpiresIn); // 엑세스토큰 만료시간 저장
-                navi("/");
+
+                const accessTokenVal = localStorage.getItem("accessToken");
+
+                axios.get("/member/me", {
+                    headers: {
+                        Authorization: `Bearer ${accessTokenVal}`
+                    }
+                }).then(res => {
+                    sessionStorage.setItem("userName", res.data.username);
+                    sessionStorage.setItem("birth", res.data.birth);
+                    console.log(res.data.name)
+                    navi("/");
+                }).catch(error => {
+                    console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('expireTime');
+                    removeCookieToken();
+                })
             }
         }).catch(error => {
             console.log(error.response);

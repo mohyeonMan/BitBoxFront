@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Main from "./Main/Main";
 import Adminindex from "./adminindex";
 import Member from "./member/Member";
@@ -36,6 +36,7 @@ const App = () => {
 
     const accessTokenVal = localStorage.getItem('accessToken');
     const refreshTokenVal = getCookieToken();
+    const navi = useNavigate();
 
     // 토큰재발급
     useEffect(() => {
@@ -65,6 +66,7 @@ const App = () => {
             sessionStorage.setItem("userName", res.data.username);
             sessionStorage.setItem("birth", res.data.birth);
             console.log(res.data.name)
+            navi("/");
         }).catch(error => {
             console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
             localStorage.removeItem('accessToken');

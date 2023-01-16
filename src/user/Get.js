@@ -6,10 +6,6 @@ import styles from '../css/Get.module.css';
 import axios from 'axios';
 import Layout from '../Main/Layout';
 
-
-
-
-
 const Get = () => {
     const {pk} = useParams();
     const [id] = useState(sessionStorage.getItem('userName'));
