@@ -207,8 +207,7 @@ String movie_info_point = 영화소개에 들어갈그래프의 일종.  데이�
     return (
         <>
             {/* status === true ? movieSearchData[0].title.replace('<b>','').replace('</b>','') : "" */}
-            {/* <div>{JSON.stringify(movieSearchData)}</div> */}
-            <div>{JSON.stringify(movieSearchData[0].title.replace('<b>','').replace('</b>',''))}</div>
+            <div>{JSON.stringify(movieSearchData)}</div>
             {   status === true ?
         <Card sx={{width:300,height:500}}>
             <Box sx={{ position: 'relative'}}>
