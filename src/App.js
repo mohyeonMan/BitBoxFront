@@ -29,6 +29,8 @@ import FindPwdAndChange from "src/member/FindPwdAndChange";
 import Success from './user/Success';
 import Get2 from "src/user/Get2";
 import LoginForm2 from "src/member/LoginForm2";
+import Reservation from './Main/Reservation';
+import EditProfile from './Main/EditProfile';
 
 const App = () => {
 
@@ -80,6 +82,8 @@ const App = () => {
             <Route path='/member/joinForm/*' element={<JoinForm />} />
             <Route path='/member/loginForm' element={<LoginForm />} />
             <Route path='/member/loginForm2' element={<LoginForm2/>} />
+            <Route path='/myPage/reservation' element={<Reservation />} />
+            <Route path='/myPage/editProfile' element={<EditProfile />} />
             <Route path='/member/FindIdPasswordRoutes/*' element={<FindIdPasswordRoutes />} />
             <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />
             <Route path='/member/memberComponents/AuthPopUpPage' element={<AuthPopUpPage />} />
@@ -87,6 +91,7 @@ const App = () => {
             <Route path='/user/calendar' element={<Calendar />} />
             <Route path="/user/get/:pk" element={<Get/>} />
             <Route path="/user/get2/:pk" element={<Get2/>} />
+
 
             <Route path='/test' element={<Test/>}/>
             <Route path='/success' element={<Success/>}/>

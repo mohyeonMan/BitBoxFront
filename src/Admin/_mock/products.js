@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
+import { listClasses } from '@mui/material';
+import axios from 'axios';
 import { sample } from 'lodash';
+import { useEffect, useState } from 'react';
 
-// ----------------------------------------------------------------------
-// 영화 이름
 const PRODUCT_NAME = [ 
   'Nike Air Force 1 NDESTRUKT',
   'Nike Space Hippie 04',
@@ -55,3 +56,14 @@ const products = [...Array(24)].map((_, index) => {
 });
 
 export default products;
+
+// const [list, setList] = useState([]);
+//     useEffect(() => {
+//         axios.get('http://localhost:8080/movielist/getMovieList')
+//         .then(res => setList(res.data))
+//         .catch(err => console.log(err))
+//     },[])
+// {list.map((item,index)=>{
+
+// })}
+

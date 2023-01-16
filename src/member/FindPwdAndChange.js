@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import joinForm from "src/member/JoinForm.module.css";
+import {removeCookieToken} from "src/member/storage/Cookie";
 
 const FindPwdAndChange = () => {
 
@@ -12,7 +13,7 @@ const FindPwdAndChange = () => {
     const username = params.state.username;
 
     useEffect(() => {
-        if (certifOk === 0) {
+        if (certifOk === null) {
             alert("ㅅㄱ");
             navi("/member/loginForm");
         }
@@ -46,7 +47,10 @@ const FindPwdAndChange = () => {
     const changePwdActionHandler = () => {
         axios.post('http://localhost:3000/member/findAndChangePassword', null, {params: form})
             .then(() => {
-                alert('비밀번호가 변경되었습니다');
+                alert('비밀번호가 변경되었습니다. 다시 로그인 해주세요');
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("expireTime");
+                removeCookieToken();
                 navi("/member/loginForm");
             })
             .catch(error => console.log(error));

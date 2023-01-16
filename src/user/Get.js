@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const Get = () => {
     const {pk} = useParams();
-
+    const [id] = useState(sessionStorage.getItem('userName'));
     
     //빈배열
     var empty=emptySeat;
@@ -193,7 +193,7 @@ const Get = () => {
              }
          }).then(res=> {
              alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
-             navigate("/success");
+             navigate("/myPage/reservation");
           }).catch(err=>console.log(err))
      }
     
@@ -210,9 +210,6 @@ const Get = () => {
         setModalOpen(false);
     };
 
-
-    const id = sessionStorage.getItem('userName');
-    
     
     return (
         <>

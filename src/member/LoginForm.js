@@ -39,7 +39,6 @@ const LoginForm = () => {
                 window.Kakao.API.request({
                     url: "/v2/user/me",
                     success(res) {
-                        alert(JSON.stringify(res));
                         const kakaoAccount = res.kakao_account;
                         const aaa = {
                             name: kakaoAccount.profile.nickname,
@@ -58,7 +57,6 @@ const LoginForm = () => {
                                         password: aaa.password
                                     }).then(res => {
                                         if (res.data) {
-                                            alert(JSON.stringify(res.data));
                                             setRefreshToken(res.data.refreshToken);
                                             localStorage.setItem("accessToken", res.data.accessToken);
                                             navi("/");
@@ -77,7 +75,6 @@ const LoginForm = () => {
                                                 password: aaa.password
                                             }).then(res => {
                                                 if (res.data) {
-                                                    alert(JSON.stringify(res.data));
                                                     setRefreshToken(res.data.refreshToken);
                                                     localStorage.setItem("accessToken", res.data.accessToken);
                                                     navi("/");
@@ -156,7 +153,7 @@ const LoginForm = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <img src="../img_member/mainLogo.png" alt="logo" width="50%"/>
+                    <img src="../img_member/mainLogo.png" alt="logo" width="50%" style={{cursor:"pointer"}} onClick={()=>{navi("/")}}/>
                     <Avatar sx={{m: 1, backgroundColor: "#B20710"}}>
                         <LockOutlinedIcon/>
                     </Avatar>
