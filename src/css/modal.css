@@ -57,6 +57,7 @@
     font-size: 13px;
     width: 150px;
     border: 2px solid gray;
+    color: black;
 
   }
   .modal.openModal {

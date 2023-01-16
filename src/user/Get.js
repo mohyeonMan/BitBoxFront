@@ -6,10 +6,13 @@ import styles from '../css/Get.module.css';
 import axios from 'axios';
 import Layout from '../Main/Layout';
 
+
+
+
+
 const Get = () => {
     const {pk} = useParams();
     const [id] = useState(sessionStorage.getItem('userName'));
-
     
     //빈배열
     var empty=emptySeat;
@@ -192,12 +195,7 @@ const Get = () => {
              }
          }).then(res=> {
              alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
-<<<<<<< HEAD
-             navigate('/success',{replace:true});
-
-=======
              navigate("/myPage/reservation");
->>>>>>> b4ee8403ab4146984028e3d0e4adb535c6fd23ed
           }).catch(err=>console.log(err))
      }
     
@@ -214,11 +212,7 @@ const Get = () => {
         setModalOpen(false);
     };
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> b4ee8403ab4146984028e3d0e4adb535c6fd23ed
-    
+ 
     return (
         <>
         <Layout/>
