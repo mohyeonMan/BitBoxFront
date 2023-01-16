@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createElement, useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet-async';
 import {filter, sample} from 'lodash';
 // @mui
@@ -36,11 +36,47 @@ import {useNavigate} from "react-router-dom";
 
 const UserPage = () => {
   const setRole = () =>{
-    const changerow =  document.getElementById(menuId).children[4]
-    /*const select = document.createElement('select')
-    select.innerHTML="(select)"
-    changerow.appendChild(select)*/
+    const beforetext = document.getElementById(menuId).children[4].innerText
+    const changeid = menuId;
+    const changerow =  document.getElementById(menuId).children[4];
+    const select = document.createElement('select')
+    const option1 = document.createElement('option')
+    const option2 = document.createElement('option')
+    const button1 =  document.createElement('button')
+    const button2 =  document.createElement('button')
+    let changeRole = '';
 
+    select.addEventListener(
+        'change',
+        function () { changeRole = this.value}
+        )
+    button1.addEventListener(
+        'click',
+        function (){ axios.get('http://localhost:8080/member/roleChange', {
+          params: {username: changeid, roleType: changeRole}
+        }).then(res => res.data==="equal" ? alert("이미 설정된 등급입니다"): alert(res.data))}
+    )
+    button2.addEventListener(
+        'click',
+        function (){changerow.innerHTML=beforetext}
+    )
+    option1.innerHTML='ROLE_ADMIN'
+    option2.innerHTML='ROLE_USER'
+    button1.innerHTML='수정'
+    button2.innerHTML='취소'
+    option1.setAttribute('value','ROLE_ADMIN')
+    option1.setAttribute('select','selected')
+    option1.setAttribute('text','ROLE_ADMIN')
+    option2.setAttribute('value','ROLE_USER')
+    option2.setAttribute('text','ROLE_USER')
+    select.appendChild(option1)
+    select.appendChild(option2)
+    changerow.innerHTML=''
+    changerow.appendChild(select)
+    changerow.appendChild(button1)
+    changerow.appendChild(button2)
+
+    console.log(changerow)
 
   }
   const deleteUser = () => {

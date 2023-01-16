@@ -144,7 +144,7 @@ export default function MovieSearchNInsert() {
         let start = new Date(movie_release_start);
         let now = new Date();
         const movie_class= (start < now) ? 1 : 2;
-        const movie_agegrade= otherData.audits[0].watchGradeNm;
+        const movie_agegrade= (otherData.audits.length === 0 ? "전체이용가" : otherData.audits[0].watchGradeNm);
         const movie_score = movieSearchData[0].userRating;
         const movie_info_title = apiData.overview;
         const movie_info_title2 = apiData.overview;
@@ -199,8 +199,8 @@ String movie_info_type = 영화소개부분의 영화 타입 https://www.themovi
 String movie_info_point = 영화소개에 들어갈그래프의 일종.  데이터가있어야 그래프가 완성됨.  */
     return (
         <>
-            {/* status === true ? movieSearchData[0].title.replace('<b>','').replace('</b>','') : "" */}
-            <div >{JSON.stringify(movieSearchData)}</div>
+            <p>영화 검색기</p>
+            <br/>
             {   status === true ?
         <Card sx={{width:300,height:500}}>
             <Box sx={{ position: 'relative'}}>
