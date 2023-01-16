@@ -207,15 +207,17 @@ const StoreCart = () => {
                 <div className={cartStyles.cart_step_wrap}>
                     <ul className={cartStyles.cart_step}>
                         <li className={cartStyles.active}>
-                        <img src='../img/cart2.svg' style={{display:'inline-block',position:'absolute',top:'45%', left:0, width:'38px',height:'38px', marginTop:'-14px'}}/>
+                            <img src='../img/cart2.svg' style={{display:'inline-block',position:'absolute',top:'45%', left:0, width:'38px',height:'38px', marginTop:'-14px'}}/>
                             <span>STEP 01</span>
                             <strong>장바구니</strong>
                         </li>
                         <li className={cartStyles.step2}>
+                            <img src='../img/wallet3.svg' style={{display:'inline-block',position:'absolute',top:'45%', left:0, width:'38px',height:'38px', marginTop:'-14px'}}/>
                             <span>STEP 02</span>
                             <strong>결제하기</strong>
                         </li>
                         <li className={cartStyles.step3}>
+                            <img src='../img/person2.svg' style={{display:'inline-block',position:'absolute',top:'45%', left:0, width:'38px',height:'38px', marginTop:'-14px'}}/>
                             <span>STEP 03</span>
                             <strong>결제완료</strong>
                         </li>
@@ -276,11 +278,11 @@ const StoreCart = () => {
                             </div>
                             <span className={cartStyles.product_info_price} id="totalgoodsprice900734">{[item.price * item.count].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
                             <div className={cartStyles.product_info_btn_wrap}>
-                                <a onClick={() => nowBuy(item.cart_seq) } style={{ cursor: 'pointer'}}>바로구매</a>
+                                <a onClick={() => nowBuy(item.cart_seq) } style={{ cursor: 'pointer', borderRadius: '4px' }}>바로구매</a>
                                 {/* <a href="#none" >선물하기</a> */}
                             </div>
                             {/* <a href="javascript:fn_Del('900734')" onClick={ () => onRemove(item.cart_seq) } className={cartStyles.btn_product_delect}>삭제</a> */}
-                            <button onClick={ () => { if (window.confirm(`선택하신 상품을 삭제하시겠습니까`)){ onDelete(item.cart_seq); }} } className={cartStyles.btn_product_delect} style={{background:'url(/img/x.svg) no-repeat center', backgroundSize:'8pt', cursor: 'pointer'}}>삭제</button>
+                            <button onClick={ () => { if (window.confirm('선택하신 상품을 삭제하시겠습니까')){ onDelete(item.cart_seq); }} } className={cartStyles.btn_product_delect} style={{background:'url(/img/x.svg) no-repeat center', backgroundSize:'8pt', cursor: 'pointer'}}>삭제</button>
                         </li>
                             )
                         })
@@ -289,14 +291,14 @@ const StoreCart = () => {
                     {/* <a href="#none" className="btn_del_selected">선택상품 삭제
                         <span id="spanSelCnt" style="display: inline;">3</span>
                     </a> */}
-                    <span id="notimsg">장바구니에 담긴 상품은 최대 30일까지 보관됩니다.</span>
+                    <span id="notimsg" style={{ marginLeft: '-100px' }}>장바구니에 담긴 상품은 최대 30일까지 보관됩니다.</span>
 
             
                     <table className={cartStyles.com_cart_total_price_wrap} summary="총 상품 금액, 할인금액을 합산한 총 결제예정 금액 표기">
-                        <caption>총 결제 예정금액 표</caption>
+                        {/* <caption>총 결제 예정금액 표</caption> */}
                         
                         <thead>
-                            <tr>
+                            <tr style={{ textAlign: 'center' }}>
                                 <th style={{ marginTop: 20, paddingTop: 20 }}>총 결제 예정금액</th>
                             </tr>
                         </thead>
@@ -309,7 +311,7 @@ const StoreCart = () => {
 
                     <div className={cartStyles.com_btn_wrap }> {/* cartStyles.pT60 */}
                         {/* <a href="#none" className={cartStyles.btn_style0 } onClick="javascript:fn_Buy(this, 'gift', '');">선물하기</a> */}
-                        <a onClick={ () => list.length === 0 ? alert('장바구니에 상품이 없습니다. 스토어 페이지로 이동합니다.') || navigate('/store/') : onBuy() } className={cartStyles.btn_style0 } style={{ marginTop: 25, marginBottom: 20, cursor: 'pointer' }} >구매하기</a> {/* onClick="javascript:fn_Buy(this, 'purchase', '');" */}
+                        <a onClick={ () => list.length === 0 ? alert('장바구니에 상품이 없습니다. 스토어 페이지로 이동합니다.') || navigate('/store/') : onBuy() } className={cartStyles.btn_style0 } style={{ marginTop: 25, marginBottom: 20, cursor: 'pointer', textDecoration: 'none', borderRadius: '4px' }} >구매하기</a> {/* onClick="javascript:fn_Buy(this, 'purchase', '');" */}
                     </div>
                 </div>
             </div>
