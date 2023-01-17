@@ -509,13 +509,13 @@ const Calendar = () => {
             <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
                 {ScrollActive ?
                     <div className="fixedBtn_wrap">
-                        <a href="/user/calendar" className="btn_fixedTicketing">예매하기</a>
+                        <a href="/user/calendar/1" className="btn_fixedTicketing">예매하기</a>
                         <a href="#none" className="btn_gotoTop">
                             <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
                     </div>
                     :
                     <div className="fixedBtn_wrap topBtn">
-                        <a href="/user/calendar" className="btn_fixedTicketing">예매하기</a>
+                        <a href="/user/calendar/1" className="btn_fixedTicketing">예매하기</a>
                         <a href="#" className="btn_gotoTop">
                             <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
                     </div>}

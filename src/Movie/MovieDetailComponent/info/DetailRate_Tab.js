@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Tt.css';
 import '../css/Modal.css';
-import movieList from '../jsonData_test/Data';
 import noneImg from '../img/bg-photo.png';
 import axios from 'axios';
 import { Navigate, useParams } from 'react-router-dom';
 
 const DetailRate_Tab = () => {
+    
     // 리스트에서 클릭한 영화 가져오기
-    const { movieNumber } = useParams()
+    const { movie_title } = useParams()
     // 해당 영화 내용물 매칭
-    const thisMovie = movieList.find(thisMovie => thisMovie.MovieNumber === movieNumber)
+    const thisMovie = data.find(thisMovie => thisMovie.movie_title === movie_title)
+    const [data, setData] = useState('')
     // 로그인 토글
     const [loginToggle, setLoginToggle] = useState(false)
     const onLoginToggle = () => {
@@ -35,7 +36,7 @@ const DetailRate_Tab = () => {
         setOnReviewModal(true)
         setReviewForm({
             ...reviewForm,
-            user_title: thisMovie.MovieTitle
+            user_title: thisMovie.movie_title
         })
     }
     const ReviewModalClose = (e) => {
@@ -45,8 +46,10 @@ const DetailRate_Tab = () => {
     }
 
     useEffect(()=> {
+        axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
+        .then(res => {setData(res.data)})
         axios.get('http://localhost:8080/movielist/get_comment_list')
-                    .then(res => setCommentList(res.data))
+                    .then(res => setCommentList(res.list))
                     .catch(error => console.log(error))
     }, [])
 
@@ -269,7 +272,7 @@ const formReset = (e) => {
                     {/* 프로필 & 댓글 작성 & 로그인 여부 */}
                     <div>
                         <p style={{ color: '#8d0707', fontSize: '18pt', fontWeight: 500, margin: 0}}>
-                        { thisMovie.MovieTitle }에 대한 <span style={{ color: '#c47c7c'}}>{commentList.length}</span>개의 이야기가 있어요!
+                        { thisMovie.movie_title }에 대한 <span style={{ color: '#c47c7c'}}>{commentList.length}</span>개의 이야기가 있어요!
                         </p>
 
                         {/* <div style={{ width: '1075px', height: '36px'  }}>
@@ -284,13 +287,13 @@ const formReset = (e) => {
 
                         <div style={{ display: 'flex', margin: 15 }}>
                             <div style={{ width: '105px', height: '75px'}}>
-                                <img style={{ margin: 10 }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png" alt="MEGABOX" />
+                                <img style={{ margin: 10 }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png" alt="BITBOX" />
                                 <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">노로그인</p>
                             </div>
 
                             <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
                                 <p>
-                                    <span style={{ color: '#c47c7c' }}>&emsp; { thisMovie.MovieTitle }&nbsp;</span>
+                                    <span style={{ color: '#c47c7c' }}>&emsp; { thisMovie.movie_title }&nbsp;</span>
                                         재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                         <br/>
                                         &emsp; 관람일 기준 7일 이내 등록 시 50P 가 적립됩니다.
@@ -401,22 +404,22 @@ const formReset = (e) => {
                                 
                                 <div>
                                     <br/>
-                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie.MovieTitle }</span> 재밌게 보셨나요?</h3>
+                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie.movie_title }</span> 재밌게 보셨나요?</h3>
                                     
 
                                     <form name="reviewForm" id="reviewForm">
                                         <fieldset className='starRate'>
                                             <legend>별점</legend>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="10" id="rate1"/><label id="starLabel" for="rate1">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="9" id="rate2"/><label id="starLabel" for="rate2">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="8" id="rate3"/><label id="starLabel" for="rate3">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="7" id="rate4"/><label id="starLabel" for="rate4">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="6" id="rate5"/><label id="starLabel" for="rate5">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="5" id="rate6"/><label id="starLabel" for="rate6">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="4" id="rate7"/><label id="starLabel" for="rate7">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="3" id="rate8"/><label id="starLabel" for="rate8">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="2" id="rate9"/><label id="starLabel" for="rate9">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="1" id="rate10"/><label id="starLabel" for="rate10">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="10" id="rate1"/><label id="starLabel" htmlFor="rate1">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="9" id="rate2"/><label id="starLabel" htmlFor="rate2">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="8" id="rate3"/><label id="starLabel" htmlFor="rate3">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="7" id="rate4"/><label id="starLabel" htmlFor="rate4">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="6" id="rate5"/><label id="starLabel" htmlFor="rate5">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="5" id="rate6"/><label id="starLabel" htmlFor="rate6">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="4" id="rate7"/><label id="starLabel" htmlFor="rate7">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="3" id="rate8"/><label id="starLabel" htmlFor="rate8">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="2" id="rate9"/><label id="starLabel" htmlFor="rate9">⭐</label>
+                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="1" id="rate10"/><label id="starLabel" htmlFor="rate10">⭐</label>
                                         </fieldset>
                                         <span name="user_rate" style={{ fontSize: '30pt'}} value={ starRating } > { starRating }</span> 점
                                         <div id="reviewRateDiv">&emsp;{ reviewRateDiv }</div>
@@ -435,7 +438,7 @@ const formReset = (e) => {
                                         <p></p>
                                         <fieldset>
                                             <legend>감상평 작성</legend>
-                                            <input type="text" name="user_story_recommant" value={ user_story_recommant } onChange={ onReviewComment } placeholder='감상 후 어떠셨는지 한 줄로 남겨주세요!' maxlength="100" style={{ width: '600px', height: '50px'}}></input>
+                                            <input type="text" name="user_story_recommant" value={ user_story_recommant } onChange={ onReviewComment } placeholder='감상 후 어떠셨는지 한 줄로 남겨주세요!' maxLength="100" style={{ width: '600px', height: '50px'}}></input>
                                         </fieldset>
                                         <div id="reviewStoryDiv">&emsp;{ reviewStoryDiv }</div>
                                         <p></p>

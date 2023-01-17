@@ -55,7 +55,7 @@ const Movielist_tab03 = () => {
             .then(res => {setMovie_count(res.data.length)
                 setThe_number_of_movielist(the_number_of_movielist + 20);
                 console.log("전체영화리스트 = " + the_number_of_movielist) 
-                setList(res.data.splice(0,the_number_of_movielist))
+                setList(res.data.splice(0,the_number_of_movielist + 20))
                 })
             .catch(err => console.log(err))
     }
@@ -65,7 +65,7 @@ const Movielist_tab03 = () => {
             .then(res => {setMovie_count(res.data.length)
                 setMovielist_release_filter(movielist_release_filter => movielist_release_filter + 20) 
                 console.log("개봉중인 영화 리스트 = " + movielist_release_filter) 
-                setList(res.data.splice(0,movielist_release_filter))})
+                setList(res.data.splice(0,movielist_release_filter + 20))})
             .catch(err => console.log(err))
     }
 
@@ -127,12 +127,13 @@ const Movielist_tab03 = () => {
                                                     {item.movie_info_title}
                                                     {item.movie_info_title2}
                                                     </div>            
+                                                    {item.movie_already_released === 0 ?     
                                                     <div className="movielist_moviescore">                
                                                         <div className="movielist_moviescore_preview">                    
                                                             <p className="movielist_moviescore_tit">관람평</p>                    
-                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                
+                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                 
                                                         </div>            
-                                                    </div>        
+                                                    </div>: false}        
                                                 </a>    
                                             </div>
                                         </div>
@@ -140,13 +141,14 @@ const Movielist_tab03 = () => {
                                         <div className='Movielist_title_area'>
                                            <img className='Movielist_grade_age'
                                                 src={item.movie_agegrade === "전체관람가" ? '/storage/00.png':
+                                                    item.movie_agegrade === "전체이용가" ? '/storage/00.png':
                                                     item.movie_agegrade === "12세이상관람가" ? '/storage/12.png':
                                                     item.movie_agegrade === "15세이상관람가" ? '/storage/15.png':
                                                     item.movie_agegrade === "청소년관람불가" ? '/storage/18.png':false}/>
                                             <p className='Movielist_title_maintitle'>{item.movie_title}</p>
                                         </div>
                                         <div className='Movielist_title_ratedate'>
-                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}% &nbsp;|</span>
+                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}%  |</span>
                                             <span className='Movielist_title_date'> &nbsp;개봉일 {item.movie_release_start}</span>
                                         </div>
                                         
@@ -162,9 +164,10 @@ const Movielist_tab03 = () => {
                                                 onClick={() => movie_like_one(item.movie_title)}/>
                                             }
                                         </div> */}
-                                        <a href="#" className="movielist_Btn_change">
-                                            {list.movie_class === "2" ? <input type='button' className='Movie_Btn_reserve_yet' value="개봉예정"></input>:false}
-                                            {list.movie_class !== "2" ? <input type='button' className='Movie_Btn_reserve' value="예매"></input>:false}
+                                        <a href={`/user/calendar/${item.movie_title}`} className="movielist_Btn_change">
+                                            {item.movie_already_released === 0 ?
+                                                <input type='button' className='Movie_Btn_reserve' value="예매"></input>:
+                                                <input type='button' className='Movie_Btn_reserve_yet' value="개봉예정" disabled></input>}
                                         </a>
                                     </li>
 
