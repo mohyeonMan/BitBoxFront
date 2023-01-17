@@ -112,17 +112,25 @@ const Reservation = () => {
         setToggle(!toggle)
     }
 
+    const [movieReservationChk, setMovieReservationChk] = useState(true);
+    const [storePaymentChk, setStorePaymentChk] = useState(false);
+
+
     const [reservationDisplay, setReservationDisplay] = useState("")
     const [storeDisplay, setStoreDisplay] = useState("none")
 
-    const showReservation = () => {
-        setReservationDisplay("block");
-        setStoreDisplay("none")
-    }
-    const showStore = () => {
-        setReservationDisplay("none");
-        setStoreDisplay("block")
-    }
+    useEffect(() => {
+        if (movieReservationChk) {
+            setReservationDisplay("block");
+            setStoreDisplay("none")
+            setStorePaymentChk(false);
+
+        } else if (storePaymentChk) {
+            setReservationDisplay("none");
+            setStoreDisplay("block");
+            setMovieReservationChk(false);
+        }
+    })
     return (
         <>
             <Header/>
@@ -160,7 +168,9 @@ const Reservation = () => {
                                                         name="radPurc"
                                                         id="radPurc02"
                                                         defaultValue="P"
-                                                        onClick={showReservation}
+                                                        checked={movieReservationChk}
+                                                        onClick={() => {setMovieReservationChk(true)
+                                                        setStorePaymentChk(false)}}
                                                     />
                                                     <label htmlFor="radPurc02">&nbsp;&nbsp;예매 내역</label>
                                                     <input
@@ -168,7 +178,9 @@ const Reservation = () => {
                                                         name="radPurc"
                                                         id="radPurc03"
                                                         defaultValue="C"
-                                                        onClick={showStore}
+                                                        checked={storePaymentChk}
+                                                        onClick={() => {setStorePaymentChk(true)
+                                                        setMovieReservationChk(false)}}
                                                     />
                                                     <label htmlFor="radPurc03">&nbsp;&nbsp;스토어 구매내역</label>
                                                 </td>
@@ -251,10 +263,10 @@ const Reservation = () => {
 
                                                         ))
                                                 }
-                                                    <ReservationModal open={modalOpen} close={closeModal}
-                                                                      header="예약내역"
-                                                                      closeBtn="창닫기" viewReservation={viewReservation}
-                                                                      reservationCancel={reservationCancel}></ReservationModal>
+                                                <ReservationModal open={modalOpen} close={closeModal}
+                                                                  header="예약내역"
+                                                                  closeBtn="창닫기" viewReservation={viewReservation}
+                                                                  reservationCancel={reservationCancel}></ReservationModal>
                                                 </tbody>
                                             </table>
                                         </div>

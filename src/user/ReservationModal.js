@@ -18,7 +18,7 @@ const Modal = (props) => {
         // 모달이 열릴때 openModal 클래스가 생성된다.
         <div className={open ? 'openModal modal' : 'modal'}>
             {open ? (
-                <section style={{height:"650px"}}>
+                <section style={{height:"750px"}}>
                     <div style={{width: "300px", height: "50px", display: "flex", justifyContent: "center"}}>
                         <header style={{
                             width: "280px",
@@ -36,8 +36,8 @@ const Modal = (props) => {
                             </button>
                         </header>
                     </div>
-                    <main style={{height:"600px"}}>
-                        <div style={{textAlign:"center", fontWeight:"400", fontSize:"23px"}}>
+                    <main className="movieReservationModalMain" style={{height:"650px",  backgroundImage:"url(../img_member/backgroundRev2.png)", backgroundPosition:"top center"}}>
+                        <div style={{textAlign:"center", fontWeight:"400", fontSize:"23px", marginBottom:"15px"}}>
                             ★ 영화입장권 ★
                         </div>
                         <p style={{marginBottom:"0", fontSize:"14px"}}>{viewReservation.movie_date}</p>
@@ -57,18 +57,18 @@ const Modal = (props) => {
                             {viewReservation.movie_seat.filter(item => item.customer === 'child').length === 0 ? '' : `청소년: ${viewReservation.movie_seat.filter(item => item.customer === 'child').length}`}
                             명&nbsp;&nbsp;
                         </p>
-                        <div>
+                        <div style={{marginBottom:"15px"}}>
                             ==================================
                         </div>
                         <div style={{textAlign:"center"}}>
                             <QRcode
                                 size={256}
                                 style={{height: "150px", width: "150px"}}
-                                value={'https://www.naver.com'}
+                                value={'https://www.youtube.com'}
                                 viewBox={`0 0 256 256`}
                             />
                         </div>
-                        <div>
+                        <div style={{marginTop:"15px"}}>
                             ==================================
                         </div>
                         <div style={{fontSize:"12px"}}>
@@ -81,7 +81,8 @@ const Modal = (props) => {
                             - 지연입장에 의한 관람불편을 최소화하고자 본 영화는 약 10분 후 시작됩니다.<br/>
                             쾌적한 관람 환경을 위해 상영시간 이전에 입장 부탁드립니다.
                         </div>
-                        <div style={{marginTop:"25px"}}>
+                    </main>
+                        <div style={{marginTop:"15px"}}>
                             <div style={{display:"flex", justifyContent:"center", gap:"50px"}}>
                                 <button className="close" onClick={() =>
                                 {
@@ -95,7 +96,6 @@ const Modal = (props) => {
                                 </button>
                             </div>
                         </div>
-                    </main>
                 </section>
             ) : null}
         </div>
