@@ -51,7 +51,7 @@ const FindPwdAndChange = () => {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("expireTime");
                 removeCookieToken();
-                navi("/member/loginForm");
+                navi("/");
             })
             .catch(error => console.log(error));
     }
