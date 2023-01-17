@@ -172,7 +172,7 @@ const MovieDetail_Page = () => {
                                 {/* {
                                     dolby === '' && */}
                                     <div style={{ position: 'absolute', display: 'flex', right: 0, bottom: 35 }}>
-                                    <a href="#" className='reserveBtn2'>예매</a>
+                                    <a href={`/user/calendar/${item.movie_title}`} className='reserveBtn2'>예매</a>
                                     </div>
                                 {/* } */}
                                 
