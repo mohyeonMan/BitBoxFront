@@ -16,11 +16,12 @@ const Header = () => {
     const navigate = useNavigate();
     const handleSearchKeyChange = (e) => {
         setSearchKey(e.target.value);
+
     }
 
     const handleSearchKeySubmit = (e) => {
         e.preventDefault();
-        navigate(`/search?key=${searchKey}`);
+        navigate(`/movieDetail_Page/${searchKey}`)
     }
     const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
     const [ScrollActive, setScrollActive] = useState(true);
