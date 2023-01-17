@@ -9,7 +9,6 @@ import mypageIcon from './img/my.png';
 import supportIcon from './img/service-center.png';
 import searchIcon from './img/search.png';
 import {getCookieToken, removeCookieToken} from "src/member/storage/Cookie";
-import HeaderModal from './HeaderModal';
 
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
@@ -112,6 +111,7 @@ const Header = () => {
 const UserNavList = () => {
 
     const [isLogin, setIsLogin] = useState(false);
+    const navi = useNavigate();
 
     useEffect(() => {
         if (getCookieToken()) {
@@ -178,8 +178,7 @@ const UserNavList = () => {
                 {isLogin &&
                     <a>
                         <img src={mypageIcon} alt="마이페이지 아이콘" />
-                        <span style={{cursor:"pointer"}} onClick={showModal}>MY BITBOX</span>
-                        {modalOpen && <HeaderModal setModalOpen={setModalOpen} />}
+                        <span style={{cursor:"pointer"}} onClick={() => {navi("/myPage");}}>MY BITBOX</span>
                     </a>
                 }
             </li>

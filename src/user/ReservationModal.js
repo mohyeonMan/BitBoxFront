@@ -6,14 +6,6 @@ const Modal = (props) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
     const {open, close, header, closeBtn, viewReservation, reservationCancel} = props;
 
-    const onRemove = () => {
-        if(window.confirm("예매를 취소하시겠습니까? 상영시작 전 20분 이내에는 환불이 불가합니다.")){
-            alert("삭제되었습니다.");
-        } else {
-            alert("취소합니다.");
-        }
-    };
-
     return (
         // 모달이 열릴때 openModal 클래스가 생성된다.
         <div className={open ? 'openModal modal' : 'modal'}>
@@ -64,7 +56,7 @@ const Modal = (props) => {
                             <QRcode
                                 size={256}
                                 style={{height: "150px", width: "150px"}}
-                                value={'https://www.youtube.com'}
+                                value={JSON.stringify(viewReservation)}
                                 viewBox={`0 0 256 256`}
                             />
                         </div>

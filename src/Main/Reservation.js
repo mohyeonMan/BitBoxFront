@@ -1,11 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
-import Header from './Header';
+import React, {useEffect, useState} from 'react';
 import reservations from './Reservation.module.css';
 import axios from 'axios';
 import ReservationModal from '../user/ReservationModal';
 import styles from "../css/Success.module.css";
 import {useNavigate} from 'react-router-dom';
-
 
 const Reservation = () => {
 
@@ -73,7 +71,7 @@ const Reservation = () => {
                     axios.delete(`http://localhost:8080/reservation/cancelReservation?pk=${targetReservation.pk}`)
                         .then(res => {
                             alert('예매가 취소되었습니다.')
-                            window.location.replace("/myPage/reservation")
+                            window.location.replace("/myPage")
                         }).catch(err => console.log(err))
                 }).catch(err => console.log(err))
             }).catch(err => console.log(err))
@@ -133,12 +131,10 @@ const Reservation = () => {
     })
     return (
         <>
-            <Header/>
             <div className={reservations.reservations_first}>
                 <div className={`${reservations.containnner} ${reservations.has_lnb}`}>
                     <div className={reservations.inner_wrappo}>
                         <div id="contents" className="hithere" style={{width: '800px'}}>
-                            <h2 className={reservations.tit}>예매/구매 내역</h2>
                             <div className={reservations.tab_cont_wrap}>
                                 {/* 예매내역 */}
                                 <div id="myBokdArea" className={`${reservations.tab_cont} ${reservations.on}`}>
@@ -151,9 +147,9 @@ const Reservation = () => {
 
                                 {/* 구매내역 영역 */}
                                 <div id="myPurcArea" className="tab_cont">
-                                    <a href="" className={reservations.irrr}/>
+                                    <a href="" className={reservations.irrr}/><br/>
                                     {/* 구매 조회 조건 */}
-                                    <div className={`${reservations.board_list_search} ${reservations.mt20}`}>
+                                    <div className={`${reservations.board_list_search} ${reservations.mt20}`} style={{marginTop:"35px"}}>
                                         <table className={reservations.tables} summary="구매 조회 조건">
                                             <colgroup>
                                                 <col style={{width: 75}}/>
@@ -170,7 +166,7 @@ const Reservation = () => {
                                                         defaultValue="P"
                                                         checked={movieReservationChk}
                                                         onClick={() => {setMovieReservationChk(true)
-                                                        setStorePaymentChk(false)}}
+                                                            setStorePaymentChk(false)}}
                                                     />
                                                     <label htmlFor="radPurc02">&nbsp;&nbsp;예매 내역</label>
                                                     <input
@@ -180,7 +176,7 @@ const Reservation = () => {
                                                         defaultValue="C"
                                                         checked={storePaymentChk}
                                                         onClick={() => {setStorePaymentChk(true)
-                                                        setMovieReservationChk(false)}}
+                                                            setMovieReservationChk(false)}}
                                                     />
                                                     <label htmlFor="radPurc03">&nbsp;&nbsp;스토어 구매내역</label>
                                                 </td>
@@ -243,7 +239,7 @@ const Reservation = () => {
                                                                 <td>{item.movie_date} / {item.movie_time}</td>
                                                                 {/* 인원 */}
                                                                 <td style={{width: '200px'}}>
-                                                                    {item.movie_seat.filter(item => item.customer === 'adult').length === 0 ? '' : `성인: ${item.movie_seat.filter(item => item.customer === 'adult').length} `}
+                                                                    {item.movie_seat.filter(item => item.customer === 'adult').length === 0 ? '' : `성인: ${item.movie_seat.filter(item => item.customer === 'adult').length} `}<br />
                                                                     {item.movie_seat.filter(item => item.customer === 'child').length === 0 ? '' : `청소년: ${item.movie_seat.filter(item => item.customer === 'child').length} `}
                                                                 </td>
                                                                 {/* 좌석 */}
