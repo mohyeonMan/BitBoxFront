@@ -55,7 +55,7 @@ const Movielist_tab03 = () => {
             .then(res => {setMovie_count(res.data.length)
                 setThe_number_of_movielist(the_number_of_movielist + 20);
                 console.log("전체영화리스트 = " + the_number_of_movielist) 
-                setList(res.data.splice(0,the_number_of_movielist))
+                setList(res.data.splice(0,the_number_of_movielist + 20))
                 })
             .catch(err => console.log(err))
     }
@@ -65,7 +65,7 @@ const Movielist_tab03 = () => {
             .then(res => {setMovie_count(res.data.length)
                 setMovielist_release_filter(movielist_release_filter => movielist_release_filter + 20) 
                 console.log("개봉중인 영화 리스트 = " + movielist_release_filter) 
-                setList(res.data.splice(0,movielist_release_filter))})
+                setList(res.data.splice(0,movielist_release_filter + 20))})
             .catch(err => console.log(err))
     }
 
@@ -127,12 +127,13 @@ const Movielist_tab03 = () => {
                                                     {item.movie_info_title}
                                                     {item.movie_info_title2}
                                                     </div>            
+                                                    {item.movie_already_released === 0 ?     
                                                     <div className="movielist_moviescore">                
                                                         <div className="movielist_moviescore_preview">                    
                                                             <p className="movielist_moviescore_tit">관람평</p>                    
-                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                
+                                                            <p className="movielist_moviescore_number">{item.movie_score}</p>                 
                                                         </div>            
-                                                    </div>        
+                                                    </div>: false}        
                                                 </a>    
                                             </div>
                                         </div>
@@ -147,7 +148,7 @@ const Movielist_tab03 = () => {
                                             <p className='Movielist_title_maintitle'>{item.movie_title}</p>
                                         </div>
                                         <div className='Movielist_title_ratedate'>
-                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}% &nbsp;|</span>
+                                            <span className='Movielist_title_rate'> 예매율 {item.movie_reserve_rate}%  |</span>
                                             <span className='Movielist_title_date'> &nbsp;개봉일 {item.movie_release_start}</span>
                                         </div>
                                         

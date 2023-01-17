@@ -188,7 +188,7 @@
 }
 .movielist_summary{
 	overflow: hidden;
-    height: 210px;
+    height: 200px;
     width: 100%;
     margin-top: 15px;
     padding: 5px 0 0 0;
@@ -207,7 +207,7 @@
 	display: block;
     float: left;
     margin: 0 15px 0 0;
-    font-size: .8667em;
+    font-size: 0.8667em;
 	transform: translateY(+75%);
 }
 
@@ -233,6 +233,7 @@
 	transform: translateY(+20%);
 }
 .Movielist_title_maintitle{
+	color: black;
 	overflow: hidden;
 	display: block;
 	width: 100%;
@@ -241,12 +242,14 @@
 	padding: 2px 0 0 30px;
 	margin-left: -5px;
 	font-size: 1.1em;
-	font-weight: 400;
+	font-family: 굴림체;
+	font-weight: bold;
 	transform: translateY(-5%);
 }
 
 
 .Movielist_title_ratedate{
+	color: black;
 	margin: 0 0 0 3px;
     padding: 10px 8px 0 5px;
 	font-size: 14px;
