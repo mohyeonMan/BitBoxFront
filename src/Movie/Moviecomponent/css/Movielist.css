@@ -214,7 +214,10 @@
 .movielist_moviescore_number{
 	float: left;
     font-size: 1.6em;
+	font-weight: bold;
+	margin-left: -5px;
     color: #59bec9;
+	transform: translateY(+75%);
 }
 
 .Movielist_title_area{
@@ -247,12 +250,13 @@
 	transform: translateY(-5%);
 }
 
-
 .Movielist_title_ratedate{
 	color: black;
+	width: 235px;
 	margin: 0 0 0 3px;
     padding: 10px 8px 0 5px;
-	font-size: 14px;
+	margin-left: -0.5px;
+	font-size: 13.5px;
 	transform: translateY(-65%);
 }
 
