@@ -100,7 +100,6 @@
     margin-top: 0;
 }
 .category_product_detail_contents .category_product_detail_contents_wrap .category_product_detail_add_info > dd {
-    float: right;
     width: 418px;
     margin-top: 6px;
     font-weight: 300;
@@ -187,7 +186,7 @@
     overflow: hidden;
 }
 .category_product_detail_contents .category_product_detail_contents_wrap .category_product_detail_btn_wrap a:first-child {
-    margin-left: 220px;
+    margin-left: 160px;
 }
 .category_product_detail_contents .category_product_detail_contents_wrap .category_product_detail_btn_wrap a.btn_cart {
     width: 60px;
@@ -210,6 +209,8 @@
     width: 210px;
 }
 .category_product_detail_contents .category_product_detail_contents_wrap .category_product_detail_btn_wrap a {
+    all: unset;
+    cursor: pointer;
     display: block;
     float: left;
     width: 245px;

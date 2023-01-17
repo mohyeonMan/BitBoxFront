@@ -14,6 +14,9 @@
     overflow: hidden;
     margin: 54px auto 0;
     font-size: 0;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
 }
 .cart_step_wrap .cart_step.step_unit3 li {
     margin-right: 70px;
@@ -201,6 +204,7 @@
     overflow: hidden;
     padding: 30px 200px 15px;
     border-top: 1px solid #d6d6d6;
+    margin-bottom: 35px;
 }
 .payment_complete_contents_wrap dt {
     clear: both;
@@ -345,6 +349,8 @@
     margin-left: 10;
 }
 a.btn_style1 {
+    all: unset;
+    cursor: pointer;
     width: 180px;
     height: 60px;
     font-weight: 500;
@@ -353,6 +359,7 @@ a.btn_style1 {
     line-height: 60px;
     background-color: #fff;
     border: 1px solid #9197a3;
+    border-radius: 4px;
 }
 .com_btn_wrap span, .com_btn_wrap a {
     display: inline-block;
@@ -383,4 +390,6 @@ a.btn_style0 {
     display: inline-block;
     font-size: 18px;
     margin-left: 14px;
+    text-decoration: none;
+    border-radius: 4px;
 }

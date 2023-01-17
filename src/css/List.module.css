@@ -16,7 +16,7 @@
 }
 .category_wrap {
     position: relative;
-    margin-top: 20px;
+    margin-top: 0;
     background-color: #fff;
     border-top: 1px solid #ccc;
     z-index: 101/*border-bottom:1px solid #ccc*/;
@@ -49,7 +49,7 @@
     font-family: 'CJONLYONENEW';
     font-weight: 500;
     font-size: 16px;
-    color: #6a6f77;
+    color: #212529;
 }
 .cart_content {
     position: absolute;
@@ -69,6 +69,8 @@
     padding-left: 12px;
 }
 .cart_content li a {
+    all: unset;
+    cursor: pointer;
     overflow: hidden;
     font-family: 'CJONLYONENEW';
     font-weight: 500;
