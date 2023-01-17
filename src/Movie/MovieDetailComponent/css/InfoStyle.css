@@ -195,6 +195,7 @@ ul > li {
 
 
 .preBtn {
+    width: 100px;
     line-height: 500px;
     text-decoration: none;
     font-weight: 600;
@@ -212,6 +213,7 @@ ul > li {
     text-decoration: none;
 }
 .nextBtn {
+    width: 100px;
     line-height: 500px;
     text-decoration: none;
     font-weight: 600;

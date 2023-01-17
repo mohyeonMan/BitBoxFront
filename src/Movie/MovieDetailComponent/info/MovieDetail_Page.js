@@ -9,7 +9,6 @@ import StillCut_Tab from './StillCut_Tab';
 
 const MovieDetail_Page = (props) => {
 
-
 const { movie_title } = useParams()
 const [item, setItem]=useState({});
 const [commentList,setCommentList]=useState([])

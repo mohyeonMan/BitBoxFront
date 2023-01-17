@@ -241,7 +241,8 @@ const formSubmit = (e) => {
         axios.post('http://localhost:8080/movielist/user_comment_write', null, { params:reviewForm })
         .then(() => {
             alert('댓글이 작성되었습니다.');
-            Navigate('http://localhost:3000');
+            ReviewModalClose();
+            window.location.reload()
         })
         .catch(error => console.log(error))
     }
@@ -292,7 +293,7 @@ const formReset = (e) => {
                         </p>
 
                         {/* 프로필 & 댓글 작성 & 로그인 여부 */}
-                        { userName === '' ?
+                        { userName === null ?
                         <div style={{ display: 'flex', margin: 15 }}>
                             <div style={{ width: '105px', height: '75px'}}>
                                 <img style={{ margin: 10 }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png" alt="BITBOX" />

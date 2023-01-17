@@ -9,7 +9,7 @@ const StillCut_Tab = () => {
         axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
         .then(res => {
             var movieData = res.data
-        setThisMovie(movieData.find(item => item.movie_title === movie_title))
+            setThisMovie(movieData.find(item => item.movie_title === movie_title))
         })
         axios.get(`http://localhost:8080/movielist/get_trailer_list?title=${movie_title}`)
         .then(res => {setTrailerList(res.data)})
@@ -20,18 +20,23 @@ const StillCut_Tab = () => {
 
     // 리스트에서 클릭한 영화 가져오기
     const { movie_title } = useParams()
-    const [thisMovie, setThisMovie]=useState({});
-    const [trailerList, setTrailerList] = useState([])
+    const [thisMovie, setThisMovie]=useState({}) // 선택된 영화DB
+    const [trailerList, setTrailerList] = useState({}) // 선택된 트레일러DB
+
+    const {trailer_poster1,trailer_poster2, trailer_poster3, trailer_sub_title} = trailerList
+
     console.log(trailerList)
+    // console.log(one)
+    // console.log(trailerPoster)
     // 해당 영화 내용물 매칭
     //자막보기
     const onView = () => {
         setView(!view)
     }
 
-    const [movieURL, setMovieURL] = useState(trailerList.trailer_url1) //data
+    // const [movieURL, setMovieURL] = useState(trailerList.trailer_url1) //data
     const [one, setOne] = useState(trailerList.trailer_url1) //one
-    const [trailerPoster, setTrailerPoster] = useState(trailerList.trailer_poster1)
+    const [trailerPoster, setTrailerPoster] = useState(trailer_poster1)
 
     // 트레일러 리스트 수동 테두리 스위치
     const [list1, setList1] = useState(true)
@@ -143,7 +148,6 @@ const StillCut_Tab = () => {
                 <div style={{ margin: 'auto', textAlign: 'center', position: 'relative', display: 'flex', width: '1100px', height: '500px'}}>
                     <div style={{ width: '20%' }}>
                         <button className='preBtn' onClick={ () => onPreBtn() } style={{ margin: 15 }} disabled={ list1 } >
-                            <img />
                             <span>이전영상</span>
                         </button>
                         
@@ -157,7 +161,6 @@ const StillCut_Tab = () => {
 
                     <div style={{ width: '20%' }}>
                         <button className='nextBtn' onClick={ () => onNextBtn() } style={{ margin: 15 }} disabled={ list4 } >
-                            <img />
                             <span>다음영상</span>
                         </button>
                     </div>
@@ -165,7 +168,7 @@ const StillCut_Tab = () => {
                 <br/>
                     {
                         view && <p style={{ height: '105px', fontWeight: '500', fontSize: '12pt', textAlign: 'center', overflow: 'scroll' }} >
-                            { trailerList?.trailer_sub_title }
+                            { trailer_sub_title }
                         </p>
                     }
                 <button onClick={ onView }
@@ -174,7 +177,7 @@ const StillCut_Tab = () => {
             </div>
             <div style={{ }}>
                 <div style={{ }}>
-                    {/* <a href="#" style={{ textDecoration: 'none' }}>{'<'}</a> */}
+                    
                     <div style={{  }}>
                             <ul style={{ listStyle: 'none', }}>
                                 <li onClick={ () => onTrailterView(1)} style={{ float: 'left', margin: 5 }}>
@@ -227,7 +230,7 @@ const StillCut_Tab = () => {
                                 </li>
                             </ul>
                     </div>
-                    {/* <a href="#" style={{ textDecoration: 'none' }}>{'>'}</a> */}
+                    
                 </div>
             </div>
         </>

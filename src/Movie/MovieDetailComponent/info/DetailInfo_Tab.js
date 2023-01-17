@@ -403,7 +403,7 @@ const DetailInfoTab = (props) => {
                             { thisMovie?.movie_title } 대한 <span style={{ color: '#c47c7c'}}>{ commentList.length }</span>개의 이야기가 있어요!
                         </p>
 
-                        { userName === '' ? 
+                        { userName === null ? 
                         
                         <div style={{ display: 'flex', margin: 15 }}>
                             <div style={{ width: '105px', height: '75px'}}>
