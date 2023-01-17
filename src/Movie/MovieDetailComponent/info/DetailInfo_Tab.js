@@ -39,7 +39,7 @@ const DetailInfoTab = () => {
     const [starRating, setStarRating] = useState('')
     // 리스트에서 클릭한 영화 가져오기
     const { movie_title } = useParams()
-    const [data, setData] = useState('')
+    const [data, setData] = useState([])
     // 영화 설명 텍스트 더보기 버튼 유무
     const [view, setView] = useState(false)
     const [btn, setBtn] = useState(false)
@@ -49,7 +49,7 @@ const DetailInfoTab = () => {
         setLoginToggle(!loginToggle)
     }
     // 해당 영화 내용물 매칭
-    const thisMovie = data.find(thisMovie => thisMovie.movie_title === movie_title)
+    const thisMovie = data.find(thisMovie => thisMovie?.movie_title === movie_title)
     // 댓글리스트
     const [commentList, setCommentList] = useState([])
     // 댓글 작성 모달창 스위치
@@ -58,7 +58,7 @@ const DetailInfoTab = () => {
         setOnReviewModal(true)
         setReviewForm({
             ...reviewForm,
-            user_title: thisMovie.movie_title
+            user_title: thisMovie?.movie_title
         })
         window.scrollTo(0, 0)
     }
@@ -91,7 +91,7 @@ const DetailInfoTab = () => {
                     .catch(error => console.log(error))
         // 더보기 버튼 유무            
         const onBtn = () => {
-            data.filter(thisMovie => thisMovie.movie_title === movie_title, thisMovie.movie_info_title2 === '' ? setBtn(false) : setBtn(true))
+            data.filter(thisMovie => thisMovie?.movie_title === movie_title, thisMovie?.movie_info_title2 === '' ? setBtn(false) : setBtn(true))
         }
         onBtn()
     }, [])
@@ -316,7 +316,7 @@ const DetailInfoTab = () => {
         datasets: [{
             type: 'radar',
             label: "관람포인트",
-            data: [ thisMovie.movie_info_point1, thisMovie.movie_info_point2, thisMovie.movie_info_point3,thisMovie.movie_info_point4,thisMovie.movie_info_point5],
+            data: [ thisMovie?.movie_info_point1, thisMovie?.movie_info_point2, thisMovie?.movie_info_point3,thisMovie?.movie_info_point4,thisMovie?.movie_info_point5],
             backgroundColor: 'rgba(196, 124, 124, 0.3)',
             borderColor: 'rgba(141, 7, 7, 0.4)',
             borderWidth: 1
@@ -327,7 +327,7 @@ const DetailInfoTab = () => {
         labels: ['01.12','01.13','01.14','01.15','01.16'],
         datasets: [{
             label: "관람객수",
-            data: [ thisMovie.movie_totalspactators, thisMovie.movie_totalspactators, thisMovie.movie_totalspactators, thisMovie.movie_totalspactators, thisMovie.movie_totalspactators ],
+            data: [ thisMovie?.movie_totalspactators, thisMovie?.movie_totalspactators, thisMovie?.movie_totalspactators, thisMovie?.movie_totalspactators, thisMovie?.movie_totalspactators ],
             backgroundColor: 'rgba(196, 124, 124, 0.3)',
             borderColor: 'rgba(141, 7, 7, 0.4)',
         }],
@@ -336,10 +336,10 @@ const DetailInfoTab = () => {
     return (
         <>
             <div style={{ left: 0 }}>
-                <p style={{ fontWeight: '600', fontSize: '20pt'}}>{ thisMovie.movie_info_title }</p>
-                {/* <p style={{ fontWeight: '500', fontSize: '12pt'}}>{ thisMovie.movie_info_title2 }</p> */}
+                <p style={{ fontWeight: '600', fontSize: '20pt'}}>{ thisMovie?.movie_info_title }</p>
+                {/* <p style={{ fontWeight: '500', fontSize: '12pt'}}>{ thisMovie?.movie_info_title2 }</p> */}
                     {
-                        view && thisMovie.movie_info_title2
+                        view && thisMovie?.movie_info_title2
                     }
                     {
                         btn &&
@@ -351,7 +351,7 @@ const DetailInfoTab = () => {
                
                 
                 <p style={{ marginTop: 30, fontWeight: '500', fontSize: '12pt'}}>
-                { thisMovie.movie_info_type }
+                { thisMovie?.movie_info_type }
                 </p>
                 <br/>
 
@@ -369,9 +369,9 @@ const DetailInfoTab = () => {
                             <th style={{ fontWeight: 400 }}>
                                 <div style={{ width: '300px' }}>
                                 <p>실관람 평점</p>
-                                <p style={{ margin: 'auto', color: 'white', width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#8d0707', textAlign: 'center', lineHeight: '120px',fontWeight: 600, fontSize: '25pt' }}>{ thisMovie.movie_score }</p>
+                                <p style={{ margin: 'auto', color: 'white', width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#8d0707', textAlign: 'center', lineHeight: '120px',fontWeight: 600, fontSize: '25pt' }}>{ thisMovie?.movie_score }</p>
                                 <p>예매율</p>
-                                <p style={{ fontWeight: 600, fontSize: '25pt', color: '#8d0707'}}>{ thisMovie.movie_reserve_rate }%</p>
+                                <p style={{ fontWeight: 600, fontSize: '25pt', color: '#8d0707'}}>{ thisMovie?.movie_reserve_rate }%</p>
                                 </div>
                             </th>
                             
@@ -390,7 +390,7 @@ const DetailInfoTab = () => {
                     {/* 프로필 & 댓글 작성 & 로그인 여부 */}
                     <div>
                         <p style={{ color: '#8d0707', fontSize: '18pt', fontWeight: 500}}>
-                            { thisMovie.movie_title } 대한 <span style={{ color: '#c47c7c'}}>{ commentList.length }</span>개의 이야기가 있어요!
+                            { thisMovie?.movie_title } 대한 <span style={{ color: '#c47c7c'}}>{ commentList?.length }</span>개의 이야기가 있어요!
                         </p>
 
                         {/* 댓글 작성 &  로그인 전 */}
@@ -401,7 +401,7 @@ const DetailInfoTab = () => {
                             </div>
                             <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
                                 <p><br/> 
-                                    &emsp;<span style={{ color: '#c47c7c' }}>{ thisMovie.movie_title }&nbsp;</span>
+                                    &emsp;<span style={{ color: '#c47c7c' }}>{ thisMovie?.movie_title }&nbsp;</span>
                                         재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                     
                                     {/* 관람평 / 툴팁 */}
@@ -487,7 +487,7 @@ const DetailInfoTab = () => {
                                 
                                 <div>
                                     <br/>
-                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie.movie_title }</span> 재밌게 보셨나요?</h3>
+                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie?.movie_title }</span> 재밌게 보셨나요?</h3>
                                     
 
                                     <form name="reviewForm" id="reviewForm">
@@ -545,7 +545,7 @@ const DetailInfoTab = () => {
                             </div>
                             <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
                                 <p><br/> 
-                                    &emsp;&emsp;<span style={{ color: '#c47c7c' }}>userName</span>님 <span style={{ color: '#01738B' }}>{ thisMovie.movie_title }&nbsp;</span>
+                                    &emsp;&emsp;<span style={{ color: '#c47c7c' }}>userName</span>님 <span style={{ color: '#01738B' }}>{ thisMovie?.movie_title }&nbsp;</span>
                                         재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                     
                                     {/* 관람평 / 툴팁 */}
@@ -565,7 +565,7 @@ const DetailInfoTab = () => {
                    
                     
                     {
-                        commentList.map(commentItem => {
+                        commentList?.map(commentItem => {
                         return (
                                 <div>
                                     <div style={{ display: 'flex', margin: 15 }} >

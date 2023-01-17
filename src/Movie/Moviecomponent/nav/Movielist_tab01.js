@@ -147,7 +147,7 @@ const Movielist_tab01 = () => {
                         return (
                             <div key={index}>
                                 <ol className='Movielist_seq' >
-                                <Link to={`/master/${item.movie_title}`}>
+                                <Link to={`/movieDetail_Page/${item.movie_title}`}>
                                     <li>
                                         <div className='Movielist_title_num'>{index+1}</div>
                                         <div>

@@ -9,17 +9,20 @@ import StillCut_Tab from './StillCut_Tab';
 
 const MovieDetail_Page = () => {
     const { movie_title } = useParams()
-    const [movieData, setMovieData] = useState('')
+    const [movieData, setMovieData] = useState([])
     // const [dolby, setDolby] = useState('')
-    const item = movieData.find(item => item.movie_title === movie_title)
+    const [item,setItem]=useState({});
 
-    useEffect(() => {
+    useEffect((item) => {
         axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
-        .then(res => {setMovieData(res.data)})
-        ageURL()
+        .then(res => {
+            setMovieData(res.data)
+            var copy = res.data
+            setItem(copy.find(item => item.movie_title === movie_title))
+        })
+        //ageURL()
         console.log(movieData)
     }, []) 
-    
     const toggleMenu = [
         {
        id: 0,
@@ -36,7 +39,7 @@ const MovieDetail_Page = () => {
        title: "예고편",
        tab: <StillCut_Tab />
     }
-]   
+ ]   
     const [ageIcon, setAgeIcon] = useState('')
     const ageAll = 'https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png'
     const age12 = 'https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png'
@@ -189,8 +192,8 @@ const MovieDetail_Page = () => {
                                     </ul>
                                 </div>
                                     { 
-                                    toggleMenu.filter(item => index === item.id).map(item => (
-                                        <div style={{ margin: 40}} className='tabContent' >{ item.tab }</div>
+                                    toggleMenu.filter(item => index === item.id).map((item,index) => (
+                                        <div key={index} style={{ margin: 40}} className='tabContent' >{ item.tab }</div>
                                     ))    
                                     }
                         </div>{/* section  */}
