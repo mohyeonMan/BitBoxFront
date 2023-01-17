@@ -250,6 +250,10 @@
 	transform: translateY(-5%);
 }
 
+.Movielist_title_Link{
+	text-decoration: none;
+}
+
 .Movielist_title_ratedate{
 	color: black;
 	width: 235px;
