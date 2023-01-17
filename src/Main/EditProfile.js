@@ -61,11 +61,8 @@ const EditProfile = () => {
     const displayText = (e) => {
     };
 
-    const onReset = (e) => {
-        setForm({
-            ...form,
-            password: '',
-        });
+    const onReset = () => {
+        window.location.replace("/myPage")
     };
 
     // 본인인증
@@ -99,6 +96,8 @@ const EditProfile = () => {
         }
     }
 
+
+
     // 기존 비밀번호 체크
     const exPwdChk = () => {
         setInputPwdChk('');
@@ -113,6 +112,16 @@ const EditProfile = () => {
             })
             .catch(error => console.log(error));
     }
+
+    const onEmailChange = () => {
+        console.log(email)
+        axios.get(`http://localhost:8080/myPage/emailChange?username=${username}&email=${email}`)
+            .then(res => {
+                alert("이메일 변경이 완료되었습니다.");
+                window.location.replace("/myPage");
+            }).catch(err => {console.log(err)})
+    }
+
 
     return (
         <>
@@ -213,11 +222,19 @@ const EditProfile = () => {
                                                 type="email"
                                                 id="email"
                                                 placeholder={email}
-                                                name="mbEmail"
+                                                name="email"
                                                 className={`${editProfile.input_text} ${editProfile.w500px}`}
                                                 defaultValue=""
-                                                onChange={inputValue}
+                                                onChange={(e) => {inputValue(e)}}
                                             />
+                                            <button
+                                                type="button"
+                                                className={`${editProfile.buggon} ${editProfile.small} ${editProfile.gray_line} ${editProfile.change_phone_num}`}
+                                                id="changeNewEmail"
+                                                title="이메일 변경"
+                                                onClick={ onEmailChange } >
+                                                이메일 변경
+                                            </button>
                                         </td>
                                     </tr>
                                     <tr>
