@@ -116,6 +116,7 @@ const Movielist_tab05 = () => {
                             <div key={index}>
                                 <ol className='Movielist_seq' >
                                     <li>
+                                    <Link to={`/movieDetail_Page/${item.movie_title}`} className='Movielist_title_Link'>
                                         <div className='Movielist_title_num'>{index+1}</div>
                                         <div>
                                             <img className='Movielist_title_img' src={item.movie_poster_url}/>
@@ -163,6 +164,7 @@ const Movielist_tab05 = () => {
                                                 onClick={() => movie_like_one(item.movie_title)}/>
                                             }
                                         </div> */}
+                                    </Link>
                                         <a href={`/user/calendar/${item.movie_title}`} className="movielist_Btn_change">
                                             {item.movie_already_released === 0 ?
                                                 <input type='button' className='Movie_Btn_reserve' value="예매"></input>:
