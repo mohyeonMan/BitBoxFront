@@ -21,7 +21,7 @@ const HeaderModal = ({ setModalOpen}) => {
     return (
         <>
             <div className={modalces.modalhead} >
-                <div className={modalces.containerss} style={{ width: 300, height: 250, marginLeft: "-100px", marginTop: "-700px" ,marginRight: "-100px"}}>
+                <div className={modalces.containerss} style={{ width: 280, height: 150, marginLeft: "-100px", marginTop: "-740px" ,marginRight: "-100px"}}>
                     <button className={modalces.closeima} onClick={closeModal}>
                         X
                     </button>
