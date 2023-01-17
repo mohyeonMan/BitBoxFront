@@ -140,6 +140,7 @@ const Movielist_tab04 = () => {
                                         <div className='Movielist_title_area'>
                                             <img className='Movielist_grade_age'
                                                 src={item.movie_agegrade === "전체관람가" ? '/storage/00.png':
+                                                    item.movie_agegrade === "전체이용가" ? '/storage/00.png':
                                                     item.movie_agegrade === "12세이상관람가" ? '/storage/12.png':
                                                     item.movie_agegrade === "15세이상관람가" ? '/storage/15.png':
                                                     item.movie_agegrade === "청소년관람불가" ? '/storage/18.png':false}/>
@@ -162,9 +163,10 @@ const Movielist_tab04 = () => {
                                                 onClick={() => movie_like_one(item.movie_title)}/>
                                             }
                                         </div> */}
-                                        <a href="#" className="movielist_Btn_change">
-                                            {list.movie_class === "2" ? <input type='button' className='Movie_Btn_reserve_yet' value="개봉예정"></input>:false}
-                                            {list.movie_class !== "2" ? <input type='button' className='Movie_Btn_reserve' value="예매"></input>:false}
+                                        <a href={`/user/calendar/${item.movie_title}`} className="movielist_Btn_change">
+                                            {item.movie_already_released === 0 ?
+                                                <input type='button' className='Movie_Btn_reserve' value="예매"></input>:
+                                                <input type='button' className='Movie_Btn_reserve_yet' value="개봉예정" disabled></input>}
                                         </a>
                                     </li>
 
