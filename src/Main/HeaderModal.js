@@ -21,7 +21,7 @@ const HeaderModal = ({ setModalOpen}) => {
     return (
         <>
             <div className={modalces.modalhead} >
-                <div className={modalces.containerss} style={{ width: 300, height: 250, marginLeft: "-100px", marginTop: "-700px" }}>
+                <div className={modalces.containerss} style={{ width: 260, height: 20}}>
                     <button className={modalces.closeima} onClick={closeModal}>
                         X
                     </button>
@@ -40,8 +40,6 @@ const HeaderModal = ({ setModalOpen}) => {
                                         onClick={showReservation} > 예매/구매내역 </button>
 
                                 </a>
-                            </div>
-                            <div className={modalces.editprofile}>
                                 <a>
                                     <button
                                         id="btnEditprofile"
