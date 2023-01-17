@@ -95,12 +95,7 @@ const Movielist_tab02 = () => {
         <div>
             <div className="Movielist_checksearch">
                 <div className='Movielist_checkbox'>
-                    <input type="checkbox" id="Movielist_toggle" onClick={movie_already_released_check} hidden /> 
-                    <label htmlFor="Movielist_toggle" className="Movielist_toggleSwitch">
-                        <span className="Movielist_toggleButton"></span>
-                        <div className='Movielist_checkbox_only'>개봉작만 &nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </label>
-                        <div className='Movielist_moviecount'>{movie_count} 개의 영화가 검색되었습니다.</div>
+                        <div className='Movielist_moviecount_tab02'>{movie_count} 개의 영화가 검색되었습니다.</div>
                     <div>
                         <input type="text" id='Movielist_search' name='Movielist_search' value={keyword}
                                 onChange={e=> setKeyword(e.target.value)} onKeyDown={onSubmitSearch} placeholder="&nbsp;영화명 검색"/>
