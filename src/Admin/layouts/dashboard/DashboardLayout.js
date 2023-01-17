@@ -58,7 +58,9 @@ const DashboardLayout = () => {
              <Route path={"/app"} element={<DashboardAppPage/>}/>
              <Route path={"/user"} element={<UserPage/>}/>
              <Route path={"/blog"} element={<BlogPage/>}/>
-             {/* <Route path={"/login"} element={<LoginPage/>}/> */}
+
+             {/* store 상품등록 */}
+             <Route path={"/login"} element={<LoginPage/>}/>
      </Routes>
      
       </Main>
