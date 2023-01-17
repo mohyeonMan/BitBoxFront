@@ -118,7 +118,7 @@ const Movielist_tab05 = () => {
                                 <ol className='Movielist_seq' >
                                     <li>
                                     <Link to={`/movieDetail_Page/${item.movie_title}`} className='Movielist_title_Link'>
-                                        <div className='Movielist_title_num'>{index+1}</div>
+                                        <div className='Movielist_title_num'></div>
                                         <div>
                                             <img className='Movielist_title_img' src={item.movie_poster_url}/>
                                             <div>
