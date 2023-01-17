@@ -2,18 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../css/writeForm.module.css';
 import axios from 'axios';
+import { borderBottom } from '@mui/system';
 
  const WriteForm = () => {
   const [file, setFile] = useState('')
-
-
-
-  
-
-
-  
-
-
 
   const online = [
     { value: "combo", label: "콤보" },
@@ -24,8 +16,6 @@ import axios from 'axios';
    
    const [selectOnline, setSelectOnline] = useState(online[0]);
    //안에 들어가는 값을 받아야해서 state사용
-
-
 
   const [form, setForm] = useState({
     category: '',
@@ -71,8 +61,6 @@ import axios from 'axios';
   }
 
   
-
-
   const onWriteSubmit = (e) => {
     e.preventDefault()
 
@@ -81,7 +69,8 @@ import axios from 'axios';
     setPriceDiv('')
     setCountryDiv('')
 
-    const sw = 1
+    // const sw = 1
+    let sw = 1
     if(!subject) {
       setSubjectDiv('제목을 작성하세요!')
       sw = 0
@@ -100,25 +89,6 @@ import axios from 'axios';
     }
 
     if(sw === 1) {
-      //첫번째
-      /*
-      axios.post('http://localhost:8080/store/write', null, {
-        params: {
-          seq: seq,
-          subject: subject,
-          subSubject: subSubject,
-          simpleContent: simpleContent,
-          content: content,
-          price: price,
-          country: country,
-          img: img
-        }
-      }).then(() => {
-          alert('스토어에 품목이 등록되었어요!');
-          navigate('/store/list');
-      }).catch(error => console.log(error))
-    */
-
         var formData = new FormData()
         
         formData.append('img', file)
@@ -140,10 +110,6 @@ import axios from 'axios';
                 navigate('/store/');
             })
              .catch(error => console.log(error))
-             
-             
-        
-      
     }
   }
 
@@ -174,23 +140,21 @@ import axios from 'axios';
 
   const [selected, setSelected] = React.useState("");
 
-
-
   return (
-    <div>
-      <h3>
-        <Link to='/'>
-          {/* <img src="../img/logo.jpg" width="50" height="50" style={{ cursor: 'pointer' }} /> */}
-          <img src='../img/logo.jpg' width="100" height="100" style={{ cursor: 'pointer' }} />
+    
+    <div className='ststststs'>
+       <br/>
+      <h3 style={{textAlign:'center'}}>
+        <Link to='/store'>
+          <img src='../img_member/mainLogo_bit.png' width="70" height="70" style={{ cursor: 'pointer',display:'inline'}} />
         </Link>
-        스토어 제품등록
+        &nbsp;&nbsp;
+            <span className='stostosto' style={{textAlign:'right',verticalAlign:'middle'}}>스토어 제품 등록</span>
       </h3>
-      <hr/>
-
-      <form className={ styles.writeForm }>
+      <form className={ styles.writeForm } style={{maxWidth:800, textAlign:'center'}}>
         
         <br/>
-        <select onChange={ onInput } name="category">
+        <select onChange={ onInput } name="category" style={{maxWidth:600, textAlign:'center'}}>
           <option>----- 카테고리를 선택해주세요 -----</option>
           <option value="combo">콤보</option>
           <option value="popcorn">팝콘</option>
@@ -198,69 +162,85 @@ import axios from 'axios';
           <option value="snack">스낵</option>
         </select> 
 
-        <table border="1">
+        {/* <table border="1" > */}
+        <table >
           <thead>
+          <br/><br/>
             <tr>
-              <td width="80px" align="center">제목</td>
+              <td width="140px" align="center" style={{fontSize:15,fontWeight:'bolder'}}>Product TITLE</td>
               <td>
-                <input type="text" name="subject" value={ subject } onChange={ onInput } onBlur={ isExistSubject } width= '120px' />
+                <input type="text" name="subject" value={ subject } onChange={ onInput } onBlur={ isExistSubject } style={{width:250,background:'transparent',borderTop:'none',borderLeft:'none',borderRight:'none' ,borderBottomWidth:1}} placeholder='상품 제목'/>
                 <div id="subjectDiv">{ subjectDiv }</div>
               </td>
             </tr>
+            <br/>
 
             <tr>
-              <td width="50px" align="center">소제목</td>
+              <td width="140px" align="center" style={{fontSize:15,fontWeight:'bolder'}}>Product SubTitle</td>
               <td>
-                <input type="text" name="subSubject" value={ subSubject } onChange={ onInput } width= '100px' />
+                <input type="text" name="subSubject" value={ subSubject } onChange={ onInput } style={{width:250,background:'transparent',borderTop:'none',borderLeft:'none',borderRight:'none' ,borderBottomWidth:1}}
+                placeholder='상품 소제목' />
               </td>
             </tr>
+            <br/>
           </thead>
           
           <tbody>
             <tr>
-              <td width="50px" align="center">간략내용</td>
+              <td width="140px" align="center" style={{fontSize:15,fontWeight:'bolder'}}>Brief Content</td>
               <td>
-                <input type="text" name="simpleContent" value={ simpleContent } onChange={ onInput } width= '150px' />
+                <input type="text" name="simpleContent" value={ simpleContent } onChange={ onInput } style={{width:250,background:'transparent',borderTop:'none',borderLeft:'none',borderRight:'none' ,borderBottomWidth:1}} 
+                placeholder='간략한 내용'/>
               </td>
             </tr>
+            <br/>
 
             <tr>
-              <td width="50px" align="center">내용</td>
+              <td width="140px" align="center" style={{fontSize:15,fontWeight:'bolder'}}> Detailed Content</td>
               <td>
-                <textarea name="content" value={ content } placeholder="이곳에&#13;&#10;입력하세요" onChange={ onInput } width= '200px' />
+                <textarea name="content" value={ content } placeholder="상품 내용을 입력하세요" onChange={ onInput } style={{width:250,height:100}} />
                 <div id="contentDiv">{ contentDiv }</div>
               </td>
             </tr>
+            <br/>
 
             <tr>
-              <td width="50px" align="center">가격</td>
+              <td width="140px" align="center" style={{fontSize:15,fontWeight:'bolder'}}>Price</td>
               <td>
-                <input type="text" name="price" value={ price } onChange={ onInput } width= '120px' />
+                <input type="text" name="price" value={ price } onChange={ onInput } style={{width:250,background:'transparent',borderTop:'none',borderLeft:'none',borderRight:'none' ,borderBottomWidth:1}}
+                placeholder='상품 가격'/>
                 <div id="priceDiv">{ priceDiv }</div>
               </td>
             </tr>
+            <br/>
 
             <tr>
-              <td width="50px" align="center">원산지</td>
+              <td width="140px" align="center" style={{fontSize:15,fontWeight:'bolder'}}>Made in</td>
               <td>
-                <input type="text" name="country" value={ country } onChange={ onInput } width= '150px' />
+                <input type="text" name="country" value={ country } onChange={ onInput } style={{width:250,background:'transparent',borderTop:'none',borderLeft:'none',borderRight:'none' ,borderBottomWidth:1}}
+                placeholder='원산지' />
                 <div id="countryDiv">{ countryDiv }</div>
               </td>
             </tr>
+            <br/>
+            <br/>
 
             <tr>
-              <td width="50px" align="center">첨부이미지</td>
+              <td width="140px" align="center" style={{fontSize:15,fontWeight:'bolder'}}>Imge</td>
               <td>
-                <input type="file" name='img' onChange={e => readURL(e.target)} />
+                <input type="file" name='img' onChange={e => readURL(e.target)}/>
               </td>
             </tr>
-            
+            <br/>
+            <br/>
             <tr>
               <td colSpan='2' align='center'>
-                <button onClick={ onWriteSubmit }>스토어등록</button>
-                <button onClick={ onReset }>취소</button>
+                <button  style={{all:'unset',color:'blue',cursor:'pointer'}} onClick={ onWriteSubmit }>스토어등록</button>
+               &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                <button style={{all:'unset',color:'red',cursor:'pointer'}} onClick={ onReset }>취소</button>
               </td>
             </tr>
+            <br/><br/>
           </tbody>
         </table>		
       </form>

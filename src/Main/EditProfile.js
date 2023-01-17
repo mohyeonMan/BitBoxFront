@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Header from './Header';
 import editProfile from './EditProfile.module.css';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
@@ -126,11 +125,9 @@ const EditProfile = () => {
 
     return (
         <>
-            <Header/>
             <div style={{width: "100%", display: "flex", paddingTop: "30px"}}>
                 <div style={{width: "800px", margin: "auto"}}>
                     <div id="contents" className={editProfile.editProfile_first}>
-                        <h2 className={editProfile.titub}>개인정보 수정</h2>
                         <ul className={`${editProfile.board_list_util} ${editProfile.suntory}`}>
                             <li>회원님의 정보를 정확히 입력해주세요.</li>
                         </ul>

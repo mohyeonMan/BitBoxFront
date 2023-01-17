@@ -19,23 +19,18 @@ const navConfig = [
   {
     title: 'Movie List',
     path: '/adminindex/products',
-    icon: icon('ic_cart'),
-  },
-  {
-    title: 'blog',
-    path: '/adminindex/blog',
-    icon: icon('ic_blog'),
-  },
-  {
-    title: 'login',
-    path: 'login',
     icon: icon('ic_lock'),
   },
+  // {
+  //   title: 'blog',
+  //   path: '/adminindex/blog',
+  //   icon: icon('ic_blog'),
+  // },
   {
-    title: 'Not found',
-    path: '404',
-    icon: icon('ic_disabled'),
-  },
+    title: 'Store',
+    path: '/adminindex/login',
+    icon: icon('ic_cart'),
+  }
 ];
 
 export default navConfig;
