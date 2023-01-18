@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import Header from './Header';
 import reservations from './Reservation.module.css';
 import axios from 'axios';
 import ReservationModal from '../user/ReservationModal';
 import styles from "../css/Success.module.css";
-import { useNavigate } from 'react-router-dom';
-
+import {useNavigate} from 'react-router-dom';
 
 const Reservation = () => {
 
@@ -15,6 +13,8 @@ const Reservation = () => {
     const [filler, setFiller] = useState([]) //현재 좌석현황
     const [done, setDone] = useState(false)
     const navigate = useNavigate();
+
+
     // 예약내역 가져오기.
     useEffect(() => {
         getReservation()
@@ -38,6 +38,7 @@ const Reservation = () => {
                 setLogArray(copy.filter(item => item.movie_status === '미상영'))
             })
     }
+
     //만료되지 않은 정보만
     const reservationCancel = (targetReservation) => {
         window.confirm &&
@@ -72,9 +73,11 @@ const Reservation = () => {
                             alert('예매가 취소되었습니다.')
                             getReservation();
                             closeModal();
+
                         }).catch(err => console.log(err))
                 }).catch(err => console.log(err))
             }).catch(err => console.log(err))
+
 
     }
 
@@ -109,25 +112,31 @@ const Reservation = () => {
         setToggle(!toggle)
     }
 
+    const [movieReservationChk, setMovieReservationChk] = useState(true);
+    const [storePaymentChk, setStorePaymentChk] = useState(false);
+
+
     const [reservationDisplay, setReservationDisplay] = useState("")
     const [storeDisplay, setStoreDisplay] = useState("none")
 
-    const showReservation = () => {
-        setReservationDisplay("block");
-        setStoreDisplay("none")
-    }
-    const showStore = () => {
-        setReservationDisplay("none");
-        setStoreDisplay("block")
-    }
+    useEffect(() => {
+        if (movieReservationChk) {
+            setReservationDisplay("block");
+            setStoreDisplay("none")
+            setStorePaymentChk(false);
+
+        } else if (storePaymentChk) {
+            setReservationDisplay("none");
+            setStoreDisplay("block");
+            setMovieReservationChk(false);
+        }
+    })
     return (
         <>
-            <Header/>
             <div className={reservations.reservations_first}>
                 <div className={`${reservations.containnner} ${reservations.has_lnb}`}>
                     <div className={reservations.inner_wrappo}>
                         <div id="contents" className="hithere" style={{width: '800px'}}>
-                            <h2 className={reservations.tit}>예매/구매 내역</h2>
                             <div className={reservations.tab_cont_wrap}>
                                 {/* 예매내역 */}
                                 <div id="myBokdArea" className={`${reservations.tab_cont} ${reservations.on}`}>
@@ -140,9 +149,9 @@ const Reservation = () => {
 
                                 {/* 구매내역 영역 */}
                                 <div id="myPurcArea" className="tab_cont">
-                                    <a href="" className={reservations.irrr}/>
+                                    <a href="" className={reservations.irrr}/><br/>
                                     {/* 구매 조회 조건 */}
-                                    <div className={`${reservations.board_list_search} ${reservations.mt20}`}>
+                                    <div className={`${reservations.board_list_search} ${reservations.mt20}`} style={{marginTop:"35px"}}>
                                         <table className={reservations.tables} summary="구매 조회 조건">
                                             <colgroup>
                                                 <col style={{width: 75}}/>
@@ -157,7 +166,9 @@ const Reservation = () => {
                                                         name="radPurc"
                                                         id="radPurc02"
                                                         defaultValue="P"
-                                                        onClick={showReservation}
+                                                        checked={movieReservationChk}
+                                                        onClick={() => {setMovieReservationChk(true)
+                                                            setStorePaymentChk(false)}}
                                                     />
                                                     <label htmlFor="radPurc02">&nbsp;&nbsp;예매 내역</label>
                                                     <input
@@ -165,7 +176,9 @@ const Reservation = () => {
                                                         name="radPurc"
                                                         id="radPurc03"
                                                         defaultValue="C"
-                                                        onClick={showStore}
+                                                        checked={storePaymentChk}
+                                                        onClick={() => {setStorePaymentChk(true)
+                                                            setMovieReservationChk(false)}}
                                                     />
                                                     <label htmlFor="radPurc03">&nbsp;&nbsp;스토어 구매내역</label>
                                                 </td>
@@ -228,7 +241,7 @@ const Reservation = () => {
                                                                 <td>{item.movie_date} / {item.movie_time}</td>
                                                                 {/* 인원 */}
                                                                 <td style={{width: '200px'}}>
-                                                                    {item.movie_seat.filter(item => item.customer === 'adult').length === 0 ? '' : `성인: ${item.movie_seat.filter(item => item.customer === 'adult').length} `}
+                                                                    {item.movie_seat.filter(item => item.customer === 'adult').length === 0 ? '' : `성인: ${item.movie_seat.filter(item => item.customer === 'adult').length} `}<br />
                                                                     {item.movie_seat.filter(item => item.customer === 'child').length === 0 ? '' : `청소년: ${item.movie_seat.filter(item => item.customer === 'child').length} `}
                                                                 </td>
                                                                 {/* 좌석 */}
@@ -248,7 +261,8 @@ const Reservation = () => {
 
                                                         ))
                                                 }
-                                                <ReservationModal open={modalOpen} close={closeModal} header="예약내역"
+                                                <ReservationModal open={modalOpen} close={closeModal}
+                                                                  header="예약내역"
                                                                   closeBtn="창닫기" viewReservation={viewReservation}
                                                                   reservationCancel={reservationCancel}></ReservationModal>
                                                 </tbody>
@@ -257,7 +271,7 @@ const Reservation = () => {
                                     </div>
 
                                     {/* 스토어 구매 현황 */}
-                                    <div style={{marginTop:"30px"}}>
+                                    <div style={{marginTop: "30px"}}>
                                         <div className={reservations.table_wrap} style={{display: storeDisplay}}>
                                             <table
                                                 className={`${reservations.board_list} ${reservations.tables}`}
@@ -292,7 +306,7 @@ const Reservation = () => {
                                                             <tr key={item.pay_seq}>
                                                                 <td>{item.orderNumber}</td>
                                                                 <td>{item.subject}</td>
-                                                                <td>{item.totalPrice}원</td>
+                                                                <td>{[item.totalPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</td>
                                                             </tr>
 
                                                         ))

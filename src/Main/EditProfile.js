@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Header from './Header';
 import editProfile from './EditProfile.module.css';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
@@ -62,11 +61,8 @@ const EditProfile = () => {
     const displayText = (e) => {
     };
 
-    const onReset = (e) => {
-        setForm({
-            ...form,
-            password: '',
-        });
+    const onReset = () => {
+        window.location.replace("/myPage")
     };
 
     // 본인인증
@@ -100,6 +96,8 @@ const EditProfile = () => {
         }
     }
 
+
+
     // 기존 비밀번호 체크
     const exPwdChk = () => {
         setInputPwdChk('');
@@ -115,13 +113,21 @@ const EditProfile = () => {
             .catch(error => console.log(error));
     }
 
+    const onEmailChange = () => {
+        console.log(email)
+        axios.get(`http://localhost:8080/myPage/emailChange?username=${username}&email=${email}`)
+            .then(res => {
+                alert("이메일 변경이 완료되었습니다.");
+                window.location.replace("/myPage");
+            }).catch(err => {console.log(err)})
+    }
+
+
     return (
         <>
-            <Header/>
             <div style={{width: "100%", display: "flex", paddingTop: "30px"}}>
                 <div style={{width: "800px", margin: "auto"}}>
                     <div id="contents" className={editProfile.editProfile_first}>
-                        <h2 className={editProfile.titub}>개인정보 수정</h2>
                         <ul className={`${editProfile.board_list_util} ${editProfile.suntory}`}>
                             <li>회원님의 정보를 정확히 입력해주세요.</li>
                         </ul>
@@ -216,11 +222,19 @@ const EditProfile = () => {
                                                 type="email"
                                                 id="email"
                                                 placeholder={email}
-                                                name="mbEmail"
+                                                name="email"
                                                 className={`${editProfile.input_text} ${editProfile.w500px}`}
                                                 defaultValue=""
-                                                onChange={inputValue}
+                                                onChange={(e) => {inputValue(e)}}
                                             />
+                                            <button
+                                                type="button"
+                                                className={`${editProfile.buggon} ${editProfile.small} ${editProfile.gray_line} ${editProfile.change_phone_num}`}
+                                                id="changeNewEmail"
+                                                title="이메일 변경"
+                                                onClick={ onEmailChange } >
+                                                이메일 변경
+                                            </button>
                                         </td>
                                     </tr>
                                     <tr>

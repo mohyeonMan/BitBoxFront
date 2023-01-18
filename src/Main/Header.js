@@ -9,18 +9,18 @@ import mypageIcon from './img/my.png';
 import supportIcon from './img/service-center.png';
 import searchIcon from './img/search.png';
 import {getCookieToken, removeCookieToken} from "src/member/storage/Cookie";
-import HeaderModal from './HeaderModal';
 
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
     const navigate = useNavigate();
     const handleSearchKeyChange = (e) => {
         setSearchKey(e.target.value);
+
     }
 
     const handleSearchKeySubmit = (e) => {
         e.preventDefault();
-        navigate(`/search?key=${searchKey}`);
+        navigate(`/movieDetail_Page/${searchKey}`)
     }
     const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
     const [ScrollActive, setScrollActive] = useState(true);
@@ -86,7 +86,7 @@ const Header = () => {
                                             <h2><a>극장</a></h2>                                               
                                         </li>
                                         <li>
-                                            <h2><Link to={"/user/calendar"}>예매</Link></h2>
+                                            <h2><Link to={"/user/calendar/:mvName"}>예매</Link></h2>
                                         </li>
                                         <li>
                                             <h2><Link to={"/store/"}>스토어</Link></h2>
@@ -111,6 +111,7 @@ const Header = () => {
 const UserNavList = () => {
 
     const [isLogin, setIsLogin] = useState(false);
+    const navi = useNavigate();
 
     useEffect(() => {
         if (getCookieToken()) {
@@ -126,7 +127,7 @@ const UserNavList = () => {
         sessionStorage.removeItem('birth');
         removeCookieToken(); // refreshToken 삭제
         alert("로그아웃");
-        window.location.replace("/");
+        window.location.reload();
     }
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -177,8 +178,7 @@ const UserNavList = () => {
                 {isLogin &&
                     <a>
                         <img src={mypageIcon} alt="마이페이지 아이콘" />
-                        <span style={{cursor:"pointer"}} onClick={showModal}>MY BITBOX</span>
-                        {modalOpen && <HeaderModal setModalOpen={setModalOpen} />}
+                        <span style={{cursor:"pointer"}} onClick={() => {navi("/myPage");}}>MY BITBOX</span>
                     </a>
                 }
             </li>
@@ -197,7 +197,7 @@ const MovieNavList = () => {
         <ul>
             <li><Link to={"/movielistmain"}>영화</Link></li>
             <li><a>극장</a></li>
-            <li><Link to={"/user/calendar"}>예매</Link></li>
+            <li><Link to={"/user/calendar/:mvName"}>예매</Link></li>
             <li><Link to={"/store/"}>스토어</Link></li>
             <li><a>이벤트</a></li>
             <li><a>혜택</a></li>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StoreHeader from './StoreHeader';
 import payStyles from '../../css/StorePayment.module.css'
+import cartStyles from '../../css/StoreCart.module.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from 'src/Main/Header.js';
@@ -172,15 +173,18 @@ const StorePay = () => {
             {/* step_unit3 */}
                 <ul className={payStyles.cart_step}>
                     <li className={payStyles.step0}>
+                        <img src='../img/cart3.svg' style={{display:'inline-block',position:'absolute',top:'45%', left:0, width:'38px',height:'38px', marginTop:'-14px'}}/>
                         <span>STEP 01</span>
                         <strong>장바구니</strong>
                     </li>
                     {/* active */}
                     <li className={payStyles.active}>
+                        <img src='../img/wallet2.svg' style={{display:'inline-block',position:'absolute',top:'45%', left:0, width:'38px',height:'38px', marginTop:'-14px'}}/>
                         <span>STEP 02</span>
                         <strong>결제하기</strong>
                     </li>
                     <li className={payStyles.step3}>
+                    <img src='../img/person2.svg' style={{display:'inline-block',position:'absolute',top:'45%', left:0, width:'38px',height:'38px', marginTop:'-14px'}}/>
                         <span>STEP 03</span>
                         <strong>결제완료</strong>
                     </li>
@@ -266,19 +270,17 @@ const StorePay = () => {
                         {/* <input type="radio" name="radio" className={payStyles.com_custom_radio} id="payment_kakaopay"/> */}
                         <input type="radio" defaultChecked/>
                         <label>
-                            <img src="../../img/kg_inicis.jpg" alt="KG이니시스" style={{ border: '1px solid gray', borderRadius: 5, marginTop: '15px', marginLeft: '-40px', width: 90, height: 40, boxShadow: '3px 3px 3px gray' }}/>
+                            <img src="../../img/kg_inicis.jpg" alt="KG이니시스" style={{ border: '1px solid gray', borderRadius: 5, marginTop: '-5px', marginLeft: '-40px', width: 90, height: 40, boxShadow: '3px 3px 3px gray' }}/>
                         </label>
                     </li>
                 </ul>
                 
                 <p className={payStyles.com_box_design_olist} id="pKKO">
                     카카오페이는 신용카드 선할인과 카드사 포인트는 이용하실 수 없으며 신용카드별 청구 할인은 이용하실 수 있습니다.</p>
-                
-                <div className={payStyles.com_btn_wrap}>
-                <a href="#none" onClick={ payment } className={payStyles.btn_style0} style={{width:'1000px'}}>결제하기</a> 
-                    {/* <a href="#none" className={payStyles.btn_prev} onClick="javascript:location.replace('http://www.cgv.co.kr/culture-event/popcorn-store/user-cart.aspx');">
-                        <img src="./../../../CDN/R2014/images/giftstore/common/btn_prev.png" alt="이전화면으로 이동"/>이전화면
-                    </a> */}
+
+                <div className={cartStyles.com_btn_wrap }> {/* cartStyles.pT60 */}
+                        {/* <a href="#none" className={cartStyles.btn_style0 } onClick="javascript:fn_Buy(this, 'gift', '');">선물하기</a> */}
+                        <a onClick={ payment } className={cartStyles.btn_style0 } style={{ marginTop: 25, marginBottom: 20, cursor: 'pointer', textDecoration: 'none', borderRadius: '4px' }} >결제하기</a> {/* onClick="javascript:fn_Buy(this, 'purchase', '');" */}
                 </div>
             </div>
 
