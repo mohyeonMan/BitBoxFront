@@ -27,28 +27,8 @@ const DashboardAppPage = () => {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Typography variant="h3" sx={{ mb: 5 }}>
-          Hi, Admin
-        </Typography>
 
-        {/* 상단 맨위 4개  */}
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
-
 
           {/*   막대 그래프 기존 타이틀 : Website Visits */}
           <Grid item xs={12} md={6} lg={8}>
@@ -73,27 +53,26 @@ const DashboardAppPage = () => {
               ]}
               chartData={[
                 {
-                  name: 'Team A',
+                  name: '총 관람객 수',
                   type: 'column',
                   fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30,33],
+                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 41,51],
                 },
                 {
-                  name: 'Team B',
+                  name: '스토어 상품 판매량',
                   type: 'area',
                   fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43,44],
+                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43,48],
                 },
                 {
-                  name: 'Team C',
+                  name: '영화 개봉 개수',
                   type: 'line',
                   fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39,28],
+                  data: [15, 25, 18, 30, 33, 41, 34, 52, 48, 36, 33,44],
                 },
               ]}
             />
           </Grid>
-            
 
           {/* 원 그래프  기존 타이틀: Current Visits*/}
           <Grid item xs={12} md={6} lg={4}>
@@ -117,35 +96,22 @@ const DashboardAppPage = () => {
           {/* 막대만 있는 그래프  기존 타이틀 : Conversion Rates */}
           <Grid item xs={12} md={6} lg={6}>
             <AppConversionRates
-              title="Conversion Rates"
+              title="TOTAL"
               subheader="(+43%) than last year"
               chartData={[
-                { label: 'Italy', value: 400 },
-                { label: 'Japan', value: 430 },
-                { label: 'China', value: 448 },
-                { label: 'Canada', value: 470 },
-                { label: 'France', value: 540 },
-                { label: 'Germany', value: 580 },
-                { label: 'South Korea', value: 690 },
-                { label: 'Netherlands', value: 1100 },
-                { label: 'United States', value: 1200 },
-                { label: 'United Kingdom', value: 1380 },
+                { label: '천룡팔부-교봉전', value: 400 },
+                { label: '3000년의 기다림', value: 430 },
+                { label: '해시태그 시그네', value: 448 },
+                { label: '장화신은 고양이-끝내주는 모험', value: 470 },
+                { label: '유량의 달', value: 540 },
+                { label: '라일 라일 크로커다일', value: 580 },
+                { label: '유령', value: 690 },
+                { label: '더 퍼스트 슬램덩크', value: 1000 },
+                { label: '교섭', value: 1100 },
+                { label: '아바타 : 물의 길', value: 1580 },
               ]}
             />
           </Grid>
-
-          {/* <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentSubject
-              title="Current Subject"
-              chartLabels={['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math']}
-              chartData={[
-                { name: 'Series 1', data: [80, 50, 30, 40, 100, 20] },
-                { name: 'Series 2', data: [20, 30, 40, 80, 20, 80] },
-                { name: 'Series 3', data: [44, 76, 78, 13, 43, 10] },
-              ]}
-              chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
-            />
-          </Grid> */}
 
           {/* 공지사항  NEWS(AdminBoard) */}
           <Grid item xs={12} md={4} lg={6}>
