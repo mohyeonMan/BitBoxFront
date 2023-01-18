@@ -157,13 +157,7 @@ const UserNavList = () => {
             <li>
                 <a>
                     <img src={loginIcon} alt="로그인 아이콘" />
-                    <span><Link to={'/adminindex/app'}>관리자로그인</Link></span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <img src={loginIcon} alt="로그인 아이콘"/>
-                    <span><Link to={'/test'}>Test</Link></span>
+                    <span><Link to={'/adminindex/app'}>관리자 Page</Link></span>
                 </a>
             </li>
             <li>

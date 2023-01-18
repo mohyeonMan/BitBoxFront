@@ -287,7 +287,7 @@ const DetailInfoTab = (props) => {
             axios.post('http://localhost:8080/movielist/user_comment_write', null, { params:reviewForm })
             .then(() => {
                 alert('댓글이 작성되었습니다.');
-                ReviewModalClose();
+                // ReviewModalClose();
                 window.location.reload()
                 
             })

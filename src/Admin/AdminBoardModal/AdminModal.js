@@ -11,14 +11,14 @@ const AdminModal = (props) => {
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (
-        <section>
+        <section  style={{width:'400px'}}>
           <header style={{textAlign:'center'}}>
             {header}
             <button className="close" onClick={close}>
               &times;
             </button>
           </header>
-          <main >{props.children}</main>
+          <main  style={{height:'300px'}}>{props.children}</main>
         </section>
       ) : null}
     </div>
