@@ -20,7 +20,7 @@ const Movielist_tab01 = () => {
 
 
     const movie_already_released_check = () => {
-        setAlready_released(!already_released)
+        setAlready_released(!already_released) 
     }
     // const movie_like_one = (target_title) => {
     //     setMovielike_Btn_img(!movielike_Btn_img);
@@ -126,7 +126,7 @@ const Movielist_tab01 = () => {
     return (
         <div>
             <div className="Movielist_checksearch">
-                <div className='Movielist_checkbox'>
+                <div className='Movielist_checkbox'> 
                     <input type="checkbox" id="Movielist_toggle" onClick={movie_already_released_check} hidden /> 
                     <label htmlFor="Movielist_toggle" className="Movielist_toggleSwitch">
                         <span className="Movielist_toggleButton"></span>
