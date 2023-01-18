@@ -70,7 +70,8 @@ const Reservation = () => {
                     axios.delete(`http://localhost:8080/reservation/cancelReservation?pk=${targetReservation.pk}`)
                         .then(res => {
                             alert('예매가 취소되었습니다.')
-                            navigate("/myPage/reservation")
+                            getReservation();
+                            closeModal();
                         }).catch(err => console.log(err))
                 }).catch(err => console.log(err))
             }).catch(err => console.log(err))

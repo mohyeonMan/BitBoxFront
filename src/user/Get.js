@@ -13,6 +13,7 @@ import Layout from '../Main/Layout';
 const Get = () => {
     const {pk} = useParams();
     const [id] = useState(sessionStorage.getItem('userName'));
+    const [movieURL,setMovieURL] = useState('');
     
     //빈배열
     var empty=emptySeat;
@@ -35,6 +36,17 @@ const Get = () => {
             setFiller(JSON.parse(copy.movie_seat))
         }).catch(err=>console.log(err))
     }
+    useEffect(()=>{
+        axios.get(`http://localhost:8080/movielist/getMovieURL?title=${showDTO.movie_title}`)
+        .then(res=> setMovieURL(res.data)).catch(err=>console.log(err))
+    },[showDTO])
+
+    const getMovieURL=()=>{
+      
+        
+    }
+    getMovieURL()
+
     
     //상영관 예약현황 덮어쓰기
     useEffect(()=>{
@@ -242,7 +254,7 @@ const Get = () => {
                 </div>  {/* seats */}
                 <div className={styles.reserveTable}>
                     <div className={styles.movie}>
-                        <img className={styles.movieImg} src="../img/1.jpg"></img>
+                        <img className={styles.movieImg} src={movieURL}></img>
                         <div className={styles.movieInfo}>
                         {showDTO.movie_age}/{showDTO.movie_title}<br/> {showDTO.movie_cinema} {showDTO.movie_theater}<br/>{showDTO.movie_date} <br/> {showDTO.movie_time}
                         </div>
@@ -290,8 +302,10 @@ const Get = () => {
                             <button onClick={paymentComplete}>결제 건너뛰기</button>
             </div> {/* container*/}
             <div className={styles.footer}></div>
-            <Modal open={modalOpen} close={closeModal} header="티켓 결제" closeBtn="좌석선택" showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} price={price} discount={discount}>
-               
+            <Modal 
+                open={modalOpen} close={closeModal} header="티켓 결제" closeBtn="좌석선택"
+                showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} 
+                price={price} discount={discount} movieURL={movieURL}>
             </Modal>
         </>
     );

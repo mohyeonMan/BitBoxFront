@@ -23,7 +23,6 @@
     margin: 0 10px ;
 }
 
-.seats2{}
 
 
 .screen{
@@ -240,6 +239,7 @@
 }
 
 .alreadyReserved2{
+    border-radius: 10px;
     border: 1px solid ;
     display:flex;
     justify-content: center;

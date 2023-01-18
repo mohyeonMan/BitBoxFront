@@ -3,11 +3,10 @@
     justify-content: center;
     height: 100%;
   }
-  .paymentSelect{
+  .movieImgURL{
     display: flex;
     flex-flow: column nowrap;
-    border: 1px dotted gray;
-    width: 50%;
+    width: 45%;
     height: 100%;
   }
 

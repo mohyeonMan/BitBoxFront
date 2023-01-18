@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from '../css/PaymentModal.module.css';
 import '../css/modal.css';
+import { width } from '@mui/system';
 
 
 
 const PaymentModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header,closeBtn, showDTO, selectedSeat, payment, price, discount} = props;
+  const { open, close, header,closeBtn, showDTO, selectedSeat, payment, price, discount, movieURL} = props;
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -21,10 +22,7 @@ const PaymentModal = (props) => {
           </header>
             <main style={{height:'500px'}}>
             <div className={styles.paymentModal}>
-                    <div className={styles.paymentSelect}>
-                        <div className={styles.pointInfo}>
-
-                        </div>
+                    <div className={styles.movieImgURL} style={{backgroundImage: `url(${movieURL})`, backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'50%'}}>
                     </div>
                     <div className={styles.reservationInfo}>
                         <div className={styles.movieInfo}>
@@ -65,7 +63,7 @@ const PaymentModal = (props) => {
                </div>
             </main>
           <footer>
-            <button className="close" onClick={close}>
+            <button  className="close" onClick={close}>
               {closeBtn}
             </button>
           </footer>
