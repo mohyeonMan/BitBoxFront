@@ -136,7 +136,6 @@ const DetailInfoTab = (props) => {
         })
 
     };
-    const navi = useNavigate();
 
     
     useEffect((e) => {

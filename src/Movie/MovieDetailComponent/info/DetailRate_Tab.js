@@ -4,6 +4,7 @@ import '../css/Modal.css';
 import noneImg from '../img/bg-photo.png';
 import axios from 'axios';
 import { Navigate, useParams } from 'react-router-dom';
+import {removeCookieToken, setRefreshToken} from "src/member/storage/Cookie";
 
 const DetailRate_Tab = (props) => {
     // 세션 name 가져오기 ㅠㅠ
@@ -284,6 +285,56 @@ const commentDelete = (e) => {
     }else false;
   
 }
+const [loginForm, setLoginForm] = useState({
+    username: '',
+    password: ''
+})
+const {username, password} = loginForm;
+const loginInputValue = (e) => {
+
+    const {name, value} = e.target
+    setLoginForm({
+        ...loginForm,
+        [name]: value
+    });
+
+}
+
+const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post(`http://localhost:3000/auth/login`,{
+        username: loginForm.username,
+        password: loginForm.password
+    }).then(res => {
+        if (res.data) {
+            setRefreshToken(res.data.refreshToken); // 쿠키에 리프레시토큰 저장
+            localStorage.setItem("accessToken", res.data.accessToken); // 로컬스토리지에 엑세스 토큰 저장
+            localStorage.setItem("expireTime", res.data.tokenExpiresIn); // 엑세스토큰 만료시간 저장
+
+            const accessTokenVal = localStorage.getItem("accessToken");
+
+            axios.get("/member/me", {
+                headers: {
+                    Authorization: `Bearer ${accessTokenVal}`
+                }
+            }).then(res => {
+                sessionStorage.setItem("userName", res.data.username);
+                sessionStorage.setItem("birth", res.data.birth);
+                console.log(res.data.name)
+                window.location.reload()
+            }).catch(error => {
+                console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('expireTime');
+                removeCookieToken();
+            })
+        }
+    }).catch(error => {
+        console.log(error.response);
+        alert("아이디 또는 비밀번호가 틀렸습니다");
+    })
+
+};
     return (
         <>          
                 {/* 프로필 / 댓글란 */}
@@ -471,30 +522,31 @@ const commentDelete = (e) => {
                         {/* 로그인 모달 */}
                     {
                         onLoginModal &&
-                        <div>
+                        <>
                             <div className='loginModalBg'></div>
                             <div className='loginModalPopup' style={{ margin: 'auto'}}>
                             <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '500px', height: '50px', color: 'white',  lineHeight: 3 }}>
                                 <span style={{ margin: 25, fontSize: '15pt'}}>로그인</span>
                                 <p className='loginModalXBtn' style={{ paddingBottom: -10 }} onClick={ loginModalClose }>X</p>
                             </div>
+
                                 <div>
                                     <form className='loginModalForm'>
-                                        <table style={{ position: 'relative', top: 60, margin: 'auto'}} cellSpacing="10">
+                                        <table style={{ position: 'relative', top: 70, margin: 'auto'}} cellSpacing="10">
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                    <input className='loginModalFormId' type="text" placeholder='아이디'/>
+                                                    <input className='loginModalFormId' type="text" name="username" id="username" placeholder='아이디' value={ username } onChange={ loginInputValue }/>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <input className='loginModalFormPwd' type="password" placeholder='비밀번호'/>
+                                                        <input className='loginModalFormPwd' name="password" id="password" type="password" placeholder='비밀번호' value={ password } onChange={ loginInputValue } />
                                                     </td>
                                                 </tr>
                                                 
                                                 <br/><br/>
-                                                <button className='loginModalBtn'>로그인</button>
+                                                <button className='loginModalBtn' onClick={ handleSubmit }>로그인</button>
                                             </tbody>
                                         </table>
                                     </form>
@@ -506,7 +558,7 @@ const commentDelete = (e) => {
                                     </div>
                                 </div>
                             </div>
-                         </div>
+                         </>
                     }
                 </div>
         </>
