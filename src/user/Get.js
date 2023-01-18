@@ -151,7 +151,7 @@ const Get = () => {
                  // param
                  pg: 'html5_inicis',
                  pay_method: 'card',
-                 merchant_uid: 999999999,
+                 merchant_uid: merchant_seq,
                  name: 'beatBox 영화예매',
                  amount: 100,
                  buyer_email: 'qkrwlgns0510@naver.com',
