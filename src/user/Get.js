@@ -13,6 +13,7 @@ import Layout from '../Main/Layout';
 const Get = () => {
     const {pk} = useParams();
     const [id] = useState(sessionStorage.getItem('userName'));
+    const [movieURL,setMovieURL] = useState('');
     
     //빈배열
     var empty=emptySeat;
@@ -35,6 +36,17 @@ const Get = () => {
             setFiller(JSON.parse(copy.movie_seat))
         }).catch(err=>console.log(err))
     }
+    useEffect(()=>{
+        axios.get(`http://localhost:8080/movielist/getMovieURL?title=${showDTO.movie_title}`)
+        .then(res=> setMovieURL(res.data)).catch(err=>console.log(err))
+    },[showDTO])
+
+    const getMovieURL=()=>{
+      
+        
+    }
+    getMovieURL()
+
     
     //상영관 예약현황 덮어쓰기
     useEffect(()=>{
@@ -139,9 +151,9 @@ const Get = () => {
                  // param
                  pg: 'html5_inicis',
                  pay_method: 'card',
-                 merchant_uid: 999999999,
+                 merchant_uid: merchant_seq,
                  name: 'beatBox 영화예매',
-                 amount: 100,
+                 amount: (price-discount),
                  buyer_email: 'qkrwlgns0510@naver.com',
                  buyer_name: '박지훈',
                  buyer_tel: '010-1234-5678',
@@ -212,17 +224,14 @@ const Get = () => {
         setModalOpen(false);
     };
 
- 
+
     return (
         <>
         <Layout/>
-
-
-            <div className={styles.title}><h3>예매 좌석 선택</h3></div><hr/>
-
+            <div className={styles.title}><h3>예매 좌석 선택</h3></div>
             <div className={styles.seatContainer}>
                 <div className={styles.seats}>
-                <div className={styles.screen}>screen</div><br/>
+                <div className={styles.screen}>s c r e e n</div><br/>
                     
                     {
                         roomStatus.map((item,index)=>(
@@ -238,13 +247,23 @@ const Get = () => {
                         ))       
                     }
                     <br/>
-                    <button className={styles.button} style={{width:'150px'}}onClick={reset} disabled={selectedSeat.length===0? 'disable':''}>초기화</button>
+                    <button className={styles.button} style={{width:'150px'}}onClick={reset} disabled={selectedSeat.length===0? 'disable':''}>초 기 화</button>
                 </div>  {/* seats */}
                 <div className={styles.reserveTable}>
                     <div className={styles.movie}>
-                        <img className={styles.movieImg} src="../img/1.jpg"></img>
+                        <img className={styles.movieImg} src={movieURL}></img>
                         <div className={styles.movieInfo}>
-                        {showDTO.movie_age}/{showDTO.movie_title}<br/> {showDTO.movie_cinema} {showDTO.movie_theater}<br/>{showDTO.movie_date} <br/> {showDTO.movie_time}
+                            <span className={styles.movieInfoFont} style={{marginBottom:'25px',textAlign:'center'}}>
+                            <img style={{width:'20px',marginBottom:'5px'}} src={
+                                showDTO.movie_age==='All'? '/storage/00.png':
+                                showDTO.movie_age==='12'? '/storage/12.png':
+                                showDTO.movie_age==='15'? '/storage/15.png':
+                                '/storage/18.png'
+                            }/> {showDTO.movie_title}
+                            </span>
+                            <span className={styles.movieInfoFont}>비트박스 {showDTO.movie_cinema} {showDTO.movie_theater}</span>
+                            <span className={styles.movieInfoFont}>{showDTO.movie_date}</span>
+                            <span className={styles.movieInfoFont}>{showDTO.movie_time}</span>
                         </div>
                         
                     </div>
@@ -254,21 +273,21 @@ const Get = () => {
                         {/* 인원선택 */}
                         <label id='adult'>
                         <input type='radio' name="customerLevel" id='adult' defaultChecked onChange={(e)=>customerLevelTarget(e)}></input>
-                        일반 : 10000원
-                        <span style={{color:'gray',fontSize:'0.8em'}}> 현재 {selectedSeat.filter(item=>item.customer==='adult').length}명</span>
+                        <span style={{fontSize:'0.9em'}}>일반 : 10000원</span>
+                        <span style={{color:'gray',fontSize:'0.8em'}}> 현재 <span style={{color:'red'}}>{selectedSeat.filter(item=>item.customer==='adult').length}</span>명</span>
                         </label>
 
                         <label id='child'>
                         <input type='radio' name="customerLevel" id='child' onChange={(e)=>customerLevelTarget(e)}></input>
-                        청소년 : 5000원
-                        <span style={{color:'gray',fontSize:'0.8em'}}> 현재 {selectedSeat.filter(item=>item.customer==='child').length}명</span>
+                        <span style={{fontSize:'0.9em'}}>청소년 : 5000원</span>
+                        <span style={{color:'gray',fontSize:'0.8em'}}> 현재 <span style={{color:'red'}}>{selectedSeat.filter(item=>item.customer==='child').length}</span>명</span>
                         </label>
                     </div> {/* selectTable */}
                     {/* <span style={{fontSize:'0.8em', margin:'3px',fontWeight:'bold'}}>선택 좌석</span> */}
                     <div className={styles.selectedSeatDisplay}>
                         {
                             selectedSeat.length===0?
-                            <span style={{fontSize:'1.3em', color:'green'}}>좌석을 선택해주세요!    </span>
+                            <span style={{fontSize:'1.3em', color:'green',fontWeight:'bold'}}>좌석을 선택해주세요!    </span>
                             :
                             selectedSeat.map((item,index) => (
                                 <div key={index} className={item.customer==='adult'? styles.adultSelected:styles.childSelected} id={item.id} onClick={(e)=>changeStatus(e.target.id)}>
@@ -281,17 +300,20 @@ const Get = () => {
                     <div className={styles.selectComplete}>
                         <div className={styles.amount} style={selectedSeat.length===0? {visibility:'hidden'}:{visibility:'visible'}}>금액 : {price}원</div>
                         <div className={styles.buttons}>
-                            <button className={styles.button} onClick={()=>navigate("/user/calendar",{replace:true})}>이전으로</button>
+                            <button className={styles.button} onClick={()=>navigate(`/user/calendar/${showDTO.movie_title}`)}>이전으로</button>
 
                             <button className={styles.button} onClick={openModal} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
+                            {/* 주석처리 해주세요 */}
+                            <button onClick={paymentComplete}>결제 건너뛰기</button>
                         </div>
                     </div>
                 </div>
-                            <button onClick={paymentComplete}>결제 건너뛰기</button>
             </div> {/* container*/}
             <div className={styles.footer}></div>
-            <Modal open={modalOpen} close={closeModal} header="티켓 결제" closeBtn="좌석선택" showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} price={price} discount={discount}>
-               
+            <Modal 
+                open={modalOpen} close={closeModal} header="티켓 결제" closeBtn="좌석 다시 선택"
+                showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} 
+                price={price} discount={discount} movieURL={movieURL}>
             </Modal>
         </>
     );
