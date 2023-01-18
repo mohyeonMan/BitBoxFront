@@ -152,7 +152,7 @@ const Get = () => {
                  pg: 'html5_inicis',
                  pay_method: 'card',
                  merchant_uid: merchant_seq,
-                 name: 'beatBox 영화예매',
+                 name: 'BitBox 영화예매',
                  amount: (price-discount),
                  buyer_email: 'qkrwlgns0510@naver.com',
                  buyer_name: '박지훈',
@@ -200,16 +200,28 @@ const Get = () => {
              })
          })
          const reserveData={...showDTO,selectedSeat:JSON.stringify(copy),book_pk:Number(pk),user_id:id}
-         console.log(reserveData)
          axios.put('http://localhost:8080/reservation/reservation',reserveData,{
              headers:{
                  'Content-Type': 'application/json'
              }
          }).then(res=> {
-             alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
-             navigate("/myPage");
-          }).catch(err=>console.log(err))
-     }
+            axios.post(`http://localhost:8080/store/getUser?username=${sessionStorage.getItem("userName")}`)
+            .then(res => {
+                const {phoneNumber} = res.data
+                axios.post('http://localhost:8080/store/sms', null, {params: {
+                    recipientPhoneNumber : phoneNumber,
+                    title : '',
+                    content : `BITBOX ${showDTO.movie_cinema}\n${showDTO.movie_title} 예매에 성공하였습니다. \n상영일 : ${showDTO.movie_date}\n상영시간 : ${showDTO.movie_time}`
+                  }}
+                  )
+                .then(res =>{
+                    alert('예매를 성공했습니다. 마이페이지로 이동합니다.')
+                    navigate("/myPage",{replace:true})
+                }).catch(error => console.log(error))
+
+            }).catch(error => console.log(error))
+        }).catch(err=>console.log(err))
+    }
     
     
     
@@ -271,17 +283,24 @@ const Get = () => {
                     <div className={styles.selectTable}>
                         <span style={{color:'red',fontSize:'0.8em'}}>예약은 최대 8명까지 가능합니다.</span>
                         {/* 인원선택 */}
-                        <label id='adult'>
-                        <input type='radio' name="customerLevel" id='adult' defaultChecked onChange={(e)=>customerLevelTarget(e)}></input>
-                        <span style={{fontSize:'0.9em'}}>일반 : 10000원</span>
-                        <span style={{color:'gray',fontSize:'0.8em'}}> 현재 <span style={{color:'red'}}>{selectedSeat.filter(item=>item.customer==='adult').length}</span>명</span>
-                        </label>
-
-                        <label id='child'>
-                        <input type='radio' name="customerLevel" id='child' onChange={(e)=>customerLevelTarget(e)}></input>
-                        <span style={{fontSize:'0.9em'}}>청소년 : 5000원</span>
-                        <span style={{color:'gray',fontSize:'0.8em'}}> 현재 <span style={{color:'red'}}>{selectedSeat.filter(item=>item.customer==='child').length}</span>명</span>
-                        </label>
+                        <span>
+                            <label id='adult'>
+                            <input type='radio' name="customerLevel" id='adult' defaultChecked onChange={(e)=>customerLevelTarget(e)}></input>
+                            <span style={{fontSize:'0.9em'}}>일반 : 10000원</span>
+                            <span style={{color:'gray',fontSize:'0.8em'}}> 현재 {selectedSeat.filter(item=>item.customer==='adult').length}명</span>
+                            </label>
+                        </span>
+                        <span>
+                            <label id='child'>
+                            <input type='radio' name="customerLevel" id='child' onChange={(e)=>customerLevelTarget(e)}></input>
+                            <span style={{fontSize:'0.9em'}}>청소년 : 5000원</span>
+                            <span style={{color:'gray',fontSize:'0.8em'}}> 현재 {selectedSeat.filter(item=>item.customer==='child').length}명</span>
+                            </label>
+                        </span>
+                        <span style={{display:'flex',justifyContent:'space-around', width:'40%', fontSize:'0.7em', marginTop:'10px'}}>
+                            <span><div style={{display:'inline-block',width:'15px',height:'15px',backgroundColor:'chocolate',border:'1px solid black',borderRadius:'5px'}}></div>일반</span>
+                            <span><div style={{display:'inline-block',width:'15px',height:'15px',backgroundColor:'coral',border:'1px solid black',borderRadius:'5px'}}></div>청소년</span>
+                        </span>
                     </div> {/* selectTable */}
                     {/* <span style={{fontSize:'0.8em', margin:'3px',fontWeight:'bold'}}>선택 좌석</span> */}
                     <div className={styles.selectedSeatDisplay}>
@@ -304,14 +323,14 @@ const Get = () => {
 
                             <button className={styles.button} onClick={openModal} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
                             {/* 주석처리 해주세요 */}
-                            <button onClick={paymentComplete}>결제 건너뛰기</button>
+                            {/* <button onClick={paymentComplete}>결제 건너뛰기</button> */}
                         </div>
                     </div>
                 </div>
             </div> {/* container*/}
             <div className={styles.footer}></div>
             <Modal 
-                open={modalOpen} close={closeModal} header="티켓 결제" closeBtn="좌석 다시 선택"
+                open={modalOpen} close={closeModal} header="영화 예매 결제" closeBtn="좌석 다시 선택"
                 showDTO={showDTO} selectedSeat={selectedSeat} payment={payment} 
                 price={price} discount={discount} movieURL={movieURL}>
             </Modal>
