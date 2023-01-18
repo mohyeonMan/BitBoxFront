@@ -148,7 +148,7 @@ const DetailInfoTab = (props) => {
             //         .catch(error => console.log(error))
         // 더보기 버튼 유무            
         const onBtn = () => {
-            data.filter(thisMovie => thisMovie?.movie_title === movie_title, thisMovie?.movie_info_title2 === '' ? setBtn(false) : setBtn(true))
+            data.filter(thisMovie => thisMovie?.movie_title === movie_title, thisMovie?.movie_info_title2 === null ? setBtn(false) : setBtn(true))
         }
         onBtn()
     }, [])
@@ -372,6 +372,7 @@ const DetailInfoTab = (props) => {
         setReviewContentDiv('')
 
     }
+    
     const commentDelete = (e) => {
         if(window.confirm('댓글을 삭제하시겠습니까?')){
             axios.delete(`http://localhost:8080/movielist/user_comment_delete?id=${userName}`)
@@ -415,7 +416,7 @@ const DetailInfoTab = (props) => {
                         view && thisMovie?.movie_info_title2
                     }
                     {
-                        btn &&
+                        thisMovie?.movie_info_title2 && 
                         <button onClick={ onView }
                          className='viewBtn'
                          >{ view ? '닫기' : '더보기' }</button>
