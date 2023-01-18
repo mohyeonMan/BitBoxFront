@@ -102,7 +102,7 @@ const Movielist_tab01 = () => {
 
     const onSearch = () => {
         axios
-            .get('http://localhost:8080/movielist/Movie_search_tobereleased', {
+            .get('http://localhost:8080/movielist/Movie_search_boxoffice', {
                     params : {
                         searchOption : searchOption,
                         keyword: keyword

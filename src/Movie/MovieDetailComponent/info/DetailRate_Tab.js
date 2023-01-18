@@ -5,38 +5,39 @@ import noneImg from '../img/bg-photo.png';
 import axios from 'axios';
 import { Navigate, useParams } from 'react-router-dom';
 
-const DetailRate_Tab = () => {
-    
+const DetailRate_Tab = (props) => {
+    // 세션 name 가져오기 ㅠㅠ
+    const [userName] = useState(sessionStorage.getItem("userName"))
+
     // 리스트에서 클릭한 영화 가져오기
     const { movie_title } = useParams()
     // 해당 영화 내용물 매칭
-    const thisMovie = data.find(thisMovie => thisMovie.movie_title === movie_title)
-    const [data, setData] = useState('')
+    const [data, setData] = useState([])
+    const [thisMovie,setThisMovie] = useState({});
     // 로그인 토글
     const [loginToggle, setLoginToggle] = useState(false)
     const onLoginToggle = () => {
         setLoginToggle(!loginToggle)
     }
     // 로그인 모달
-    const [onLoginModal, setOnLoginModal] = useState(false)
-    const loginModalOpen = () =>{
-        setOnLoginModal(true)
-        window.scrollTo(0, 0)
-    }
-    const loginModalClose = () =>{
-        setOnLoginModal(false)
-    }
+    // const [onLoginModal, setOnLoginModal] = useState(false)
+    // const loginModalOpen = () =>{
+    //     setOnLoginModal(true)
+    //     window.scrollTo(0, 0)
+    // }
+    // const loginModalClose = () =>{
+    //     setOnLoginModal(false)
+    // }
     // 별점 value 표기용 
     const [starRating, setStarRating] = useState('')
     // 댓글리스트
-    const [commentList, setCommentList] = useState([])
+    const [commentList, setCommentList] = useState(props.commentList)
     // 댓글 작성 모달창 스위치
     const [onReviewModal, setOnReviewModal] = useState(false)
     const ReviewModalOpen = () => {
         setOnReviewModal(true)
         setReviewForm({
             ...reviewForm,
-            user_title: thisMovie.movie_title
         })
     }
     const ReviewModalClose = (e) => {
@@ -48,15 +49,20 @@ const DetailRate_Tab = () => {
     useEffect(()=> {
         axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
         .then(res => {setData(res.data)})
-        axios.get('http://localhost:8080/movielist/get_comment_list')
-                    .then(res => setCommentList(res.list))
-                    .catch(error => console.log(error))
+        // 댓글 가져오기
+        // axios.get('http://localhost:8080/movielist/get_comment_list')
+        //             .then(res => setCommentList(res.data))
+        //             .catch(error => console.log(error))
     }, [])
+
+    useEffect(()=>{
+        setThisMovie(data.find(thisMovie => thisMovie.movie_title === movie_title))
+    },[data])
 
      // 댓글 작성 폼
      const [reviewForm, setReviewForm] = useState({
-        user_name : '테스트',
-        user_title: '',
+        user_name : userName,
+        movie_title: movie_title,
         user_rate: '',
         user_content1: '',
         user_content2: '',
@@ -235,7 +241,8 @@ const formSubmit = (e) => {
         axios.post('http://localhost:8080/movielist/user_comment_write', null, { params:reviewForm })
         .then(() => {
             alert('댓글이 작성되었습니다.');
-            Navigate('http://localhost:3000');
+            ReviewModalClose();
+            window.location.reload()
         })
         .catch(error => console.log(error))
     }
@@ -272,7 +279,7 @@ const formReset = (e) => {
                     {/* 프로필 & 댓글 작성 & 로그인 여부 */}
                     <div>
                         <p style={{ color: '#8d0707', fontSize: '18pt', fontWeight: 500, margin: 0}}>
-                        { thisMovie.movie_title }에 대한 <span style={{ color: '#c47c7c'}}>{commentList.length}</span>개의 이야기가 있어요!
+                        { thisMovie?.movie_title }에 대한 <span style={{ color: '#c47c7c'}}>{ commentList.length }</span>개의 이야기가 있어요!
                         </p>
 
                         {/* <div style={{ width: '1075px', height: '36px'  }}>
@@ -285,15 +292,17 @@ const formReset = (e) => {
                             <br/>    
                         </p>
 
+                        {/* 프로필 & 댓글 작성 & 로그인 여부 */}
+                        { userName === null ?
                         <div style={{ display: 'flex', margin: 15 }}>
                             <div style={{ width: '105px', height: '75px'}}>
                                 <img style={{ margin: 10 }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png" alt="BITBOX" />
-                                <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">노로그인</p>
+                                <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">BITBOX</p>
                             </div>
 
                             <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
-                                <p>
-                                    <span style={{ color: '#c47c7c' }}>&emsp; { thisMovie.movie_title }&nbsp;</span>
+                                <p style={{ marginTop: 10 }}>
+                                    <span style={{ color: '#c47c7c', }}>&emsp; { thisMovie?.movie_title }&nbsp;</span>
                                         재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                         <br/>
                                         &emsp; 관람일 기준 7일 이내 등록 시 50P 가 적립됩니다.
@@ -305,81 +314,26 @@ const formReset = (e) => {
                                         <img style={{ width: '18px', height: '18px' }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-story-write.png" />
                                             &nbsp;관람평쓰기&emsp;
                                             {
-                                            loginToggle &&
-                                            <p className='bfLogText' style={{ right: 150, top: 670, paddingTop: 25, cursor: 'default', color: 'black' }}>로그인이 필요한 서비스 입니다.
-                                                <button onClick={ loginModalOpen } style={{ cursor: 'pointer', background: 'none', border: 'none', color: '#c47c7c' }}>로그인 바로가기 {'>'}
-                                                </button>
+                                                loginToggle &&
+                                                <p className='bfLogText' style={{ right: 150, top: 670, paddingTop: 25, cursor: 'default', color: 'black' }}>로그인이 필요한 서비스 입니다.
+                                                <br/>
+                                                <a href="http://localhost:3000/member/loginForm"  style={{ cursor: 'pointer', background: 'none', border: 'none', color: '#c47c7c' }}>로그인 바로가기 {'>'}
+                                                </a>
                                             </p>
                                             }      
-                                        </button>{/* 관람평 / 툴팁 */}
+                                    </button>{/* 관람평 / 툴팁 */}
                                 </p>
-
-                                {/* 로그인 모달 */}
-                                {
-                                    onLoginModal &&
-                                    <>
-                                        <div className='loginModalBg'></div>
-                                        <div className='loginModalPopup' style={{ margin: 'auto'}}>
-                                        <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '500px', height: '50px', color: 'white' }}>
-                                            <span style={{ margin: 30, fontSize: '15pt', lineHeight: 2.5 }}>로그인</span>
-                                        </div>
-                                            <p className='loginModalXBtn' onClick={ loginModalClose }>X</p>
-                                            <div>
-                                                <form className='loginModalForm'>
-                                                    <table style={{ position: 'relative', top: 50, margin: 'auto'}} cellSpacing="10">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                <input className='loginFormId' type="text" placeholder='아이디'/>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input className='loginFormPwd' type="password" placeholder='비밀번호'/>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="checkbox" style={{ color: 'black' }} />아이디 저장
-                                                                </td>
-                                                            </tr>
-                                                            <button className='loginModalBtn'>로그인</button>
-                                                        </tbody>
-                                                    </table>
-                                                </form>
-                                                <div style={{ position: 'relative', fontWeight: 400, lineHeight: 5, textAlign:'center', marginTop: 50 }}>
-                                                    <a href="#" className='loginLink' style={{ padding: 10 }}>&nbsp;ID/PW 찾기</a> | 
-                                                    <a href="#" className='loginLink' style={{ padding: 10 }}> 회원가입</a> | 
-                                                    <a href="#" className='loginLink' style={{ padding: 10 }}> 비회원 예매확인</a>
-                                                </div>
-                                                <div style={{ position: 'relative', fontWeight: 400, lineHeight: 5, textAlign:'center' }}>
-                                                    <a href="#" style={{ padding: 30 }}>
-                                                        <img src="https://www.megabox.co.kr/static/pc/images/member/ico-naver.png" />
-                                                    </a>
-                                                    <a href="#" style={{ padding: 30 }}>
-                                                        <img src="https://www.megabox.co.kr/static/pc/images/member/ico-kakao.png" />
-                                                    </a>
-                                                    <a href="#" style={{ padding: 30 }}>
-                                                        <img src="https://www.megabox.co.kr/static/pc/images/member/ico-payco.png" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                     </>
-                                }
-
                             </div>
-                    </div>
-                    {/* 프로필 & 댓글 작성 & 로그인 여부 */}
-                             {/* 댓글 작성 &  로그인 후 */}
-                            <div style={{ display: 'flex', margin: 15 }}>
-                                <div style={{ width: '105px', height: '75px'}}>
-                                    <img style={{ margin: 10, maxWidth:'50px', maxHeight: '50px' }} src={ noneImg } alt="프로필 이미지" />
-                                    <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">예스로그인</p>
-                                </div>
-                                <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
-                                    <p><br/> 
-                                        &emsp;&emsp;<span style={{ color: '#c47c7c' }}>userName</span>님 <span style={{ color: '#01738B' }}>{ thisMovie.MovieName }&nbsp;</span>
+                        </div>
+                         :
+                        <div style={{ display: 'flex', margin: 15 }}>
+                            <div style={{ width: '105px', height: '75px'}}>
+                                <img style={{ margin: 10, maxWidth:'50px', maxHeight: '50px' }} src={ noneImg } alt="프로필 이미지" />
+                                <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">{ userName }</p>
+                            </div>
+                            <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
+                                <p style={{ marginTop: 7 }}><br/>
+                                     &emsp;&emsp;<span style={{ color: '#c47c7c' }}>{ userName }</span>님 <span style={{ color: '#c47c7c' }}>{ thisMovie?.movie_title }&nbsp;</span>
                                             재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
                                         
                                         {/* 관람평 / 툴팁 */}
@@ -390,21 +344,23 @@ const formReset = (e) => {
                                     </p>
                                 </div>
                             </div>
+                        }
                         </div>
-                        {/* 평점 모달 */}
+                    {/* 평점 모달 */}
+
                     {
                         onReviewModal && 
                         <>
                             <div className='reviewModalBg'>
                                 <div className='reviewModalPopup' style={{ margin: 'auto' }}>
-                                    <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#503396', width: '700px', height: '50px', color: 'white' }}>
+                                    <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '700px', height: '50px', color: 'white' }}>
                                         <span style={{ display: 'flex', margin: 30, fontSize: '15pt', lineHeight: 0 }}>평점</span>
                                     </div>
                                 <span className='reviewModalXBtn' style={{ position: 'absolute', lineHeight: 0, textAlign: 'right', right: 20  }} onClick={ ReviewModalClose }>X</span>
                                 
                                 <div>
-                                    <br/>
-                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie.movie_title }</span> 재밌게 보셨나요?</h3>
+                                    <br/><br/>
+                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie?.movie_title }</span> 재밌게 보셨나요?</h3>
                                     
 
                                     <form name="reviewForm" id="reviewForm">
@@ -428,11 +384,11 @@ const formReset = (e) => {
                                         <fieldset style={{ border: 0 }} >
                                             <legend>어떤게 좋았나요?</legend>
                                             <br/>
-                                            <label><input type="checkbox" checked={ reviewCheck1 } onChange={(e) => checkHandler1(e) } name="user_content1" value="연출" /> 연출  </label>
-                                            <label><input type="checkbox" checked={ reviewCheck2 } onChange={(e) => checkHandler2(e) } name="user_content2" value="영상미" /> 영상미 </label>
-                                            <label><input type="checkbox" checked={ reviewCheck3 } onChange={(e) => checkHandler3(e) } name="user_content3" value="스토리" /> 스토리 </label>
-                                            <label><input type="checkbox" checked={ reviewCheck4 } onChange={(e) => checkHandler4(e) } name="user_content4" value="OST" /> OST </label>
-                                            <label><input type="checkbox" checked={ reviewCheck5 } onChange={(e) => checkHandler5(e) } name="user_content5" value="배우" /> 배우 </label>
+                                            <label><input type="checkbox" checked={ reviewCheck1 } onChange={(e) => checkHandler1(e) } name="user_content1" value="연출" /> 연출&emsp;</label>
+                                            <label><input type="checkbox" checked={ reviewCheck2 } onChange={(e) => checkHandler2(e) } name="user_content2" value="영상미" /> 영상미&emsp;</label>
+                                            <label><input type="checkbox" checked={ reviewCheck3 } onChange={(e) => checkHandler3(e) } name="user_content3" value="스토리" /> 스토리&emsp;</label>
+                                            <label><input type="checkbox" checked={ reviewCheck4 } onChange={(e) => checkHandler4(e) } name="user_content4" value="OST" /> OST&emsp;</label>
+                                            <label><input type="checkbox" checked={ reviewCheck5 } onChange={(e) => checkHandler5(e) } name="user_content5" value="배우" /> 배우</label>
                                         </fieldset>
                                             <div id="reviewContentDiv">&emsp;{ reviewContentDiv }</div>
                                         <p></p>
@@ -454,11 +410,11 @@ const formReset = (e) => {
                             </div>
                         </>
                     }
-
+                    
                     {
-                        commentList.map(commentItem => {
+                        commentList.map((commentItem,index) => {
                         return (
-                                <div>
+                                <div key={index}>
                                     <div style={{ display: 'flex', margin: 15 }} >
                                         
                                             {/* 사진 / 아이디 */}
@@ -495,6 +451,56 @@ const formReset = (e) => {
                                )
                             })
                         }
+                        {/* 로그인 모달 */}
+                    {/* {
+                        onLoginModal &&
+                        <>
+                            <div className='loginModalBg'></div>
+                            <div className='loginModalPopup' style={{ margin: 'auto'}}>
+                            <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '500px', height: '50px', color: 'white',  lineHeight: 3 }}>
+                                <span style={{ margin: 25, fontSize: '15pt'}}>로그인</span>
+                                <p className='loginModalXBtn' style={{ paddingBottom: -10 }} onClick={ loginModalClose }>X</p>
+                            </div>
+                                <div>
+                                    <form className='loginModalForm'>
+                                        <table style={{ position: 'relative', top: 50, margin: 'auto'}} cellSpacing="10">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                    <input className='loginModalFormId' type="text" placeholder='아이디'/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input className='loginModalFormPwd' type="password" placeholder='비밀번호'/>
+                                                    </td>
+                                                </tr>
+                                                
+                                                <br/>
+                                                <button className='loginModalBtn'>로그인</button>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                    <div style={{ position: 'relative', fontWeight: 400, lineHeight: 5, textAlign:'center', marginTop: 50 }}>
+                                        <a href="#" className='loginLink' style={{ padding: 10 }}>&nbsp;ID/PW 찾기</a> | 
+                                        <a href="#" className='loginLink' style={{ padding: 10 }}> 회원가입</a> | 
+                                        <a href="#" className='loginLink' style={{ padding: 10 }}> 비회원 예매확인</a>
+                                    </div>
+                                    <div style={{ position: 'relative', fontWeight: 400, lineHeight: 5, textAlign:'center' }}>
+                                        <a href="#" style={{ padding: 30 }}>
+                                            <img src="https://www.megabox.co.kr/static/pc/images/member/ico-naver.png" />
+                                        </a>
+                                        <a href="#" style={{ padding: 30 }}>
+                                            <img src="https://www.megabox.co.kr/static/pc/images/member/ico-kakao.png" />
+                                        </a>
+                                        <a href="#" style={{ padding: 30 }}>
+                                            <img src="https://www.megabox.co.kr/static/pc/images/member/ico-payco.png" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                         </>
+                    } */}
                 </div>
         </>
     );

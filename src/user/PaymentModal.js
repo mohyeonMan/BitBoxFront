@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from '../css/PaymentModal.module.css';
 import '../css/modal.css';
+import { width } from '@mui/system';
 
 
 
 const PaymentModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header,closeBtn, showDTO, selectedSeat, payment, price, discount} = props;
+  const { open, close, header,closeBtn, showDTO, selectedSeat, payment, price, discount, movieURL} = props;
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -19,18 +20,23 @@ const PaymentModal = (props) => {
               &times;
             </button>
           </header>
-            <main style={{height:'500px'}}>
+            <main style={{height:'500px', backgroundImage:'url(/img_member/backgroundRev.png)',background:'cover',backgroundPositionX:'-50px'}}>
             <div className={styles.paymentModal}>
-                    <div className={styles.paymentSelect}>
-                        <div className={styles.pointInfo}>
-
-                        </div>
+                    <div className={styles.movieImgURL} style={{backgroundImage: `url(${movieURL})`, backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'50%'}}>
                     </div>
                     <div className={styles.reservationInfo}>
-                        <div className={styles.movieInfo}>
-                            <span>{showDTO.movie_title}</span>
-                            <span>{showDTO.movie_cinema}/{showDTO.movie_theater}</span>
-                            <span>{showDTO.movie_date} | {showDTO.movie_time}</span>
+                    <div className={styles.movieInfo}>
+                            <span className={styles.movieInfoFont} style={{marginBottom:'25px'}}>
+                            <img style={{width:'20px',marginBottom:'5px'}} src={
+                                showDTO.movie_age==='All'? '/storage/00.png':
+                                showDTO.movie_age==='12'? '/storage/12.png':
+                                showDTO.movie_age==='15'? '/storage/15.png':
+                                '/storage/18.png'
+                            }/> {showDTO.movie_title}
+                            </span>
+                            <span className={styles.movieInfoFont}>비트박스 {showDTO.movie_cinema} {showDTO.movie_theater}</span>
+                            <span className={styles.movieInfoFont}>{showDTO.movie_date}</span>
+                            <span className={styles.movieInfoFont}>{showDTO.movie_time}</span>
                         </div>
                         <div className={styles.paymentBox}>
                             {
@@ -65,7 +71,7 @@ const PaymentModal = (props) => {
                </div>
             </main>
           <footer>
-            <button className="close" onClick={close}>
+            <button className="close" onClick={close} style={{backgroundColor:'lightgray',border:'2px solid gainsboro',borderRadius:'5px', fontWeight:'bold'}}>
               {closeBtn}
             </button>
           </footer>

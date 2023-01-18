@@ -6,12 +6,11 @@ import Member from "./member/Member";
 import JoinForm from "./member/JoinForm";
 import LoginForm from "./member/LoginForm";
 import AuthPopUpPage from "./member/memberComponents/AuthPopUpPage";
-import MyPage from "./member/MyPage";
 import Calendar from "./user/Calendar";
 import Test from "./Admin/test";
 import Get from "src/user/Get";
 import axios from "axios";
-import {getCookieToken, removeCookieToken, setRefreshToken} from "src/member/storage/Cookie";
+import {getCookieToken, setRefreshToken} from "src/member/storage/Cookie";
 import WriteForm from './component/store/WriteForm';
 import List from './component/store/List';
 import View from './component/store/View';
@@ -29,7 +28,7 @@ import FindPwdAndChange from "src/member/FindPwdAndChange";
 import Success from './user/Success';
 import Get2 from "src/user/Get2";
 import LoginForm2 from "src/member/LoginForm2";
-import Reservation from './Main/Reservation';
+import MyPage from './Main/MyPage';
 import EditProfile from './Main/EditProfile';
 import MovieDetail_Page from './Movie/MovieDetailComponent/info/MovieDetail_Page';
 
@@ -67,7 +66,7 @@ const App = () => {
             <Route path='/member/joinForm/*' element={<JoinForm />} />
             <Route path='/member/loginForm' element={<LoginForm />} />
             <Route path='/member/loginForm2' element={<LoginForm2/>} />
-            <Route path='/myPage/reservation' element={<Reservation />} />
+            <Route path='/myPage' element={<MyPage />} />
             <Route path='/myPage/editProfile' element={<EditProfile />} />
             <Route path='/member/FindIdPasswordRoutes/*' element={<FindIdPasswordRoutes />} />
             <Route path='/member/findPwdAndChange' element={<FindPwdAndChange />} />

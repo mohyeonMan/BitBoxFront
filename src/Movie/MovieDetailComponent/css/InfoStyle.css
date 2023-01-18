@@ -1,10 +1,11 @@
 body {
     font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
-    letter-spacing: -1px;  
+    letter-spacing: -1px;
 }
-.wrap {
+.detailwrap {
     color: white;
     border: 1px solid gray;
+    background: black;
     height: 100%;
 }
 .container {
@@ -30,7 +31,7 @@ body {
 }
 .backgroundMask{
     background:radial-gradient(transparent, #011111, #000000);
-    opacity: 0.8;
+    opacity: 0.9;
 }
 .backgroundMask::after {
     opacity: 1;
@@ -157,6 +158,9 @@ body {
     color: white;
     font-weight: 900;
 }
+.reserveBtn2:hover {
+    color: white;
+}
 .tab {
     width: 1200px;
     height: 50px;
@@ -191,6 +195,7 @@ ul > li {
 
 
 .preBtn {
+    width: 100px;
     line-height: 500px;
     text-decoration: none;
     font-weight: 600;
@@ -208,6 +213,7 @@ ul > li {
     text-decoration: none;
 }
 .nextBtn {
+    width: 100px;
     line-height: 500px;
     text-decoration: none;
     font-weight: 600;

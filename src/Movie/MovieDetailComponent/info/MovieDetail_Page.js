@@ -7,39 +7,58 @@ import DetailInfo_Tab from './DetailInfo_Tab';
 import DetailRate_Tab from './DetailRate_Tab';
 import StillCut_Tab from './StillCut_Tab';
 
-const MovieDetail_Page = () => {
-    const { movie_title } = useParams()
-    const [movieData, setMovieData] = useState([])
-    // const [dolby, setDolby] = useState('')
-    const [item,setItem]=useState({});
+const MovieDetail_Page = (props) => {
 
-    useEffect((item) => {
+const { movie_title } = useParams()
+const [item, setItem]=useState({});
+const [commentList,setCommentList]=useState([])
+
+    
+
+    useEffect(() => {
         axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
         .then(res => {
-            setMovieData(res.data)
-            var copy = res.data
-            setItem(copy.find(item => item.movie_title === movie_title))
+            var movieData = res.data
+            setItem(movieData.find(item => item.movie_title === movie_title))
         })
-        //ageURL()
-        console.log(movieData)
-    }, []) 
-    const toggleMenu = [
+        axios.get(`http://localhost:8080/movielist/getComments?title=${movie_title}`)
+            .then(res => { setCommentList(res.data) })
+            .catch(err => console.log(err))
+    }, [])
+
+    useEffect(() => {
+
+        ageURL()
+
+    },[item])
+
+    useEffect(()=>{
+        setIndex(0);
+    },[commentList])
+
+    const toggleMenu = (
+    [
         {
        id: 0,
        title: "주요정보",
-       tab: <DetailInfo_Tab />
+       tab: <DetailInfo_Tab commentList={ commentList } />
         },
        {
         id : 1,
         title: "실관람평",
-        tab: <DetailRate_Tab />
+        tab: <DetailRate_Tab commentList={ commentList } />
        },
        {
        id: 2,
        title: "예고편",
        tab: <StillCut_Tab />
-    }
- ]   
+        }
+    ])
+
+
+
+    
+
     const [ageIcon, setAgeIcon] = useState('')
     const ageAll = 'https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png'
     const age12 = 'https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png'
@@ -47,20 +66,18 @@ const MovieDetail_Page = () => {
     const age19 = 'https://img.megabox.co.kr/static/pc/images/common/txt/19_46x46.png'
 
     const ageURL = () => {
-        movieData.map(item => item.movie_title === movie_title, item.movie_agegrade === "청소년관람불가" 
+        item.movie_agegrade === "청소년관람불가" 
             ? setAgeIcon(age19) : item.movie_agegrade === "15세이상관람가" 
             ? setAgeIcon(age15) : item.movie_agegrade === "12세이상관람가"
             ? setAgeIcon(age12) : 
-            setAgeIcon(ageAll) )
+            setAgeIcon(ageAll) 
     }
    
-
-
-    const [index, setIndex] = useState(0);
+    const [index, setIndex] = useState('');
 
     return (
         <>
-            <div className='wrap' style={{ margin: 'auto' }}>
+            <div className='detailwrap' style={{ margin: 'auto' }}>
                 <div className='container'>
                   <div className='headerBg' style={{ margin: 'auto' }} >
                         <img className='headerImg' style={{ margin: 'auto', paddingLeft: 140, position: 'absolute' }} src={ item.movie_header_url } />
@@ -71,8 +88,8 @@ const MovieDetail_Page = () => {
                                 <br/>
                                 {/* <p className='hash' style={{ marginTop: 30 }}>&nbsp;{ dolby }</p> */}
                                 <br/><br/><br/>
-                                <p className='movieTitle' style={{ marginTop: -2 }}>{ item.movie_title }</p>
-                                <h3 style={{ marginTop: -35 }}>{ item.movie_subtitle }</h3>
+                                <p className='movieTitle' style={{ marginTop: -10 }}>{ item.movie_title }</p>
+                                <h3 style={{ marginTop: -20 }}>{ item.movie_subtitle }</h3>
                                 <div id="headerBtn">
                                     {/* <button className='likeBtn' style={{ }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="18" height="18" viewBox="0 -4 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -81,8 +98,9 @@ const MovieDetail_Page = () => {
                                         </svg>
                                         &nbsp; { item.Like }
                                     </button> &nbsp; */}
-                                    <button className='sharBtn' style={{ paddingRight: 11, paddingBottom: 5 }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-share" width="18" height="18" viewBox="0 -3 24 25" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                    {/* <button className='sharBtn' style={{ paddingRight: 11, paddingBottom: 5 }}>
+                                    
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon" width="18" height="18" viewBox="0 -3 24 25" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <circle cx="6" cy="12" r="3"></circle>
                                             <circle cx="18" cy="6" r="3"></circle>
@@ -91,16 +109,16 @@ const MovieDetail_Page = () => {
                                             <line x1="8.7" y1="13.3" x2="15.3" y2="16.7"></line>
                                         </svg>
                                         &nbsp; 공유하기
-                                        </button>
+                                    </button> */}
                                 </div>
                                 {/* 영화평 */}
                                 
                                 <div id="info" style={{ position: 'absolute', fontWeight: 600, bottom: -30}}>
                                     <div id="score">
                                         <p className='rateTit' style={{ bottom: -170 }}>실관람 평점</p>
-                                        <div className='mainMegaScore' style={{ bottom: -145 }}>
+                                        <div className='mainMegaScore' style={{ bottom: -155 }}>
                                             <p>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-box-multiple" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                 <rect x="7" y="3" width="14" height="14" rx="2"></rect>
                                                 <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2"></path>
@@ -110,26 +128,28 @@ const MovieDetail_Page = () => {
                                         </div>
                                     </div>
                                     <div id="rate">
-                                        <p style={{ position: 'relative', bottom: -46, fontSize: '11pt',fontWeight: 600, marginLeft: 100 }}>
+                                        <p style={{ position: 'relative', bottom: -67, fontSize: '11pt',fontWeight: 600, marginLeft: 100 }}>
                                             예매율</p>
-                                        <p style={{ position: 'relative', bottom: -37, marginLeft: 100,}}>
+                                        <p style={{ position: 'relative', bottom: -50, marginLeft: 100,}}>
                                             <span style={{ fontWeight: '600', fontSize: '25pt'}}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-ticket" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            {/* icon-tabler icon-tabler-ticket */}
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="icon" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                     <line x1="15" y1="5" x2="15" y2="7"></line>
                                                     <line x1="15" y1="11" x2="15" y2="13"></line>
                                                     <line x1="15" y1="17" x2="15" y2="19"></line>
                                                     <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"></path>
                                                 </svg>
-                                                &nbsp;{ item.index } </span>
+                                                &nbsp;{ item.movie_like } </span>
                                             위 ({ item.movie_reserve_rate }%)
                                         </p>
                                     </div>
+
                                     <div id="audience">
-                                        <div style={{ position: 'relative', bottom: 45, fontSize: '11pt',fontWeight: 600, marginLeft: 250 }}>
+                                        <div style={{ position: 'relative', bottom: 40, fontSize: '11pt', fontWeight: 600, marginLeft: 250 }}>
                                              <span>누적관객수 
-                                                    <div className='tooltip' style={{ marginLeft: 5, padding: 1}}> ?
-                                                        <div className='tooltipText'>
+                                                    <div className='detailTooltip' style={{ marginLeft: 5, padding: 1 }}> ?
+                                                        <div className='detailTooltipText'>
                                                             <div className='tooltipTextBottom'>
                                                                 <div className='tooltipContent'>
                                                                     <div>
@@ -143,7 +163,8 @@ const MovieDetail_Page = () => {
                                                     </div>
                                              </span>
                                         </div>
-                                        <p style={{ position: 'relative', marginLeft: 250, bottom: 53 }}>
+
+                                        <p style={{ position: 'relative', marginLeft: 250, bottom: 40 }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                 <circle cx="9" cy="7" r="4"></circle>
@@ -156,7 +177,7 @@ const MovieDetail_Page = () => {
 		                        </div>
                                 {/* 포스터 */}
                                 <div className='poster' style={{ right: 0, top: 46 }}>
-                                    <img className='poster' src={ item.PosterURL } />
+                                    <img className='poster' src={ item.movie_poster_url } />
                                     <div className='ageIcon' style={{ margin: 5 }}>
                                         <img className='ageIcon' src={ ageIcon } />
                                     </div>
@@ -195,6 +216,7 @@ const MovieDetail_Page = () => {
                                     toggleMenu.filter(item => index === item.id).map((item,index) => (
                                         <div key={index} style={{ margin: 40}} className='tabContent' >{ item.tab }</div>
                                     ))    
+
                                     }
                         </div>{/* section  */}
                     </div> 

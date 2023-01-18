@@ -9,7 +9,6 @@ import mypageIcon from './img/my.png';
 import supportIcon from './img/service-center.png';
 import searchIcon from './img/search.png';
 import {getCookieToken, removeCookieToken} from "src/member/storage/Cookie";
-import HeaderModal from './HeaderModal';
 
 const Header = () => {
     const [searchKey, setSearchKey] = useState('');
@@ -54,7 +53,7 @@ const Header = () => {
                 <div className="container55">
                     <div>
                         <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
-                        <span>비이트바악스</span>
+                        {/* <span>비이트바악스</span> */}
                     </div>
                     {/* <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/> */}
                     <UserNavList />
@@ -112,6 +111,7 @@ const Header = () => {
 const UserNavList = () => {
 
     const [isLogin, setIsLogin] = useState(false);
+    const navi = useNavigate();
 
     useEffect(() => {
         if (getCookieToken()) {
@@ -172,8 +172,7 @@ const UserNavList = () => {
                 {isLogin &&
                     <a>
                         <img src={mypageIcon} alt="마이페이지 아이콘" />
-                        <span style={{cursor:"pointer"}} onClick={showModal}>MY BITBOX</span>
-                        {modalOpen && <HeaderModal setModalOpen={setModalOpen} />}
+                        <span style={{cursor:"pointer"}} onClick={() => {navi("/myPage");}}>MY BITBOX</span>
                     </a>
                 }
             </li>

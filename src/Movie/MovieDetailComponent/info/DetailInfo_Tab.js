@@ -34,7 +34,10 @@ import {
   );
 
 
-const DetailInfoTab = () => {
+const DetailInfoTab = (props) => {
+    // 세션 name 가져오기 ㅠㅠ
+    const [userName] = useState(sessionStorage.getItem("userName"))
+
     // 별점 value 표기용 
     const [starRating, setStarRating] = useState('')
     // 리스트에서 클릭한 영화 가져오기
@@ -49,16 +52,15 @@ const DetailInfoTab = () => {
         setLoginToggle(!loginToggle)
     }
     // 해당 영화 내용물 매칭
-    const thisMovie = data.find(thisMovie => thisMovie?.movie_title === movie_title)
+    const [thisMovie,setThisMovie] = useState({});
     // 댓글리스트
-    const [commentList, setCommentList] = useState([])
+    const [commentList, setCommentList] = useState(props.commentList)
     // 댓글 작성 모달창 스위치
     const [onReviewModal, setOnReviewModal] = useState(false)
     const ReviewModalOpen = () => {
         setOnReviewModal(true)
         setReviewForm({
             ...reviewForm,
-            user_title: thisMovie?.movie_title
         })
         window.scrollTo(0, 0)
     }
@@ -85,10 +87,10 @@ const DetailInfoTab = () => {
     useEffect((e) => {
         axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
             .then(res => {setData(res.data)})
-            // 댓글가져오기
-            axios.get('http://localhost:8080/movielist/get_comment_list')
-                    .then(res => setCommentList(res.list))
-                    .catch(error => console.log(error))
+            // 댓글 가져오기
+            // axios.get('http://localhost:8080/movielist/get_comment_list')
+            //         .then(res => setCommentList(res.data))
+            //         .catch(error => console.log(error))
         // 더보기 버튼 유무            
         const onBtn = () => {
             data.filter(thisMovie => thisMovie?.movie_title === movie_title, thisMovie?.movie_info_title2 === '' ? setBtn(false) : setBtn(true))
@@ -96,10 +98,15 @@ const DetailInfoTab = () => {
         onBtn()
     }, [])
 
+    // 댓글 가져오기
+    useEffect(()=>{
+        setThisMovie(data.find(thisMovie => thisMovie?.movie_title === movie_title))
+    },[data])
+
     // 댓글 작성 폼
     const [reviewForm, setReviewForm] = useState({
-            user_name : "테스트6",
-            user_title: "",
+            user_name : userName,
+            movie_title: movie_title,
             user_rate: "",
             user_content1: "",
             user_content2: "",
@@ -108,7 +115,7 @@ const DetailInfoTab = () => {
             user_content5: "",
             user_story_recommant: "",
     })
-    const {user_title, user_rate, user_content1, user_content2, user_content3, user_content4, user_content5, user_story_recommant } = reviewForm // 비구조할당
+    const {user_rate, user_content1, user_content2, user_content3, user_content4, user_content5, user_story_recommant } = reviewForm // 비구조할당
 
     //댓글 작성 모달
     const [reviewCheck1, setReviewCheck1] = useState(false)
@@ -276,6 +283,7 @@ const DetailInfoTab = () => {
         }
         
         if(sw === 1){
+            console.log(reviewForm)
             axios.post('http://localhost:8080/movielist/user_comment_write', null, { params:reviewForm })
             .then(() => {
                 alert('댓글이 작성되었습니다.');
@@ -336,7 +344,7 @@ const DetailInfoTab = () => {
     return (
         <>
             <div style={{ left: 0 }}>
-                <p style={{ fontWeight: '600', fontSize: '20pt'}}>{ thisMovie?.movie_info_title }</p>
+                <p>{ thisMovie?.movie_info_title }</p>
                 {/* <p style={{ fontWeight: '500', fontSize: '12pt'}}>{ thisMovie?.movie_info_title2 }</p> */}
                     {
                         view && thisMovie?.movie_info_title2
@@ -348,21 +356,19 @@ const DetailInfoTab = () => {
                          >{ view ? '닫기' : '더보기' }</button>
                     }
                     
-               
-                
                 <p style={{ marginTop: 30, fontWeight: '500', fontSize: '12pt'}}>
                 { thisMovie?.movie_info_type }
                 </p>
                 <br/>
 
                 {/* 그래프  */}
-                <table style={{ border: '1px solid black'}} border='0' align='center' width='1100' height='500'>
+                <table style={{ border: '1px solid black', textAlign: 'center '}} border='0' align='center' width='1100' height='500'>
                     <thead>
                         <tr>
-                            <th style={{ margin: 'auto', paddingLeft: 20}}>
+                            <th style={{ margin: 'auto' }}>
                                 <div>관람포인트</div>
-                                
-                                <div style={{ width: '300px' }}>
+                                <br/>
+                                <div style={{ width: '300px', paddingLeft: 50 }}>
                                     <Radar type={ Radar } data={ testRadar } />
                                 </div>
                             </th>
@@ -370,6 +376,7 @@ const DetailInfoTab = () => {
                                 <div style={{ width: '300px' }}>
                                 <p>실관람 평점</p>
                                 <p style={{ margin: 'auto', color: 'white', width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#8d0707', textAlign: 'center', lineHeight: '120px',fontWeight: 600, fontSize: '25pt' }}>{ thisMovie?.movie_score }</p>
+                                <br/>
                                 <p>예매율</p>
                                 <p style={{ fontWeight: 600, fontSize: '25pt', color: '#8d0707'}}>{ thisMovie?.movie_reserve_rate }%</p>
                                 </div>
@@ -377,6 +384,8 @@ const DetailInfoTab = () => {
                             
                             <th>
                             <div style={{ width: '300px' }}>
+                                <p>누적 관객수</p>
+                                <p>{ thisMovie?.movie_totalspactators }</p>
                                 <Line type={ Line } data={ testLine } />
                             </div>
                             </th>
@@ -388,18 +397,20 @@ const DetailInfoTab = () => {
                 <div>
 
                     {/* 프로필 & 댓글 작성 & 로그인 여부 */}
-                    <div>
+                    <div style={{ margin: 'auto'}}>
+                        <br/>
                         <p style={{ color: '#8d0707', fontSize: '18pt', fontWeight: 500}}>
-                            { thisMovie?.movie_title } 대한 <span style={{ color: '#c47c7c'}}>{ commentList?.length }</span>개의 이야기가 있어요!
+                            { thisMovie?.movie_title } 대한 <span style={{ color: '#c47c7c'}}>{ commentList.length }</span>개의 이야기가 있어요!
                         </p>
 
-                        {/* 댓글 작성 &  로그인 전 */}
+                        { userName === null ? 
+                        
                         <div style={{ display: 'flex', margin: 15 }}>
                             <div style={{ width: '105px', height: '75px'}}>
                                 <img style={{ margin: 10 }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png" alt="BITBOX" />
-                                <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">노로그인</p>
+                                <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">BITBOX</p>
                             </div>
-                            <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
+                            <div style={{ lineHeight: 1.8, paddingLeft: 10, margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
                                 <p><br/> 
                                     &emsp;<span style={{ color: '#c47c7c' }}>{ thisMovie?.movie_title }&nbsp;</span>
                                         재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
@@ -410,46 +421,68 @@ const DetailInfoTab = () => {
                                         &nbsp;관람평쓰기&emsp;
                                         {
                                             loginToggle &&
-                                            <p className='bfLogText' style={{ right: 100, top: 1390, paddingTop: 25, cursor: 'default', color: 'black' }}>로그인이 필요한 서비스 입니다.
-                                                <button onClick={ loginModalOpen } style={{ cursor: 'pointer', background: 'none', border: 'none', color: '#c47c7c' }}>로그인 바로가기 {'>'}
-                                                </button>
+                                            <p className='bfLogText' style={{ right: 150, top: 1350, paddingTop: 25, cursor: 'default', color: 'black' }}>로그인이 필요한 서비스 입니다.<br/>
+                                                <a href="http://localhost:3000/member/loginForm" style={{ cursor: 'pointer', background: 'none', border: 'none', color: '#c47c7c' }}>로그인 바로가기 {'>'}
+                                                </a>
                                             </p>
                                         }
                                     </button>{/* 관람평 / 툴팁 */}
                                 </p>
                             </div>
                         </div>
+                         : 
                         
+                        <div style={{ display: 'flex', margin: 15 }}>
+                            <div style={{ width: '105px', height: '75px'}}>
+                                <img style={{ margin: 10, maxWidth:'50px', maxHeight: '50px' }} src={ noneImg } alt="프로필 이미지" />
+                                <p style={{ marginTop: -5, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">{ userName }</p>
+                            </div>
+                            <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
+                                <p style={{ lineHeight: 6 }}>
+                                    &emsp;&emsp;<span style={{ color: '#c47c7c' }}>{ userName }</span>님 <span style={{ color: '#c47c7c' }}>{ thisMovie?.movie_title }&nbsp;</span>
+                                        재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
+                                    
+                                    {/* 관람평 / 툴팁 */}
+                                    <button onClick={ ReviewModalOpen } className='afLogTt' style={{ float: 'right', textDecoration: 'none', textAlign: 'center', cursor: 'pointer' }}>
+                                        <img style={{ width: '18px', height: '18px' }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-story-write.png" />
+                                        &nbsp;관람평쓰기&emsp;
+                                    </button>{/* 관람평 / 툴팁 */}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        }
+                            
+                        
+                    </div>{/* 프로필 & 댓글 작성 & 로그인 여부 */}
                                 {/* 로그인 모달 */}
-                                {
+                                {/* {
                                     onLoginModal &&
                                     <>
                                         <div className='loginModalBg'></div>
                                         <div className='loginModalPopup' style={{ margin: 'auto'}}>
-                                        <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '500px', height: '50px', color: 'white' }}>
-                                            <span style={{ margin: 30, fontSize: '15pt', lineHeight: 2.5 }}>로그인</span>
+                                        <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '500px', height: '50px', color: 'white', lineHeight: 3 }}>
+                                            <span style={{ margin: 25, fontSize: '15pt' }}>로그인</span>
+                                            <p className='loginModalXBtn' style={{ paddingBottom: -10 }} onClick={ loginModalClose }>X</p>
                                         </div>
-                                            <p className='loginModalXBtn' onClick={ loginModalClose }>X</p>
+                                            
                                             <div>
                                                 <form className='loginModalForm'>
-                                                    <table style={{ position: 'relative', top: 50, margin: 'auto'}} cellSpacing="10">
+                                                    <table style={{ position: 'relative', top: 70, margin: 'auto'}} cellSpacing="10">
                                                         <tbody>
                                                             <tr>
                                                                 <td>
-                                                                <input className='loginFormId' type="text" placeholder='아이디'/>
+                                                                <input className='loginModalFormId' type="text" placeholder='아이디'/>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <input className='loginFormPwd' type="password" placeholder='비밀번호'/>
+                                                                    <input className='loginModalFormPwd' type="password" placeholder='비밀번호'/>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="checkbox" style={{ color: 'black' }} />아이디 저장
-                                                                </td>
-                                                            </tr>
-                                                            <button className='loginModalBtn' style={{ }}>로그인</button>
+                                                            
+                                                            <br/>
+                                                            <button className='loginModalBtn' >로그인</button>
                                                         </tbody>
                                                     </table>
                                                 </form>
@@ -472,92 +505,72 @@ const DetailInfoTab = () => {
                                             </div>
                                         </div>
                                      </>
+                                } */}
+
+                                {/* 평점 모달 */}
+                                {
+                                    onReviewModal && 
+                                    <>
+                                        <div className='reviewModalBg'>
+                                            <div className='reviewModalPopup' style={{ margin: 'auto' }}>
+                                                <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '700px', height: '50px', color: 'white' }}>
+                                                    <span style={{ display: 'flex', margin: 30, fontSize: '15pt', lineHeight: 0 }}>평점</span>
+                                                </div>
+                                            <span className='reviewModalXBtn' style={{ position: 'absolute', lineHeight: 0, textAlign: 'right', right: 20  }} onClick={ ReviewModalClose }>X</span>
+                                            
+                                            <div>
+                                                <br/><br/>
+                                                <h3><span style={{ color: '#c47c7c'  }}>{ thisMovie?.movie_title }</span> 재밌게 보셨나요?</h3>
+                                                
+
+                                                <form name="reviewForm" id="reviewForm">
+                                                    <fieldset className='starRate'>
+                                                        <legend>별점</legend>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="10" id="rate1"/><label id="starLabel" htmlFor="rate1">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="9" id="rate2"/><label id="starLabel" htmlFor="rate2">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="8" id="rate3"/><label id="starLabel" htmlFor="rate3">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="7" id="rate4"/><label id="starLabel" htmlFor="rate4">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="6" id="rate5"/><label id="starLabel" htmlFor="rate5">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="5" id="rate6"/><label id="starLabel" htmlFor="rate6">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="4" id="rate7"/><label id="starLabel" htmlFor="rate7">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="3" id="rate8"/><label id="starLabel" htmlFor="rate8">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="2" id="rate9"/><label id="starLabel" htmlFor="rate9">⭐</label>
+                                                        <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="1" id="rate10"/><label id="starLabel" htmlFor="rate10">⭐</label>
+                                                    </fieldset>
+                                                    <span name="user_rate" style={{ fontSize: '30pt'}} value={ starRating } > { starRating }</span> 점
+                                                    <div id="reviewRateDiv">&emsp;{ reviewRateDiv }</div>
+                                                    <p></p>
+                                                    
+                                                    <fieldset style={{ border: 0 }} >
+                                                        <legend>어떤게 좋았나요?</legend>
+                                                        <br/>
+                                                        <label><input type="checkbox" checked={ reviewCheck1 } onChange={(e) => checkHandler1(e) } name="user_content1" value="연출" /> 연출&emsp;</label>
+                                                        <label><input type="checkbox" checked={ reviewCheck2 } onChange={(e) => checkHandler2(e) } name="user_content2" value="영상미" /> 영상미&emsp;</label>
+                                                        <label><input type="checkbox" checked={ reviewCheck3 } onChange={(e) => checkHandler3(e) } name="user_content3" value="스토리" /> 스토리&emsp;</label>
+                                                        <label><input type="checkbox" checked={ reviewCheck4 } onChange={(e) => checkHandler4(e) } name="user_content4" value="OST" /> OST&emsp;</label>
+                                                        <label><input type="checkbox" checked={ reviewCheck5 } onChange={(e) => checkHandler5(e) } name="user_content5" value="배우" /> 배우</label>
+                                                    </fieldset>
+                                                        <div id="reviewContentDiv">&emsp;{ reviewContentDiv }</div>
+                                                    <p></p>
+                                                    <fieldset>
+                                                        <legend>감상평 작성</legend>
+                                                        <input type="text" name="user_story_recommant" value={ user_story_recommant } onChange={ onReviewComment } placeholder='감상 후 어떠셨는지 한 줄로 남겨주세요!' maxLength="100" style={{ width: '600px', height: '50px'}}></input>
+                                                    </fieldset>
+                                                    <div id="reviewStoryDiv">&emsp;{ reviewStoryDiv }</div>
+                                                    <p></p>
+                                                    <div className='reviewBtn'>
+                                                        <button className='submitBtn'style={{ margin: 5 }} onClick={ formSubmit }>등록</button>
+                                                        <button className='resetBtn' onClick={ formReset }>다시작성</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </>
                                 }
 
-                    {/* 평점 모달 */}
-                    {
-                        onReviewModal && 
-                        <>
-                            <div className='reviewModalBg'>
-                                <div className='reviewModalPopup' style={{ margin: 'auto' }}>
-                                    <div style={{ left: 0, top: 0, position: 'absolute', backgroundColor: '#8d0707', width: '700px', height: '50px', color: 'white' }}>
-                                        <span style={{ display: 'flex', margin: 30, fontSize: '15pt', lineHeight: 0 }}>평점</span>
-                                    </div>
-                                <span className='reviewModalXBtn' style={{ position: 'absolute', lineHeight: 0, textAlign: 'right', right: 20  }} onClick={ ReviewModalClose }>X</span>
-                                
-                                <div>
-                                    <br/>
-                                    <h3><span style={{ color: '#c47c7c'}}>{ thisMovie?.movie_title }</span> 재밌게 보셨나요?</h3>
-                                    
-
-                                    <form name="reviewForm" id="reviewForm">
-                                        <fieldset className='starRate'>
-                                            <legend>별점</legend>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="10" id="rate1"/><label id="starLabel" htmlFor="rate1">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="9" id="rate2"/><label id="starLabel" htmlFor="rate2">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="8" id="rate3"/><label id="starLabel" htmlFor="rate3">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="7" id="rate4"/><label id="starLabel" htmlFor="rate4">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="6" id="rate5"/><label id="starLabel" htmlFor="rate5">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="5" id="rate6"/><label id="starLabel" htmlFor="rate6">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="4" id="rate7"/><label id="starLabel" htmlFor="rate7">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="3" id="rate8"/><label id="starLabel" htmlFor="rate8">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="2" id="rate9"/><label id="starLabel" htmlFor="rate9">⭐</label>
-                                            <input type="radio" onClick={ (e) => onReviewRadio(e)} name="rating" value="1" id="rate10"/><label id="starLabel" htmlFor="rate10">⭐</label>
-                                        </fieldset>
-                                        <span name="user_rate" style={{ fontSize: '30pt'}} value={ starRating } > { starRating }</span> 점
-                                        <div id="reviewRateDiv">&emsp;{ reviewRateDiv }</div>
-                                        <p></p>
-                                        
-                                        <fieldset style={{ border: 0 }} >
-                                            <legend>어떤게 좋았나요?</legend>
-                                            <br/>
-                                            <label><input type="checkbox" checked={ reviewCheck1 } onChange={(e) => checkHandler1(e) } name="user_content1" value="연출" /> 연출  </label>
-                                            <label><input type="checkbox" checked={ reviewCheck2 } onChange={(e) => checkHandler2(e) } name="user_content2" value="영상미" /> 영상미 </label>
-                                            <label><input type="checkbox" checked={ reviewCheck3 } onChange={(e) => checkHandler3(e) } name="user_content3" value="스토리" /> 스토리 </label>
-                                            <label><input type="checkbox" checked={ reviewCheck4 } onChange={(e) => checkHandler4(e) } name="user_content4" value="OST" /> OST </label>
-                                            <label><input type="checkbox" checked={ reviewCheck5 } onChange={(e) => checkHandler5(e) } name="user_content5" value="배우" /> 배우 </label>
-                                        </fieldset>
-                                            <div id="reviewContentDiv">&emsp;{ reviewContentDiv }</div>
-                                        <p></p>
-                                        <fieldset>
-                                            <legend>감상평 작성</legend>
-                                            <input type="text" name="user_story_recommant" value={ user_story_recommant } onChange={ onReviewComment } placeholder='감상 후 어떠셨는지 한 줄로 남겨주세요!' maxLength="100" style={{ width: '600px', height: '50px'}}></input>
-                                        </fieldset>
-                                        <div id="reviewStoryDiv">&emsp;{ reviewStoryDiv }</div>
-                                        <p></p>
-                                        <div className='reviewBtn'>
-                                            <button className='submitBtn'style={{ margin: 5 }} onClick={ formSubmit }>등록</button>
-                                            <button className='resetBtn' onClick={ formReset }>다시작성</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                                
-                                </div>
-                            </div>
-                        </>
-                    }
-                        {/* 댓글 작성 &  로그인 후 */}
-                        <div style={{ display: 'flex', margin: 15 }}>
-                            <div style={{ width: '105px', height: '75px'}}>
-                                <img style={{ margin: 10, maxWidth:'50px', maxHeight: '50px' }} src={ noneImg } alt="프로필 이미지" />
-                                <p style={{ marginTop: -10, marginRight: 30, fontWeight: 400, textAlign: 'center'}} id="user-id">예스로그인</p>
-                            </div>
-                            <div style={{ margin: 0, width: '1000px', height: '90px', border: '1px solid lightgray', borderRadius: 10, borderTopLeftRadius: 0 }}>
-                                <p><br/> 
-                                    &emsp;&emsp;<span style={{ color: '#c47c7c' }}>userName</span>님 <span style={{ color: '#01738B' }}>{ thisMovie?.movie_title }&nbsp;</span>
-                                        재미있게 보셨나요? 영화의 어떤 점이 좋았는지 이야기해주세요.
-                                    
-                                    {/* 관람평 / 툴팁 */}
-                                    <button onClick={ ReviewModalOpen } className='afLogTt' style={{ float: 'right', textDecoration: 'none', textAlign: 'center', cursor: 'pointer' }}>
-                                        <img style={{ width: '18px', height: '18px' }} src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-story-write.png" />
-                                        &nbsp;관람평쓰기&emsp;
-                                    </button>{/* 관람평 / 툴팁 */}
-                                </p>
-                            </div>
-                        </div>
-                        
-                    </div>{/* 프로필 & 댓글 작성 & 로그인 여부 */}
                     
 
                     {/* 댓글 뿌리기 */}
@@ -565,9 +578,9 @@ const DetailInfoTab = () => {
                    
                     
                     {
-                        commentList?.map(commentItem => {
+                        commentList?.map((commentItem,index) => {
                         return (
-                                <div>
+                                <div key={index}>
                                     <div style={{ display: 'flex', margin: 15 }} >
                                         
                                             {/* 사진 / 아이디 */}
