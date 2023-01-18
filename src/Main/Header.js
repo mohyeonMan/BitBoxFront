@@ -53,7 +53,7 @@ const Header = () => {
                 <div className="container55">
                     <div>
                         <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
-                        <span>비이트바악스</span>
+                        {/* <span>비이트바악스</span> */}
                     </div>
                     {/* <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/> */}
                     <UserNavList />
