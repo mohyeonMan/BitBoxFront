@@ -153,7 +153,7 @@ const Get = () => {
                  pay_method: 'card',
                  merchant_uid: merchant_seq,
                  name: 'beatBox 영화예매',
-                 amount: 100,
+                 amount: (price-discount),
                  buyer_email: 'qkrwlgns0510@naver.com',
                  buyer_name: '박지훈',
                  buyer_tel: '010-1234-5678',
