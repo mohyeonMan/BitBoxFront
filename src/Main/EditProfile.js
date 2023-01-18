@@ -62,7 +62,7 @@ const EditProfile = () => {
     };
 
     const onReset = ( ) => {
-        window.location.replace("/myPage/editProfile")
+        window.location.replace("/myPage")
     };
 
     // 본인인증
@@ -116,7 +116,7 @@ const EditProfile = () => {
             axios.get(`http://localhost:8080/myPage/emailChange?username=${username}&email=${email}`)
             .then(res => {
                 alert("이메일 변경이 완료되었습니다.");
-                window.location.replace("/myPage/editProfile");
+                window.location.replace("/myPage");
             }).catch(err => {console.log(err)})
         }
 
