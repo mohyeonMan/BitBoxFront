@@ -121,7 +121,7 @@ const Movielist_tab01 = () => {
         if (e.key === "Enter") {
             handleOnClick();
         }
-      };
+      }; 
 
     return (
         <div>
