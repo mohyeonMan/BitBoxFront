@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
 // @mui
-import { Container, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography,Button } from '@mui/material';
 // components
 // import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
 import {ProductSort, ProductList, ProductCartWidget, MovieSearchNInsert} from '../sections/@dashboard/products';
@@ -40,6 +40,22 @@ const movieDelete = (movieTitle)=> {
   
   }
 
+  // movie search
+  const [adminMovieSearchKeyword , AdminMovieSearchKeyword] = useState('')
+  const [adminMovieSearchOption, AdminMovieSearchOption ]= useState('movie_title')
+
+  const onAdminMovieSearch = (e) => {
+    e.preventDefault();
+    axios.get('http://localhost:8080/movielist/adminMovieSearch',{
+      params: {
+        adminMovieSearchKeyword,
+        adminMovieSearchOption
+      }
+    })
+          .then(res =>setList(res.data))
+          .catch(error => console.log(error))
+  }
+
   return (
     <>
       <Helmet>
@@ -52,6 +68,11 @@ const movieDelete = (movieTitle)=> {
          </Typography>
         <div>
           <MovieSearchNInsert/>
+        </div>
+        <br></br><br></br>
+        <div>
+          <input type="text" name="adminMovieSearchKeyword" value={adminMovieSearchKeyword} onChange={e => AdminMovieSearchKeyword(e.target.value)} placeholder="등록된 영화 검색"
+           /><Button onClick={onAdminMovieSearch}>검색</Button>
         </div>
 
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>

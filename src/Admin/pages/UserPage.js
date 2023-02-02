@@ -250,9 +250,6 @@ const UserPage = () => {
           <Typography variant="h4" gutterBottom>
             유저
           </Typography>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
-          </Button>
         </Stack>
 
         <Card>
@@ -327,10 +324,6 @@ const UserPage = () => {
                           <MenuItem sx={{ color: 'error.main' }}  onClick={deleteUser}>
                             <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
                             회원 삭제
-                          </MenuItem>
-                          <MenuItem>
-                            <Iconify icon={'ic:outline-message'} sx={{ mr: 2 }} />
-                            메세지
                           </MenuItem>
                         </Popover>
                       </TableCell>
