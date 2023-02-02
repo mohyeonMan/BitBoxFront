@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Card, Link, Typography, Stack } from '@mui/material';
+import { Box, Card, Link, Typography, Stack, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
@@ -8,6 +8,7 @@ import { fCurrency } from '../../../utils/formatNumber';
 import Label from '../../../components/label';
 import {useEffect, useState} from "react";
 import axios from "axios";
+// import Button from 'src/Admin/theme/overrides/Button.ts';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +35,7 @@ export default function MovieSearchNInsert() {
     const url3 = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json';
     //네이버 영화 api
     const onSearch = () =>{
+
         axios.get(url,{
             params:{query: moviecdNum,language: "ko"},
             headers: {
@@ -132,7 +134,12 @@ export default function MovieSearchNInsert() {
     const insertMovie = () => {
 
         // 날짜 형식 변환
-        const movie_title = movieSearchData[0].title.replace('<b>','').replace('</b>','').replace('<b>','').replace('</b>','');
+        const movie_title = movieSearchData[0].title.replace('<b>','')
+            .replace('</b>','').replace('<b>','').replace('</b>','').replace('<b>','')
+            .replace('</b>','').replace('<b>','').replace('</b>','').replace('<b>','').replace('</b>','')
+            .replace('<b>','').replace('</b>','').replace('<b>','').replace('</b>','').replace('<b>','').replace('</b>','')
+            .replace('<b>','').replace('</b>','').replace('<b>','').replace('</b>','').replace('<b>','').replace('</b>','')
+            .replace('<b>','').replace('</b>','');
         const movie_subtitle = movieSearchData[0].subtitle;
         const movie_poster_url = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2'+apiData.poster_path;
         const movie_header_url = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2'+apiData.backdrop_path;
@@ -144,7 +151,7 @@ export default function MovieSearchNInsert() {
         let start = new Date(movie_release_start);
         let now = new Date();
         const movie_class= (start < now) ? 1 : 2;
-        const movie_agegrade= otherData.audits[0].watchGradeNm;
+        const movie_agegrade= (otherData.audits.length === 0 ? "전체이용가" : otherData.audits[0].watchGradeNm);
         const movie_score = movieSearchData[0].userRating;
         const movie_info_title = apiData.overview;
         const movie_info_title2 = apiData.overview;
@@ -168,7 +175,12 @@ export default function MovieSearchNInsert() {
         }
             }
             )
-            .then(res => alert(movie_title));
+            // .then(res => alert(movie_title));
+            .then((res)=>{
+                alert(`${movie_title} 을(를)추가하였습니다.`)
+               window.location.reload()
+             })
+
     }
 
     /* movie_number=null, movie_title=null,
@@ -199,8 +211,8 @@ String movie_info_type = 영화소개부분의 영화 타입 https://www.themovi
 String movie_info_point = 영화소개에 들어갈그래프의 일종.  데이터가있어야 그래프가 완성됨.  */
     return (
         <>
-            {/* status === true ? movieSearchData[0].title.replace('<b>','').replace('</b>','') : "" */}
-            <div >{JSON.stringify(movieSearchData)}</div>
+            <p>영화 검색기</p>
+            <br/>
             {   status === true ?
         <Card sx={{width:300,height:500}}>
             <Box sx={{ position: 'relative'}}>
@@ -252,9 +264,12 @@ String movie_info_point = 영화소개에 들어갈그래프의 일종.  데이�
         </Card>
                 : ""}
 
-        <input id={moviecdNum} onChange={(e)=>setMoviecdNum(e.target.value)}/>
-            <button onClick={onSearch}>검색</button>
-            <button onClick={insertMovie}>추가</button>
+        <input id={moviecdNum} onChange={(e)=>setMoviecdNum(e.target.value)} placeholder='Search ..Movie' style={{borderColor:'grey',borderRadius:10}}/>
+            <Button onClick={onSearch} style={{color:'#4B0082'}}>검색</Button>
+            &nbsp;
+            {/* <Button onClick={insertMovie} style={{color:'#2F4F4F'}}>추가</Button> */}
+            <Button onClick={ () => { if (window.confirm(`${moviecdNum} 영화을(를) 추가하시겠습니까?`)){ insertMovie(moviecdNum); }} } style={{color:'#2F4F4F'}}>추가</Button>
+
         </>
     );
 }

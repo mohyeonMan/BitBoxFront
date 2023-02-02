@@ -14,7 +14,6 @@ const InfoMember = ({setNum}) => {
     }, []);
 
 
-
     //체크박스
     const write = (e) => {
         e.preventDefault()
@@ -290,7 +289,7 @@ const InfoMember = ({setNum}) => {
                         </td>
                     </tr>
                     {/* 휴대폰 번호 불러올때 */}
-                    <tr id="trMblpTelno">
+                    <tr id="trMblpTelno" >
                         <th scope="row">휴대폰 번호* {/*휴대폰 번호 */}</th>
                         <td>
                             <input

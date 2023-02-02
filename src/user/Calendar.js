@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ko } from "date-fns/esm/locale";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Hours from "./Hours";
 import '../css/hour.css'
 
@@ -23,13 +23,15 @@ import {getCookieToken} from "src/member/storage/Cookie";
 
 
 const Calendar = () => {
+    const {mvName} = useParams();
+    const [ScrollActive, setScrollActive] = useState(false);
     const [previewVisible, setPreviewVisible] = useState(false);
 
     const navigate = useNavigate();
 
     const [currentWeek, setCurrentWeek] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [movieName, setMovieName] = useState('');
+    const [movieName, setMovieName] = useState(mvName);
     const [cityName, setCityName] = useState('');
     const [cinemaName, setCinemaName] =useState('');
     const [hidden, setHidden] =useState(false);
@@ -151,7 +153,16 @@ const Calendar = () => {
                 setList(res.data)
             })
             .catch(error => console.log(error))
+
     },[selectedDate])
+
+    useEffect(()=>{
+        axios.post(`http://localhost:8080/book/cityList?movie_date=${dsd}&movie_title=${movieName}`)
+            .then(res=>setList2(res.data))
+            .catch(error => console.log(error))
+
+
+    },[setMovieName])
 
     const renderHeader = () => {
         return (
@@ -394,9 +405,11 @@ const Calendar = () => {
 
 
             </div>
+
             <div className="box-3">
                 <p className='tit3'>시간</p>
                 <Hours />
+
                 <div className='result' hidden={!hidden}>
 
 
@@ -418,6 +431,7 @@ const Calendar = () => {
                                             id={timess[0]}
                                             onClick={() => {
                                                 if (getCookieToken()) {
+
                                                     const username = sessionStorage.getItem('birth')
 
                                                     if(list4[0].movie_age === '18'){
@@ -428,8 +442,11 @@ const Calendar = () => {
                                                     }
 
                                                 }else{
+                                                    const popupX = (window.screen.width / 2) - 300;
+                                                    const popupY= (window.screen.height / 2) - 300;
+
                                                     alert('로그인이필요한 서비스 입니다.')
-                                                    window.open("/member/loginForm2","","width=600px,height=600px,left=450px,top=100px")
+                                                    window.open("/member/loginForm2","","width=600px,height=600px,left="+ popupX + ", top="+ popupY)
                                                 }
                                                 }}
                                         >
@@ -457,12 +474,10 @@ const Calendar = () => {
                                         </button>
                                         <div className='tooltiptext2'>
                                             <iframe
-
                                                 src={`/user/get2/${item.pk}`}
                                                 scrolling='no'
                                                 className="preview-box"
                                                 title='preview-box'
-
                                             >
                                                 <p>Your browser does not support iframes.</p>
                                             </iframe>
@@ -480,6 +495,7 @@ const Calendar = () => {
 
 
                 </div>
+
                 <div className='no-result' hidden={hidden}>
                     <div className='ico-movie-time'/>
                     <br/>
@@ -490,7 +506,20 @@ const Calendar = () => {
 
 
             </div>
-
+            <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
+                {ScrollActive ?
+                    <div className="fixedBtn_wrap">
+                        <a href="/user/calendar/1" className="btn_fixedTicketing">예매하기</a>
+                        <a href="#none" className="btn_gotoTop">
+                            <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
+                    </div>
+                    :
+                    <div className="fixedBtn_wrap topBtn">
+                        <a href="/user/calendar/1" className="btn_fixedTicketing">예매하기</a>
+                        <a href="#" className="btn_gotoTop">
+                            <img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동"/></a>
+                    </div>}
+            </div>
         </div>
                 <Footer/>
             </Layout>

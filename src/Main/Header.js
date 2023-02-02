@@ -15,11 +15,12 @@ const Header = () => {
     const navigate = useNavigate();
     const handleSearchKeyChange = (e) => {
         setSearchKey(e.target.value);
+
     }
 
     const handleSearchKeySubmit = (e) => {
         e.preventDefault();
-        navigate(`/search?key=${searchKey}`);
+        navigate(`/movieDetail_Page/${searchKey}`)
     }
     const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
     const [ScrollActive, setScrollActive] = useState(true);
@@ -52,7 +53,7 @@ const Header = () => {
                 <div className="container55">
                     <div>
                         <a href={'/'}><img src={logo} alt="CGV 로고" /></a>
-                        <span>비이트바악스</span>
+                        {/* <span>비이트바악스</span> */}
                     </div>
                     {/* <img src="https://img.cgv.co.kr/WingBanner/2022/0303/16462658373950.png" alt="현대M포인트" width="136px" height="39px"/> */}
                     <UserNavList />
@@ -85,7 +86,7 @@ const Header = () => {
                                             <h2><a>극장</a></h2>                                               
                                         </li>
                                         <li>
-                                            <h2><Link to={"/user/calendar"}>예매</Link></h2>
+                                            <h2><Link to={"/user/calendar/:mvName"}>예매</Link></h2>
                                         </li>
                                         <li>
                                             <h2><Link to={"/store/"}>스토어</Link></h2>
@@ -110,6 +111,7 @@ const Header = () => {
 const UserNavList = () => {
 
     const [isLogin, setIsLogin] = useState(false);
+    const navi = useNavigate();
 
     useEffect(() => {
         if (getCookieToken()) {
@@ -122,10 +124,17 @@ const UserNavList = () => {
         sessionStorage.removeItem("userName");
         localStorage.removeItem("accessToken"); // 엑세스토큰 삭제
         localStorage.removeItem('expireTime'); // 만료시간 삭제
+        sessionStorage.removeItem('birth');
         removeCookieToken(); // refreshToken 삭제
         alert("로그아웃");
-        window.location.replace("/");
+        window.location.reload();
     }
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const showModal = () => {
+        setModalOpen(true);
+    };
 
     return (
         <ul>
@@ -148,13 +157,7 @@ const UserNavList = () => {
             <li>
                 <a>
                     <img src={loginIcon} alt="로그인 아이콘" />
-                    <span><Link to={'/adminindex/app'}>관리자로그인</Link></span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <img src={loginIcon} alt="로그인 아이콘"/>
-                    <span><Link to={'/test'}>Test</Link></span>
+                    <span><Link to={'/adminindex/app'}>관리자 Page</Link></span>
                 </a>
             </li>
             <li>
@@ -169,7 +172,7 @@ const UserNavList = () => {
                 {isLogin &&
                     <a>
                         <img src={mypageIcon} alt="마이페이지 아이콘" />
-                        <span><Link to={'/member/mypage'}>MY BITBOX</Link></span>
+                        <span style={{cursor:"pointer"}} onClick={() => {navi("/myPage");}}>MY BITBOX</span>
                     </a>
                 }
             </li>
@@ -188,7 +191,7 @@ const MovieNavList = () => {
         <ul>
             <li><Link to={"/movielistmain"}>영화</Link></li>
             <li><a>극장</a></li>
-            <li><Link to={"/user/calendar"}>예매</Link></li>
+            <li><Link to={"/user/calendar/:mvName"}>예매</Link></li>
             <li><Link to={"/store/"}>스토어</Link></li>
             <li><a>이벤트</a></li>
             <li><a>혜택</a></li>

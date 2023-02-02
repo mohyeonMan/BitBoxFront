@@ -22,6 +22,7 @@ import Scrollbar from '../components/scrollbar';
 import AdminUserListHead from './AdminUserListHead';
 import AdminBoardModalUpdatePage from './AdminBoardModalUpdatePage ';
 import AdminBoardModalRead from './AdminBoardModalRead';
+
 import {removeCookieToken} from "src/member/storage/Cookie";
 import {useNavigate} from "react-router-dom";
 
@@ -57,17 +58,17 @@ const AdminBoard = () => {
         return stabilizedThis.map((el) => el[0]);
     }
 
-    // NEWS HEAD
-    const TABLE_HEAD = [
-        {id: ''},
-        {id: 'adminBoardSeq', label: 'NO.', alignRight: false},
-        {id: 'title', label: 'TITLE', alignRight: false},
-        {id: 'content', label: 'CONTENT', alignRight: false},
-        {id: '내용보기', label: 'BOARD', alignRight: false},
-        {id: 'ect', label: 'ETC..', alignRight: false},
-        // { id: '' },
-    ];
-    const [open, setOpen] = useState(null);
+  // NEWS HEAD 
+  const TABLE_HEAD = [
+    // { id: '' },
+    { id: 'adminBoardSeq', label:'NO.',alignRight: false  },
+    { id: 'title', label: 'TITLE', alignRight: false },
+    { id: 'content', label: 'CONTENT', alignRight: false },
+    {id:'내용보기', label: 'BOARD', alignRight: false},
+    { id: 'ect', label: 'ETC..', alignRight: false },
+    // { id: '' },
+  ];
+ 	 const [open, setOpen] = useState(null);
 
     const [page, setPage] = useState(0);
 
@@ -183,6 +184,7 @@ const AdminBoard = () => {
         setSelected([]);
     };
 
+
     const handleClick = (event, adminBoardSeq) => {
         const selectedIndex = selected.indexOf(adminBoardSeq);
         let newSelected = [];
@@ -214,128 +216,120 @@ const AdminBoard = () => {
     const isNotFound = !filteredUsers.length && !!filterName;
 
     return (
-        <>
-            <Container>
-                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-                    <Typography variant="h4" gutterBottom>
-                        <p/>
-                        NEWS
-                    </Typography>
-                </Stack>
-                <Card>
-                    <Scrollbar>
-                        <TableContainer sx={{minWidth: 800}}>
-                            <Table>
-                                <AdminUserListHead
-                                    order={order}
-                                    orderBy={orderBy}
-                                    headLabel={TABLE_HEAD}
-                                    rowCount={BoardAdminList.length}
-                                    numSelected={selected.length}
-                                    onRequestSort={handleRequestSort}
-                                    onSelectAllClick={handleSelectAllClick}
-                                />
-                                <TableBody>
-                                    {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        const {adminBoardSeq, title, content, logtime} = row;
-                                        const selectedAdmin = selected.indexOf(adminBoardSeq) !== -1;
+    <>
+      <Container >
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
+          <Typography variant="h4" gutterBottom>
+            <p/>
+            NEWS
+          </Typography>
+        </Stack>
+        <Card >
+          <Scrollbar>
+            <TableContainer sx={{ maxWidth: 700 ,maxHeight:280}}>
+              <Table>
+                <AdminUserListHead
+                  order={order}
+                  orderBy={orderBy}
+                  headLabel={TABLE_HEAD}
+                  rowCount={BoardAdminList.length}
+                  numSelected={selected.length}
+                  onRequestSort={handleRequestSort}
+                  onSelectAllClick={handleSelectAllClick}
+                />
+                <TableBody>
+                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                    const {adminBoardSeq,title,content,logtime } = row;
+                    const selectedAdmin = selected.indexOf(adminBoardSeq) !== -1;
 
-                                        return (
+                    return (
 
-                                            <TableRow hover key={adminBoardSeq} id={adminBoardSeq} value={adminBoardSeq}
-                                                      tabIndex={-1} role="checkbox" selected={selectedAdmin}
-                                            >
-                                                <TableCell padding="checkbox">
-                                                    {/* 지우지 않기 (칸 망가짐... ㅠㅠ) */}
-                                                    {/* <Checkbox
+                      <TableRow hover key={adminBoardSeq} id={adminBoardSeq} value={adminBoardSeq} tabIndex={-1} role="checkbox" selected={selectedAdmin} 
+                      >
+                        {/* <TableCell padding="checkbox"> */}
+                          {/* 지우지 않기 (칸 망가짐... ㅠㅠ) */}
+                          {/* <Checkbox
                            checked={selectedAdmin} onChange={(event) => handleClick(event, adminBoardSeq)} /> */}
-                                                </TableCell>
+                        {/* </TableCell> */}
 
-                                                <TableCell component="th" scope="row" padding="none">
-                                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                                        <Typography variant="subtitle2" noWrap/>
-                                                    </Stack>
-                                                </TableCell>
+                        <TableCell component="th" scope="row" padding="none" >
+                          <Stack direction="row" alignItems="center" spacing={2}>
+                            <Typography variant="subtitle2" noWrap/>
+                          </Stack>
+                        </TableCell>
+                        
+                        {/* NEWS 리스트 라인 화 면 출력  */}
+                        {/* adminBoardSeq */}
+                        <TableCell align="left">{adminBoardSeq}</TableCell>
+                        
+                        {/* title */}
+                        <TableCell align="left">{title}</TableCell>
 
-                                                {/* NEWS 리스트 라인 화 면 출력  */}
-                                                {/* adminBoardSeq */}
-                                                <TableCell align="left">{adminBoardSeq}</TableCell>
+                        {/* content */}
+                        <TableCell align="left">{content}</TableCell>
 
-                                                {/* title */}
-                                                <TableCell align="left">{title}</TableCell>
+                        {/* 내용 보기 */}
+                        <TableCell align="left" id={adminBoardSeq}><AdminBoardModalRead/></TableCell>
 
-                                                {/* content */}
-                                                <TableCell align="left">{content}</TableCell>
+                        {/* 시간  */}
+                        {/* <TableCell align="left">{logtime}</TableCell> */}
+                        {/* <TableCell align="left">{getTime(logtime)}</TableCell> */}
 
-                                                {/* 내용 보기 */}
-                                                <TableCell align="left"
-                                                           id={adminBoardSeq}><AdminBoardModalRead/></TableCell>
+                          <MenuItem id={adminBoardSeq}  style={{fontSize:12,width:100}}  onClick={handleOpenMenu}>
+                            <Iconify icon={'eva:edit-fill'}  sx={{ mr: 2 }}/>                           
+                            <AdminBoardModalUpdatePage props={adUpSeq}/>
+                          </MenuItem>
+                            <MenuItem style={{fontSize:12,width:100}}
+                            sx={{ color: 'error.main' }} onClick={ () => { if (window.confirm(`${adminBoardSeq}번 게시글을 삭제하시겠습니까?`)){ onDeleteBoard(adminBoardSeq); }} }  >
+                          <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
+                             Delete
+                          </MenuItem>    
+                    </TableRow>
+                    );
 
-                                                {/* 시간  */}
-                                                {/* <TableCell align="left">{logtime}</TableCell> */}
-                                                {/* <TableCell align="left">{getTime(logtime)}</TableCell> */}
+                  })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 53 * emptyRows }}>
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
 
-                                                <MenuItem id={adminBoardSeq} style={{fontSize: 12, width: 100}}
-                                                          onClick={handleOpenMenu}>
-                                                    <Iconify icon={'eva:edit-fill'} sx={{mr: 2}}/>
-                                                    <AdminBoardModalUpdatePage props={adUpSeq}/>
-                                                </MenuItem>
-                                                <MenuItem style={{fontSize: 12, width: 100}}
-                                                          sx={{color: 'error.main'}} onClick={() => {
-                                                    if (window.confirm(`${adminBoardSeq}번 게시글을 삭제하시겠습니까?`)) {
-                                                        onDeleteBoard(adminBoardSeq);
-                                                    }
-                                                }}>
-                                                    <Iconify icon={'eva:trash-2-outline'} sx={{mr: 2}}/>
-                                                    Delete
-                                                </MenuItem>
-                                            </TableRow>
-                                        );
-
-                                    })}
-                                    {emptyRows > 0 && (
-                                        <TableRow style={{height: 53 * emptyRows}}>
-                                            <TableCell colSpan={6}/>
-                                        </TableRow>
-                                    )}
-                                </TableBody>
-                            </Table>
-
-                            {/*  search  */}
-                            <div id="adminBoardListForm" style={{width: '450px', margin: '30px', align: 'right'}}>
-                                <form id="searchForm" style={{textAlign: 'right', width: 800}}>
-
-                                    {/* title 또는 content로 찾을 수 있는 박스 */}
-                                    {/* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
+          {/*  search  */}
+          <div id="adminBoardListForm" style={{width: '450px',margin:'30px', align:'left'}}>
+           <form id="searchForm" style={{textAlign:'left',width:400}}>
+           
+            {/* title 또는 content로 찾을 수 있는 박스 */}
+            {/* <select  style={{width:120, height:30, textAlign:'center'}} name="adminSearchOption" onChange={e => setAdminSearchOption(e.target.value)}>
               <option id="adminTitle "value="title">TITLE</option>
               <option id="adminContent" value="content">CONTENT</option>
              </select>&nbsp; */}
-                                    <input type="text" name="adminKeyword" value={adminKeyword}
-                                           onChange={e => setAdminKeyword(e.target.value)}
-                                           placeholder='Search Board..' style={{width: 200}}
-                                    />&nbsp;
+              <input type="text" name="adminKeyword" value={adminKeyword} onChange={e => setAdminKeyword(e.target.value)}
+              placeholder='Search Board..'style={{width:200}}
+              />&nbsp;
+              
+            <Button onClick={onAdminSearch}>Search</Button>
+           </form>
+          </div>
+  
+            </TableContainer>
+          </Scrollbar>
 
-                                    <Button onClick={onAdminSearch}>Search</Button>
-                                </form>
-                            </div>
-
-                        </TableContainer>
-                    </Scrollbar>
-
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={BoardAdminList.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Card>
-            </Container>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={BoardAdminList.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Card>
+      </Container>
 
 
-        </>
-    );
+    </>
+  );
 }
 export default AdminBoard;

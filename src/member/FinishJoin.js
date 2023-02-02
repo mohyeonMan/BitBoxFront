@@ -26,7 +26,6 @@ const FinishJoin = ({ setNum }) => {
             </div>
             <div className={joinForm.btn_member_bottom}>
                 <a
-                href="/event/detail?eventNo=9737"
                 title="메인 페이지 이동"
                 className={`${joinForm.button} ${joinForm.purple} ${joinForm.large}`}
                 onClick={() => {
