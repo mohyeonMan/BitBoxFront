@@ -279,16 +279,6 @@ const Calendar = () => {
                                     )
                                 })
                             }
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>코르사주</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>드라이브마이카</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>견왕:이누오</button></div>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>메모리아</button></div>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>가가린</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>코르사주</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>드라이브마이카</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>견왕:이누오</button></div>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>메모리아</button></div>
-
                         </div>
 
                         <div className='posterWrap'>
@@ -446,7 +436,8 @@ const Calendar = () => {
                                                     const popupY= (window.screen.height / 2) - 300;
 
                                                     alert('로그인이필요한 서비스 입니다.')
-                                                    window.open("/member/loginForm2","","width=600px,height=600px,left="+ popupX + ", top="+ popupY)
+                                                    // window.open("/member/loginForm2","","width=600px,height=600px,left="+ popupX + ", top="+ popupY)
+                                                    navigate('/member/loginForm')
                                                 }
                                                 }}
                                         >
