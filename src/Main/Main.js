@@ -1,6 +1,5 @@
 import React,{ useState, useEffect } from 'react'
 import Layout from './Layout';
-import SlideBox from './SlideBox';
 import './Main.css';
 import Footer from "./Footer";
 
@@ -61,7 +60,6 @@ const Main = () => {
                             <a>전체보기</a>
                         </header>
                         
-                        <SlideBox />
                     </div>
                 </article>
 

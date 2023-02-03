@@ -139,8 +139,8 @@ const LoginForm = () => {
     };
 
     const [form, setForm] = useState({
-        username: '',
-        password: ''
+        username: 'qkrwlgns0510',
+        password: '1234'
     })
 
     const inputValue = (e) => {
