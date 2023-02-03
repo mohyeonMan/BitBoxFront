@@ -103,7 +103,7 @@ const DetailInfoTab = (props) => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:3000/auth/login`,{
+        axios.post(`https://bitbox-project.herokuapp.com/auth/login`,{
             username: loginForm.username,
             password: loginForm.password
         }).then(res => {
@@ -139,10 +139,10 @@ const DetailInfoTab = (props) => {
 
     
     useEffect((e) => {
-        axios.get('http://localhost:8080/movielist/getMovieList_boxoffice')
+        axios.get('https://bitbox-project.herokuapp.com/movielist/getMovieList_boxoffice')
             .then(res => {setData(res.data)})
             // 댓글 가져오기
-            // axios.get('http://localhost:8080/movielist/get_comment_list')
+            // axios.get('https://bitbox-project.herokuapp.com/movielist/get_comment_list')
             //         .then(res => setCommentList(res.data))
             //         .catch(error => console.log(error))
         // 더보기 버튼 유무            
@@ -338,7 +338,7 @@ const DetailInfoTab = (props) => {
         
         if(sw === 1){
             console.log(reviewForm)
-            axios.post('http://localhost:8080/movielist/user_comment_write', null, { params:reviewForm })
+            axios.post('https://bitbox-project.herokuapp.com/movielist/user_comment_write', null, { params:reviewForm })
             .then(() => {
                 alert('댓글이 작성되었습니다.');
                 window.location.reload()
@@ -374,7 +374,7 @@ const DetailInfoTab = (props) => {
     
     const commentDelete = (e) => {
         if(window.confirm('댓글을 삭제하시겠습니까?')){
-            axios.delete(`http://localhost:8080/movielist/user_comment_delete?id=${userName}`)
+            axios.delete(`https://bitbox-project.herokuapp.com/movielist/user_comment_delete?id=${userName}`)
             .then(() => {
                 alert('댓글이 삭제되었습니다.')
                 window.location.reload()
@@ -552,8 +552,8 @@ const DetailInfoTab = (props) => {
                                                     </table>
                                                 </form>
                                                 <div style={{ position: 'relative', fontWeight: 400, lineHeight: 5, textAlign:'center', marginTop: 70 }}>
-                                                    <a href="http://localhost:3000/member/FindIdPasswordRoutes" className='loginLink' style={{ padding: 10 }}>&nbsp;ID/PW 찾기</a> | 
-                                                    <a href="http://localhost:3000/member/joinForm" className='loginLink' style={{ padding: 10 }}> 회원가입</a>
+                                                    <a href="https://bitbox-project.herokuapp.com/member/FindIdPasswordRoutes" className='loginLink' style={{ padding: 10 }}>&nbsp;ID/PW 찾기</a> | 
+                                                    <a href="https://bitbox-project.herokuapp.com/member/joinForm" className='loginLink' style={{ padding: 10 }}> 회원가입</a>
                                                 </div>
                                                 <div style={{ position: 'relative', fontWeight: 400, lineHeight: 5, textAlign:'center' }}>
                                                 </div>

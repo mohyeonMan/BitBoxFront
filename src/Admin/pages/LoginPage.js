@@ -50,7 +50,7 @@ export default function LoginPage() {
   
   useEffect(() => {
     axios
-      .get('http://localhost:8080/store/getStoreList')
+      .get('https://bitbox-project.herokuapp.com/store/getStoreList')
       .then((res) => {setAdminStoreList(res.data)})
       .catch((error) => console.log(error))
   }, []);
@@ -58,7 +58,7 @@ export default function LoginPage() {
 const adminStoreDel = (storeDel) => {
   const storeSeq = adminStoreList.filter((item)=> item.store_seq !== storeDel)
   setAdminStoreList(storeSeq)
-  axios.delete(`http://localhost:8080/store/adminStoreDel?store_seq=${storeDel}`)
+  axios.delete(`https://bitbox-project.herokuapp.com/store/adminStoreDel?store_seq=${storeDel}`)
         .then(()=>{alert('삭제완료')})
         .catch(error => console.log(error))
 }

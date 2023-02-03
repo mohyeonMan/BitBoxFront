@@ -108,7 +108,7 @@ const AdminBoard = () => {
 
     // AdminBoard 리스트 출력
     useEffect(() => {
-        axios.get('http://localhost:8080/adminBoard/adminBoardList', {
+        axios.get('https://bitbox-project.herokuapp.com/adminBoard/adminBoardList', {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -130,7 +130,7 @@ const AdminBoard = () => {
     // AdminBoard 리스트 검색
     const onAdminSearch = (e) => {
         e.preventDefault();
-        axios.get('http://localhost:8080/adminBoard/adminBoardSearch', {
+        axios.get('https://bitbox-project.herokuapp.com/adminBoard/adminBoardSearch', {
             params: {
                 adminSearchOption,
                 adminKeyword
@@ -144,7 +144,7 @@ const AdminBoard = () => {
     const onDeleteBoard = (boardSeq) => {
         const boardSeqList = adminList.filter((item) => item.adminBoardSeq !== boardSeq);
         setAdminList(boardSeqList);
-        axios.delete(`http://localhost:8080/adminBoard/adminBoardDelete?adminBoardSeq=${boardSeq}`)
+        axios.delete(`https://bitbox-project.herokuapp.com/adminBoard/adminBoardDelete?adminBoardSeq=${boardSeq}`)
             .then(() => {
                 alert('삭제 완로')
             })

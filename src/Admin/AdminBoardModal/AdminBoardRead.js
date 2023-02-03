@@ -14,7 +14,7 @@ const AdminBoardRead = (props) => {
 
   // 찾기
   useEffect(()=>{
-    axios.get(`http://localhost:8080/adminBoard/getAdminBoard?adminBoardSeq=${props.props}`)
+    axios.get(`https://bitbox-project.herokuapp.com/adminBoard/getAdminBoard?adminBoardSeq=${props.props}`)
         .then(res=>{
           setForm({
             adminBoardSeq: res.data.adminBoardSeq,

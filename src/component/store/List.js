@@ -32,7 +32,7 @@ const List = () => {
         setDrink(false)
         setSnack(false)
 
-        axios.get(`http://localhost:8080/store/getCartList?userName=${sessionStorage.getItem("userName")}`)
+        axios.get(`https://bitbox-project.herokuapp.com/store/getCartList?userName=${sessionStorage.getItem("userName")}`)
          .then(res => setCount(res.data.length))
          .catch(error => console.log(error))
 

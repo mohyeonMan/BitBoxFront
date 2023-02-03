@@ -59,7 +59,7 @@ export default products;
 
 // const [list, setList] = useState([]);
 //     useEffect(() => {
-//         axios.get('http://localhost:8080/movielist/getMovieList')
+//         axios.get('https://bitbox-project.herokuapp.com/movielist/getMovieList')
 //         .then(res => setList(res.data))
 //         .catch(err => console.log(err))
 //     },[])

@@ -22,7 +22,7 @@ const Movielist_tab03 = () => {
     // const movie_like_one = (target_title) => {
     //     setMovielike_Btn_img(!movielike_Btn_img);
     //     console.log(movielike_Btn_img)
-    //     axios.get(movielike_Btn_img ? `http://localhost:8080/movielist/movie_like_minus_one?movie_title=${target_title}` : `http://localhost:8080/movielist/movie_like_one?movie_title=${target_title}`)
+    //     axios.get(movielike_Btn_img ? `https://bitbox-project.herokuapp.com/movielist/movie_like_minus_one?movie_title=${target_title}` : `https://bitbox-project.herokuapp.com/movielist/movie_like_one?movie_title=${target_title}`)
     //         .then(res => (already_released ? movie_already_release_filter(): movie_add_list()))
     //         .catch(err => console.log(err))
     // }
@@ -35,7 +35,7 @@ const Movielist_tab03 = () => {
         },[already_released, list.movie_like]);
 
     const movie_add_list = () => {
-        axios.get('http://localhost:8080/movielist/getMovieList_special')
+        axios.get('https://bitbox-project.herokuapp.com/movielist/getMovieList_special')
             .then(res => {setMovie_count(res.data.length)
                 console.log("전체영화리스트 = " + the_number_of_movielist) 
                 setList(res.data.splice(0,the_number_of_movielist))
@@ -44,7 +44,7 @@ const Movielist_tab03 = () => {
     }
 
     const movie_already_release_filter = () => {
-        axios.get('http://localhost:8080/movielist/getMovieList_already_on_special')
+        axios.get('https://bitbox-project.herokuapp.com/movielist/getMovieList_already_on_special')
             .then(res => {setMovie_count(res.data.length)
                 console.log("개봉중인 영화 리스트 = " + movielist_release_filter) 
                 setList(res.data.splice(0,movielist_release_filter))})
@@ -52,7 +52,7 @@ const Movielist_tab03 = () => {
     }
 
     const  movie_add_total_list = () => {
-        axios.get('http://localhost:8080/movielist/getMovieList_special')
+        axios.get('https://bitbox-project.herokuapp.com/movielist/getMovieList_special')
             .then(res => {setMovie_count(res.data.length)
                 setThe_number_of_movielist(the_number_of_movielist + 20);
                 console.log("전체영화리스트 = " + the_number_of_movielist) 
@@ -62,7 +62,7 @@ const Movielist_tab03 = () => {
     }
 
     const movie_add_filter_list = () => {
-        axios.get('http://localhost:8080/movielist/getMovieList_already_on_special')
+        axios.get('https://bitbox-project.herokuapp.com/movielist/getMovieList_already_on_special')
             .then(res => {setMovie_count(res.data.length)
                 setMovielist_release_filter(movielist_release_filter => movielist_release_filter + 20) 
                 console.log("개봉중인 영화 리스트 = " + movielist_release_filter) 
@@ -72,7 +72,7 @@ const Movielist_tab03 = () => {
 
     const onSearch = () => {
         axios
-            .get('http://localhost:8080/movielist/Movie_search_special', {
+            .get('https://bitbox-project.herokuapp.com/movielist/Movie_search_special', {
                     params : {
                         searchOption : searchOption,
                         keyword: keyword

@@ -19,7 +19,7 @@ const Get2 = () => {
         seatGetter()
     },[])
     const seatGetter =()=>{
-        axios.get(`http://localhost:8080/book/getSeat?pk=${pk}`)
+        axios.get(`https://bitbox-project.herokuapp.com/book/getSeat?pk=${pk}`)
             .then(res=>{
                 var copy = res.data;
                 setFiller(JSON.parse(copy.movie_seat))

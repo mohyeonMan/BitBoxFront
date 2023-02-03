@@ -81,7 +81,7 @@ const FindPassword = () => {
 
 
     const findPasswordActionHandler = () => {
-        axios.get("http://localhost:3000/member/findPassword", {params: form})
+        axios.get("https://bitbox-project.herokuapp.com/member/findPassword", {params: form})
             .then(res => {
                 if (res.data) {
                     onClickCertificate();

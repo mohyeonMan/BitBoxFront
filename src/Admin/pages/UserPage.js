@@ -55,7 +55,7 @@ const UserPage = () => {
         )
     button1.addEventListener(
         'click',
-        function (){ axios.get('http://localhost:8080/member/roleChange', {
+        function (){ axios.get('https://bitbox-project.herokuapp.com/member/roleChange', {
           params: {username: changeid, roleType: changeRole}
         }).then(res => res.data==="equal" ? alert("이미 설정된 등급입니다"): alert(res.data))}
     )
@@ -84,7 +84,7 @@ const UserPage = () => {
   }
   const deleteUser = () => {
 
-    axios.get('http://localhost:8080/member/delete',{
+    axios.get('https://bitbox-project.herokuapp.com/member/delete',{
       params:{
         username:menuId
       }
@@ -153,7 +153,7 @@ const UserPage = () => {
 
   // 유저 리스트 뽑기, 헤더에 토큰담기(토큰 복호화 후 권한체크)
   useEffect(()=>{
-    axios.get('http://localhost:8080/member/getUserList', {
+    axios.get('https://bitbox-project.herokuapp.com/member/getUserList', {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }

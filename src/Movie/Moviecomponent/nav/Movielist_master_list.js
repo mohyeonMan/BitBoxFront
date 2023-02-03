@@ -7,7 +7,7 @@ const Movielist_master_list = () => {
     const [searchOption, setSearchOption] = useState('movie_title');
     const [keyword, setKeyword] = useState('');
     useEffect(() => {
-        axios.get('http://localhost:8080/movielist/getMovieList')
+        axios.get('https://bitbox-project.herokuapp.com/movielist/getMovieList')
         .then(res => setList(res.data))
         .catch(err => console.log(err))
     },[])
@@ -15,7 +15,7 @@ const Movielist_master_list = () => {
     const onSearch = (e) => {
         e.preventDefault();
         axios
-            .get('http://localhost:8080/movielist/Movie_search', {
+            .get('https://bitbox-project.herokuapp.com/movielist/Movie_search', {
                     params : {
                         searchOption : searchOption,
                         keyword: keyword
