@@ -29,7 +29,7 @@ const Get = () => {
         seatGetter()
     },[])
     const seatGetter =()=>{
-        axios.get(`https://bitbox-project.herokuapp.com/book/getSeat?pk=${pk}`)
+        axios.get(`http://localhost:8080/book/getSeat?pk=${pk}`)
         .then(res=>{
             console.log('succeed')
             var copy = res.data;
@@ -38,7 +38,7 @@ const Get = () => {
         }).catch(err=>console.log(err))
     }
     useEffect(()=>{
-        axios.get(`https://bitbox-project.herokuapp.com/movielist/getMovieURL?title=${showDTO.movie_title}`)
+        axios.get(`http://localhost:8080/movielist/getMovieURL?title=${showDTO.movie_title}`)
         .then(res=> setMovieURL(res.data)).catch(err=>console.log(err))
     },[showDTO])
 
