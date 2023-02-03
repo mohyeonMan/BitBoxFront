@@ -1,6 +1,7 @@
 .notplayed{
     cursor: pointer;
+    font-weight: 500;
 }
-.reservationTable :hover.notplayed{
-    background: lightgray;
+.played{
+    color: darkgray;
 }

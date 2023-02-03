@@ -4,6 +4,7 @@ import axios from 'axios';
 import ReservationModal from '../user/ReservationModal';
 import styles from "../css/Success.module.css";
 import {useNavigate} from 'react-router-dom';
+import { hover } from '@testing-library/user-event/dist/hover';
 
 const Reservation = () => {
 
@@ -231,10 +232,10 @@ const Reservation = () => {
                                                         logArray.map((item, index) => (
 
                                                             <tr key={item.pk}
-                                                                className={item.movie_status === '미상영' ? styles.notplayed : ''}
+                                                                className={item.movie_status === '미상영' ? styles.notplayed : styles.played}
                                                                 onClick={() => item.movie_status === '미상영' ? (openModal(), setViewReservation(item)) : ''}>
                                                                 {/* 상영관 */}
-                                                                <td>비트박스{item.movie_cinema} {item.movie_theater}</td>
+                                                                <td>비트박스 {item.movie_cinema} {item.movie_theater}</td>
                                                                 {/* 영화 */}
                                                                 <td>{item.movie_title}</td>
                                                                 {/* 상영일시 */}

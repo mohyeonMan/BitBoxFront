@@ -435,7 +435,7 @@ const Calendar = () => {
                                                     const popupX = (window.screen.width / 2) - 300;
                                                     const popupY= (window.screen.height / 2) - 300;
 
-                                                    alert('로그인이필요한 서비스 입니다.')
+                                                    alert('로그인이 필요한 서비스 입니다.')
                                                     // window.open("/member/loginForm2","","width=600px,height=600px,left="+ popupX + ", top="+ popupY)
                                                     navigate('/member/loginForm')
                                                 }
