@@ -180,13 +180,11 @@ const LoginForm2 = () => {
                     headers: {
                         Authorization: `Bearer ${accessTokenVal}`
                     }
-                }).then(res => {
+                }).then(res => {                    
+                    window.self.close();
+                    window.opener.parent.location.reload();
                     sessionStorage.setItem("userName", res.data.username);
                     sessionStorage.setItem("birth", res.data.birth);
-                    console.log(res.data.name)
-
-                    window.opener.parent.location.reload();
-                    window.self.close();
                 }).catch(error => {
                     console.log("(토큰 만료시간(10분)되면 자동 로그아웃)에러 로그인하면 사라져요! " + error.response);
                     localStorage.removeItem('accessToken');

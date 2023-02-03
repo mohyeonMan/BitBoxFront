@@ -127,7 +127,7 @@ const UserNavList = () => {
         sessionStorage.removeItem('birth');
         removeCookieToken(); // refreshToken 삭제
         alert("로그아웃");
-        window.location.reload();
+        navi("/")
     }
 
     const [modalOpen, setModalOpen] = useState(false);
