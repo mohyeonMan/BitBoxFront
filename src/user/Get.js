@@ -31,6 +31,7 @@ const Get = () => {
     const seatGetter =()=>{
         axios.get(`/book/getSeat?pk=${pk}`)
         .then(res=>{
+            console.log('succeed')
             var copy = res.data;
             setShowDTO(copy)
             setFiller(JSON.parse(copy.movie_seat))
