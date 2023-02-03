@@ -324,7 +324,7 @@ const Get = () => {
 
                             <button className={styles.button} onClick={openModal} disabled={selectedSeat.length===0? 'disable':''}>좌석 선택 완료</button>
                             {/* 주석처리 해주세요 */}
-                            {/* <button onClick={paymentComplete}>결제 건너뛰기</button> */}
+                            <button onClick={paymentComplete}>결제 건너뛰기</button>
                         </div>
                     </div>
                 </div>

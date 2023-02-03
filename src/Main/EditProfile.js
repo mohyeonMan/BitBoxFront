@@ -194,8 +194,9 @@ const EditProfile = () => {
                                             <div className={editProfile.clearfix}>
                                                 <input
                                                     type="email"
-                                                    id="email"
-                                                    name="mbEmail"
+                                                    // 박지훈 수정
+                                                    id="phoneNumber"
+                                                    name="phoneNumber"
                                                     className={`${editProfile.input_text} ${editProfile.w500px}`}
                                                     onChange={displayText}
                                                     value={phoneNumber}
