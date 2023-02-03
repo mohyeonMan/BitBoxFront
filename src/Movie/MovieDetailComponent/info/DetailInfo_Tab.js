@@ -114,7 +114,7 @@ const DetailInfoTab = (props) => {
 
                 const accessTokenVal = localStorage.getItem("accessToken");
 
-                axios.get("/member/me", {
+                axios.get("https://bitbox-project.herokuapp.com/member/me", {
                     headers: {
                         Authorization: `Bearer ${accessTokenVal}`
                     }

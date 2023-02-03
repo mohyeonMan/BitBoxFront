@@ -61,7 +61,7 @@ const AdminBoardUpdate = (props) => {
       sw= 0
     }
     if(sw === 1){
-      axios.put( "https://bitbox-project.herokuapp.com/adminBoard/adminBoardUpdate",null,{params:form})
+      axios.put("https://bitbox-project.herokuapp.com/adminBoard/adminBoardUpdate",null,{params:form})
       .then(()=>{
          alert('수정 완료')
         window.location.reload()

@@ -11,7 +11,7 @@ const EditProfile = () => {
     const tokenVal = localStorage.getItem('accessToken');
 
     useEffect(() => {
-        axios.get("/member/me", {
+        axios.get("https://bitbox-project.herokuapp.com/member/me", {
             headers: {
                 Authorization: `Bearer ${tokenVal}`
             }
@@ -101,7 +101,7 @@ const EditProfile = () => {
     // 기존 비밀번호 체크
     const exPwdChk = () => {
         setInputPwdChk('');
-        axios.post('/member/exPwdChk', null, {params:{username, password:exPwd}})
+        axios.post('https://bitbox-project.herokuapp.com/member/exPwdChk', null, {params:{username, password:exPwd}})
             .then(res => {
                 setInputPwdChk(res.data === 'correct' ? '' : '비밀번호가 일치하지 않습니다')
                 if (res.data === 'correct') {

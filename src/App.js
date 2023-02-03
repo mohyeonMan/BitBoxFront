@@ -40,7 +40,7 @@ const App = () => {
 
     // 토큰재발급
     useEffect(() => {
-        axios.post("/auth/reIssue", {
+        axios.post("https://bitbox-project.herokuapp.com/auth/reIssue", {
             accessToken: accessTokenVal,
             refreshToken: refreshTokenVal
         }).then(res => {
