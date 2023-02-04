@@ -294,17 +294,6 @@ const Calendar = () => {
                     </Tab>
                     <Tab eventKey="profile" title="큐레이션">
                         <div className='titarea'>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>아바타: 물의길</button></div>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>영웅</button></div>
-                            <div><span className='gg-All'/>&nbsp;<button className='mt'>러브레터</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>올빼미</button></div>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>스위치</button></div>
-                            <div><span className='gg-18'/>&nbsp;<button className='mt'>본즈 앤 올</button></div>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>가가린</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>코르사주</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>드라이브마이카</button></div>
-                            <div><span className='gg-15'/>&nbsp;<button className='mt'>견왕:이누오</button></div>
-                            <div><span className='gg-12'/>&nbsp;<button className='mt'>메모리아</button></div>
                         </div>
                         <div className='mvposter'>
                             영화를 선택해주세요.</div>
@@ -512,7 +501,6 @@ const Calendar = () => {
                     </div>}
             </div>
         </div>
-                <Footer/>
             </Layout>
 
 
