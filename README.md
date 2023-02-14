@@ -30,3 +30,5 @@ CGV와 메가박스를 Mix한 가상의 영화관 "BitBox"의 영화정보와 �
    
 2. 배포
    - 프로젝트 발표 후 배포 진행
+   - webServer : netlify
+   - was : heroku
