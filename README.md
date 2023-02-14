@@ -1,70 +1,30 @@
-# Getting Started with Create React AdminView
+# BitBox Project
+리셀 중계 플랫폼 KREAM사이트를 베이스로 중고거래, 1대1 채팅, 관리자 페이지 추가 구현을 목표로 한 코딩 프로젝트입니다.  
 
-This project was bootstrapped with [Create React AdminView](https://github.com/facebook/create-react-app).
+## 👨 구성원
+- 팀장 - [최승빈]
+- 팀원 - [박지훈], [이원국], [조장현], [김범기], [박찬호], [김묘선], [김보영], [이용식], [정주용]
 
-## Available Scripts
+## 📅 프로젝트 기간
+- 2022.12.26 ~ 2023.01.19
 
-In the project directory, you can run:
+## ⚙️ 개발 환경
+- Language : Java 11, JavaScript(EC6)
+- FE : React.js yarn
+- BE : SpringBoot maven
+- Database : Oracle Cloud DB
+- ORM : Spring data JPA
+- IDE : STS 4, Visual Studio Code, SQL developer
+- Deploy : netlify, heroku 
+- Etc : Git, Github 
 
-### `npm start`
+## 🔧 구현 기능 및 기여
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React AdminView documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web AdminView
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### [박지훈]
+1. 좌석예매 구현
+   - 좌석 선택 및 결제 구현
+   - myPage 내 예매 내역 및 입장권 구현
+   - 상영예정내역과 고객예매내역 DB설계
+   
+2. 배포
+   - 프로젝트 발표 후 배포 진행
